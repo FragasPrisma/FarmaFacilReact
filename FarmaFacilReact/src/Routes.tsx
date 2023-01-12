@@ -32,7 +32,6 @@ export function AppRoutes() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/homepage" element={<Private><HomePage/></Private>} />
-                    
                 </Routes>
             </AuthProvider>
         </Router>
