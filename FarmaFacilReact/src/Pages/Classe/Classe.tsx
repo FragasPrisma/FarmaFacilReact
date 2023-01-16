@@ -1,5 +1,5 @@
 export function Classe(){
     return (
-        <div>Classe</div>
+        <div className="title_main_screen">Classe</div>
     );
 }

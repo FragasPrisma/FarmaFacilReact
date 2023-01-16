@@ -8,6 +8,7 @@ export const LayoutContainer = styled.div`
   .container_body_content {
     margin-top: 0.687rem;
     margin-left: 2.812rem;
+    width: calc(100% - 300px);
   }
 `;
 

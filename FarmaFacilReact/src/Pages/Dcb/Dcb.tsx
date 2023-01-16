@@ -1,5 +1,5 @@
 export function Dcb(){
     return (
-        <div>Dcb</div>
+        <div className="title_main_screen">Dcb</div>
     );
 }

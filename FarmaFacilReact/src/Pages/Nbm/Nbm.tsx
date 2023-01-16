@@ -1,5 +1,5 @@
 export function Nbm(){
     return (
-        <div>Nbm</div>
+        <div className="title_main_screen">Nbm</div>
     );
 }

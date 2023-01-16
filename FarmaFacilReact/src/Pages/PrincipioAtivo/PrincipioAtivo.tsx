@@ -1,5 +1,5 @@
 export function PrincipioAtivo(){
     return (
-        <div>Principio Ativo</div>
+        <div className="title_main_screen">Principio Ativo</div>
     );
 }

@@ -1,5 +1,5 @@
 export function Bairro(){
     return (
-        <div>Bairro</div>
+        <div className="title_main_screen">Bairro</div>
     );
 }

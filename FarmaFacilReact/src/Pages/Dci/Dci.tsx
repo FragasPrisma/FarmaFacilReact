@@ -1,5 +1,5 @@
 export function Dci(){
     return (
-        <div>Dci</div>
+        <div className="title_main_screen">Dci</div>
     );
 }
