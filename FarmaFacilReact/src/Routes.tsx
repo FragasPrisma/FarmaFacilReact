@@ -18,7 +18,7 @@ import { Laboratorio } from "./Pages/Laboratorio/Laboratorio";
 import { Login } from "./Pages/Login/Login";
 import { Nbm } from "./Pages/Nbm/Nbm";
 import { Ncm } from "./Pages/Ncm/Ncm";
-import { Pbm } from "./Pages/Pbm/Pbm";
+import { Pbm } from "./Pages/Pbm/";
 import { PrincipioAtivo } from "./Pages/PrincipioAtivo/PrincipioAtivo";
 import { Produto } from "./Pages/Produto/Produto";
 
