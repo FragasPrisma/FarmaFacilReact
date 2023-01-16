@@ -1,5 +1,5 @@
 export function Ncm(){
     return (
-        <div>Ncm</div>
+        <div className="title_main_screen">Ncm</div>
     );
 }

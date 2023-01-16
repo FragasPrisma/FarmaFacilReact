@@ -1,5 +1,5 @@
 export function Fornecedor(){
     return (
-        <div>Fornecedor</div>
+        <div className="title_main_screen">Fornecedor</div>
     );
 }

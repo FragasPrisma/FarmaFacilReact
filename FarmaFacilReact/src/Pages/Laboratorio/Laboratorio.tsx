@@ -1,5 +1,5 @@
 export function Laboratorio(){
     return (
-        <div>Laboratório</div>
+        <div className="title_main_screen">Laboratório</div>
     );
 }
