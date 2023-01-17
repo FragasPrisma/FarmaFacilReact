@@ -1,4 +1,5 @@
 import { ButtonCancel } from "../../Components/ButtonCancel";
+import { ButtonConfirm } from "../../Components/ButtonConfirm";
 import { CustomInput } from "../../Components/CustomInput";
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { Container } from "./styles";
@@ -20,8 +21,8 @@ export function PbmCreate() {
             </div>
             <div className="col-5">
               <CustomInput
-                label="Observacao"
-                type="number"
+                label="Observação"
+                type="text"
                 placeholder="Digite uma descrição para o Pbm"
                 required={false}
               />
@@ -29,7 +30,9 @@ export function PbmCreate() {
           </div>
           <div className="row">
             <div className="col-2">
-
+              <ButtonConfirm
+                to="pbm"
+              />
             </div>
             <div className="col-2">
               <ButtonCancel

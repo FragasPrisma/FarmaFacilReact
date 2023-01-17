@@ -8,7 +8,7 @@ export const ContainerInput = styled.div`
     .containerAbc{
         border: none;
         border-bottom: 3px solid black;
-        border-radius: 3px;
+        border-radius: 4px;
         //display: flex;
         //flex-direction: column;
         height: 50px;
