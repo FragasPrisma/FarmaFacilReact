@@ -34,9 +34,11 @@ export const AuthProvider = ({ children }: any) => {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    if (token) setAuthentication(true);
+    let tokenStorage = localStorage.getItem("token");
+    
+    if (token || tokenStorage) setAuthentication(true);
 
-    navigate("/Dashboard");
+    navigate("/dashboard");
   };
 
   const logout = () => {

@@ -32,7 +32,7 @@ export function AppRoutes() {
       return <div className="loading">Carregando...</div>;
     }
 
-    if (authenticated) {
+    if (!authenticated) {
       return <Navigate to="/login" />;
     }
 
@@ -43,13 +43,13 @@ export function AppRoutes() {
         <Router>
             <AuthProvider>
                 <Routes>
-                  <Route path="/" element={<Private> <DefaultLayout/> </Private>}>
+                      <Route path="/login" element={<Login />}/>
                       
+                      <Route path="/" element={<Private> <DefaultLayout/> </Private>}>
                       
-                      {/* <Route path="/login" element={<Login />}/> */}
+                      <Route path="/Dashboard" element={<Private> <DefaultLayout/> </Private>}/>
                       
 
-                      {/* <Route path="/Dashboard" element={<Private> <DefaultLayout/> </Private>}/> */}
                       
                       <Route path="/bairro" element={<Private><Bairro/> </Private>}/>
                       <Route path="/classe" element={<Private><Classe/></Private>}/>
