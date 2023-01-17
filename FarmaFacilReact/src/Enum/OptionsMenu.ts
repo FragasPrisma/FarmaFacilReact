@@ -1,3 +1,5 @@
+import { optionsMenu } from "../Pages/exportNames";
+
 interface IOptionsMenu {
   // texto: string;
   img?: string;
@@ -5,8 +7,8 @@ interface IOptionsMenu {
   disabled?: boolean;
 }
 
-// { img: img, text: text, url: url, disabled: disabled },
 
-export const OptionsMenu = [ { text: "pbm" },{ text: "pbm02" }, { text: "pbm03" }, { text: "pbm04" } ];
+
+export const OptionsMenu = [ { text: optionsMenu.map(x => x) } ];
 
 
