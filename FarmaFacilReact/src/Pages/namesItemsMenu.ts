@@ -1,16 +1,14 @@
-export const optionsMenu = [
+export const namesItemsMenu = [
   "Bairro",
   "Classe",
   "Dcb",
   "Dci",
   "Fornecedor",
   "Grupo",
-  "Home",
   "Laboratorio",
-  "Login",
   "Nbm",
   "Ncm",
   "Pbm",
-  "PrincipioAtivo",
+  "Principio Ativo",
   "Produto",
 ];
