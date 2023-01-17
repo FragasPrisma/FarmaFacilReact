@@ -9,7 +9,7 @@ export function PbmCreate() {
     <>
       <HeaderMainContent title="ADICIONAR PBM" IncludeButton={false} />
       <div className="form-group">
-        <Container >
+        <Container>
           <div className="row">
             <div className="col-5">
               <CustomInput
@@ -29,12 +29,10 @@ export function PbmCreate() {
             </div>
           </div>
           <div className="row">
-            <div className="col-2">
+            <div className="col-3">
               <ButtonConfirm
                 to="pbm"
               />
-            </div>
-            <div className="col-2">
               <ButtonCancel
                 to="pbm"
               />
