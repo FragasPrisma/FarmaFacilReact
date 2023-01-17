@@ -1,12 +1,4 @@
 import React, { useState, useContext } from "react";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-
 import { AuthProvider, AuthContext } from "./Context/auth";
 import { Bairro } from "./Pages/Bairro/Bairro";
 import { Classe } from "./Pages/Classe/Classe";
@@ -19,12 +11,18 @@ import { Login } from "./Pages/Login/Login";
 import { Nbm } from "./Pages/Nbm/Nbm";
 import { Ncm } from "./Pages/Ncm/Ncm";
 import { Pbm } from "./Pages/Pbm/";
+import { PbmCreate } from "./Pages/Pbm/PbmCreate";
 import { PrincipioAtivo } from "./Pages/PrincipioAtivo/PrincipioAtivo";
 import { Produto } from "./Pages/Produto/Produto";
-
 import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -63,6 +61,7 @@ export function AppRoutes() {
                       <Route path="/nbm" element={<Private><Nbm/></Private>}/>
                       <Route path="/ncm" element={<Private><Ncm/></Private>}/>
                       <Route path="/pbm" element={<Private><Pbm/></Private>}/>
+                      <Route path="/pbm/create" element={<Private><PbmCreate/></Private>}/>
                       <Route path="/principioAtivo" element={<Private><PrincipioAtivo/></Private>}/>
                       <Route path="/produto" element={<Private><Produto/></Private>}/>
                     
