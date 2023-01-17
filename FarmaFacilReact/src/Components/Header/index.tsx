@@ -20,8 +20,10 @@ export function Header() {
   const deslogar = () => logout();
 
   const stateDesconect = () => {
-    setState(!state);
+    return setState(!state)
   };
+
+  
 
   return (
     <ContainerHeader>
@@ -31,7 +33,7 @@ export function Header() {
         </NavLink>
       </ContainerLogo>
 
-      <ContainerLogout >
+      <ContainerLogout>
         <ContainerDescription>
           <h4 className="name_user_login">Prismafive</h4>
           <span className="acess_type_login">Admin</span>
