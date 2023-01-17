@@ -37,7 +37,7 @@ export const MenuSidebar = styled.aside`
   }
 
   .title_menu_options {
-    padding-left: 1.5rem ; 
+    padding-left: 1.5rem;
 
     color: #fff;
     font-weight: 400;
@@ -45,14 +45,34 @@ export const MenuSidebar = styled.aside`
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 
-
-  .caret{
+  .caret {
     padding-left: 4rem;
-  } 
+  }
 
-  .list_options{
+  .list_options {
     display: flex;
     flex-direction: column;
   }
 
+  .ul_menu {
+    list-style: none;
+  }
+
+  .navLink {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.3rem;
+  }
+
+  .container_items_menu {
+    width: 80%;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .li_itens {
+   // padding: 0.12rem 0rem;
+  }
 `;

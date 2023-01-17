@@ -2,6 +2,7 @@ import { CaretDown, CaretUp, ListPlus, X } from "phosphor-react";
 import { MenuSidebar } from "./styles";
 import { useState } from "react";
 import { OptionsMenu } from "../../Enum/OptionsMenu";
+import { NavLink } from "react-router-dom";
 
 export function Sidebar() {
   const [stateArrow, setStateArrow] = useState(false);
@@ -10,29 +11,10 @@ export function Sidebar() {
     setStateArrow(!stateArrow);
   };
 
-
-  const ListMenu = (props: any) => {
-    const sidebar = (
-      <ul>
-        {props.map((list:any) =>
-          <li key={list.text}>
-            {list.text}
-          </li>
-        )}
-      </ul>
-    );
-    return (
-      <div>
-        {sidebar}
-      </div>
-    );
-  }
-
-
   return (
-    <MenuSidebar onClick={openMenu}>
+    <MenuSidebar>
       <h3 className="title_menu">Menu</h3>
-      <div className="container_menu">
+      <div className="container_menu" onClick={openMenu}>
         <div className="cadastro_menu">
           <ListPlus size={20} color="#fff" />
           <h3 className="title_menu_options">Cadastros</h3>
@@ -47,14 +29,22 @@ export function Sidebar() {
               <CaretDown size={20} color="#fff" />
             </div>
           )}
-
-        {stateArrow
-        ? ListMenu(OptionsMenu)
-        : <></>
-      }
-
         </div>
       </div>
+
+      {stateArrow && (
+        <div className="container_items_menu">
+          <ul className="ul_menu">
+            {OptionsMenu[0].text.map((optionMenuItem: any) => (
+              <li key={optionMenuItem} className="li_itens">
+                <NavLink className="navLink" to={`/${optionMenuItem.toLowerCase()}`}>
+                  {optionMenuItem}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </MenuSidebar>
   );
 }
