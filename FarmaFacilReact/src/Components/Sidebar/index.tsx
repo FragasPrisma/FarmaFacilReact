@@ -19,12 +19,11 @@ export function Sidebar() {
           <ListPlus size={20} color="#fff" />
           <h3 className="title_menu_options">Cadastros</h3>
 
-          {stateArrow && (
+          {stateArrow ? (
             <div className="caret">
               <CaretUp size={20} color="#fff" />
             </div>
-          )}
-          {!stateArrow && (
+          ) : (
             <div className="caret">
               <CaretDown size={20} color="#fff" />
             </div>
@@ -37,7 +36,10 @@ export function Sidebar() {
           <ul className="ul_menu">
             {OptionsMenu[0].text.map((optionMenuItem: any) => (
               <li key={optionMenuItem} className="li_itens">
-                <NavLink className="navLink" to={`/${optionMenuItem.toLowerCase()}`}>
+                <NavLink
+                  className="navLink"
+                  to={`/${optionMenuItem.toLowerCase().replace(" ", "")}`}
+                >
                   {optionMenuItem}
                 </NavLink>
               </li>
