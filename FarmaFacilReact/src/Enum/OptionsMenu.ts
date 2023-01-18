@@ -7,8 +7,4 @@ interface IOptionsMenu {
   disabled?: boolean;
 }
 
-
-
 export const OptionsMenu = [ { text: optionsMenu.map(x => x) } ];
-
-
