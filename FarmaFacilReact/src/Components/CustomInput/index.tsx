@@ -1,13 +1,16 @@
+import { ChangeEvent } from "react";
 import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
 
-interface Input {
+interface IInput {
     label: string;
     placeholder: string;
     type: string;
     required: boolean;
-}
+    value?: string
+    OnChange: (e: ChangeEvent<HTMLInputElement>) => void
+ }
 
-export function CustomInput({ label, placeholder, type, required }: Input) {
+export function CustomInput({ label, placeholder, type, required, value, OnChange }: IInput) {
     return (
         <ContainerInput >
             <div className="containerAbc">
@@ -20,6 +23,8 @@ export function CustomInput({ label, placeholder, type, required }: Input) {
                 <InputCustomized
                     type={type}
                     placeholder={placeholder}
+                    value={value}
+                    onChange={OnChange}
                 />
             </div>
         </ContainerInput>

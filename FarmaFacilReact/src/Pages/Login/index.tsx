@@ -11,7 +11,6 @@ export function Login() {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        console.log("submit", { email, password });
         login(email, password);
     };
 

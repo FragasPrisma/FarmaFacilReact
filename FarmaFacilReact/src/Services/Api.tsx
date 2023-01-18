@@ -1,26 +1,48 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+
+const API_URL = "https://localhost:44326/api/";
+
 export const api = axios.create({
-  baseURL: "https://localhost:44326/api/",
+  baseURL: API_URL,
 });
 
-export const createSession = async (email: string, password: string) => {
+/**
+Cria uma nova sessão
+@param email email do usuário
+@param password senha do usuário
+*/
+export const createSession = async (
+  email: string,
+  password: string
+): Promise<AxiosResponse> => {
   return api.post("CreateToken", { email, password });
 };
+/**
 
-export const getAll = async (url: string): Promise<any> => {
-  try{
+Obtém todos os dados da url especificada
+@param url url do endpoint
+*/
+export const getAll = async (url: string): Promise<AxiosResponse> => {
+  try {
     const response = await api.get(url);
-    return response
-  }catch(error){
-    throw new Error("Erro ao buscar dados");
+    return response;
+  } catch (error: any) {
+    throw new Error(`Erro ao buscar dados de ${url}. Erro: ${error.message}`);
   }
 };
+/**
 
-export const postFormAll = async (url: string, payload: any): Promise<JSON> => {
+Envia dados para a url especificada
+@param url url do endpoint
+@param payload dados a serem enviados
+*/
+export const postFormAll = async (
+  url: string,
+  payload: any
+): Promise<AxiosResponse> => {
   try {
-    const response = await api.post(url, payload);
-    return response.data;
-  } catch (error) {
-    throw new Error(`Erro ao enviar dados para ${url}. Erro: ${error}`);
+    return await api.post(url, payload);
+  } catch (error: any) {
+    throw new Error(`Erro ao enviar dados para ${url}. Erro: ${error.message}`);
   }
 };
