@@ -33,11 +33,29 @@ export const ButtonLogout = styled.button`
   display: flex;
   background: transparent;
   border: none;
+
+div{
+  width: 8rem;
+    height: 1.6rem;
+    background-color: #ECECEC;
+    position: absolute;
+    border-radius: 4px;
+    top: 4.7rem;
+    right: 1.3rem;
+}
+  span{
+   /* position: absolute;
+     top: 4.4rem;
+    right: 1.2rem;*/
+    font-size: 0.7rem; 
+    color: #5b6873;
+  }
 `;
 
-export const ContainerLogout = styled(NavLink)`
+export const ContainerLogout = styled.div`
   display: flex;
   align-items: center;
+  color: transparent;
 `;
 
 export const ContainerDescription = styled.div`
