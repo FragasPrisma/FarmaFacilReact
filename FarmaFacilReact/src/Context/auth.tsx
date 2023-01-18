@@ -21,24 +21,25 @@ export const AuthProvider = ({ children }: any) => {
 
     if (token != null || undefined) {
       api.defaults.headers.Authorization = `Bearer ${token}`;
+      setAuthentication(true)
     }
 
     setLoading(false);
   }, []);
 
-    const login = async (email: string, password: string) => {
-        const response = await createSession(email, password);
-        const token = response.data;
+  const login = async (email: string, password: string) => {
+    const response = await createSession(email, password);
+    const token = response.data;
 
     localStorage.setItem("token", token);
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    let tokenStorage = localStorage.getItem("token");
+    if (token) setAuthentication(true);
     
-    if (token || tokenStorage) setAuthentication(true);
-
     navigate("/dashboard");
+    
+
   };
 
   const logout = () => {

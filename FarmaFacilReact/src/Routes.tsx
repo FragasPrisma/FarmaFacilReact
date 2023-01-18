@@ -47,7 +47,7 @@ export function AppRoutes() {
                       
                       <Route path="/" element={<Private> <DefaultLayout/> </Private>}>
                       
-                      <Route path="/Dashboard" element={<Private> <DefaultLayout/> </Private>}/>
+                      <Route path="/dashboard" element={<Private> <DefaultLayout/> </Private>}/>
                       
 
                       
