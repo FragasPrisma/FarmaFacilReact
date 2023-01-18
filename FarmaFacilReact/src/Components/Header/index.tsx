@@ -28,7 +28,7 @@ export function Header() {
   return (
     <ContainerHeader>
       <ContainerLogo>
-        <NavLink to="/Dashboard">
+        <NavLink to="/dashboard">
           <ImageLogo src={LogoFarmafacil} />
         </NavLink>
       </ContainerLogo>

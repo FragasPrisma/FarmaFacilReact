@@ -1,6 +1,7 @@
 import Table from "react-bootstrap/Table";
 import { useState } from "react";
 import { ActionsButtonsDefault } from "../ActionsButtonsDefault";
+import { TableCustom, TrCustom } from "./styles";
 
 interface Props {
   data: any[];
@@ -11,27 +12,27 @@ export function TableDefault({ data, header }: Props) {
   const [bodyList, setbodyList] = useState([]);
 
   return (
-    <Table>
+    <TableCustom>
       <thead>
-        <tr>
+        <TrCustom>
           {header.map((head, index) => (
-            <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
-          ))}
+              <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
+              ))}
           <th>Ações</th>
-        </tr>
+        </TrCustom>
       </thead>
       <tbody>
         {data.map((data, index) => (
-          <tr key={index}>
+            <TrCustom key={index}>
             {header.map((header, index) => (
-              <td key={index}>{data[header]}</td>
-            ))}
+                <td key={index}>{data[header]}</td>
+                ))}
             <td>
               <ActionsButtonsDefault></ActionsButtonsDefault>
             </td>
-          </tr>
+          </TrCustom>
         ))}
       </tbody>
-    </Table>
+    </TableCustom>
   );
 }

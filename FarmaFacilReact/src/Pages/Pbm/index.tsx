@@ -8,12 +8,12 @@ export function Pbm() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    async function loadRepositories() {
+    const loadDataTablePbm = async () => {
       const response = await getAll("ListaPbm");
       setData(response.data);
     }
 
-    loadRepositories();
+    loadDataTablePbm()
   }, []);
 
   return (
