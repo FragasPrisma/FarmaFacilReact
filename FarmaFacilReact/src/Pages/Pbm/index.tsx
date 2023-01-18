@@ -1,6 +1,7 @@
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/SearchContentScreens";
 import { TableDefault } from "../../Components/TableDefault";
+import { getAll } from "../../Services/Api";
 
 export function Pbm() {
   const data = [
@@ -12,8 +13,8 @@ export function Pbm() {
   return (
     <>
       <HeaderMainContent title="PBM" IncludeButton={true}/>
-      <SearchContentScreens text="Pbm" />
-      <TableDefault header={["Id", "Nome", "Apelido", "Idade"]} data={data}/>
+      <SearchContentScreens text="Pbm" />      
+      <TableDefault header={["Id", "Nome", "Observação"]} data={data}/>
     </>
   );
 }
