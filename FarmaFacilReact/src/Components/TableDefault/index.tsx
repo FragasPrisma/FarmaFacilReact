@@ -5,9 +5,10 @@ import { ActionsButtonsDefault } from '../ActionsButtonsDefault';
 interface Props {
     data: any[];
     header: string[];
+    modalButtons: boolean;
 }
 
-export function TableDefault({ data, header }: Props) {
+export function TableDefault({ data, header, modalButtons }: Props) {
     const [bodyList, setbodyList] = useState([]);
 
     return (
@@ -19,7 +20,7 @@ export function TableDefault({ data, header }: Props) {
                             <th key={index}>{head}</th>
                         )
                     }
-                    <th>Ações</th>
+                    <th>Açoes</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +33,7 @@ export function TableDefault({ data, header }: Props) {
                                 ))
                             }
                             <td>
-                                <ActionsButtonsDefault></ActionsButtonsDefault>
+                                {modalButtons == true ? <button>Fala Dele</button>: <ActionsButtonsDefault></ActionsButtonsDefault>}
                             </td>
                         </tr>
                     ))

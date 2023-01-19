@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
 
 interface Input {
@@ -5,9 +6,13 @@ interface Input {
     placeholder: string;
     type: string;
     required: boolean;
+    name: string;
+    value?: string;
+    readonly?: boolean;
+    OnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function CustomInput({ label, placeholder, type, required }: Input) {
+export function CustomInput({ label, placeholder, type, required, name, value, readonly, OnChange}: Input) {
     return (
         <ContainerInput >
             <div className="containerAbc">
@@ -20,6 +25,10 @@ export function CustomInput({ label, placeholder, type, required }: Input) {
                 <InputCustomized
                     type={type}
                     placeholder={placeholder}
+                    name={name}
+                    value={value}
+                    readOnly={readonly}
+                    onChange={OnChange}
                 />
             </div>
         </ContainerInput>
