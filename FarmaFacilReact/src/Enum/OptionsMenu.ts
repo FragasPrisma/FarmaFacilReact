@@ -1,4 +1,4 @@
-import { namesItemsMenu } from "../Pages/namesItemsMenu";
+import { namesItemsMenu } from "./namesItemsMenu";
 
 interface IOptionsMenu {
   // texto: string;
