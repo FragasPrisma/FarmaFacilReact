@@ -3,8 +3,17 @@ import { ButtonConfirm } from "../../Components/ButtonConfirm";
 import { CustomInput } from "../../Components/CustomInput";
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { Container } from "./styles";
+import { useState} from "react";
 
 export function PbmCreate() {
+  const [nome, setnome] = useState()
+  const [descricao, setdescricao] = useState()
+  
+  function adicionar(e: any) {
+    e.preventDefault();
+    console.log(nome, descricao);
+  }
+
   return (
     <>
       <HeaderMainContent title="ADICIONAR PBM" IncludeButton={false} />
@@ -17,6 +26,8 @@ export function PbmCreate() {
                 type="text"
                 placeholder="Digite o nome do Pbm"
                 required={true}
+                name="nome"
+                OnChange={(e: any) => setnome(e.target.value)}
               />
             </div>
             <div className="col-5">
@@ -25,6 +36,8 @@ export function PbmCreate() {
                 type="text"
                 placeholder="Digite uma descrição para o Pbm"
                 required={false}
+                name="descricao"
+                OnChange={(e: any) => setdescricao(e.target.value)}
               />
             </div>
           </div>
