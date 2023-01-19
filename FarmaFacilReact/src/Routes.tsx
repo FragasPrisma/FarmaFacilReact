@@ -16,6 +16,7 @@ import { PrincipioAtivo } from "./Pages/PrincipioAtivo";
 import { Produto } from "./Pages/Produto";
 import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
+import { Dashboard } from "./Pages/Dashboard";
 
 import {
   BrowserRouter as Router,
@@ -54,7 +55,7 @@ export function AppRoutes() {
               </Private>
             }
           >
-            <Route path="/dashboard" element={<Private> </Private>} />
+            <Route path="/dashboard" element={<Private> <Dashboard /> </Private>} />
 
             <Route
               path="/bairro"

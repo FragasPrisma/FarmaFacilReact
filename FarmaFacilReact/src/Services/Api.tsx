@@ -46,3 +46,19 @@ export const postFormAll = async (
     throw new Error(`Erro ao enviar dados para ${url}. Erro: ${error.message}`);
   }
 };
+/**
+
+Deleta dados para a url especificada
+@param id url do endpoint
+@param payload dados a serem enviados
+*/
+export const deleteDetail = async (
+  id: string,
+  payload: any
+): Promise<AxiosResponse> => {
+  try {
+    return await api.post(id, payload);
+  } catch (error: any) {
+    throw new Error(`Erro ao Deletar dado ${id}. Erro: ${error.message}`);
+  }
+};

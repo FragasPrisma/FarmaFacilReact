@@ -7,7 +7,7 @@ interface IInput {
     type: string;
     required: boolean;
     value?: string
-    OnChange: (e: ChangeEvent<HTMLInputElement>) => void
+    OnChange?: (e: ChangeEvent<HTMLInputElement>) => void
  }
 
 export function CustomInput({ label, placeholder, type, required, value, OnChange }: IInput) {
