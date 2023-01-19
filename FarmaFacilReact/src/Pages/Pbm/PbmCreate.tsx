@@ -3,15 +3,21 @@ import { ButtonConfirm } from "../../Components/ButtonConfirm";
 import { CustomInput } from "../../Components/CustomInput";
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { Container } from "./styles";
-import { useState} from "react";
+import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
+import { postFormAll } from "../../Services/Api";
 
 export function PbmCreate() {
-  const [nome, setnome] = useState()
-  const [descricao, setdescricao] = useState()
-  
-  function adicionar(e: any) {
-    e.preventDefault();
-    console.log(nome, descricao);
+  const [nome, setNome] = useState("");
+  const [observacao, setObservacao] = useState("");
+
+  const data = {
+    id: 0, //id 0 é default
+    nome: nome,
+    observacao: observacao,
+  };
+
+  async function submit() {
+    await postFormAll("AdicionarPbm", data);
   }
 
   return (
@@ -25,9 +31,12 @@ export function PbmCreate() {
                 label="Nome"
                 type="text"
                 placeholder="Digite o nome do Pbm"
+                value={nome}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setNome(e.target.value)
+                }
                 required={true}
                 name="nome"
-                OnChange={(e: any) => setnome(e.target.value)}
               />
             </div>
             <div className="col-5">
@@ -35,20 +44,19 @@ export function PbmCreate() {
                 label="Observação"
                 type="text"
                 placeholder="Digite uma descrição para o Pbm"
+                value={observacao}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setObservacao(e.target.value)
+                }
                 required={false}
-                name="descricao"
-                OnChange={(e: any) => setdescricao(e.target.value)}
+                name="observacao"
               />
             </div>
           </div>
           <div className="row">
             <div className="col-3">
-              <ButtonConfirm
-                to="pbm"
-              />
-              <ButtonCancel
-                to="pbm"
-              />
+              <ButtonConfirm onCLick={submit} to="pbm" />
+              <ButtonCancel to="pbm" />
             </div>
           </div>
         </Container>

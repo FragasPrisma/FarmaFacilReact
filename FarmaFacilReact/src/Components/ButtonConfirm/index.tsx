@@ -3,12 +3,13 @@ import { ButtonConfirmMain } from "./styles";
 
 interface Props {
     to: string;
+    onCLick?: () => void
 }
 
-export function ButtonConfirm({to}: Props) {
+export function ButtonConfirm({to, onCLick}: Props) {
     return (
         <NavLink className="text_link" to={`/${to}`}>
-            <ButtonConfirmMain>Confirmar</ButtonConfirmMain>
+            <ButtonConfirmMain onClick={onCLick}>Confirmar</ButtonConfirmMain>
         </NavLink>
     );
 }
