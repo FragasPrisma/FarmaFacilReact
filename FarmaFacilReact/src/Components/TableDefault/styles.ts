@@ -27,7 +27,8 @@ export const TrCustom = styled.tr`
     padding-left: 0.5rem;
     background-color: #fff;
     border: none;
-    color: #5B6873;
+    color: #5b6873;
+    font-weight: 500;
   }
 
   background-color: rgba(91, 104, 115, 0.09411764705882353);
