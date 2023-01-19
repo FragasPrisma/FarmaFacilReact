@@ -18,7 +18,11 @@ export function TableDefault({ data, header }: Props) {
           {header.map((head, index) => (
               <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
               ))}
-          <th>Ações</th>
+          <th>
+            <label>Visualizar</label> 
+            <label>Editar</label>
+            <label>Excluir</label>
+          </th>
         </TrCustom>
       </thead>
       <tbody>
