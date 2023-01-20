@@ -1,5 +1,5 @@
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 
@@ -18,7 +18,7 @@ export function Bairro(){
 
     return (
         <>
-            <HeaderMainContent title="BAIRRO" IncludeButton={true} />
+            <HeaderMainContent title="BAIRRO" IncludeButton={true} ReturnButton={false}/>
             <SearchContentScreens text="Bairro" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
         </>
     );

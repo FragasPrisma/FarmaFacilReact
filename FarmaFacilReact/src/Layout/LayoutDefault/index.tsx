@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "../../Components/Header";
-import { Sidebar } from "../../Components/Sidebar";
-import { LayoutContainer  } from "./styles";
+import { Header } from "../../Components/Headers/Header";
+import { Sidebar } from "../../Components/Others/Sidebar";
+import { LayoutContainer } from "./styles";
 
 export function DefaultLayout() {
   return (

@@ -1,15 +1,15 @@
 import Table from "react-bootstrap/Table";
 import { useState } from "react";
-import { ActionsButtonsDefault } from "../ActionsButtonsDefault";
+import { ActionsButtonsDefault } from "../../Buttons/ActionsButtonsDefault";
 import { TableCustom, TrCustom } from "./styles";
 
 interface Props {
   data: any[];
   header: string[];
-  path:string;
+  path: string;
 }
 
-export function TableDefault({ data = [], header,path }: Props) {
+export function TableDefault({ data = [], header, path }: Props) {
   const [bodyList, setbodyList] = useState([]);
 
   return (
@@ -17,10 +17,10 @@ export function TableDefault({ data = [], header,path }: Props) {
       <thead>
         <TrCustom>
           {header.map((head, index) => (
-              <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
-              ))}
+            <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
+          ))}
           <th>
-            <label>Visualizar</label> 
+            <label>Visualizar</label>
             <label>Editar</label>
             <label className="labelExcluir">Excluir</label>
           </th>
@@ -28,10 +28,10 @@ export function TableDefault({ data = [], header,path }: Props) {
       </thead>
       <tbody>
         {data.map((data, index) => (
-            <TrCustom key={index}>
+          <TrCustom key={index}>
             {header.map((header, index) => (
-                <td key={index}>{data[header]}</td>
-                ))}
+              <td key={index}>{data[header]}</td>
+            ))}
             <td>
               <ActionsButtonsDefault id={data.id.toString()} pathParameters={path}></ActionsButtonsDefault>
             </td>
