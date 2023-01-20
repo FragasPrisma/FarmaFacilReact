@@ -3,7 +3,7 @@ import { Favorites } from "./../../Components/Favorites/index";
 export function Dashboard() {
   return (
     <>
-      <Favorites  objectFavorites={[]} exibir={true} />
+      <Favorites  objectFavorites={[]} display={true} />
     </>
   );
 }
