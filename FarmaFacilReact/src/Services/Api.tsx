@@ -43,7 +43,8 @@ export const postFormAll = async (
   try {
     return await api.post(url, payload);
   } catch (error: any) {
-    throw new Error(`Erro ao enviar dados para ${url}. Erro: ${error.message}`);
+    return await error;
+    //throw new Error(`Erro ao enviar dados para ${url}. Erro: ${error.message}`);
   }
 };
 /**

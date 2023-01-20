@@ -5,10 +5,16 @@ import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { Container } from "./styles";
 import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import { postFormAll } from "../../Services/Api";
+import { SuccessModal } from "../../Components/SuccessModal";
+import { FailModal } from "../../Components/FailModal";
+import { useNavigate } from "react-router-dom";
 
 export function PbmCreate() {
+  const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [observacao, setObservacao] = useState("");
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false)
+  const [isOpenFail, setIsOpenFail] = useState(false);
 
   const data = {
     id: 0, //id 0 é default
@@ -17,7 +23,18 @@ export function PbmCreate() {
   };
 
   async function submit() {
-    await postFormAll("AdicionarPbm", data);
+    const response = await postFormAll("AdicionarPbm", data);
+    if(response.status === 200) {
+      setIsOpenSuccess(true);
+      setTimeout(() => {
+        navigate("/pbm");
+      },3000)
+    } else {
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+      },2000)
+    }
   }
 
   return (
@@ -55,11 +72,13 @@ export function PbmCreate() {
           </div>
           <div className="row">
             <div className="col-3">
-              <ButtonConfirm onCLick={submit} to="pbm" />
+              <ButtonConfirm onCLick={submit}/>
               <ButtonCancel to="pbm" />
             </div>
           </div>
         </Container>
+        <SuccessModal show={isOpenSuccess}/>
+        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)}/>
       </div>
     </>
   );
