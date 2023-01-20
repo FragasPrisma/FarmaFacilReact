@@ -22,6 +22,8 @@ export const ContainerSearch = styled.div`
     img {
       width: 1rem;
       height: 1rem;
+      margin-left: 0.5rem;
+      cursor:pointer;
     }
 
     input {
@@ -29,6 +31,8 @@ export const ContainerSearch = styled.div`
       border: none;
       width: 100%;
       height: 100%;
+      margin-left: 1.3rem;
+      color: #5b6873;
     }
   }
 `;

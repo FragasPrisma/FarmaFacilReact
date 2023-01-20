@@ -1,15 +1,18 @@
 import  styled  from 'styled-components';
 
-export const DeleteButton = styled.button`
-    margin-left: 1rem;
-    background-color: red;
+const Button = styled.button`
+    background-color: transparent;
+    border:none;
 `;
 
-export const EditButton = styled.button`
-    margin-left: 1rem;
-    background-color: yellow;
+export const DeleteButton = styled(Button)`
+    margin-left: 1.7rem;
 `;
 
-export const DetailsButton = styled.button`
-    background-color: blue;
+export const EditButton = styled(Button)`
+    margin-left: 2.1rem;
+`;
+
+export const DetailsButton = styled(Button)`
+    margin-left: 2rem;
 `;
