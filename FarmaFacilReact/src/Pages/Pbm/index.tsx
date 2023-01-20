@@ -19,8 +19,7 @@ export function Pbm() {
   return (
     <>
       <HeaderMainContent title="PBM" IncludeButton={true} />
-      <SearchContentScreens text="Pbm" />
-      <TableDefault header={["id", "nome", "observacao"]} data={data} />
+      <SearchContentScreens text="Pbm" data={data} filter={"nome"} headerTable={["id", "nome", "observacao"]}/>
     </>
   );
 }

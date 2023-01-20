@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
 export const ContainerInput = styled.div`
+
+    .divError{
+        background-color: transparent;
+        height: 20px;
+        width: 100%;
+    }
+
     margin-top: 0.5rem;
-    background-color: #ECECEC;
     width: 100%;
 
     .containerAbc{
         border: none;
         border-bottom: 3px solid black;
         border-radius: 4px;
-        //display: flex;
-        //flex-direction: column;
         height: 50px;
+        background-color: #ECECEC;
     }
 
     .label_text{
@@ -25,6 +30,7 @@ export const ContainerInput = styled.div`
         height: 1rem;
         padding-top: 0.2rem;
         display: flex;
+        background-color: #ECECEC;
     }
 `
 

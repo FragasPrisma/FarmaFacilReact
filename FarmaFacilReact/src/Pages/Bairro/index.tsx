@@ -1,7 +1,6 @@
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/SearchContentScreens";
 import { useEffect, useState, } from "react";
-import { TableDefault } from "../../Components/TableDefault";
 import { getAll } from "../../Services/Api";
 
 export function Bairro(){
@@ -20,8 +19,7 @@ export function Bairro(){
     return (
         <>
             <HeaderMainContent title="BAIRRO" IncludeButton={true} />
-            <SearchContentScreens text="Bairro" />
-            <TableDefault header={["id", "nome"]} data={data} />
+            <SearchContentScreens text="Bairro" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
         </>
     );
 }

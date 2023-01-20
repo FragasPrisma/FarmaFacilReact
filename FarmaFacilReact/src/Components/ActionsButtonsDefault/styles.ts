@@ -6,7 +6,7 @@ const Button = styled.button`
 `;
 
 export const DeleteButton = styled(Button)`
-    margin-left: 1.7rem;
+    margin-left: 1.9rem;
 `;
 
 export const EditButton = styled(Button)`

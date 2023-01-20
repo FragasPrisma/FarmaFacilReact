@@ -1,14 +1,15 @@
+import Table from "react-bootstrap/Table";
 import { useState } from "react";
 import { ActionsButtonsDefault } from "../ActionsButtonsDefault";
 import { TableCustom, TrCustom } from "./styles";
-import Paginations from "../Pagination/Pagination";
 
 interface Props {
   data: any[];
   header: string[];
+  path:string;
 }
 
-export function TableDefault({ data, header }: Props) {
+export function TableDefault({ data = [], header,path }: Props) {
   const [bodyList, setbodyList] = useState([]);
 
   return (
@@ -21,7 +22,7 @@ export function TableDefault({ data, header }: Props) {
           <th>
             <label>Visualizar</label> 
             <label>Editar</label>
-            <label>Excluir</label>
+            <label className="labelExcluir">Excluir</label>
           </th>
         </TrCustom>
       </thead>
@@ -32,12 +33,11 @@ export function TableDefault({ data, header }: Props) {
                 <td key={index}>{data[header]}</td>
                 ))}
             <td>
-              <ActionsButtonsDefault></ActionsButtonsDefault>
+              <ActionsButtonsDefault id={data.id.toString()} pathParameters={path}></ActionsButtonsDefault>
             </td>
           </TrCustom>
         ))}
       </tbody>
-      <Paginations/>
     </TableCustom>
   );
 }

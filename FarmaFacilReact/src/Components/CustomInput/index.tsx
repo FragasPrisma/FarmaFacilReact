@@ -6,11 +6,13 @@ interface IInput {
     placeholder: string;
     type: string;
     required: boolean;
-    value?: string
+    value?: string;
+    maxLength?: number|undefined;
+    erro?:string;
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void
  }
 
-export function CustomInput({ label, placeholder, type, required, value, OnChange }: IInput) {
+export function CustomInput({ label, placeholder, type, required, value,maxLength,erro, OnChange }: IInput) {
     return (
         <ContainerInput >
             <div className="containerAbc">
@@ -24,9 +26,15 @@ export function CustomInput({ label, placeholder, type, required, value, OnChang
                     type={type}
                     placeholder={placeholder}
                     value={value}
+                    maxLength={maxLength}
                     onChange={OnChange}
                 />
             </div>
+            {erro &&
+                <div className="row divError">
+                    <label className="text-danger">{erro}</label>
+                </div>
+            }
         </ContainerInput>
     );
 }

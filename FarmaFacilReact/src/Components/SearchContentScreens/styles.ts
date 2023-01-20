@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerSearch = styled.div`
+
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
