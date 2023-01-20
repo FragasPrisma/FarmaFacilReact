@@ -1,7 +1,7 @@
-import Table from "react-bootstrap/Table";
 import { useState } from "react";
 import { ActionsButtonsDefault } from "../ActionsButtonsDefault";
 import { TableCustom, TrCustom } from "./styles";
+import Paginations from "../Pagination/Pagination";
 
 interface Props {
   data: any[];
@@ -37,6 +37,7 @@ export function TableDefault({ data, header }: Props) {
           </TrCustom>
         ))}
       </tbody>
+      <Paginations/>
     </TableCustom>
   );
 }
