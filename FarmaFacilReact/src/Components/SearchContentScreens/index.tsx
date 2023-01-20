@@ -3,6 +3,7 @@ import { ContainerSearch } from "./styles";
 import { X } from "phosphor-react";
 import { TableDefault } from "../TableDefault";
 import Lupa from "../../assets/img/lupa.png";
+import Paginations from "../Pagination";
 
 interface IDataSearch {
   text: string;
