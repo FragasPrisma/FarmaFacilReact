@@ -67,7 +67,6 @@ export function PbmCreate() {
                   setNome(e.target.value)
                 }
                 required={true}
-                name="nome"
               />
             </div>
           </div>
