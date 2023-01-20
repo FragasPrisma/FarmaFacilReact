@@ -51,7 +51,7 @@ export function PbmCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR PBM" IncludeButton={false} />
+      <HeaderMainContent title="ADICIONAR PBM" IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">

@@ -13,7 +13,6 @@ interface Props{
 export function FailModal(props: Props) {
 
     function closeModal() {
-
         props.onClose();
     }
 

@@ -3,12 +3,13 @@ import { ButtonCancelMain } from "./styles";
 
 interface Props {
     to: string;
+    text?: string;
 }
 
-export function ButtonCancel({to}: Props) {
+export function ButtonCancel(props: Props) {
     return (
-        <NavLink className="text_link" to={`/${to}`}>
-            <ButtonCancelMain>Cancel</ButtonCancelMain>
+        <NavLink className="text_link" to={`/${props.to}`}>
+            <ButtonCancelMain>{props.text == null ? "Cancel" : props.text}</ButtonCancelMain>
         </NavLink>
     );
 }

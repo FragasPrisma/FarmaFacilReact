@@ -29,6 +29,7 @@ import {
 import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
 import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
 import { PbmEdit } from "./Pages/Pbm/PbmEdit";
+import { PbmDetails } from "./Pages/Pbm/PbmDetails";
 
 
 export function AppRoutes() {
@@ -186,11 +187,20 @@ export function AppRoutes() {
               }
             />
 
-<Route
+            <Route
               path="/pbm/edit/:id"
               element={
                 <Private>
                   <PbmEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pbm/details/:id"
+              element={
+                <Private>
+                  <PbmDetails/>
                 </Private>
               }
             />

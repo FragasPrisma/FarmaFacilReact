@@ -3,7 +3,7 @@ import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
 
 interface IInput {
     label: string;
-    placeholder: string;
+    placeholder?: string;
     type: string;
     name?: string;
     required: boolean;
