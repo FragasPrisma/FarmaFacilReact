@@ -19,6 +19,13 @@ export const Container = styled.div`
   left: 50%;
   transform: translateX(-50%);
 
+
+  background-image: url(/src/assets/img/bg-pills.0a473e12.png);
+    background-size: cover;
+    background-position-y: -17rem;
+    background-position-x: -28rem;
+    background-repeat: no-repeat;
+
   .container_logo {
     width: 100%;
     display: flex;

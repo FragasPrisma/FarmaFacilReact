@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../Context/auth";
 import logo from "../../assets/img/logoFFW.jpg";
 import { Container } from "./styles";
+import Pao from "../../assets/img/bg-pills.0a473e12.png"
 
 export function Login() {
   const { authenticated, login }: any = useContext(AuthContext);
@@ -15,9 +16,11 @@ export function Login() {
   };
 
   return (
+    // <>
+    // <img src={Pao} />
     <Container>
       <div className="container_logo">
-        <img src={logo} className="imagem_login"></img>
+        <img src={logo} className="imagem_login" />
       </div>
 
       <div className="container_form">
@@ -56,5 +59,6 @@ export function Login() {
         </form>
       </div>
     </Container>
+    // </>
   );
 }
