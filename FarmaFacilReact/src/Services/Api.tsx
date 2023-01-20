@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { url } from "inspector";
 
 const API_URL = "https://localhost:44326/api/";
 
@@ -63,3 +64,13 @@ export const deleteDetail = async (
     throw new Error(`Erro ao Deletar dado ${id}. Erro: ${error.message}`);
   }
 };
+
+export const GetId = async (url: string): Promise<AxiosResponse> => {
+  try {
+    const response = await api.get(url);
+    return response;
+  } catch (error: any) {
+    throw new Error(`Erro ao buscar dados de ${url}. Erro: ${error.message}`);
+  }
+};
+

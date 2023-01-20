@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import { ButtonConfirmMain } from "./styles";
 
 interface Props {

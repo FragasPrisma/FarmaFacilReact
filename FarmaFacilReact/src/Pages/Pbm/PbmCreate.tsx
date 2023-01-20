@@ -3,7 +3,7 @@ import { ButtonConfirm } from "../../Components/ButtonConfirm";
 import { CustomInput } from "../../Components/CustomInput";
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { Container } from "./styles";
-import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/SuccessModal";
 import { FailModal } from "../../Components/FailModal";
@@ -15,25 +15,37 @@ export function PbmCreate() {
   const [observacao, setObservacao] = useState("");
   const [isOpenSuccess, setIsOpenSuccess] = useState(false)
   const [isOpenFail, setIsOpenFail] = useState(false);
+  const [erroNome, setErroNome] = useState("");
 
   const data = {
     id: 0, //id 0 é default
-    nome: nome,
-    observacao: observacao,
+    nome: nome.trim(),
+    observacao: observacao.trim(),
   };
 
   async function submit() {
+    setErroNome("")
+    if (!nome.trim()) {
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErroNome("Campo nome é obrigatório !")
+      }, 2000)
+      return;
+    }
     const response = await postFormAll("AdicionarPbm", data);
-    if(response.status === 200) {
+
+    if (response.status === 200) {
       setIsOpenSuccess(true);
       setTimeout(() => {
         navigate("/pbm");
-      },3000)
+      }, 2000)
     } else {
       setIsOpenFail(true);
       setTimeout(() => {
         setIsOpenFail(false);
-      },2000)
+        setErroNome(response.request.response)
+      }, 2000)
     }
   }
 
@@ -49,6 +61,8 @@ export function PbmCreate() {
                 type="text"
                 placeholder="Digite o nome do Pbm"
                 value={nome}
+                maxLength={50}
+                erro={erroNome}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setNome(e.target.value)
                 }
@@ -56,29 +70,31 @@ export function PbmCreate() {
                 name="nome"
               />
             </div>
-            <div className="col-5">
+          </div>
+          <div className="row">
+            <div className="col-6">
               <CustomInput
                 label="Observação"
-                type="text"
+                type="textarea"
                 placeholder="Digite uma descrição para o Pbm"
                 value={observacao}
+                maxLength={150}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setObservacao(e.target.value)
                 }
                 required={false}
-                name="observacao"
               />
             </div>
           </div>
           <div className="row">
-            <div className="col-3">
-              <ButtonConfirm onCLick={submit}/>
+            <div className="col-6 mt-2">
+              <ButtonConfirm onCLick={submit} />
               <ButtonCancel to="pbm" />
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess}/>
-        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)}/>
+        <SuccessModal show={isOpenSuccess} />
+        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
   );

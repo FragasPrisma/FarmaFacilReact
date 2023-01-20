@@ -11,6 +11,10 @@ export const TableCustom = styled(Table)`
 
 export const TrCustom = styled.tr`
 
+  .labelExcluir{
+    margin-left:1.3rem;
+  }
+
   label{
     background-color: transparent;
     border: none;

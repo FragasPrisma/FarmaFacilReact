@@ -1,7 +1,6 @@
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/SearchContentScreens";
 import { useEffect, useState, } from "react";
-import { TableDefault } from "../../Components/TableDefault";
 import { getAll } from "../../Services/Api";
 
 export function Classe(){
@@ -20,8 +19,7 @@ export function Classe(){
     return (
         <>
             <HeaderMainContent title="CLASSE" IncludeButton={true} />
-            <SearchContentScreens text="Classe" />
-            <TableDefault header={["id", "descricao"]} data={data} />
+            <SearchContentScreens text="Classe"  data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
         </>
     );
 }
