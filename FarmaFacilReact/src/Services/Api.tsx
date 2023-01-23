@@ -64,10 +64,14 @@ export const deleteDetail = async (
     throw new Error(`Erro ao Deletar dado ${url}. Erro: ${error.message}`);
   }
 };
-
-export const GetId = async (url: string): Promise<AxiosResponse> => {
+/**
+ 
+ * @param url url do endpoint
+ * @param id id do item
+ */
+export const GetId = async (url: string, id: string): Promise<AxiosResponse> => {
   try {
-    const response = await api.get(url);
+    const response = await api.get(`${url}/${id}`);
     return response;
   } catch (error: any) {
     throw new Error(`Erro ao buscar dados de ${url}. Erro: ${error.message}`);
