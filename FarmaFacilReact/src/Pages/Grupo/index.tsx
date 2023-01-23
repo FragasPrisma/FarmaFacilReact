@@ -1,11 +1,11 @@
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 
 export function Grupo(){
     return (
         <>
-        <HeaderMainContent title="GRUPO" IncludeButton={true} />
-        <SearchContentScreens text="Grupo" />
+        <HeaderMainContent title="GRUPO" IncludeButton={true} ReturnButton={false}/>
+        {/* <SearchContentScreens text="Grupo" /> */}
         </>
     );
 }

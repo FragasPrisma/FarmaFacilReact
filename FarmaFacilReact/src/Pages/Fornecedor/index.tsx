@@ -1,11 +1,11 @@
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 
 export function Fornecedor() {
   return (
     <>
-      <HeaderMainContent title="FORNECEDOR" IncludeButton={true} />
-      <SearchContentScreens text="Fornecedor" />
+      <HeaderMainContent title="FORNECEDOR" IncludeButton={true} ReturnButton={false}/>
+      {/* <SearchContentScreens text="Fornecedor" /> */}
     </>
   );
 }

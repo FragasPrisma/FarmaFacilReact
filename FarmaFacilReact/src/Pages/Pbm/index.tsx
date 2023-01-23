@@ -1,26 +1,33 @@
 import { useEffect, useState } from "react";
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
-import { TableDefault } from "../../Components/TableDefault";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
+import { TableDefault } from "../../Components/Others/TableDefault";
 import { getAll } from "../../Services/Api";
+import Paginations from "../../Components/Others/Pagination";
+
+// Resolvendo merge
 
 export function Pbm() {
   const [data, setData] = useState([]);
+  const [pagina, setPagina] = useState(1);
+  const [qtdPagina, setQtdPagina] = useState(0);
 
   useEffect(() => {
     const loadDataTablePbm = async () => {
-      const response = await getAll("ListaPbm");
-      setData(response.data);
+
+      const response = await getAll(`ListaPaginacaoPbm/${pagina}`);
+      setQtdPagina(response.data.total);
+      setData(response.data.listGroup);
     }
 
     loadDataTablePbm()
-  }, []);
+  }, [pagina]);
 
   return (
     <>
-      <HeaderMainContent title="PBM" IncludeButton={true} />
-      <SearchContentScreens text="Pbm" />
-      <TableDefault header={["id", "nome", "observacao"]} data={data} />
+      <HeaderMainContent title="PBM" IncludeButton={true} ReturnButton={false} />
+      <SearchContentScreens text="Pbm" data={data} filter={"nome"} headerTable={["id", "nome", "observacao"]} />
+      <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
     </>
   );
 }
