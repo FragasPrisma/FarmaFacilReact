@@ -23,8 +23,6 @@ export function Header() {
     return setState(!state)
   };
 
-
-
   return (
     <ContainerHeader>
       <ContainerLogo>
