@@ -1,5 +1,5 @@
-import { ButtonReturn } from "../Buttons/ButtonReturn";
-import { ButtonIncluir } from "../Buttons/ButtonIncluir";
+import { ButtonReturn } from "../../Buttons/ButtonReturn";
+import { ButtonIncluir } from "../../Buttons/ButtonIncluir";
 import { ContainerHeaderMain, TitleMainHeader } from "./styles";
 
 interface IOptions {

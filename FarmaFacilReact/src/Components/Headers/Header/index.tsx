@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/auth";
-import LogoFarmafacil from "../../assets/img/logoFFW.jpg";
+import LogoFarmafacil from "../../../assets/img/logoFFW.jpg";
 import { UserCircle } from "phosphor-react";
 import { NavLink } from "react-router-dom";
 

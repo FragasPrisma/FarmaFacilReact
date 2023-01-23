@@ -1,4 +1,4 @@
-import { TitleMainHeader } from "../HeaderMainContent/styles";
+import { TitleMainHeader } from "../../Headers/HeaderMainContent/styles";
 import { CardFavorite, ContainerCard, TitleFavorite } from "./styles";
 
 interface IFavorites {
