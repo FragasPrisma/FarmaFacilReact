@@ -2,7 +2,6 @@ import { HeaderMainContent } from "../../Components/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/SearchContentScreens";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
-import { ContainerPaginations } from "./styles";
 import Paginations from "../../Components/Pagination";
 
 export function Bairro(){
@@ -30,9 +29,7 @@ export function Bairro(){
         <>
             <HeaderMainContent title="BAIRRO" IncludeButton={true} />
             <SearchContentScreens text="Bairro" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
-            <ContainerPaginations>
-                <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
-            </ContainerPaginations>
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );
 }

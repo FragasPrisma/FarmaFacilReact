@@ -26,7 +26,7 @@ const Paginations = ({pagina,qtdPagina,Reload} : IPaginations) =>{
     return(
         
         <ContainerPaginations>
-            {qtdPagina > 1 ? 
+            {qtdPagina >= 1 ? 
             <Pagination>{items}</Pagination> : <></>}
         </ContainerPaginations>
         

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import Paginations from "../../Components/Pagination";
 import { SearchContentScreens } from "../../Components/SearchContentScreens";
 import { getAll } from "../../Services/Api";
-import { ContainerPaginations } from "./styles";
+import Paginations from "../../Components/Pagination";
 
 export function Pbm() {
 
@@ -31,9 +30,7 @@ export function Pbm() {
     <>
       <HeaderMainContent title="PBM" IncludeButton={true} />
       <SearchContentScreens text="Pbm" data={data} filter={"nome"} headerTable={["id", "nome", "observacao"]}/>
-      <ContainerPaginations>
-        <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
-      </ContainerPaginations>
+      <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
     </>
   );
 }
