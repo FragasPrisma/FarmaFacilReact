@@ -2,14 +2,14 @@ import { TitleMainHeader } from "../../Headers/HeaderMainContent/styles";
 import { CardFavorite, ContainerCard, TitleFavorite } from "./styles";
 
 interface IFavorites {
-  exibir?: boolean;
+  display?: boolean;
   objectFavorites: [];
 }
 
-export function Favorites({ objectFavorites, exibir = false }: IFavorites) {
+export function Favorites({ objectFavorites, display = false }: IFavorites) {
   return (
     <>
-      {exibir ? (
+      {display ? (
         <CardFavorite>
           <ContainerCard>
             <img src="" alt="" />

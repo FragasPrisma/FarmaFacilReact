@@ -1,14 +1,16 @@
+import Flat from "../assets/img/bench.png"
+
 export const namesItemsMenu = [
-  "Bairro",
-  "Classe",
-  "Dcb",
-  "Dci",
-  "Fornecedor",
-  "Grupo",
-  "Laboratorio",
-  "Nbm",
-  "Ncm",
-  "Pbm",
-  "Principio Ativo",
-  "Produto",
+  {img: Flat, titulo: "Bairro"},
+  {img: Flat, titulo: "Classe"},
+  {img: Flat, titulo:"Dcb"},
+  {img: Flat, titulo:"Dci"},
+  {img: Flat, titulo:"Fornecedor"},
+  {img: Flat, titulo:"Grupo"},
+  {img: Flat, titulo:"Laboratorio"},
+  {img: Flat, titulo:"Nbm"},
+  {img: Flat, titulo:"Ncm"},
+  {img: Flat, titulo:"Pbm"},
+  {img: Flat, titulo:"Principio Ativo"},
+  {img: Flat, titulo:"Produto"},
 ];

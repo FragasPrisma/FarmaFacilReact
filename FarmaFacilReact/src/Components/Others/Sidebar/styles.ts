@@ -38,7 +38,7 @@ export const MenuSidebar = styled.aside`
 
   .title_menu_options {
     padding-left: 1.5rem;
-
+    margin: 0;
     color: #fff;
     font-weight: 400;
     font-size: 1rem;
@@ -56,6 +56,7 @@ export const MenuSidebar = styled.aside`
 
   .ul_menu {
     list-style: none;
+    padding-left: 3rem;
   }
 
   .navLink {
@@ -65,14 +66,21 @@ export const MenuSidebar = styled.aside`
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.3rem;
+    
+    
+    width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .container_items_menu {
     width: 80%;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 0;
   }
 
-  .li_itens {
-   // padding: 0.12rem 0rem;
+  .img_options{
+    width: 1.5rem;
+    height: 1rem;
+    padding-right: 0.3rem;
   }
 `;
