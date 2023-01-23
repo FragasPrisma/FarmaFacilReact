@@ -16,11 +16,6 @@ export function Bairro(){
             const response = await getAll(`ListaPaginacaoBairro/${pagina}`);
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
-
-            if(response.data.listGroup.length == 0){
-                const resp = await getAll(`ListaPaginacaoBairro`);
-                setData(resp.data);
-            }
         }
 
         loadDataTableBairro()
