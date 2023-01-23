@@ -4,6 +4,8 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Pagination";
 
+// Resolvendo merge
+
 export function Bairro(){
 
     const [pagina,setPagina] = useState(1);
