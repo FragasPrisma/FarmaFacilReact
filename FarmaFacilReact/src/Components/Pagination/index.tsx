@@ -7,7 +7,7 @@ interface IPaginations {
     Reload: (number:number) => void
 }
 
-//Teste Merge
+//Teste 
 
 const Paginations = ({pagina,qtdPagina,Reload} : IPaginations) =>{
 
