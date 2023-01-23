@@ -29,6 +29,7 @@ import {
 import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
 import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
 import { PbmEdit } from "./Pages/Pbm/PbmEdit";
+import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
 
 
 export function AppRoutes() {
@@ -133,6 +134,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Fornecedor />
+                </Private>
+              }
+            />
+            <Route
+              path="/fornecedor/create"
+              element={
+                <Private>
+                  <FornecedorCreate />
                 </Private>
               }
             />
