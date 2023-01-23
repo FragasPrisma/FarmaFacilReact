@@ -7,8 +7,6 @@ interface IPaginations {
     Reload: (number:number) => void
 }
 
-//Teste 
-
 const Paginations = ({pagina,qtdPagina,Reload} : IPaginations) =>{
 
     let items = [];

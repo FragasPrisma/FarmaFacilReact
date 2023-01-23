@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-// Resolvendo merge
-
 export const ContainerPaginations = styled.div`
     display: flex;
     justify-content: flex-end;
