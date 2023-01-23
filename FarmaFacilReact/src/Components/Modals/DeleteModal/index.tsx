@@ -67,7 +67,7 @@ export function DeleteModal({
                   : textInformationModal}
               </MensageDefault>
             </div>
-            <div className="row">
+            <div className="row container_buttons">
               <div className="col-12">
                 <ButtonConfirm onCLick={submitButtonConfirm} />
                 <ButtonCancel onClickCancel={closeModal} />
@@ -77,6 +77,7 @@ export function DeleteModal({
         </ModalBody>
       </Modal>
       <SuccessModal show={stateModalSucces} textCustom="Dado Deletado" />
+      
     </>
   );
 }

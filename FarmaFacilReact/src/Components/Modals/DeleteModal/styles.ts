@@ -19,17 +19,21 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 10rem;
+  height: 12rem;
   justify-content: space-between;
 
   .div_btn {
     display: flex;
     justify-content: end;
+    padding-bottom: 1rem;
   }
 
   .div_text {
     display: flex;
     flex-direction: column;
     width: 100%;
+  }
+  .container_buttons{
+    padding-left: 1.5rem;
   }
 `;
