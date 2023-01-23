@@ -3,6 +3,8 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 
+// Resolvendo merge
+
 export function Bairro(){
 
     const [data, setData] = useState([]);

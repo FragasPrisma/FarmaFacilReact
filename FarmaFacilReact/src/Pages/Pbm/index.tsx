@@ -4,6 +4,8 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { TableDefault } from "../../Components/Others/TableDefault";
 import { getAll } from "../../Services/Api";
 
+// Resolvendo merge
+
 export function Pbm() {
   const [data, setData] = useState([]);
 
