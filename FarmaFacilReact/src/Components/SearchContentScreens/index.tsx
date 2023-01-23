@@ -26,6 +26,7 @@ export function SearchContentScreens({ text ,data, filter,headerTable}: IDataSea
   useEffect(()=>{
 
     if(data){
+      
       const filterArray = () => {  
         setSearch(data.filter(y => y[filter].toLowerCase().toString().includes(value)));
       };
