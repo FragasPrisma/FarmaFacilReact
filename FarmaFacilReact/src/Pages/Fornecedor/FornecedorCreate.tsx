@@ -64,7 +64,7 @@ export function FornecedorCreate() {
                 type="text"
                 placeholder="Digite o CPF ou CNPJ"
                 value={nomeFornecedor}
-                maxLength={50}
+                maxLength={14}
                 erro={erroNomeFornecedor}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setNomeFornecedor(e.target.value)
@@ -78,7 +78,7 @@ export function FornecedorCreate() {
                 type="text"
                 placeholder="Digite a Inscrição estadual"
                 value={nomeFornecedor}
-                maxLength={50}
+                maxLength={11}
                 erro={erroNomeFornecedor}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setNomeFornecedor(e.target.value)
@@ -129,6 +129,143 @@ export function FornecedorCreate() {
                     setNomeFornecedor(e.target.value)
                 }
                 required={true}
+                />
+            </div>
+        </div>
+
+        <div className="row">
+            <div className="col-2">
+                <CustomInput
+                label="Estado"
+                type="text"
+                placeholder="Digite o Estado"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+            <div className="col-4">
+                <CustomInput
+                label="Cidade"
+                type="text"
+                placeholder="Digite a Cidade"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+            <div className="col-2">
+                <CustomInput
+                label="Bairro"
+                type="text"
+                placeholder="Digite o Bairro"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+        </div>
+
+        <div className="row">
+            <div className="col-4">
+                <CustomInput
+                label="Complemento"
+                type="text"
+                placeholder="Digite o complemento"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+        </div>
+
+        <div className="row">
+            <div className="col-2">
+                <CustomInput
+                label="DDD"
+                type="text"
+                placeholder="(99)"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+            <div className="col-2">
+                <CustomInput
+                label="Telefone"
+                type="text"
+                placeholder="9999-9999"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+            <div className="col-2">
+                <CustomInput
+                label="DDD"
+                type="text"
+                placeholder="(99)"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+            <div className="col-2">
+                <CustomInput
+                label="Celular"
+                type="text"
+                placeholder="9 9999-9999"
+                value={nomeFornecedor}
+                maxLength={50}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={true}
+                />
+            </div>
+        </div>
+        <div className="row">
+            <div className="col-8">
+                <CustomInput
+                label="E-mail"
+                type="text"
+                placeholder="E-mail"
+                value={nomeFornecedor}
+                maxLength={60}
+                erro={erroNomeFornecedor}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setNomeFornecedor(e.target.value)
+                }
+                required={false}
                 />
             </div>
         </div>
@@ -184,7 +321,7 @@ export function FornecedorCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR Fornecedor" IncludeButton={false} />
+      <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} />
       <div className="form-group">
 
         <TabsPage Childrens={arrayTab} TabsQtd={2} titles={titles}/>
