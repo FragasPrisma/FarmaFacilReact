@@ -30,6 +30,7 @@ import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
 import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
 import { PbmEdit } from "./Pages/Pbm/PbmEdit";
 import { PbmDetails } from "./Pages/Pbm/PbmDetails";
+import { Parametro } from "./Pages/Parametro";
 
 
 export function AppRoutes() {
@@ -118,6 +119,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Dcb />
+                </Private>
+              }
+            />
+             <Route
+              path="/parametro"
+              element={
+                <Private>
+                  <Parametro />
                 </Private>
               }
             />

@@ -5,52 +5,53 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export function ClasseEdit() {
-
   const navigate = useNavigate();
-  const [erro,setErro] = useState("");
+  const [erro, setErro] = useState("");
   const [descricao, setDescricao] = useState("");
   const [classeId, setClasseId] = useState(0);
   const { id } = useParams();
-  const url = `RetornarClassePorId/${id}`
-  const[data] = useState({id:0,descricao:""});
+  const [data] = useState({ id: 0, descricao: "" });
 
-  useEffect(() =>{
-    
+  useEffect(() => {
     async function Init() {
-      const response = await GetId(url);
+      const response = await GetId("RetornarClassePorId", id?.toString());
       setClasseId(response.data.id);
       setDescricao(response.data.descricao);
     }
 
-    Init()
-  },[])
-    
+    Init();
+  }, []);
+
   async function submit() {
     data.id = classeId;
     data.descricao = descricao.trim();
 
-    if(!descricao.trim()){
-      setErro("Campo descrição é obrigatório !")
+    if (!descricao.trim()) {
+      setErro("Campo descrição é obrigatório !");
       return;
     }
 
     const resp = await postFormAll("EditarClasse", data);
 
-    if(resp.status == 200){
+    if (resp.status == 200) {
       navigate("/classe");
-    }else{
-      setErro(resp.request.response)
+    } else {
+      setErro(resp.request.response);
       return;
     }
   }
 
   return (
     <>
-      <HeaderMainContent title="EDITAR CLASSE" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent
+        title="EDITAR CLASSE"
+        IncludeButton={false}
+        ReturnButton={false}
+      />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -71,7 +72,7 @@ export function ClasseEdit() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit}/>
+              <ButtonConfirm onCLick={submit} />
               <ButtonCancel to="classe" />
             </div>
           </div>
