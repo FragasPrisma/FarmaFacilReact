@@ -14,7 +14,7 @@ interface IInput {
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void
  }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value,maxLength,erro, OnChange }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value,maxLength,erro,  OnChange }: IInput) {
     return (
         <ContainerInput >
             <div className="containerAbc">

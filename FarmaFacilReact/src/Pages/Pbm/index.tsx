@@ -18,6 +18,10 @@ export function Pbm() {
       const response = await getAll(`ListaPaginacaoPbm/${pagina}`);
       setQtdPagina(response.data.total);
       setData(response.data.listGroup);
+      if(response.data.listGroup.length == 0){
+          const resp = await getAll(`ListaPbm`);
+          setData(resp.data);
+        } 
     }
 
     loadDataTablePbm()
