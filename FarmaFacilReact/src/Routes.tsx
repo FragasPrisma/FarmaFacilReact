@@ -21,6 +21,7 @@ import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
 import { Dashboard } from "./Pages/Dashboard";
 import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
+import { ClasseDetails } from "./Pages/Classe/ClasseDetails";
 import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
 import { PbmEdit } from "./Pages/Pbm/PbmEdit";
 import { PbmDetails } from "./Pages/Pbm/PbmDetails";
@@ -111,6 +112,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ClasseCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/classe/details/:id"
+              element={
+                <Private>
+                  <ClasseDetails />
                 </Private>
               }
             />
