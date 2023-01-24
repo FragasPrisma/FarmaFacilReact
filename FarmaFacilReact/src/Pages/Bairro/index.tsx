@@ -1,13 +1,12 @@
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
-import Paginations from "../../Components/Pagination";
+import Paginations from "../../Components/Others/Pagination";
 
 // Resolvendo merge
 
 export function Bairro(){
-
     const [pagina,setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
@@ -24,7 +23,7 @@ export function Bairro(){
 
     return (
         <>
-            <HeaderMainContent title="BAIRRO" IncludeButton={true} />
+            <HeaderMainContent title="BAIRRO" IncludeButton={true} ReturnButton={false}/>
             <SearchContentScreens text="Bairro" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>

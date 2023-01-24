@@ -13,6 +13,7 @@ export const ContainerLogo = styled.div`
 .logo{
     height: 40px;
     width: 12rem;
+    
 }
 
 #botaoSair{

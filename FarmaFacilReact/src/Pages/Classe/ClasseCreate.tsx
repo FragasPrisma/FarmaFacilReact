@@ -1,7 +1,7 @@
-import { ButtonCancel } from "../../Components/ButtonCancel";
-import { ButtonConfirm } from "../../Components/ButtonConfirm";
-import { CustomInput } from "../../Components/CustomInput";
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
+import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
+import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
+import { CustomInput } from "../../Components/Inputs/CustomInput";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState } from "react";
 import { postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
@@ -39,7 +39,7 @@ export function ClasseCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR CLASSE" IncludeButton={false} />
+      <HeaderMainContent title="ADICIONAR CLASSE" IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">

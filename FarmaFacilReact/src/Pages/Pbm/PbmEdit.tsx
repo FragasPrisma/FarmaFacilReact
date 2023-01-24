@@ -1,7 +1,7 @@
-import { ButtonCancel } from "../../Components/ButtonCancel";
-import { ButtonConfirm } from "../../Components/ButtonConfirm";
-import { CustomInput } from "../../Components/CustomInput";
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
+import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
+import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
+import { CustomInput } from "../../Components/Inputs/CustomInput";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
@@ -58,7 +58,7 @@ export function PbmEdit() {
 
   return (
     <>
-      <HeaderMainContent title="EDITAR PBM" IncludeButton={false} />
+      <HeaderMainContent title="EDITAR PBM" IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">

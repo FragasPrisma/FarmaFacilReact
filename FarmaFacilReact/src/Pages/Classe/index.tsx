@@ -1,5 +1,5 @@
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Pagination";
@@ -22,7 +22,7 @@ export function Classe(){
 
     return (
         <>
-            <HeaderMainContent title="CLASSE" IncludeButton={true} />
+            <HeaderMainContent title="CLASSE" IncludeButton={true} ReturnButton={false}/>
             <SearchContentScreens text="Classe"  data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>

@@ -1,11 +1,9 @@
-import { CardFavorite } from "./styles";
-
-interface IDashboard {
-  exibir: true;
-}
+import { Favorites } from "./../../Components/Others/Favorites/index";
 
 export function Dashboard() {
-  return(
-      <CardFavorite>pao</CardFavorite>
-      )
+  return (
+    <>
+      <Favorites  objectFavorites={[]} display={true} />
+    </>
+  );
 }

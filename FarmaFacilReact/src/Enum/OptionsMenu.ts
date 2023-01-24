@@ -1,4 +1,4 @@
-import { namesItemsMenu } from "../Pages/namesItemsMenu";
+import { namesItemsMenu } from "./namesItemsMenu";
 
 interface IOptionsMenu {
   // texto: string;
@@ -7,8 +7,4 @@ interface IOptionsMenu {
   disabled?: boolean;
 }
 
-
-
-export const OptionsMenu = [ { text: namesItemsMenu.map(x => x) } ];
-
-
+//export const OptionsMenu = namesItemsMenu.map((x) => x);
