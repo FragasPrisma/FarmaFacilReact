@@ -6,9 +6,12 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams, useNavigate } from 'react-router-dom';
+import { SuccessModal } from "../../Components/Modals/SuccessModal";
+import { FailModal } from "../../Components/Modals/FailModal";
 
 export function BairroEdit() {
-
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
   const [erroNome,setErroNome] = useState("");
   const [nome, setNome] = useState("");
@@ -32,7 +35,11 @@ export function BairroEdit() {
     setErroNome("");
 
     if(!nome.trim()){
-      setErroNome("Campo nome é obrigatório !")
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErroNome("Campo nome é obrigatório !")
+      }, 2000)
       return;
     }
 
@@ -41,10 +48,16 @@ export function BairroEdit() {
     const resp = await postFormAll("EditarBairro", data);
 
     if(resp.status == 200){
-      navigate("/bairro")
+      setIsOpenSuccess(true);
+      setTimeout(() => {
+        navigate("/bairro");
+      }, 2000)
     }else{
-      setErroNome(resp.request.response)
-      return;
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErroNome(resp.request.response)
+      }, 2000)
     }
   }
 
@@ -76,6 +89,8 @@ export function BairroEdit() {
             </div>
           </div>
         </Container>
+        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
   );

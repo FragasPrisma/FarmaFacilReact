@@ -13,7 +13,7 @@ export function PbmCreate() {
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [observacao, setObservacao] = useState("");
-  const [isOpenSuccess, setIsOpenSuccess] = useState(false)
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [erroNome, setErroNome] = useState("");
 

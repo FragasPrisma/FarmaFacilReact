@@ -6,6 +6,9 @@ import { BairroDetails } from "./Pages/Bairro/BairroDetails";
 import { BairroEdit } from "./Pages/Bairro/BairroEdit";
 import { Classe } from "./Pages/Classe";
 import { Dcb } from "./Pages/Dcb";
+import { DcbCreate } from "./Pages/Dcb/DcbCreate";
+import { DcbDetails } from "./Pages/Dcb/DcbDetails";
+import { DcbEdit } from "./Pages/Dcb/DcbEdit";
 import { Dci } from "./Pages/Dci";
 import { Fornecedor } from "./Pages/Fornecedor";
 import { Grupo } from "./Pages/Grupo";
@@ -140,7 +143,32 @@ export function AppRoutes() {
                 </Private>
               }
             />
-             <Route
+            <Route 
+              path="/dcb/create"
+              element={
+                <Private>
+                  <DcbCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/dcb/details/:id"
+              element={
+                <Private>
+                  <DcbDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/dcb/edit/:id"
+              element={
+                <Private>
+                  <DcbEdit />
+                </Private>
+              }
+            />
+
+            <Route
               path="/parametro"
               element={
                 <Private>

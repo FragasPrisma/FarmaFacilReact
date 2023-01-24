@@ -7,8 +7,12 @@ import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { SuccessModal } from "../../Components/Modals/SuccessModal";
+import { FailModal } from "../../Components/Modals/FailModal";
 
 export function ClasseEdit() {
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
   const [erro, setErro] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -31,17 +35,27 @@ export function ClasseEdit() {
     data.descricao = descricao.trim();
 
     if (!descricao.trim()) {
-      setErro("Campo descrição é obrigatório !");
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErro("Campo descrição é obrigatório !");
+      }, 2000)
       return;
     }
 
     const resp = await postFormAll("EditarClasse", data);
 
     if (resp.status == 200) {
-      navigate("/classe");
+      setIsOpenSuccess(true);
+      setTimeout(() => {
+        navigate("/classe");
+      }, 2000)
     } else {
-      setErro(resp.request.response);
-      return;
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErro(resp.request.response)
+      }, 2000)
     }
   }
 
@@ -77,6 +91,8 @@ export function ClasseEdit() {
             </div>
           </div>
         </Container>
+        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
   );
