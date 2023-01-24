@@ -14,6 +14,7 @@ interface IProps {
   textInformationModal?: string;
   textButton?: string;
   idItem: string;
+  urlText: string;
 }
 
 export function DeleteModal({
@@ -22,6 +23,7 @@ export function DeleteModal({
   textInformationModal,
   textButton,
   idItem,
+  urlText
 }: IProps) {
   const navigate = useNavigate();
 
@@ -32,9 +34,9 @@ export function DeleteModal({
   };
 
   async function submitButtonConfirm() {
-    const requestGetItemById = await GetId("RetornaPbmPorId", idItem);
+    const requestGetItemById = await GetId(`Retorna${urlText}PorId`, idItem);
     const payload = requestGetItemById.data;
-    const resp = await deleteDetail("ExcluirPbm", payload);
+    const resp = await deleteDetail(`Excluir${urlText}`, payload);
 
     if (resp.status == 200) {
       closeModal();

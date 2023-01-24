@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuthProvider, AuthContext } from "./Context/auth";
 import { Bairro } from "./Pages/Bairro";
 import { BairroCreate } from "./Pages/Bairro/BairroCreate";
+import { BairroDetails } from "./Pages/Bairro/BairroDetails";
 import { BairroEdit } from "./Pages/Bairro/BairroEdit";
 import { Classe } from "./Pages/Classe";
 import { Dcb } from "./Pages/Dcb";
@@ -19,13 +20,6 @@ import { Produto } from "./Pages/Produto";
 import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
 import { Dashboard } from "./Pages/Dashboard";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
 import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
 import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
 import { PbmEdit } from "./Pages/Pbm/PbmEdit";
@@ -33,6 +27,12 @@ import { PbmDetails } from "./Pages/Pbm/PbmDetails";
 import { Parametro } from "./Pages/Parametro";
 import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -79,6 +79,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <BairroCreate/>
+                </Private>
+              }
+            />
+            <Route
+              path="/bairro/details/:id"
+              element={
+                <Private>
+                  <BairroDetails/>
                 </Private>
               }
             />
