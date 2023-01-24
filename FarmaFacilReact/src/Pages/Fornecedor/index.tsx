@@ -1,5 +1,5 @@
 import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/SearchContentScreens";
+import { SearchContentScreens } from "../../Components/";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Pagination";
