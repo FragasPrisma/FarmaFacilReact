@@ -18,7 +18,7 @@ export function ClasseEdit() {
 
   useEffect(() => {
     async function Init() {
-      const response = await GetId("RetornarClassePorId", id?.toString());
+      const response = await GetId("RetornaClassePorId", id?.toString());
       setClasseId(response.data.id);
       setDescricao(response.data.descricao);
     }

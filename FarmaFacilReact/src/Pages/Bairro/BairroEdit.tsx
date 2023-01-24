@@ -5,8 +5,7 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from 'react-router-dom';
 
 export function BairroEdit() {
 
@@ -15,13 +14,12 @@ export function BairroEdit() {
   const [nome, setNome] = useState("");
   const [bairroId, setBairroId] = useState(0);
   const { id } = useParams();
-  const url = `RetornaBairroPorId/${id}`
   const[data] = useState({id:0,nome:""});
 
   useEffect(() =>{
     
     async function Init() {
-      const response = await GetId(url);
+      const response = await GetId("RetornaBairroPorId", id?.toString());
       setBairroId(response.data.id);
       setNome(response.data.nome);
     }
