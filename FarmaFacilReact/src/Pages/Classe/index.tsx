@@ -2,7 +2,7 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
-import Paginations from "../../Components/Pagination";
+import Paginations from "../../Components/Others/Pagination";
 
 export function Classe(){
 

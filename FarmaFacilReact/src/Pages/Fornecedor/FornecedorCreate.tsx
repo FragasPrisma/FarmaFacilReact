@@ -1,12 +1,13 @@
-import { ButtonCancel } from "../../Components/ButtonCancel";
-import { ButtonConfirm } from "../../Components/ButtonConfirm";
-import { CustomInput } from "../../Components/CustomInput";
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
+
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState } from "react";
 import { postFormAll } from "../../Services/Api";
 import { useNavigate } from "react-router-dom";
 import { Container } from "./styles";
 import TabsPage from "../../Components/Tabs";
+import { CustomInput } from "../../Components/Inputs/CustomInput";
+import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
+import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 
 export function FornecedorCreate() {
 
@@ -38,9 +39,9 @@ export function FornecedorCreate() {
   const [autorizacaoEspecial,setAutorizacaoEspecial] = useState("");
   const [licencaMapa,setLicencaMapa] = useState("");
   const [cadastroFarmacia , setCadastroFarmacia] = useState("");
-  const [valorMinimoPedido,setValorMinimoPedido] = useState(0);
+  const [valorMinimoPedido,setValorMinimoPedido] = useState("0");
   const [formaPagamento,setFormaPagamento] = useState("");
-  const [previsaoEntrega,setPrevisaoEntrega] = useState(0);
+  const [previsaoEntrega,setPrevisaoEntrega] = useState("0");
   const [frete,setFrete] = useState("");
   const [observacoes,setObservacoes] = useState("");
 
@@ -634,7 +635,7 @@ export function FornecedorCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} />
+      <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
 
         <TabsPage Childrens={arrayTab} TabsQtd={2} titles={titles}/>

@@ -51,23 +51,27 @@ export const postFormAll = async (
 /**
 
 Deleta dados para a url especificada
-@param id url do endpoint
+@param url url do endpoint
 @param payload dados a serem enviados
 */
 export const deleteDetail = async (
-  id: string,
+  url: string,
   payload: any
 ): Promise<AxiosResponse> => {
   try {
-    return await api.post(id, payload);
+    return await api.post(url, payload);
   } catch (error: any) {
-    throw new Error(`Erro ao Deletar dado ${id}. Erro: ${error.message}`);
+    throw new Error(`Erro ao Deletar dado ${url}. Erro: ${error.message}`);
   }
 };
-
-export const GetId = async (url: string): Promise<AxiosResponse> => {
+/**
+ 
+ * @param url url do endpoint
+ * @param id id do item
+ */
+export const GetId = async (url: string, id: string): Promise<AxiosResponse> => {
   try {
-    const response = await api.get(url);
+    const response = await api.get(`${url}/${id}`);
     return response;
   } catch (error: any) {
     throw new Error(`Erro ao buscar dados de ${url}. Erro: ${error.message}`);

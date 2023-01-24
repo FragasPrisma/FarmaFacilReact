@@ -15,13 +15,12 @@ export function PbmEdit() {
   const [observacao, setObservacao] = useState("");
   const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
-  const url = `RetornaPbmPorId/${id}`
   const[data] = useState({id:0,nome:"",observacao:""});
 
   useEffect(() =>{
     
     async function Init() {
-      const response = await GetId(url);
+      const response = await GetId("RetornaPbmPorId", id?.toString());
       if(response.status == 200){
         setPbmId(response.data.id);
         setNome(response.data.nome);

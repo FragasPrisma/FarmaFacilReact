@@ -1,15 +1,26 @@
 import { NavLink } from "react-router-dom";
 import { ButtonCancelMain } from "./styles";
 
-interface Props {
-    to: string;
-    text?: string;
+interface IProps {
+  to?: string;
+  text?: string;
+  onClickCancel?: () => void;
 }
 
-export function ButtonCancel(props: Props) {
-    return (
-        <NavLink className="text_link" to={`/${props.to}`}>
-            <ButtonCancelMain>{props.text == null ? "Cancel" : props.text}</ButtonCancelMain>
+export function ButtonCancel({ to, text, onClickCancel }: IProps) {
+  return (
+    <>
+      {to  ? (
+        <NavLink className="text_link" to={`/${to}`}>
+          <ButtonCancelMain>
+            {text == null ? "Cancelar" : text}
+          </ButtonCancelMain>
         </NavLink>
-    );
+      ) : (
+        <ButtonCancelMain onClick={onClickCancel}>
+            {text == null ? "Cancelar" : text}
+          </ButtonCancelMain>
+      )}
+    </>
+  );
 }

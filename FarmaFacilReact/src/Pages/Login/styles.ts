@@ -67,6 +67,7 @@ export const Container = styled.div`
     width: 100%;
     max-width: 25rem;
     margin: 0.5rem;
+    padding-left: 1rem;
   }
 
   .title_form {
