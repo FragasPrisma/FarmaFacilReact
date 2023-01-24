@@ -18,10 +18,15 @@ export const TabImpressao = () => {
         <div className="col-3">
           <CheckboxCustom
             titleComponet="Impressora Recibo Fidelidade"
-            options={["paoo", "wfwf", "sdegas", "awfaw"]}
+            options={[
+              "Matricial",
+              "Relátorio Gerencial ECF",
+              "40 Colunas",
+              "60 Colunas",
+            ]}
           />
         </div>
-        <div className="col-4 mt-4">
+        <div className="col-3 mt-4">
           <CheckboxCustom options={["Imprimir quantidade no item"]} />
           <CheckboxCustom options={["Imprimir Etiqueta na Venda"]} />
           <CheckboxCustom options={["Imprimir Farmaceutico na Etiqueta"]} />
@@ -32,7 +37,16 @@ export const TabImpressao = () => {
         <div className="col-3">
           <CheckboxCustom
             titleComponet="Impressora"
-            options={["paoo", "wfwf", "sdegas", "awfaw"]}
+            options={[
+              "Matricial",
+              "Jato de Tinta/Laser",
+              "Laser(Especial)",
+              "40 Colunas",
+              "60 Colunas",
+              "Relátorio Gerencial ECF",
+              "60 Colunas/Laser",
+              "60 Colunas Grande",
+            ]}
           />
         </div>
 
@@ -41,7 +55,20 @@ export const TabImpressao = () => {
           <CheckboxCustom options={["Destaca Número Venda"]} />
           <CheckboxCustom options={["Destaca Nome Cliente"]} />
         </div>
+
+        <div className="col-3 mt-4">
+          <div className="col-5 ">
+            <CustomInput label="Linhas Cupons" required={false} type="string" />
+            <CustomInput label="Número Vias" required={false} type="string" />
+          </div>
+          <CheckboxCustom options={["Imprimir Comprovante de Débito"]} />
+          <div className="col-5 ">
+            <CustomInput label="Número Vias" required={false} type="string" />
+          </div>
+          <CheckboxCustom options={["Bloquear Reimpressão Venda/Ordem"]} />
+        </div>
       </div>
+
       <div className="row">
         <div className="col-3 mt-4">
           <CheckboxCustom
@@ -49,6 +76,7 @@ export const TabImpressao = () => {
             options={["Detalhado", "Agrupado"]}
           />
         </div>
+
         <div className="col-3 mt-4">
           <CheckboxCustom
             titleComponet="Confissão de Dívida"

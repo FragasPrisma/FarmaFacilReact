@@ -6,8 +6,12 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import TabsPage from "../../Components/Tabs";
 import { itemsHandles, itemsHandlesChildren } from "../../Enum/ItemsParametro";
 import { Container, ContainerItems } from "./styles";
+import { TabCartoes } from "./TabCartoes";
+import { TabConvenios } from "./TabConvenios";
+import { TabCuspomFiscal } from "./TabCupomFiscal";
 import { TabFarmacia } from "./TabFarmacia";
 import { TabImpressao } from "./TabImpressao";
+import { TabNfe } from "./TabNfe";
 
 export function Parametro() {
   let componentsOfTabs: any = [];
@@ -22,7 +26,11 @@ export function Parametro() {
 
   componentsOfTabs.push(
     <TabFarmacia />,
-    <TabImpressao />
+    <TabImpressao />,
+    <TabCuspomFiscal />,
+    <TabConvenios />,
+    <TabCartoes />,
+    <TabNfe />
   );
 
   return (

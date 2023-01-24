@@ -8,11 +8,11 @@ interface ISelect {
 export function CheckboxCustom({ titleComponet, options }: ISelect) {
   return (
     <>
-    {titleComponet ? (
-      <TitleContainer>{titleComponet + ":"}</TitleContainer>
-      ) : <></>
-
-    }
+      {titleComponet ? (
+        <TitleContainer>{titleComponet + ":"}</TitleContainer>
+      ) : (
+        <></>
+      )}
       <ContainerCheck>
         {options.map((option, index) => (
           <div key={index}>
