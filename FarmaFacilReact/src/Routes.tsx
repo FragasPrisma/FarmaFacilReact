@@ -21,6 +21,9 @@ import { LaboratorioDetails } from "./Pages/Laboratorio/LaboratorioDetails";
 import { LaboratorioEdit } from "./Pages/Laboratorio/LaboratorioEdit";
 import { Login } from "./Pages/Login";
 import { Nbm } from "./Pages/Nbm";
+import { NbmCreate } from "./Pages/Nbm/NbmCreate";
+import { NbmDetails } from "./Pages/Nbm/NbmDetails";
+import { NbmEdit } from "./Pages/Nbm/NbmEdit";
 import { Ncm } from "./Pages/Ncm";
 import { Pbm } from "./Pages/Pbm/";
 import { PbmCreate } from "./Pages/Pbm/PbmCreate";
@@ -300,6 +303,31 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route
+              path="/nbm/create"
+              element={
+                <Private>
+                  <NbmCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/nbm/details/:id"
+              element={
+                <Private>
+                  <NbmDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/nbm/edit/:id"
+              element={
+                <Private>
+                  <NbmEdit />
+                </Private>
+              }
+            />
+
             <Route
               path="/ncm"
               element={
