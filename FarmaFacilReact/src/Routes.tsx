@@ -39,6 +39,8 @@ import { PbmEdit } from "./Pages/Pbm/PbmEdit";
 import { PbmDetails } from "./Pages/Pbm/PbmDetails";
 import { Parametro } from "./Pages/Parametro";
 import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
+import { FornecedorEdit } from "./Pages/Fornecedor/FornecedorEdit";
+import { FornecedorDetails } from "./Pages/Fornecedor/FornecedorDetails";
 
 import {
   BrowserRouter as Router,
@@ -46,7 +48,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -231,6 +232,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FornecedorCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/fornecedor/edit/:id"
+              element={
+                <Private>
+                  <FornecedorEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/fornecedor/details/:id"
+              element={
+                <Private>
+                  <FornecedorDetails />
                 </Private>
               }
             />

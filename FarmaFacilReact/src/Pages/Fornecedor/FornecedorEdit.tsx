@@ -4,7 +4,7 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { postFormAll, getAll } from "../../Services/Api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./styles";
 import TabsPage from "../../Components/Tabs";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
@@ -12,11 +12,13 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { itemsHandlesFornecedor } from "../../Enum/itensFornecedor";
 
-export function FornecedorCreate() {
+export function FornecedorEdit() {
 
-    const navigate = useNavigate();
+    const { id } = useParams();
+    const url = `RetornaFornecedorPorId/${id}`
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
+    const navigate = useNavigate();
     const [idFornecedor,setId] = useState(0);
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [erroNomeFornecedor, setErroNomeFornecedor] = useState("");
@@ -45,9 +47,9 @@ export function FornecedorCreate() {
     const [autorizacaoEspecial, setAutorizacaoEspecial] = useState("");
     const [licencaMapa, setLicencaMapa] = useState("");
     const [cadastroFarmacia, setCadastroFarmacia] = useState("");
-    const [valorMinimoPedido, setValorMinimoPedido] = useState(0);
+    const [valorMinimoPedido, setValorMinimoPedido] = useState(Number);
     const [formaPagamento, setFormaPagamento] = useState("");
-    const [previsaoEntrega, setPrevisaoEntrega] = useState(0);
+    const [previsaoEntrega, setPrevisaoEntrega] = useState(Number);
     const [frete, setFrete] = useState("");
     const [observacoes, setObservacoes] = useState("");
     const [estadoId, setEstadoId] = useState(0);
@@ -56,7 +58,6 @@ export function FornecedorCreate() {
     const [bairroId, setBairroId] = useState();
     const [bancoId, setBancoId] = useState();
     const [planoDeContaId, setPlanoDeContaId] = useState();
-    const [isLoading,setIsLoading] = useState(false);
 
     const [estados, setEstados] = useState([]);
     const [cidades, setCidades] = useState([]);
@@ -64,7 +65,65 @@ export function FornecedorCreate() {
     const [bancos, setBancos] = useState([]);
     const [contas, setContas] = useState([]);
     
+    const [dataEstado, setDataEstado] = useState("");
+    const [dataCidade, setDataCidade] = useState("");
+    const [dataBairro, setDataBairro] = useState("");
+    const [dataPlanoConta, setDataPlanoConta] = useState("");
+    const [dataBanco, setDataBanco] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
+
     const [errorRequest, setErrorRequest] = useState("");
+
+    useEffect(() => {
+
+        const loadData = async () => {
+            const response = await getAll(url);
+            let resp = response.data;
+
+            setAgencia(resp.agencia)
+            setAlvaraSanitario(resp.alvaraSanitario)
+            setAutorizacaoEspecial(resp.autorizacaoEspecial)
+            setAutorizacaoFuncionamento(resp.autorizacaoFuncionamento)
+            setBairroId(resp.bairroId)
+            setBancoId(resp.bancoId)
+            setCadastroFarmacia(resp.cadastroFarmacia)
+            setCelular(resp.celular)
+            setCep(resp.cep)
+            setCidadeId(resp.cidadeId)
+            setCnpj(resp.cnpj)
+            setComplemento(resp.complemento)
+            setContaCorrenteFornecedor(resp.contaCorrenteFornecedor)
+            setCpf(resp.cpf)
+            setDdd(resp.ddd)
+            setEmail(resp.email)
+            setEndereco(resp.endereco)
+            setEstadoId(resp.estadoId)
+            setFormaPagamento(resp.formaPagamento)
+            setFrete(resp.frete)
+            setHomePage(resp.homePage)
+            setId(resp.id)
+            setInscricaoEstadual(resp.inscricaoEstadual)
+            setLicencaMapa(resp.licencaMapa)
+            setNomeFantasia(resp.nomeFantasia)
+            setNomeFornecedor(resp.nomeFornecedor)
+            setNumeroEndereco(resp.numeroEndereco)
+            setObservacoes(resp.observacoes)
+            setPlanoDeContaId(resp.planoDeContaId)
+            setPrevisaoEntrega(resp.previsaoEntrega)
+            setResponsavelTecnico(resp.responsavelTecnico)
+            setTelefone(resp.telefone)
+            setValorMinimoPedido(resp.valorMinimoPedido)
+            
+            setDataEstado(resp.estado.sigla)
+            setDataCidade(resp.cidade.nome)
+            setDataBairro(resp.bairro.nome)
+            setDataPlanoConta(resp.planoDeConta.descricao)
+            setDataBanco(resp.banco.nome)
+            
+        }
+        
+        loadData()
+    }, []);
 
     useEffect(() => {
         const loadDataBairro = async () => {
@@ -112,7 +171,7 @@ export function FornecedorCreate() {
     }, []);
 
     let data = {
-        id: 0, 
+        id: idFornecedor, 
         nomeFornecedor: nomeFornecedor,
         NomeFantasia: nomeFantasia,
         Cnpj: cnpj,
@@ -278,13 +337,28 @@ export function FornecedorCreate() {
 
             <div className="row">
                 <div className="col-2">
-                    <CustomDropDown data={estados} title="Selecione o Estado" filter="sigla" label="Estado" error={erroEstadoId} required={true} Select={(estadoId) => setEstadoId(estadoId)}/> 
+                {dataEstado ?
+                    <CustomDropDown data={estados} error={erroEstadoId} title={dataEstado} filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)}/>
+                        :
+                    <CustomDropDown data={estados} error={erroEstadoId} title="Selecione o Estado" filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)}/> 
+                }
+                    
                 </div>
                 <div className="col-4">
-                    <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                    {dataCidade ?
+                        <CustomDropDown data={cidades} title={dataCidade} filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                            :
+                        <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                    }
+                    
                 </div>
-                <div className="col-2"> 
-                    <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                <div className="col-2">
+                    {dataBairro ? 
+                        <CustomDropDown data={bairros} title={dataBairro} filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                            :
+                        <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                    }
+                    
                 </div>
             </div>
 
@@ -370,10 +444,19 @@ export function FornecedorCreate() {
         <Container>
             <div className="row">
                 <div className="col-4">
-                    <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                    {dataBanco ? 
+                        <CustomDropDown data={bancos} title={dataBanco} filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                            :
+                        <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                    }
+                    
                 </div>
                 <div className="col-4">
-                    <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                    {dataPlanoConta ?
+                        <CustomDropDown data={contas} title={dataPlanoConta} filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                            :
+                        <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                    }
                 </div>
             </div>
             <div className="row">
@@ -625,7 +708,7 @@ export function FornecedorCreate() {
             return;
         }
 
-        const resp = await postFormAll("AdicionarFornecedor", data);
+        const resp = await postFormAll("EditarFornecedor", data);
 
         if(resp.status == 200){
             setIsOpenSuccess(true);
@@ -644,11 +727,11 @@ export function FornecedorCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="EDITAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
-
-                <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
-                
+                {data.id > 0 &&
+                    <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
+                }
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
