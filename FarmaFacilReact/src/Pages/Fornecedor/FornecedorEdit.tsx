@@ -3,7 +3,7 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
-import { postFormAll, getAll } from "../../Services/Api";
+import { postFormAll, getAll, GetId } from "../../Services/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./styles";
 import TabsPage from "../../Components/Tabs";
@@ -15,7 +15,6 @@ import { itemsHandlesFornecedor } from "../../Enum/itensFornecedor";
 export function FornecedorEdit() {
 
     const { id } = useParams();
-    const url = `RetornaFornecedorPorId/${id}`
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
@@ -77,7 +76,7 @@ export function FornecedorEdit() {
     useEffect(() => {
 
         const loadData = async () => {
-            const response = await getAll(url);
+            const response = await GetId("RetornaFornecedorPorId",id?.toString());
             let resp = response.data;
 
             setAgencia(resp.agencia)
@@ -113,12 +112,19 @@ export function FornecedorEdit() {
             setResponsavelTecnico(resp.responsavelTecnico)
             setTelefone(resp.telefone)
             setValorMinimoPedido(resp.valorMinimoPedido)
-            
             setDataEstado(resp.estado.sigla)
-            setDataCidade(resp.cidade.nome)
-            setDataBairro(resp.bairro.nome)
-            setDataPlanoConta(resp.planoDeConta.descricao)
-            setDataBanco(resp.banco.nome)
+            if(resp.cidade != null){
+                setDataCidade(resp.cidade.nome)
+            }
+            if(resp.bairro != null){
+                setDataBairro(resp.bairro.nome)
+            }
+            if(resp.planoDeConta != null){
+                setDataPlanoConta(resp.planoDeConta.descricao)
+            }
+            if(resp.banco != null){
+                setDataBanco(resp.banco.nome)
+            }
             
         }
         

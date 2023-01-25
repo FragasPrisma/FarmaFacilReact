@@ -46,6 +46,10 @@ import { Cidade } from "./Pages/Cidade";
 import { CidadeCreate } from "./Pages/Cidade/CidadeCreate";
 import { CidadeEdit } from "./Pages/Cidade/CidadeEdit";
 import { CidadeDetails } from "./Pages/Cidade/CidadeDetails";
+import { Farmacopeia } from "./Pages/Farmacopeia";
+import { FarmacopeiaCreate } from "./Pages/Farmacopeia/FarmacopeiaCreate";
+import { FarmacopeiaEdit } from "./Pages/Farmacopeia/FarmacopeiaEdit";
+import { FarmacopeiaDetails } from "./Pages/Farmacopeia/FarmacopeiaDetails";
 
 
 
@@ -333,6 +337,42 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PbmCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia"
+              element={
+                <Private>
+                  <Farmacopeia />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia/create"
+              element={
+                <Private>
+                  <FarmacopeiaCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia/edit/:id"
+              element={
+                <Private>
+                  <FarmacopeiaEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia/details/:id"
+              element={
+                <Private>
+                  <FarmacopeiaDetails />
                 </Private>
               }
             />

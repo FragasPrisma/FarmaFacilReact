@@ -1,7 +1,7 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { useState, useEffect } from "react";
-import { getAll } from "../../Services/Api";
+import { getAll, GetId } from "../../Services/Api";
 import { useParams } from "react-router-dom";
 import { Container } from "./styles";
 import TabsPage from "../../Components/Tabs";
@@ -10,7 +10,6 @@ import { itemsHandlesFornecedor } from "../../Enum/itensFornecedor";
 export function FornecedorDetails() {
 
     const { id } = useParams();
-    const url = `RetornaFornecedorPorId/${id}`
     const [idFornecedor,setId] = useState();
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [nomeFantasia, setNomeFantasia] = useState("");
@@ -54,7 +53,7 @@ export function FornecedorDetails() {
     useEffect(() => {
 
         const loadData = async () => {
-            const response = await getAll(url);
+            const response = await GetId("RetornaFornecedorPorId",id?.toString());
             let resp = response.data;
 
             setAgencia(resp.agencia)
@@ -91,10 +90,18 @@ export function FornecedorDetails() {
             setTelefone(resp.telefone)
             setValorMinimoPedido(resp.valorMinimoPedido)            
             setDataEstado(resp.estado.sigla)
-            setDataCidade(resp.cidade.nome)
-            setDataBairro(resp.bairro.nome)
-            setDataPlanoConta(resp.planoDeConta.descricao)
-            setDataBanco(resp.banco.nome)
+            if(resp.cidade != null){
+                setDataCidade(resp.cidade.nome)
+            }
+            if(resp.bairro != null){
+                setDataBairro(resp.bairro.nome)
+            }
+            if(resp.planoDeConta != null){
+                setDataPlanoConta(resp.planoDeConta.descricao)
+            }
+            if(resp.banco != null){
+                setDataBanco(resp.banco.nome)
+            }
         }
         
         loadData()
@@ -509,7 +516,7 @@ export function FornecedorDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES FORNECEDOR" IncludeButton={false} ReturnButton={true} to={"fornecedor"}/>
+            <HeaderMainContent title="DETALHES DO FORNECEDOR" IncludeButton={false} ReturnButton={true} to={"fornecedor"}/>
             <div className="form-group">
                 {nomeFornecedor &&
                     <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
