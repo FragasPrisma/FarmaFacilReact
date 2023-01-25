@@ -8,10 +8,11 @@ interface Search {
   filter:string;
   error?:string;
   required?:boolean;
+  readonly?:boolean;
   Select: (number: any) => void
 }
   
-export function CustomDropDown({data,title,filter,label,error,required,Select}:Search){
+export function CustomDropDown({data,title,filter,label,error,required,readonly,Select}:Search){
 
     const [titleSelect,setTitleSelect] = useState(title)
     const [value, setValue] = useState("");
@@ -38,7 +39,7 @@ export function CustomDropDown({data,title,filter,label,error,required,Select}:S
               <span className='text-danger'>*</span>
             }
           </ContainerSuperiorDropDown>
-          <CustomDropDownContainer.Toggle variant="backGroudCustom" id="dropdown-basic">
+          <CustomDropDownContainer.Toggle disabled={readonly} variant="backGroudCustom" id="dropdown-basic">
             {titleSelect}
           </CustomDropDownContainer.Toggle>
           <CustomDropDownContainer.Menu>

@@ -8,11 +8,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./styles";
 import TabsPage from "../../Components/Tabs";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { SuccessModal } from "../../Components/Modals/SuccessModal";
+import { FailModal } from "../../Components/Modals/FailModal";
+import { itemsHandlesFornecedor } from "../../Enum/itensFornecedor";
 
 export function FornecedorEdit() {
 
     const { id } = useParams();
     const url = `RetornaFornecedorPorId/${id}`
+    const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+    const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
     const [idFornecedor,setId] = useState(0);
     const [nomeFornecedor, setNomeFornecedor] = useState("");
@@ -42,17 +47,17 @@ export function FornecedorEdit() {
     const [autorizacaoEspecial, setAutorizacaoEspecial] = useState("");
     const [licencaMapa, setLicencaMapa] = useState("");
     const [cadastroFarmacia, setCadastroFarmacia] = useState("");
-    const [valorMinimoPedido, setValorMinimoPedido] = useState("");
+    const [valorMinimoPedido, setValorMinimoPedido] = useState(Number);
     const [formaPagamento, setFormaPagamento] = useState("");
-    const [previsaoEntrega, setPrevisaoEntrega] = useState("");
+    const [previsaoEntrega, setPrevisaoEntrega] = useState(Number);
     const [frete, setFrete] = useState("");
     const [observacoes, setObservacoes] = useState("");
     const [estadoId, setEstadoId] = useState(0);
     const [erroEstadoId, setErroEstadoId] = useState("");
-    const [cidadeId, setCidadeId] = useState("");
-    const [bairroId, setBairroId] = useState("");
-    const [bancoId, setBancoId] = useState("");
-    const [planoDeContaId, setPlanoDeContaId] = useState("");
+    const [cidadeId, setCidadeId] = useState();
+    const [bairroId, setBairroId] = useState();
+    const [bancoId, setBancoId] = useState();
+    const [planoDeContaId, setPlanoDeContaId] = useState();
 
     const [estados, setEstados] = useState([]);
     const [cidades, setCidades] = useState([]);
@@ -119,7 +124,6 @@ export function FornecedorEdit() {
         loadData()
     }, []);
 
-
     useEffect(() => {
         const loadDataBairro = async () => {
             const response = await getAll("ListaBairro");
@@ -165,7 +169,7 @@ export function FornecedorEdit() {
         loadDataContas()
     }, []);
 
-    const data = {
+    let data = {
         id: idFornecedor, 
         nomeFornecedor: nomeFornecedor,
         NomeFantasia: nomeFantasia,
@@ -207,10 +211,7 @@ export function FornecedorEdit() {
     };
 
     let arrayTab: any = [];
-    let titles = [];
-
-    titles.push("Geral")
-    titles.push("Complemento")
+    const titles = itemsHandlesFornecedor;
 
     arrayTab.unshift(
 
@@ -336,9 +337,9 @@ export function FornecedorEdit() {
             <div className="row">
                 <div className="col-2">
                 {dataEstado ?
-                    <CustomDropDown data={estados} error={erroEstadoId} title={dataEstado} filter="sigla" label="Estado" Select={(estadoId) => setEstadoId(estadoId)}/>
+                    <CustomDropDown data={estados} error={erroEstadoId} title={dataEstado} filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)}/>
                         :
-                    <CustomDropDown data={estados} title="Selecione o Estado" filter="sigla" label="Estado" Select={(estadoId) => setEstadoId(estadoId)}/> 
+                    <CustomDropDown data={estados} error={erroEstadoId} title="Selecione o Estado" filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)}/> 
                 }
                     
                 </div>
@@ -495,7 +496,6 @@ export function FornecedorEdit() {
                         placeholder="Home-Page"
                         value={homePage}
                         maxLength={60}
-                        erro={erroNomeFornecedor}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setHomePage(e.target.value)
                         }
@@ -615,7 +615,7 @@ export function FornecedorEdit() {
                         value={valorMinimoPedido}
                         maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setValorMinimoPedido(e.target.value)
+                            setValorMinimoPedido(parseFloat(e.target.value))
                         }
                         required={false}
                     />
@@ -629,7 +629,7 @@ export function FornecedorEdit() {
                         value={previsaoEntrega}
                         maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setPrevisaoEntrega(e.target.value)
+                            setPrevisaoEntrega(parseInt(e.target.value))
                         }
                         required={false}
                     />
@@ -706,23 +706,27 @@ export function FornecedorEdit() {
             return;
         }
 
-        console.log(data)
-
         const resp = await postFormAll("EditarFornecedor", data);
 
-        if (resp.status == 200) {
-            navigate("/fornecedor")
-        } else {
-            setErrorRequest(resp.request.response)
-            return;
-        }
+        if(resp.status == 200){
+            setIsOpenSuccess(true);
+            setTimeout(() => {
+              navigate("/fornecedor");
+            }, 2000)
+          }else{
+            setIsOpenFail(true);
+            setTimeout(() => {
+              setIsOpenFail(false);
+              setErrorRequest(resp.request.response)
+            }, 2000)
+          }
     }
 
     return (
         <>
             <HeaderMainContent title="EDITAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
-                {data &&
+                {data.id > 0 &&
                     <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
                 }
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
@@ -733,6 +737,8 @@ export function FornecedorEdit() {
                     </div>
                 </div>
             </div>
+            <SuccessModal show={isOpenSuccess} />
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );
 }

@@ -46,6 +46,12 @@ export const CustomDropDownContainer = styled(Dropdown)`
         border-bottom: 3px solid black;
     }
 
+    button:disabled{
+        background-color: #a5a1a157;
+        border-bottom: 3px solid black !important;
+        border: none;
+    }
+
     .dropdown-menu input{
         background-color: #ffffffba;
         border-radius: 0;
