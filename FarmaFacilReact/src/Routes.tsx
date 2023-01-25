@@ -22,6 +22,9 @@ import { Ncm } from "./Pages/Ncm";
 import { Pbm } from "./Pages/Pbm/";
 import { PbmCreate } from "./Pages/Pbm/PbmCreate";
 import { PrincipioAtivo } from "./Pages/PrincipioAtivo";
+import { PrincipioAtivoCreate } from "./Pages/PrincipioAtivo/PrincipioAtivoCreate";
+import { PrincipioAtivoDetails } from "./Pages/PrincipioAtivo/PrincipioAtivoDetails";
+import { PrincipioAtivoEdit } from "./Pages/PrincipioAtivo/PrincipioAtivoEdit";
 import { Produto } from "./Pages/Produto";
 import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
@@ -302,6 +305,30 @@ export function AppRoutes() {
                   <PrincipioAtivo />
                 </Private>
               }
+            />
+            <Route
+              path="/principioAtivo/create"
+              element={
+                <Private>
+                  <PrincipioAtivoCreate />
+                </Private>
+              } 
+            />
+            <Route
+              path="/principioAtivo/details/:id"
+              element={
+                <Private>
+                  <PrincipioAtivoDetails />
+                </Private>
+              } 
+            />
+            <Route
+              path="/principioAtivo/edit/:id"
+              element={
+                <Private>
+                  <PrincipioAtivoEdit />
+                </Private>
+              } 
             />
             <Route
               path="/produto"
