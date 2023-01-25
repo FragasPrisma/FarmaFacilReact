@@ -56,6 +56,7 @@ export function FornecedorCreate() {
     const [bairroId, setBairroId] = useState();
     const [bancoId, setBancoId] = useState();
     const [planoDeContaId, setPlanoDeContaId] = useState();
+    const [isLoading,setIsLoading] = useState(false);
 
     const [estados, setEstados] = useState([]);
     const [cidades, setCidades] = useState([]);
@@ -592,6 +593,7 @@ export function FornecedorCreate() {
         setErroCnpj("");
         setErroCpf("");
         setErroInscricaoEstadual("");
+        setIsLoading(true);
 
         if (!nomeFornecedor.trim()) {
             setErroNomeFornecedor("Campo nome é obrigatório !")
@@ -632,6 +634,7 @@ export function FornecedorCreate() {
             }, 2000)
           }else{
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
               setIsOpenFail(false);
               setErrorRequest(resp.request.response)
@@ -649,7 +652,7 @@ export function FornecedorCreate() {
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
-                        <ButtonConfirm onCLick={submit} />
+                        <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                         <ButtonCancel to="fornecedor" />
                     </div>
                 </div>

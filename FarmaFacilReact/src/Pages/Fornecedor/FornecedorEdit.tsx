@@ -70,6 +70,7 @@ export function FornecedorEdit() {
     const [dataBairro, setDataBairro] = useState("");
     const [dataPlanoConta, setDataPlanoConta] = useState("");
     const [dataBanco, setDataBanco] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const [errorRequest, setErrorRequest] = useState("");
 
@@ -675,6 +676,7 @@ export function FornecedorEdit() {
         setErroCnpj("");
         setErroCpf("");
         setErroInscricaoEstadual("");
+        setIsLoading(true);
 
         if (!nomeFornecedor.trim()) {
             setErroNomeFornecedor("Campo nome é obrigatório !")
@@ -715,6 +717,7 @@ export function FornecedorEdit() {
             }, 2000)
           }else{
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
               setIsOpenFail(false);
               setErrorRequest(resp.request.response)
@@ -732,7 +735,7 @@ export function FornecedorEdit() {
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
-                        <ButtonConfirm onCLick={submit} />
+                        <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                         <ButtonCancel to="fornecedor" />
                     </div>
                 </div>
