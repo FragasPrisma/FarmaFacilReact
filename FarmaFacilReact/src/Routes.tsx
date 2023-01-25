@@ -16,6 +16,9 @@ import { DciEdit } from "./Pages/Dci/DciEdit";
 import { Fornecedor } from "./Pages/Fornecedor";
 import { Grupo } from "./Pages/Grupo";
 import { Laboratorio } from "./Pages/Laboratorio";
+import { LaboratorioCreate } from "./Pages/Laboratorio/LaboratorioCreate";
+import { LaboratorioDetails } from "./Pages/Laboratorio/LaboratorioDetails";
+import { LaboratorioEdit } from "./Pages/Laboratorio/LaboratorioEdit";
 import { Login } from "./Pages/Login";
 import { Nbm } from "./Pages/Nbm";
 import { Ncm } from "./Pages/Ncm";
@@ -43,6 +46,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -246,6 +250,31 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route 
+              path="/laboratorio/create"
+              element={
+                <Private>
+                  <LaboratorioCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/laboratorio/details/:id"
+              element={
+                <Private>
+                  <LaboratorioDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/laboratorio/edit/:id"
+              element={
+                <Private>
+                  <LaboratorioEdit />
+                </Private>
+              }
+            />
+
             <Route
               path="/nbm"
               element={
