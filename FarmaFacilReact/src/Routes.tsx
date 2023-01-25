@@ -2,10 +2,17 @@ import React, { useState, useContext } from "react";
 import { AuthProvider, AuthContext } from "./Context/auth";
 import { Bairro } from "./Pages/Bairro";
 import { BairroCreate } from "./Pages/Bairro/BairroCreate";
+import { BairroDetails } from "./Pages/Bairro/BairroDetails";
 import { BairroEdit } from "./Pages/Bairro/BairroEdit";
 import { Classe } from "./Pages/Classe";
 import { Dcb } from "./Pages/Dcb";
+import { DcbCreate } from "./Pages/Dcb/DcbCreate";
+import { DcbDetails } from "./Pages/Dcb/DcbDetails";
+import { DcbEdit } from "./Pages/Dcb/DcbEdit";
 import { Dci } from "./Pages/Dci";
+import { DciCreate } from "./Pages/Dci/DciCreate";
+import { DciDetails } from "./Pages/Dci/DciDetails";
+import { DciEdit } from "./Pages/Dci/DciEdit";
 import { Fornecedor } from "./Pages/Fornecedor";
 import { Grupo } from "./Pages/Grupo";
 import { Laboratorio } from "./Pages/Laboratorio";
@@ -19,6 +26,13 @@ import { Produto } from "./Pages/Produto";
 import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
 import { Dashboard } from "./Pages/Dashboard";
+import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
+import { ClasseDetails } from "./Pages/Classe/ClasseDetails";
+import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
+import { PbmEdit } from "./Pages/Pbm/PbmEdit";
+import { PbmDetails } from "./Pages/Pbm/PbmDetails";
+import { Parametro } from "./Pages/Parametro";
+import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
 
 import {
   BrowserRouter as Router,
@@ -26,11 +40,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { ClasseCreate } from "./Pages/Classe/ClasseCreate";
-import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
-import { PbmEdit } from "./Pages/Pbm/PbmEdit";
-import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
-import { PbmDetails } from "./Pages/Pbm/PbmDetails";
 import { FornecedorEdit } from "./Pages/Fornecedor/FornecedorEdit";
 
 
@@ -83,6 +92,14 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/bairro/details/:id"
+              element={
+                <Private>
+                  <BairroDetails/>
+                </Private>
+              }
+            />
+            <Route
               path="/bairro/edit/:id"
               element={
                 <Private>
@@ -107,6 +124,14 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/classe/details/:id"
+              element={
+                <Private>
+                  <ClasseDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/classe/edit/:id"
               element={
                 <Private>
@@ -123,11 +148,68 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route 
+              path="/dcb/create"
+              element={
+                <Private>
+                  <DcbCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/dcb/details/:id"
+              element={
+                <Private>
+                  <DcbDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/dcb/edit/:id"
+              element={
+                <Private>
+                  <DcbEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/parametro"
+              element={
+                <Private>
+                  <Parametro />
+                </Private>
+              }
+            />
             <Route
               path="/dci"
               element={
                 <Private>
                   <Dci />
+                </Private>
+              }
+            />
+            <Route 
+              path="/dci/create"
+              element={
+                <Private>
+                  <DciCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/dci/details/:id"
+              element={
+                <Private>
+                  <DciDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/dci/edit/:id"
+              element={
+                <Private>
+                  <DciEdit />
                 </Private>
               }
             />

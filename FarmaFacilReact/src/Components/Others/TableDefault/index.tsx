@@ -33,7 +33,7 @@ export function TableDefault({ data = [], header, path }: Props) {
               <td key={index}>{data[header]}</td>
             ))}
             <td>
-              <ActionsButtonsDefault id={data.id.toString()} pathParameters={path}></ActionsButtonsDefault>
+              <ActionsButtonsDefault id={data.id.toString()} pathParameters={path} urlText={path}></ActionsButtonsDefault>
             </td>
           </TrCustom>
         ))}
