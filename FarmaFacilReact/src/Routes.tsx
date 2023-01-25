@@ -54,6 +54,11 @@ import { Ensaio } from "./Pages/Ensaio";
 import { EnsaioCreate } from "./Pages/Ensaio/EnsaioCreate";
 import { EnsaioEdit } from "./Pages/Ensaio/EnsaioEdit";
 import { EnsaioDetails } from "./Pages/Ensaio/EnsaioDetails";
+import { EspecificacaoCapsula } from "./Pages/EspecificacaoCapsula.tsx";
+import { EspecificacaoCreate } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoCreate";
+import { EspecificacaoEdit } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoEdit";
+import { EspecificacaoDetails } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoDetails";
+import { PosAdquirente } from "./Pages/PosAdquirente";
 
 
 
@@ -329,23 +334,6 @@ export function AppRoutes() {
             />
 
             <Route
-              path="/pbm"
-              element={
-                <Private>
-                  <Pbm />
-                </Private>
-              }
-            />
-            <Route
-              path="/pbm/create"
-              element={
-                <Private>
-                  <PbmCreate />
-                </Private>
-              }
-            />
-
-            <Route
               path="/farmacopeia"
               element={
                 <Private>
@@ -412,6 +400,68 @@ export function AppRoutes() {
               element={
                 <Private>
                   <EnsaioDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula"
+              element={
+                <Private>
+                  <EspecificacaoCapsula />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula/create"
+              element={
+                <Private>
+                  <EspecificacaoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula/edit/:id"
+              element={
+                <Private>
+                  <EspecificacaoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula/details/:id"
+              element={
+                <Private>
+                  <EspecificacaoDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/posadquirente"
+              element={
+                <Private>
+                  <PosAdquirente />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pbm"
+              element={
+                <Private>
+                  <Pbm />
+                </Private>
+              }
+            />
+            <Route
+              path="/pbm/create"
+              element={
+                <Private>
+                  <PbmCreate />
                 </Private>
               }
             />
