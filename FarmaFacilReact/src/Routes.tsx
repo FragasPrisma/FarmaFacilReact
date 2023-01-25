@@ -42,6 +42,10 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Cidade } from "./Pages/Cidade";
+import { CidadeCreate } from "./Pages/Cidade/CidadeCreate";
+import { CidadeEdit } from "./Pages/Cidade/CidadeEdit";
+import { CidadeDetails } from "./Pages/Cidade/CidadeDetails";
 
 
 
@@ -76,6 +80,42 @@ export function AppRoutes() {
             }
           >
             <Route path="/dashboard" element={<Private> <Dashboard /> </Private>} />
+
+            <Route
+              path="/cidade"
+              element={
+                <Private>
+                  <Cidade />{" "}
+                </Private>
+              }
+            />
+
+            <Route
+              path="/cidade/edit/:id"
+              element={
+                <Private>
+                  <CidadeEdit />{" "}
+                </Private>
+              }
+            />
+
+            <Route
+              path="/cidade/details/:id"
+              element={
+                <Private>
+                  <CidadeDetails />{" "}
+                </Private>
+              }
+            />
+
+            <Route
+              path="/cidade/create"
+              element={
+                <Private>
+                  <CidadeCreate />{" "}
+                </Private>
+              }
+            />
 
             <Route
               path="/bairro"
