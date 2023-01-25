@@ -48,6 +48,10 @@ import { Especialidade } from "./Pages/Especialidade";
 import { EspecialidadeCreate } from "./Pages/Especialidade/EspecialidadeCreate";
 import { EspecialidadeDetails } from "./Pages/Especialidade/EspecialidadeDetails";
 import { EspecialidadeEdit } from "./Pages/Especialidade/EspecialidadeEdit";
+import { TipoContato } from "./Pages/TipoContato";
+import { TipoContatoCreate } from "./Pages/TipoContato/TipoContatoCreate";
+import { TipoContatoDetails } from "./Pages/TipoContato/TipoContatoDetails";
+import { TipoContatoEdit } from "./Pages/TipoContato/TipoContatoEdit";
 
 import {
   BrowserRouter as Router,
@@ -55,7 +59,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -446,6 +449,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <EspecialidadeEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato"
+              element={
+                <Private>
+                  <TipoContato />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato/create"
+              element={
+                <Private>
+                  <TipoContatoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato/details/:id"
+              element={
+                <Private>
+                  <TipoContatoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato/edit/:id"
+              element={
+                <Private>
+                  <TipoContatoEdit />
                 </Private>
               }
             />
