@@ -10,6 +10,9 @@ import { DcbCreate } from "./Pages/Dcb/DcbCreate";
 import { DcbDetails } from "./Pages/Dcb/DcbDetails";
 import { DcbEdit } from "./Pages/Dcb/DcbEdit";
 import { Dci } from "./Pages/Dci";
+import { DciCreate } from "./Pages/Dci/DciCreate";
+import { DciDetails } from "./Pages/Dci/DciDetails";
+import { DciEdit } from "./Pages/Dci/DciEdit";
 import { Fornecedor } from "./Pages/Fornecedor";
 import { Grupo } from "./Pages/Grupo";
 import { Laboratorio } from "./Pages/Laboratorio";
@@ -181,6 +184,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Dci />
+                </Private>
+              }
+            />
+            <Route 
+              path="/dci/create"
+              element={
+                <Private>
+                  <DciCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/dci/details/:id"
+              element={
+                <Private>
+                  <DciDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/dci/edit/:id"
+              element={
+                <Private>
+                  <DciEdit />
                 </Private>
               }
             />
