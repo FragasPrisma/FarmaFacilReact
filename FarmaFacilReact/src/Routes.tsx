@@ -50,6 +50,10 @@ import { Farmacopeia } from "./Pages/Farmacopeia";
 import { FarmacopeiaCreate } from "./Pages/Farmacopeia/FarmacopeiaCreate";
 import { FarmacopeiaEdit } from "./Pages/Farmacopeia/FarmacopeiaEdit";
 import { FarmacopeiaDetails } from "./Pages/Farmacopeia/FarmacopeiaDetails";
+import { Ensaio } from "./Pages/Ensaio";
+import { EnsaioCreate } from "./Pages/Ensaio/EnsaioCreate";
+import { EnsaioEdit } from "./Pages/Ensaio/EnsaioEdit";
+import { EnsaioDetails } from "./Pages/Ensaio/EnsaioDetails";
 
 
 
@@ -373,6 +377,41 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FarmacopeiaDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ensaio"
+              element={
+                <Private>
+                  <Ensaio />
+                </Private>
+              }
+            />
+            <Route
+              path="/ensaio/create"
+              element={
+                <Private>
+                  <EnsaioCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ensaio/edit/:id"
+              element={
+                <Private>
+                  <EnsaioEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ensaio/details/:id"
+              element={
+                <Private>
+                  <EnsaioDetails />
                 </Private>
               }
             />
