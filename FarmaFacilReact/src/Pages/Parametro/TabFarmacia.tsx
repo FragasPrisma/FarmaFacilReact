@@ -13,12 +13,11 @@ export const TabFarmacia = () => {
           <CustomInput label="Nome Fantasia" type="string" required={false} />
         </div>
 
-        <div className="col-4 mt-2">
+        <div className="col-2">
           <CheckboxCustom
-            titleComponet="Tipo"
             options={[
               "Simples nacional",
-              "Simples nac. Sublimite",
+              "Simples nac. SubLimite",
               "Regime Normal",
             ]}
           />

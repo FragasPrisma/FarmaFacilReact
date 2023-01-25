@@ -12,8 +12,9 @@ export const ContainerCheck = styled.div`
   border-radius: 4px;
   background: #ececec;
   border-bottom: 3px solid;
-  padding: 0.2rem;
-  margin-bottom: 0.5rem;
+  padding-left: 0.2rem;
+  margin-top: 0.3rem;
+  /* margin-bottom: 0.2rem; */
 
   label {
     padding: 0 0.2rem;

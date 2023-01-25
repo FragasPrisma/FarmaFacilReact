@@ -6,8 +6,13 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import TabsPage from "../../Components/Tabs";
 import { itemsHandles, itemsHandlesChildren } from "../../Enum/ItemsParametro";
 import { Container, ContainerItems } from "./styles";
+import { TabCartoes } from "./TabCartoes";
+import { TabConvenios } from "./TabConvenios";
+import { TabCuspomFiscal } from "./TabCupomFiscal";
 import { TabFarmacia } from "./TabFarmacia";
 import { TabImpressao } from "./TabImpressao";
+import { TabNfe } from "./TabNfe";
+import { TabNFSe } from "./TabNfse";
 
 export function Parametro() {
   let componentsOfTabs: any = [];
@@ -16,13 +21,20 @@ export function Parametro() {
   titlesMainsOfTabs.push(...itemsHandles);
   let quantidadeItemsTabs = titlesMainsOfTabs.length;
 
-  let tabChildren: any = [];
-  tabChildren.push(...itemsHandlesChildren);
+  //let tabChildren: any = [];
+  //tabChildren.push(...itemsHandlesChildren);
+  
+  let tabChildren = itemsHandlesChildren;
   let quantidadeItemsChildTabs = tabChildren.length;
 
   componentsOfTabs.push(
     <TabFarmacia />,
-    <TabImpressao />
+    <TabImpressao />,
+    <TabCuspomFiscal />,
+    <TabConvenios />,
+    <TabCartoes />,
+    <TabNfe />,
+    <TabNFSe/>
   );
 
   return (
@@ -33,11 +45,11 @@ export function Parametro() {
         ReturnButton={false}
       />
 
-      <TabsPage
+      {/* <TabsPage
         ChildTabs={tabChildren}
         TabsQtd={quantidadeItemsTabs}
         titles={titlesMainsOfTabs}
-      />
+      /> */}
 
       <TabsPage
         Childrens={componentsOfTabs}
