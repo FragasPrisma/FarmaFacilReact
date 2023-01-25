@@ -59,6 +59,23 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Cidade } from "./Pages/Cidade";
+import { CidadeCreate } from "./Pages/Cidade/CidadeCreate";
+import { CidadeEdit } from "./Pages/Cidade/CidadeEdit";
+import { CidadeDetails } from "./Pages/Cidade/CidadeDetails";
+import { Farmacopeia } from "./Pages/Farmacopeia";
+import { FarmacopeiaCreate } from "./Pages/Farmacopeia/FarmacopeiaCreate";
+import { FarmacopeiaEdit } from "./Pages/Farmacopeia/FarmacopeiaEdit";
+import { FarmacopeiaDetails } from "./Pages/Farmacopeia/FarmacopeiaDetails";
+import { Ensaio } from "./Pages/Ensaio";
+import { EnsaioCreate } from "./Pages/Ensaio/EnsaioCreate";
+import { EnsaioEdit } from "./Pages/Ensaio/EnsaioEdit";
+import { EnsaioDetails } from "./Pages/Ensaio/EnsaioDetails";
+import { EspecificacaoCapsula } from "./Pages/EspecificacaoCapsula.tsx";
+import { EspecificacaoCreate } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoCreate";
+import { EspecificacaoEdit } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoEdit";
+import { EspecificacaoDetails } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoDetails";
+import { PosAdquirente } from "./Pages/PosAdquirente";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -91,6 +108,42 @@ export function AppRoutes() {
             }
           >
             <Route path="/dashboard" element={<Private> <Dashboard /> </Private>} />
+
+            <Route
+              path="/cidade"
+              element={
+                <Private>
+                  <Cidade />{" "}
+                </Private>
+              }
+            />
+
+            <Route
+              path="/cidade/edit/:id"
+              element={
+                <Private>
+                  <CidadeEdit />{" "}
+                </Private>
+              }
+            />
+
+            <Route
+              path="/cidade/details/:id"
+              element={
+                <Private>
+                  <CidadeDetails />{" "}
+                </Private>
+              }
+            />
+
+            <Route
+              path="/cidade/create"
+              element={
+                <Private>
+                  <CidadeCreate />{" "}
+                </Private>
+              }
+            />
 
             <Route
               path="/bairro"
@@ -341,6 +394,122 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Ncm />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia"
+              element={
+                <Private>
+                  <Farmacopeia />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia/create"
+              element={
+                <Private>
+                  <FarmacopeiaCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia/edit/:id"
+              element={
+                <Private>
+                  <FarmacopeiaEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/farmacopeia/details/:id"
+              element={
+                <Private>
+                  <FarmacopeiaDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ensaio"
+              element={
+                <Private>
+                  <Ensaio />
+                </Private>
+              }
+            />
+            <Route
+              path="/ensaio/create"
+              element={
+                <Private>
+                  <EnsaioCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ensaio/edit/:id"
+              element={
+                <Private>
+                  <EnsaioEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ensaio/details/:id"
+              element={
+                <Private>
+                  <EnsaioDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula"
+              element={
+                <Private>
+                  <EspecificacaoCapsula />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula/create"
+              element={
+                <Private>
+                  <EspecificacaoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula/edit/:id"
+              element={
+                <Private>
+                  <EspecificacaoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/especificacaocapsula/details/:id"
+              element={
+                <Private>
+                  <EspecificacaoDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/posadquirente"
+              element={
+                <Private>
+                  <PosAdquirente />
                 </Private>
               }
             />

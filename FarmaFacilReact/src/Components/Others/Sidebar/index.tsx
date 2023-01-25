@@ -40,7 +40,9 @@ export function Sidebar() {
                   className="navLink"
                   to={`/${optionMenuItem.titulo
                     .toLowerCase()
-                    .replace(" ", "")}`}
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(" ","")}`}
                 >
                     <img src={optionMenuItem.img} className="img_options" />
                   {optionMenuItem.titulo}
