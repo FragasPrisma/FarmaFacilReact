@@ -4,26 +4,26 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Nbm(){
+export function Especialidade() {
     const [data, setData] = useState([]);
     const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
 
     useEffect(() => {
         const loadDataTablePbm = async () => {
-          const response = await getAll(`ListaPaginacaoNbm/${pagina}`);
-          setQtdPagina(response.data.total);
-          setData(response.data.listGroup);
+            const response = await getAll(`ListaPaginacaoEspecialidade/${pagina}`);
+            setQtdPagina(response.data.total);
+            setData(response.data.listGroup);
         }
-    
-        loadDataTablePbm()
-      }, [pagina]);
 
+        loadDataTablePbm()
+    }, [pagina]);
+    
     return (
         <>
-            <HeaderMainContent title="NBM" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Nbm" data={data} filter={"descricao"} headerTable={["id", "codigoNbm", "descricao"]} />
+            <HeaderMainContent title="ESPECIALIDADE" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Especialidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
-    );
+    )
 }

@@ -9,6 +9,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { describe } from "node:test";
+import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 
 export function NbmCreate() {
     const navigate = useNavigate();
@@ -16,12 +17,55 @@ export function NbmCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [codigoNbm, setCodigoNbm] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [valorAgregadoEstado, setValorAgregadoEstado] = useState();
-    const [valorAgregadoInterestadual, setValorAgregadoInterestadual] = useState();
-    const [valorComplementarEstado, setValorComplementarEstado] = useState();
-    const [valorComplementarInterestadual, setValorComplementarInterestadual] = useState();
+    const [valorAgregadoEstado, setValorAgregadoEstado] = useState(0);
+    const [valorAgregadoInterestadual, setValorAgregadoInterestadual] = useState(0);
+    const [valorComplementarEstado, setValorComplementarEstado] = useState(0);
+    const [valorComplementarInterestadual, setValorComplementarInterestadual] = useState(0);
     const [erroCodigoNbm, setErroCodigoNbm] = useState("");
-    const [erroDescricao, setErroDescricao] = useState("";)
+    const [erroDescricao, setErroDescricao] = useState("");
+
+    const data = {
+        id: 0, //id 0 é default
+        codigoNbm: codigoNbm.trim(),
+        descricao: descricao.trim(),
+        VlrAgregadoEst: valorAgregadoEstado,
+        VlrAgregadoInt: valorAgregadoInterestadual,
+        VlrComplementarEst: valorComplementarEstado,
+        VlrComplementarInt: valorComplementarInterestadual
+      };
+
+    async function submit() {
+        setErroDescricao("")
+        if (!descricao.trim()) {
+            setIsOpenFail(true);
+            setTimeout(() => {
+                setIsOpenFail(false);
+                setErroDescricao("Campo descrição é obrigatório !")
+            }, 2000)
+            return;
+        } else if (!codigoNbm.trim()) {
+            setIsOpenFail(true);
+            setTimeout(() => {
+                setIsOpenFail(false);
+                setErroCodigoNbm("Campo código nbm é obrigatório !")
+            }, 2000)
+            return;
+        }
+
+        const response = await postFormAll("AdicionarNbm", data);
+
+        if (response.status === 200) {
+            setIsOpenSuccess(true);
+            setTimeout(() => {
+                navigate("/nbm");
+            }, 2000)
+        } else {
+            setIsOpenFail(true);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
+        }
+    }
 
     return (
         <>
@@ -59,6 +103,54 @@ export function NbmCreate() {
                                 required={true}
                             />
                         </div>
+                    </div>
+                    <div className="row mt-4">
+                        <FieldsetCustom legend="Margens" numberCols={3} borderAll={true}>
+                            <div className="row">
+                                <div className="col-6">
+                                    <CustomInput
+                                        label="Valor Agregado Estadual"
+                                        type="number"
+                                        value={valorAgregadoEstado}
+                                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                            setValorAgregadoEstado(parseFloat(e.target.value))
+                                        }
+                                    />
+                                </div>
+                                <div className="col-6">
+                                    <CustomInput
+                                        label="Valor Agregado Interestadual"
+                                        type="number"
+                                        value={valorAgregadoInterestadual}
+                                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                            setValorAgregadoInterestadual(parseFloat(e.target.value))
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-6 mb-2">
+                                    <CustomInput
+                                        label="Valor Complementar Estadual"
+                                        type="number"
+                                        value={valorComplementarEstado}
+                                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                            setValorComplementarEstado(parseFloat(e.target.value))
+                                        }
+                                    />
+                                </div>
+                                <div className="col-6 mb-2">
+                                    <CustomInput
+                                        label="Valor Complementar Interestadual"
+                                        type="number"
+                                        value={valorComplementarInterestadual}
+                                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                            setValorComplementarInterestadual(parseFloat(e.target.value))
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        </FieldsetCustom>
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">

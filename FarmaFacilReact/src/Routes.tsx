@@ -44,6 +44,10 @@ import { Parametro } from "./Pages/Parametro";
 import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
 import { FornecedorEdit } from "./Pages/Fornecedor/FornecedorEdit";
 import { FornecedorDetails } from "./Pages/Fornecedor/FornecedorDetails";
+import { Especialidade } from "./Pages/Especialidade";
+import { EspecialidadeCreate } from "./Pages/Especialidade/EspecialidadeCreate";
+import { EspecialidadeDetails } from "./Pages/Especialidade/EspecialidadeDetails";
+import { EspecialidadeEdit } from "./Pages/Especialidade/EspecialidadeEdit";
 
 import {
   BrowserRouter as Router,
@@ -51,6 +55,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -409,6 +414,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Produto />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade"
+              element={
+                <Private>
+                  <Especialidade />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade/create"
+              element={
+                <Private>
+                  <EspecialidadeCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade/details/:id"
+              element={
+                <Private>
+                  <EspecialidadeDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade/edit/:id"
+              element={
+                <Private>
+                  <EspecialidadeEdit />
                 </Private>
               }
             />

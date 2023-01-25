@@ -18,7 +18,7 @@ export function PbmEdit() {
   const [observacao, setObservacao] = useState("");
   const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
-  const[data] = useState({id:0,nome:"",observacao:""});
+  const [data] = useState({id:0,nome:"",observacao:""});
 
   useEffect(() =>{
     
