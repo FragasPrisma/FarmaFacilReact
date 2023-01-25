@@ -76,6 +76,9 @@ import { EspecificacaoCreate } from "./Pages/EspecificacaoCapsula.tsx/Especifica
 import { EspecificacaoEdit } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoEdit";
 import { EspecificacaoDetails } from "./Pages/EspecificacaoCapsula.tsx/EspecificacaoDetails";
 import { PosAdquirente } from "./Pages/PosAdquirente";
+import { PosAdquirenteCreate } from "./Pages/PosAdquirente/PosAdquirenteCreate";
+import { PosAdquirenteEdit } from "./Pages/PosAdquirente/PosAdquirenteEdit";
+import { PosAdquirenteDetails } from "./Pages/PosAdquirente/PosAdquirenteDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -510,6 +513,33 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PosAdquirente />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/posadquirente/create"
+              element={
+                <Private>
+                  <PosAdquirenteCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/posadquirente/edit/:id"
+              element={
+                <Private>
+                  <PosAdquirenteEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/posadquirente/details/:id"
+              element={
+                <Private>
+                  <PosAdquirenteDetails />
                 </Private>
               }
             />
