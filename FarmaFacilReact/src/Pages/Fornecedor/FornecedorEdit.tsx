@@ -4,14 +4,17 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { postFormAll, getAll } from "../../Services/Api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./styles";
 import TabsPage from "../../Components/Tabs";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 
-export function FornecedorCreate() {
+export function FornecedorEdit() {
 
+    const { id } = useParams();
+    const url = `RetornaFornecedorPorId/${id}`
     const navigate = useNavigate();
+    const [idFornecedor,setId] = useState(0);
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [erroNomeFornecedor, setErroNomeFornecedor] = useState("");
     const [nomeFantasia, setNomeFantasia] = useState("");
@@ -46,18 +49,76 @@ export function FornecedorCreate() {
     const [observacoes, setObservacoes] = useState("");
     const [estadoId, setEstadoId] = useState(0);
     const [erroEstadoId, setErroEstadoId] = useState("");
-    const [cidadeId, setCidadeId] = useState(0);
-    const [bairroId, setBairroId] = useState(0);
-    const [bancoId, setBancoId] = useState(0);
-    const [planoDeContaId, setPlanoDeContaId] = useState(0);
+    const [cidadeId, setCidadeId] = useState("");
+    const [bairroId, setBairroId] = useState("");
+    const [bancoId, setBancoId] = useState("");
+    const [planoDeContaId, setPlanoDeContaId] = useState("");
 
     const [estados, setEstados] = useState([]);
     const [cidades, setCidades] = useState([]);
     const [bairros, setBairros] = useState([]);
     const [bancos, setBancos] = useState([]);
     const [contas, setContas] = useState([]);
+    
+    const [dataEstado, setDataEstado] = useState("");
+    const [dataCidade, setDataCidade] = useState("");
+    const [dataBairro, setDataBairro] = useState("");
+    const [dataPlanoConta, setDataPlanoConta] = useState("");
+    const [dataBanco, setDataBanco] = useState("");
 
-    const [errorRequest,setErrorRequest] = useState("")
+    const [errorRequest, setErrorRequest] = useState("");
+
+    useEffect(() => {
+
+        const loadData = async () => {
+            const response = await getAll(url);
+            let resp = response.data;
+
+            setAgencia(resp.agencia)
+            setAlvaraSanitario(resp.alvaraSanitario)
+            setAutorizacaoEspecial(resp.autorizacaoEspecial)
+            setAutorizacaoFuncionamento(resp.autorizacaoFuncionamento)
+            setBairroId(resp.bairroId)
+            setBancoId(resp.bancoId)
+            setCadastroFarmacia(resp.cadastroFarmacia)
+            setCelular(resp.celular)
+            setCep(resp.cep)
+            setCidadeId(resp.cidadeId)
+            setCnpj(resp.cnpj)
+            setComplemento(resp.complemento)
+            setContaCorrenteFornecedor(resp.contaCorrenteFornecedor)
+            setCpf(resp.cpf)
+            setDdd(resp.ddd)
+            setEmail(resp.email)
+            setEndereco(resp.endereco)
+            setEstadoId(resp.estadoId)
+            setFormaPagamento(resp.formaPagamento)
+            setFrete(resp.frete)
+            setHomePage(resp.homePage)
+            setId(resp.id)
+            setInscricaoEstadual(resp.inscricaoEstadual)
+            setLicencaMapa(resp.licencaMapa)
+            setNomeFantasia(resp.nomeFantasia)
+            setNomeFornecedor(resp.nomeFornecedor)
+            setNumeroEndereco(resp.numeroEndereco)
+            setObservacoes(resp.observacoes)
+            setPlanoDeContaId(resp.planoDeContaId)
+            setPrevisaoEntrega(resp.previsaoEntrega)
+            setResponsavelTecnico(resp.responsavelTecnico)
+            setTelefone(resp.telefone)
+            setValorMinimoPedido(resp.valorMinimoPedido)
+            
+            setDataEstado(resp.estado.sigla)
+            setDataCidade(resp.cidade.nome)
+            setDataBairro(resp.bairro.nome)
+            setDataPlanoConta(resp.planoDeConta.descricao)
+            setDataBanco(resp.banco.nome)
+            
+        }
+        
+        loadData()
+    }, []);
+
 
     useEffect(() => {
         const loadDataBairro = async () => {
@@ -105,7 +166,7 @@ export function FornecedorCreate() {
     }, []);
 
     const data = {
-        id: 0, 
+        id: idFornecedor, 
         nomeFornecedor: nomeFornecedor,
         NomeFantasia: nomeFantasia,
         Cnpj: cnpj,
@@ -144,6 +205,7 @@ export function FornecedorCreate() {
         SenhaFornecedor: "",
         HostFornecedor: ""
     };
+
     let arrayTab: any = [];
     let titles = [];
 
@@ -273,13 +335,28 @@ export function FornecedorCreate() {
 
             <div className="row">
                 <div className="col-2">
-                    <CustomDropDown data={estados} error={erroEstadoId} required={true} title="Selecione o Estado" filter="sigla" label="Estado" Select={(estadoId) => setEstadoId(estadoId)}/>
+                {dataEstado ?
+                    <CustomDropDown data={estados} error={erroEstadoId} title={dataEstado} filter="sigla" label="Estado" Select={(estadoId) => setEstadoId(estadoId)}/>
+                        :
+                    <CustomDropDown data={estados} title="Selecione o Estado" filter="sigla" label="Estado" Select={(estadoId) => setEstadoId(estadoId)}/> 
+                }
+                    
                 </div>
                 <div className="col-4">
-                    <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                    {dataCidade ?
+                        <CustomDropDown data={cidades} title={dataCidade} filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                            :
+                        <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                    }
+                    
                 </div>
                 <div className="col-2">
-                    <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                    {dataBairro ? 
+                        <CustomDropDown data={bairros} title={dataBairro} filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                            :
+                        <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                    }
+                    
                 </div>
             </div>
 
@@ -365,10 +442,19 @@ export function FornecedorCreate() {
         <Container>
             <div className="row">
                 <div className="col-4">
-                    <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                    {dataBanco ? 
+                        <CustomDropDown data={bancos} title={dataBanco} filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                            :
+                        <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                    }
+                    
                 </div>
                 <div className="col-4">
-                    <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                    {dataPlanoConta ?
+                        <CustomDropDown data={contas} title={dataPlanoConta} filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                            :
+                        <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                    }
                 </div>
             </div>
             <div className="row">
@@ -616,12 +702,13 @@ export function FornecedorCreate() {
         }
 
         if(estadoId <= 0){
-            setErroEstadoId("Selecione um Estado !");
+            setErroEstadoId("Campo Estado é obrigatório !");
             return;
         }
+
         console.log(data)
 
-        const resp = await postFormAll("AdicionarFornecedor", data);
+        const resp = await postFormAll("EditarFornecedor", data);
 
         if (resp.status == 200) {
             navigate("/fornecedor")
@@ -633,15 +720,12 @@ export function FornecedorCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="EDITAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
-
-                <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
-
-                {errorRequest &&
-                    <p className="text-danger">{errorRequest}</p>
+                {data &&
+                    <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
                 }
-                
+                {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} />

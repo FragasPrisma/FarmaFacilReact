@@ -9,7 +9,7 @@ interface Props {
 export function ButtonCancel(props: Props) {
     return (
         <NavLink className="text_link" to={`/${props.to}`}>
-            <ButtonCancelMain>{props.text == null ? "Cancel" : props.text}</ButtonCancelMain>
+            <ButtonCancelMain>{props.text == null ? "Cancelar" : props.text}</ButtonCancelMain>
         </NavLink>
     );
 }

@@ -1,8 +1,8 @@
-import { HeaderMainContent } from "../../Components/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/";
+import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
-import Paginations from "../../Components/Pagination";
+import Paginations from "../../Components/Others/Pagination";
 
 // Resolvendo merge
 
@@ -24,7 +24,7 @@ export function Fornecedor(){
 
     return (
         <>
-            <HeaderMainContent title="Fornecedor" IncludeButton={true} />
+            <HeaderMainContent title="Fornecedor" IncludeButton={true} ReturnButton={false} />
             <SearchContentScreens text="Fornecedor" data={data} filter={"nomeFornecedor"} headerTable={["id", "nomeFornecedor"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
