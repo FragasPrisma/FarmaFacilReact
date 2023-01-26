@@ -11,7 +11,7 @@ export const CustomLegend = styled.div`
   font-weight: bold;
   position: absolute;
   color: #000000ad;
-  top: -15px;
+  top: -17px;
   /* left: 10px; */
   background-color: white;
   padding: 0 10px;

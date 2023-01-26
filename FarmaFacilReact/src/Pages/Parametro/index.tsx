@@ -10,6 +10,7 @@ import { TabCartoes } from "./TabCartoes";
 import { TabConvenios } from "./TabConvenios";
 import { TabCuspomFiscal } from "./TabCupomFiscal";
 import { TabFarmacia } from "./TabFarmacia";
+import { TabGeral } from "./TabGeral";
 import { TabImpressao } from "./TabImpressao";
 import { TabNfe } from "./TabNfe";
 import { TabNFSe } from "./TabNfse";
@@ -34,7 +35,8 @@ export function Parametro() {
     <TabConvenios />,
     <TabCartoes />,
     <TabNfe />,
-    <TabNFSe/>
+    <TabNFSe/>,
+    <TabGeral />
   );
 
   return (
