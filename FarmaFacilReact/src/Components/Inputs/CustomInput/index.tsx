@@ -6,9 +6,9 @@ interface IInput {
     placeholder?: string;
     type: string;
     name?: string;
-    required: boolean;
+    required?: boolean;
     readonly?: boolean;
-    value?: string;
+    value?: any;
     maxLength?: number|undefined;
     erro?:string;
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void

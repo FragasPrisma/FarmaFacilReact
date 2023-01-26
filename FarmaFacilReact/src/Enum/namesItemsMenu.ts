@@ -1,10 +1,11 @@
 import Flat from "../assets/img/bench.png"
 
 export const namesItemsMenu = [
-  {img: Flat, titulo: "Bairro"},
-  {img: Flat, titulo: "Classe"},
+  {img: Flat, titulo:"Bairro"},
+  {img: Flat, titulo:"Classe"},
   {img: Flat, titulo:"Dcb"},
   {img: Flat, titulo:"Dci"},
+  {img: Flat, titulo:"Especialidade"},
   {img: Flat, titulo:"Fornecedor"},
   {img: Flat, titulo:"Grupo"},
   {img: Flat, titulo:"Laboratorio"},
@@ -14,4 +15,12 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Principio Ativo"},
   {img: Flat, titulo:"Produto"},
   {img: Flat, titulo:"Parametro"},
+  {img: Flat, titulo:"Tipo Contato"},
+  {img: Flat, titulo:"Tipo Justificativa"},
+  {img: Flat, titulo:"Cidade"},
+  {img: Flat, titulo:"Farmacopéia"},
+  {img: Flat, titulo:"Ensaio"},
+  {img: Flat, titulo:"Especificação Cápsula"},
+  {img: Flat, titulo:"Pós Adquirente"},
+  {img: Flat, titulo:"Posologia"},
 ];

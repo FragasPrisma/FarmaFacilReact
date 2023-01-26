@@ -1,7 +1,27 @@
+import { useState } from "react";
 import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 
+export let drogariaAcabado = {
+    id: 0,
+    custoReferencia: 0,
+    estoqueNegativo: 0,
+    alteracaoValorVenda: 0,
+    estoqueMinimoAvisarEstoqueMinimoNaVenda: false
+  }
+
 export const TabAcabado = () => {
+
+    const [custoReferencia,setCustoReferencia] = useState(0);
+    const [estoqueNegativo,setEstoqueNegativo] = useState(0);
+    const [alteracaoValorVenda,setAlteracaoValorVenda] = useState(0);
+    const [estoqueMinimoAvisarEstoqueMinimoNaVenda,setEstoqueMinimoAvisarEstoqueMinimoNaVenda] = useState(false);
+
+    drogariaAcabado.custoReferencia = custoReferencia;
+    drogariaAcabado.estoqueNegativo = estoqueNegativo;
+    drogariaAcabado.alteracaoValorVenda = alteracaoValorVenda;
+    drogariaAcabado.estoqueMinimoAvisarEstoqueMinimoNaVenda = estoqueMinimoAvisarEstoqueMinimoNaVenda;
+
     return (
         <>
             <div className="row mt-4">

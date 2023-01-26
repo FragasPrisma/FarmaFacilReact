@@ -6,12 +6,16 @@ import { ChangeEvent, useState } from "react";
 import { postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { SuccessModal } from "../../Components/Modals/SuccessModal";
+import { FailModal } from "../../Components/Modals/FailModal";
 
 export function BairroCreate() {
-
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [erroNome, setErroNome] = useState("");
+  const [isLoading,setIsLoading] = useState(false);
 
   const data = {
     id: 0, //id 0 é default
@@ -20,20 +24,33 @@ export function BairroCreate() {
 
   async function submit() {
 
-    setErroNome("")
+    setErroNome("");
+    setIsLoading(true);
 
     if(!nome.trim()){
-      setErroNome("Campo nome é obrigatório !")
+      setIsOpenFail(true);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErroNome("Campo nome é obrigatório !")
+      }, 2000)
+      setIsLoading(false);
       return;
     }
 
     const resp = await postFormAll("AdicionarBairro", data);
 
     if(resp.status == 200){
-      navigate("/bairro")
+      setIsOpenSuccess(true);
+      setTimeout(() => {
+        navigate("/bairro");
+      }, 2000)
     }else{
-      setErroNome(resp.request.response)
-      return;
+      setIsOpenFail(true);
+      setIsLoading(false);
+      setTimeout(() => {
+        setIsOpenFail(false);
+        setErroNome(resp.request.response)
+      }, 2000)
     }
   }
 
@@ -60,11 +77,13 @@ export function BairroCreate() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="bairro" />
             </div>
           </div>
         </Container>
+        <SuccessModal show={isOpenSuccess} />
+        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
   );

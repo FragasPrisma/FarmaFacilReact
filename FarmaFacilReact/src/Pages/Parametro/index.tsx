@@ -3,7 +3,7 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import TabsParametro from "../../Components/Others/TabsParametro";
-import { itemsHandles, itemsHandlesChildrenGeral,itemsHandlesChildrenManipulacao,itemsHandlesChildrenAcabado } from "../../Enum/ItemsParametro";
+import { itemsHandles, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao, itemsHandlesChildrenAcabado } from "../../Enum/ItemsParametro";
 import { TabAcabado } from "./TabAcabado";
 import { TabCartoes } from "./TabCartoes";
 import { TabConvenios } from "./TabConvenios";
@@ -32,7 +32,7 @@ export function Parametro() {
   let titlesMainsOfTabs: string[] = [];
   titlesMainsOfTabs.push(...itemsHandles);
   let quantidadeItemsTabs = titlesMainsOfTabs.length;
-  
+
   let tabChildrenGeral = itemsHandlesChildrenGeral;
   let quantidadeItemsChildGeral = tabChildrenGeral.length;
   let titlesGeralOfTabs: string[] = [];
@@ -45,7 +45,7 @@ export function Parametro() {
 
   let tabChildrenAcabado = itemsHandlesChildrenAcabado;
   let quantidadeItensChildAcabado = tabChildrenAcabado.length;
-  let titlesAcabadoOfTabs:string[]=[];
+  let titlesAcabadoOfTabs: string[] = [];
   titlesAcabadoOfTabs.push(...itemsHandlesChildrenAcabado);
 
   let titles: string[][] = [];
@@ -63,7 +63,7 @@ export function Parametro() {
     <TabConvenios />,
     <TabCartoes />,
     <TabNfe />,
-    <TabNFSe/>,
+    <TabNFSe />,
     <TabGeral />,
     <TabIntegracaoWeb />,
     <TabPrisma5Loader />,
@@ -73,12 +73,12 @@ export function Parametro() {
   );
 
   componentsOfTabsManipulacao.push(
-    <TabGeralManipulacao/>,
-    <TabOpcaoManipulacao/>,
-    <TabImpressaoManipulacao/>
+    <TabGeralManipulacao />,
+    <TabOpcaoManipulacao />,
+    <TabImpressaoManipulacao />
   )
   componentsOfTabsAcabado.push(
-    <TabAcabado/>
+    <TabAcabado />
   )
 
   componentsOfTabsMain.push(
@@ -92,12 +92,18 @@ export function Parametro() {
   componentsOfTabsMain.push(
     componentsOfTabsAcabado
   )
+
+  async function submit() {
+
+    
+  }
   return (
     <>
       <HeaderMainContent
         title="Parametro"
-        IncludeButton={true}
-        ReturnButton={false}
+        IncludeButton={false}
+        ReturnButton={true}
+        to="dashboard"
       />
 
       <TabsParametro
@@ -109,8 +115,7 @@ export function Parametro() {
 
       <div className="row">
         <div className="col-6">
-          <ButtonConfirm />
-            <ButtonCancel to="fornecedor" />
+          <ButtonConfirm onCLick={submit} />
         </div>
       </div>
     </>

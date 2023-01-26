@@ -7,7 +7,7 @@ interface IProps {
   textCustom?: string;
 }
 
-export function SuccessModal({ show, textCustom }: IProps) {
+export function SuccessModal({ show, textCustom}: IProps) {
   return (
     <Modal
       size="lg"
