@@ -30,7 +30,7 @@ const ItensParametroManipulacao = [
 export const itemsHandlesChildrenManipulacao = ItensParametroManipulacao.map(x => x.titulo)
 
 const ItensParametroAcabado = [
-  { titulo: "Acabado" }
+  { titulo: "Geral" }
 ];
 
 export const itemsHandlesChildrenAcabado = ItensParametroAcabado.map(x => x.titulo)
