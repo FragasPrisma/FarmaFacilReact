@@ -17,6 +17,10 @@ import { TabImpressaoManipulacao } from "./TabImpressaoManipulacao";
 import { TabNfe } from "./TabNfe";
 import { TabNFSe } from "./TabNfse";
 import { TabOpcaoManipulacao } from "./TabOpcaoManipulacao";
+import { TabPrisma5Loader } from "./TabPrisma5Loader";
+import { TabPrismaSync } from "./TabPrismaSync";
+import { TabSiproquim } from "./TabSiproquim";
+import { TabGestaoEntrega } from "./TabGestaoEntrega";
 
 export function Parametro() {
 
@@ -61,7 +65,11 @@ export function Parametro() {
     <TabNfe />,
     <TabNFSe />,
     <TabGeral />,
-    <TabIntegracaoWeb />
+    <TabIntegracaoWeb />,
+    <TabPrisma5Loader />,
+    <TabPrismaSync />,
+    <TabSiproquim />,
+    <TabGestaoEntrega />
   );
 
   componentsOfTabsManipulacao.push(

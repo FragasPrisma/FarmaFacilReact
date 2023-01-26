@@ -17,6 +17,10 @@ const ItemsParametro = [
   { titulo: "NFSe/CFSe" },
   { titulo: "Geral" },
   { titulo: "Integrações Web" },
+  { titulo: "Prisma5Loader" },
+  { titulo: "PrismaSync" },
+  { titulo: "Siproquim" },
+  { titulo: "Gestão de Entrega" },
 ];
 
 export const itemsHandlesChildrenGeral = ItemsParametro.map(x => x.titulo)
