@@ -20,10 +20,12 @@ export function TipoJustificativaEdit() {
     const { id } = useParams();
     const [data] = useState({ id: 0, descricao: "" });
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaTipoJustificativaPorId", id?.toString());
+            const response = await GetId("RetornaTipoJustificativaPorId", idParams);
             if (response.status == 200) {
                 setTipoJustificativaId(response.data.id);
                 setDescricao(response.data.descricao);

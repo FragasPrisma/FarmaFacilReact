@@ -20,10 +20,12 @@ export function TipoContatoEdit() {
     const [data] = useState({id:0,descricao:""});
     const [isLoading,setIsLoading] = useState(false);
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaTipoContatoPorId", id?.toString());
+          const response = await GetId("RetornaTipoContatoPorId", idParams);
           if(response.status == 200){
             setTipoContatoId(response.data.id);
             setDescricao(response.data.descricao);

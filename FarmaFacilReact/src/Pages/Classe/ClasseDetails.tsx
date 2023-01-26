@@ -10,10 +10,12 @@ export function ClasseDetails() {
     const [ClasseId, setClasseId] = useState(0);
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaClassePorId", id.toString());
+            const response = await GetId("RetornaClassePorId", idParams);
             if (response.status == 200) {
                 setClasseId(response.data.id);
                 setDescricao(response.data.descricao);

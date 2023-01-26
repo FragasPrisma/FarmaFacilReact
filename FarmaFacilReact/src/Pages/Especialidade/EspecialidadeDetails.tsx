@@ -7,15 +7,15 @@ import { useParams } from 'react-router-dom';
 
 export function EspecialidadeDetails() {
     const [descricao, setDescricao] = useState("");
-    const [especialidadeId, setEspecialidadeId] = useState(0);
     const { id } = useParams();
+
+    let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaEspecialidadePorId", id.toString());
+            const response = await GetId("RetornaEspecialidadePorId", idParams);
             if (response.status == 200) {
-                setEspecialidadeId(response.data.id);
                 setDescricao(response.data.descricao);
             }
         }

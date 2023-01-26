@@ -20,10 +20,12 @@ export function EspecialidadeEdit() {
     const [data] = useState({id:0,descricao:""});
     const [isLoading,setIsLoading] = useState(false);
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaEspecialidadePorId", id?.toString());
+          const response = await GetId("RetornaEspecialidadePorId", idParams);
           if(response.status == 200){
             setEspecialidadeId(response.data.id);
             setDescricao(response.data.descricao);

@@ -12,10 +12,12 @@ export function FarmacopeiaDetails() {
     const [observacao, setObservacao] = useState("");
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaFarmacopeiaPorId", id?.toString());
+            const response = await GetId("RetornaFarmacopeiaPorId", idParams);
             setId(response.data.id);
             setNome(response.data.nome);
             setObservacao(response.data.observacao)

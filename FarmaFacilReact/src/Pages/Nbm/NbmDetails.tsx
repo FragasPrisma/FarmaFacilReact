@@ -16,10 +16,12 @@ export function NbmDetails() {
     const [nbmId, setNbmId] = useState(0);
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaNbmPorId", id.toString());
+          const response = await GetId("RetornaNbmPorId", idParams);
           if(response.status == 200){
             setNbmId(response.data.id);
             setCodigoNbm(response.data.codigoNbm);

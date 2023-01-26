@@ -34,12 +34,14 @@ export function NbmEdit() {
         vlrAgregadoInt:0,
         vlrComplementarEst:0,
         vlrComplementarInt:0,
-    })
+    });
+
+    let idParams = !id ? "0" : id.toString();
 
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaNbmPorId", id.toString());
+          const response = await GetId("RetornaNbmPorId", idParams);
           if(response.status == 200){
             setNbmId(response.data.id);
             setCodigoNbm(response.data.codigoNbm);

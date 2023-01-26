@@ -20,10 +20,12 @@ export function BairroEdit() {
   const[data] = useState({id:0,nome:""});
   const [isLoading,setIsLoading] = useState(false);
 
+  let idParams = !id ? "0" : id.toString();
+
   useEffect(() =>{
     
     async function Init() {
-      const response = await GetId("RetornaBairroPorId", id?.toString());
+      const response = await GetId("RetornaBairroPorId", idParams);
       setBairroId(response.data.id);
       setNome(response.data.nome);
     }

@@ -22,10 +22,12 @@ export function DciEdit() {
     const [data] = useState({id:0, codigoDci:"", descricao:""});
     const [isLoading,setIsLoading] = useState(false);
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaDciPorId", id?.toString());
+          const response = await GetId("RetornaDciPorId", idParams);
           if(response.status == 200){
             setDciId(response.data.id);
             setCodigoDci(response.data.codigoDci);

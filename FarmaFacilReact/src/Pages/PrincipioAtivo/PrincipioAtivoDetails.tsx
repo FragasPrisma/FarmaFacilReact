@@ -10,10 +10,12 @@ export function PrincipioAtivoDetails() {
     const [principioAtivoId, setPrincipioAtivoId] = useState(0);
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaPrincipioAtivoPorId", id.toString());
+          const response = await GetId("RetornaPrincipioAtivoPorId", idParams);
           if(response.status == 200){
             setPrincipioAtivoId(response.data.id);
             setDescricao(response.data.descricao);

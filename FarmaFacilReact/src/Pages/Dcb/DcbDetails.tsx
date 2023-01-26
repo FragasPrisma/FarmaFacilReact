@@ -11,10 +11,12 @@ export function DcbDetails() {
     const [dcbId, setDcbId] = useState(0);
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaDcbPorId", id.toString());
+            const response = await GetId("RetornaDcbPorId", idParams);
             if (response.status == 200) {
                 setDcbId(response.data.id);
                 setCodigoDcb(response.data.codigoDcb);

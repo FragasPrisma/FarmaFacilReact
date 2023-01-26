@@ -9,10 +9,12 @@ export function TipoContatoDetails() {
     const [descricao, setDescricao] = useState("");
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaTipoContatoPorId", id.toString());
+          const response = await GetId("RetornaTipoContatoPorId", idParams);
           if(response.status == 200){
             setDescricao(response.data.descricao);
           }

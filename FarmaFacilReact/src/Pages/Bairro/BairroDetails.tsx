@@ -10,11 +10,13 @@ export function BairroDetails() {
     const [observacao, setObservacao] = useState("");
     const [pbmId, setPbmId] = useState(0);
     const { id } = useParams();
+
+    let idParams = !id ? "0" : id.toString()
     
     useEffect(() =>{
       
       async function Init() {
-        const response = await GetId("RetornaBairroPorId", id.toString());
+        const response = await GetId("RetornaBairroPorId", idParams);
         if(response.status == 200){
           setPbmId(response.data.id);
           setNome(response.data.nome);

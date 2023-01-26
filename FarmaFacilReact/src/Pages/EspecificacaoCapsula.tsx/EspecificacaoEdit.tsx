@@ -22,10 +22,12 @@ export function EspecificacaoEdit() {
     const [idEspecificacao, setEspecificacaoId] = useState(0);
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaEspecificacaoCapsulaPorId", id?.toString());
+            const response = await GetId("RetornaEspecificacaoCapsulaPorId", idParams);
             setEspecificacaoId(response.data.id);
             setDescricao(response.data.descricao);
             setPrioridade(response.data.prioridade)

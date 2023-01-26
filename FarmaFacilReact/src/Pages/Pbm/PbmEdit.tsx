@@ -21,10 +21,12 @@ export function PbmEdit() {
   const [data] = useState({id:0,nome:"",observacao:""});
   const [isLoading,setIsLoading] = useState(false);
 
+  let idParams = !id ? "0" : id.toString();
+
   useEffect(() =>{
     
     async function Init() {
-      const response = await GetId("RetornaPbmPorId", id?.toString());
+      const response = await GetId("RetornaPbmPorId", idParams);
       if(response.status == 200){
         setPbmId(response.data.id);
         setNome(response.data.nome);

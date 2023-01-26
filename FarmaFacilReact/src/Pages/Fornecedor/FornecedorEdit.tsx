@@ -73,10 +73,12 @@ export function FornecedorEdit() {
 
     const [errorRequest, setErrorRequest] = useState("");
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         const loadData = async () => {
-            const response = await GetId("RetornaFornecedorPorId",id?.toString());
+            const response = await GetId("RetornaFornecedorPorId", idParams);
             let resp = response.data;
 
             setAgencia(resp.agencia)

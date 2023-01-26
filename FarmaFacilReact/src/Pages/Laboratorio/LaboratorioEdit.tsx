@@ -20,10 +20,12 @@ export function LaboratorioEdit() {
     const [data] = useState({id:0,descricao:""});
     const [isLoading,setIsLoading] = useState(false);
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaLaboratorioPorId", id?.toString());
+          const response = await GetId("RetornaLaboratorioPorId", idParams);
           if(response.status == 200){
             setLaboratorioId(response.data.id);
             setDescricao(response.data.descricao);
