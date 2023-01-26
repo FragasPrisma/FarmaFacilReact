@@ -9,7 +9,7 @@ export function CheckboxCustom({ titleComponet, options }: ISelect) {
   return (
     <>
       {titleComponet ? (
-        <TitleContainer>{titleComponet + ":"}</TitleContainer>
+        <TitleContainer>{titleComponet}</TitleContainer>
       ) : (
         <></>
       )}
