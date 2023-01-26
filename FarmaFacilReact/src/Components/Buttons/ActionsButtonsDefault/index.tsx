@@ -7,9 +7,10 @@ import { useState } from "react";
 interface Path{
     id: string;
     pathParameters:string;
+    urlText: string;
 }
 
-export function ActionsButtonsDefault({id, pathParameters}: Path) {
+export function ActionsButtonsDefault({id, pathParameters, urlText}: Path) {
     const [stateModal, setStateModal] = useState(false)
     
     function openModalDelete(){
@@ -18,14 +19,14 @@ export function ActionsButtonsDefault({id, pathParameters}: Path) {
 
     return (
         <div>
-            <NavLink className="text_link" to={`/${pathParameters.toLowerCase()}/details/${id}`}>
+            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ","")}/details/${id}`}>
                 <DetailsButton><Eye size={22} color="#cf0209" /></DetailsButton>
             </NavLink>
-            <NavLink className="text_link" to={`/${pathParameters.toLowerCase()}/edit/${id}`}>
+            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ","")}/edit/${id}`}>
                 <EditButton><NotePencil size={20} color="#cf0209" /></EditButton>
             </NavLink>
                 <DeleteButton  onClick={openModalDelete}><Trash size={20} color="#cf0209" /> </DeleteButton>
-                <DeleteModal idItem={id} show={stateModal} onClose={openModalDelete} textInformationModal="Tem certeza que deseja excluir?"/>
+                <DeleteModal idItem={id} show={stateModal} onClose={openModalDelete} textInformationModal="Tem certeza que deseja excluir?" urlText={urlText}/>
             </div>
     );
 }

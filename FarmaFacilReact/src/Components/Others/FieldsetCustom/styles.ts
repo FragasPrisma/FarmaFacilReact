@@ -7,6 +7,7 @@ export const ContainerFieldset = styled.div`
   margin-bottom: 20px;
   position: relative;
 `;
+
 export const CustomLegend = styled.div`
   font-weight: bold;
   position: absolute;
@@ -15,4 +16,13 @@ export const CustomLegend = styled.div`
   /* left: 10px; */
   background-color: white;
   padding: 0 10px;
+`;
+
+export const ContainerFieldsetBorderAll = styled.div`
+  border: 1px solid #ccc;
+  /* display: flex; */
+  /* padding: 10px; */
+  margin-bottom: 20px;
+  position: relative;
+  border-radius: 4px;
 `;
