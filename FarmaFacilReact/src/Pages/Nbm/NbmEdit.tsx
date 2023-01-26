@@ -24,6 +24,7 @@ export function NbmEdit() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [nbmId, setNbmId] = useState(0);
     const { id } = useParams();
+    const [isLoading,setIsLoading] = useState(false);
     
     const [data] = useState({
         id:0,
@@ -55,8 +56,10 @@ export function NbmEdit() {
 
     async function submit() {
         setErroDescricao("")
+        setIsLoading(true)
         if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório !")
@@ -64,6 +67,7 @@ export function NbmEdit() {
             return;
         } else if (!codigoNbm.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroCodigoNbm("Campo código nbm é obrigatório !")
@@ -88,6 +92,7 @@ export function NbmEdit() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
@@ -181,7 +186,7 @@ export function NbmEdit() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="nbm" />
                         </div>
                     </div>

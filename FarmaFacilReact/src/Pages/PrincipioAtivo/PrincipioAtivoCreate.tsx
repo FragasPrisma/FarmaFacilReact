@@ -15,6 +15,7 @@ export function PrincipioAtivoCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [descricao, setDescricao] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const data = {
         id: 0,
@@ -23,8 +24,10 @@ export function PrincipioAtivoCreate() {
 
     async function submit() {
         setErroDescricao("")
+        setIsLoading(true)
         if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório !")
@@ -40,6 +43,7 @@ export function PrincipioAtivoCreate() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao(response.request.response)
@@ -70,7 +74,7 @@ export function PrincipioAtivoCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="principioAtivo" />
                         </div>
                     </div>

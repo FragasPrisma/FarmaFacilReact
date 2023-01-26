@@ -6,9 +6,13 @@ import { ChangeEvent, useState } from "react";
 import { postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { SuccessModal } from "../../Components/Modals/SuccessModal";
+import { FailModal } from "../../Components/Modals/FailModal";
 
 export function ClasseCreate() {
-
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [descricao, setDescricao] = useState("");
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
@@ -21,25 +25,33 @@ export function ClasseCreate() {
   async function submit() {
 
     setErro("")
+    setIsLoading(true);
 
-    if(!descricao.trim()){
+    if (!descricao.trim()) {
       setErro("Campo descrição é obrigatório !")
+      setIsLoading(false);
       return;
     }
 
     const resp = await postFormAll("AdicionarClasse", data);
 
-    if(resp.status == 200){
-      navigate("/classe")
-    }else{
-      setErro(resp.request.response)
-      return;
+    if (resp.status == 200) {
+      setIsOpenSuccess(true);
+      setTimeout(() => {
+        navigate("/classe");
+      }, 2000)
+    } else {
+      setIsOpenFail(true);
+      setIsLoading(false);
+      setTimeout(() => {
+        setIsOpenFail(false);
+      }, 2000)
     }
   }
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR CLASSE" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent title="ADICIONAR CLASSE" IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -52,7 +64,7 @@ export function ClasseCreate() {
                 maxLength={50}
                 erro={erro}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setDescricao(e.target.value)
+                  setDescricao(e.target.value)
                 }
                 required={true}
               />
@@ -60,11 +72,13 @@ export function ClasseCreate() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit} />
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="classe" />
             </div>
           </div>
         </Container>
+        <SuccessModal show={isOpenSuccess} />
+        <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
   );

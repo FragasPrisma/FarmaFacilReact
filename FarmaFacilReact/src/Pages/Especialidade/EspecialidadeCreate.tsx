@@ -15,6 +15,7 @@ export function EspecialidadeCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [descricao, setDescricao] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const data = {
         id: 0, //id 0 é default
@@ -23,8 +24,10 @@ export function EspecialidadeCreate() {
 
     async function submit() {
         setErroDescricao("")
+        setIsLoading(true)
         if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório !")
@@ -40,6 +43,7 @@ export function EspecialidadeCreate() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
@@ -69,7 +73,7 @@ export function EspecialidadeCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="especialidade" />
                         </div>
                     </div>

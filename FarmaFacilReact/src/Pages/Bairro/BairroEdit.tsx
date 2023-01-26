@@ -18,6 +18,7 @@ export function BairroEdit() {
   const [bairroId, setBairroId] = useState(0);
   const { id } = useParams();
   const[data] = useState({id:0,nome:""});
+  const [isLoading,setIsLoading] = useState(false);
 
   useEffect(() =>{
     
@@ -33,6 +34,7 @@ export function BairroEdit() {
   async function submit() {
 
     setErroNome("");
+    setIsLoading(true);
 
     if(!nome.trim()){
       setIsOpenFail(true);
@@ -40,6 +42,7 @@ export function BairroEdit() {
         setIsOpenFail(false);
         setErroNome("Campo nome é obrigatório !")
       }, 2000)
+      setIsLoading(false);
       return;
     }
 
@@ -54,6 +57,7 @@ export function BairroEdit() {
       }, 2000)
     }else{
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErroNome(resp.request.response)
@@ -84,7 +88,7 @@ export function BairroEdit() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="bairro" />
             </div>
           </div>

@@ -18,6 +18,7 @@ export function TipoContatoEdit() {
     const [tipoContatoId, setTipoContatoId] = useState(0);
     const { id } = useParams();
     const [data] = useState({id:0,descricao:""});
+    const [isLoading,setIsLoading] = useState(false);
 
     useEffect(() =>{
     
@@ -34,8 +35,10 @@ export function TipoContatoEdit() {
 
     async function submit() {
         setErroDescricao("")
+        setIsLoading(true)
         if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório !")
@@ -55,6 +58,7 @@ export function TipoContatoEdit() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
@@ -84,7 +88,7 @@ export function TipoContatoEdit() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="tipoContato" />
                         </div>
                     </div>

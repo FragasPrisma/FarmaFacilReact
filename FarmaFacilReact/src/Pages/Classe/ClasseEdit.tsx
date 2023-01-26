@@ -19,6 +19,7 @@ export function ClasseEdit() {
   const [classeId, setClasseId] = useState(0);
   const { id } = useParams();
   const [data] = useState({ id: 0, descricao: "" });
+  const [isLoading,setIsLoading] = useState(false);
 
   useEffect(() => {
     async function Init() {
@@ -31,11 +32,15 @@ export function ClasseEdit() {
   }, []);
 
   async function submit() {
+
+    setIsLoading(true);
+
     data.id = classeId;
     data.descricao = descricao.trim();
 
     if (!descricao.trim()) {
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErro("Campo descrição é obrigatório !");
@@ -52,6 +57,7 @@ export function ClasseEdit() {
       }, 2000)
     } else {
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErro(resp.request.response)
@@ -86,7 +92,7 @@ export function ClasseEdit() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit} />
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="classe" />
             </div>
           </div>

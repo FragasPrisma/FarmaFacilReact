@@ -23,6 +23,7 @@ export function NbmCreate() {
     const [valorComplementarInterestadual, setValorComplementarInterestadual] = useState(0);
     const [erroCodigoNbm, setErroCodigoNbm] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const data = {
         id: 0, //id 0 é default
@@ -32,12 +33,14 @@ export function NbmCreate() {
         VlrAgregadoInt: valorAgregadoInterestadual,
         VlrComplementarEst: valorComplementarEstado,
         VlrComplementarInt: valorComplementarInterestadual
-      };
+    };
 
     async function submit() {
         setErroDescricao("")
+        setIsLoading(true)
         if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório !")
@@ -45,6 +48,7 @@ export function NbmCreate() {
             return;
         } else if (!codigoNbm.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroCodigoNbm("Campo código nbm é obrigatório !")
@@ -61,6 +65,7 @@ export function NbmCreate() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
@@ -154,7 +159,7 @@ export function NbmCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="nbm" />
                         </div>
                     </div>

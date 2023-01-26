@@ -52,13 +52,10 @@ import { TipoContato } from "./Pages/TipoContato";
 import { TipoContatoCreate } from "./Pages/TipoContato/TipoContatoCreate";
 import { TipoContatoDetails } from "./Pages/TipoContato/TipoContatoDetails";
 import { TipoContatoEdit } from "./Pages/TipoContato/TipoContatoEdit";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { TipoJustificativa } from "./Pages/TipoJustificativa";
+import { TipoJustificativaCreate } from "./Pages/TipoJustificativa/TipoJustificativaCreate";
+import { TipoJustificativaDetails } from "./Pages/TipoJustificativa/TipoJustificativaDetails";
+import { TipoJustificativaEdit } from "./Pages/TipoJustificativa/TipoJustificativaEdit";
 import { Cidade } from "./Pages/Cidade";
 import { CidadeCreate } from "./Pages/Cidade/CidadeCreate";
 import { CidadeEdit } from "./Pages/Cidade/CidadeEdit";
@@ -79,6 +76,14 @@ import { PosAdquirente } from "./Pages/PosAdquirente";
 import { PosAdquirenteCreate } from "./Pages/PosAdquirente/PosAdquirenteCreate";
 import { PosAdquirenteEdit } from "./Pages/PosAdquirente/PosAdquirenteEdit";
 import { PosAdquirenteDetails } from "./Pages/PosAdquirente/PosAdquirenteDetails";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -680,6 +685,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <TipoContatoEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa"
+              element={
+                <Private>
+                  <TipoJustificativa />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa/create"
+              element={
+                <Private>
+                  <TipoJustificativaCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa/details/:id"
+              element={
+                <Private>
+                  <TipoJustificativaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa/edit/:id"
+              element={
+                <Private>
+                  <TipoJustificativaEdit />
                 </Private>
               }
             />

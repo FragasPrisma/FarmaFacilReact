@@ -20,6 +20,7 @@ export function DciEdit() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [dciId, setDciId] = useState(0);
     const [data] = useState({id:0, codigoDci:"", descricao:""});
+    const [isLoading,setIsLoading] = useState(false);
 
     useEffect(() =>{
     
@@ -38,8 +39,10 @@ export function DciEdit() {
     async function submit() {
         setErroCodigoDci("")
         setErroDescricao("")
+        setIsLoading(true)
         if (!codigoDci.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroCodigoDci("Campo código dci é obrigatório !")
@@ -47,6 +50,7 @@ export function DciEdit() {
             return;
         } else if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório !")
@@ -67,10 +71,9 @@ export function DciEdit() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroCodigoDci(response.request.response)
-                setErroDescricao(response.request.response)
             }, 2000)
         }
     }
@@ -114,7 +117,7 @@ export function DciEdit() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="dci" />
                         </div>
                     </div>

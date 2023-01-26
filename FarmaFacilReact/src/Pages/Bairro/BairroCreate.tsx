@@ -15,6 +15,7 @@ export function BairroCreate() {
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [erroNome, setErroNome] = useState("");
+  const [isLoading,setIsLoading] = useState(false);
 
   const data = {
     id: 0, //id 0 é default
@@ -23,7 +24,8 @@ export function BairroCreate() {
 
   async function submit() {
 
-    setErroNome("")
+    setErroNome("");
+    setIsLoading(true);
 
     if(!nome.trim()){
       setIsOpenFail(true);
@@ -31,6 +33,7 @@ export function BairroCreate() {
         setIsOpenFail(false);
         setErroNome("Campo nome é obrigatório !")
       }, 2000)
+      setIsLoading(false);
       return;
     }
 
@@ -43,6 +46,7 @@ export function BairroCreate() {
       }, 2000)
     }else{
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErroNome(resp.request.response)
@@ -73,7 +77,7 @@ export function BairroCreate() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="bairro" />
             </div>
           </div>
