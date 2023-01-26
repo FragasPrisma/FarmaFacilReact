@@ -2,33 +2,54 @@ import { ChangeEvent, useState } from "react";
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { CustomInput } from "../../Components/Inputs/CustomInput";
-import TabsPage from "../../Components/Tabs";
-import { itemsHandles, itemsHandlesChildren } from "../../Enum/ItemsParametro";
-import { Container, ContainerItems } from "./styles";
+import TabsParametro from "../../Components/Others/TabsParametro";
+import { itemsHandles, itemsHandlesChildrenGeral,itemsHandlesChildrenManipulacao,itemsHandlesChildrenAcabado } from "../../Enum/ItemsParametro";
+import { TabAcabado } from "./TabAcabado";
 import { TabCartoes } from "./TabCartoes";
 import { TabConvenios } from "./TabConvenios";
 import { TabCuspomFiscal } from "./TabCupomFiscal";
 import { TabFarmacia } from "./TabFarmacia";
 import { TabGeral } from "./TabGeral";
+import { TabGeralManipulacao } from "./TabGeralManipulacao";
 import { TabImpressao } from "./TabImpressao";
 import { TabNfe } from "./TabNfe";
 import { TabNFSe } from "./TabNfse";
 
 export function Parametro() {
-  let componentsOfTabs: any = [];
+
+  let componentsOfTabsGeral: any = [];
+  let componentsOfTabsManipulacao: any = [];
+  let componentsOfTabsAcabado: any = [];
+  let componentsOfTabsMain: any[] = [];
 
   let titlesMainsOfTabs: string[] = [];
   titlesMainsOfTabs.push(...itemsHandles);
   let quantidadeItemsTabs = titlesMainsOfTabs.length;
-
-  //let tabChildren: any = [];
-  //tabChildren.push(...itemsHandlesChildren);
   
-  let tabChildren = itemsHandlesChildren;
-  let quantidadeItemsChildTabs = tabChildren.length;
+  let tabChildrenGeral = itemsHandlesChildrenGeral;
+  let quantidadeItemsChildGeral = tabChildrenGeral.length;
+  let titlesGeralOfTabs: string[] = [];
+  titlesGeralOfTabs.push(...itemsHandlesChildrenGeral);
 
-  componentsOfTabs.push(
+  let tabChildrenManipulacao = itemsHandlesChildrenManipulacao;
+  let quantidadeItemsChildManipulacao = tabChildrenManipulacao.length;
+  let titlesGeralOfTabsManipulacao: string[] = [];
+  titlesGeralOfTabsManipulacao.push(...itemsHandlesChildrenManipulacao);
+
+  let tabChildrenAcabado = itemsHandlesChildrenAcabado;
+  let quantidadeItensChildAcabado = tabChildrenAcabado.length;
+  let titlesAcabadoOfTabs:string[]=[];
+  titlesAcabadoOfTabs.push(...itemsHandlesChildrenAcabado);
+
+  let titles: string[][] = [];
+
+  titles.push(
+    titlesGeralOfTabs,
+    titlesGeralOfTabsManipulacao,
+    titlesAcabadoOfTabs
+  )
+
+  componentsOfTabsGeral.push(
     <TabFarmacia />,
     <TabImpressao />,
     <TabCuspomFiscal />,
@@ -39,6 +60,26 @@ export function Parametro() {
     <TabGeral />
   );
 
+  componentsOfTabsManipulacao.push(
+    <TabGeralManipulacao/>,
+    <TabGeralManipulacao/>,
+    <TabGeralManipulacao/>
+  )
+  componentsOfTabsAcabado.push(
+    <TabAcabado/>
+  )
+
+  componentsOfTabsMain.push(
+    componentsOfTabsGeral
+  )
+
+  componentsOfTabsMain.push(
+    componentsOfTabsManipulacao
+  )
+
+  componentsOfTabsMain.push(
+    componentsOfTabsAcabado
+  )
   return (
     <>
       <HeaderMainContent
@@ -47,16 +88,11 @@ export function Parametro() {
         ReturnButton={false}
       />
 
-      {/* <TabsPage
-        ChildTabs={tabChildren}
-        TabsQtd={quantidadeItemsTabs}
-        titles={titlesMainsOfTabs}
-      /> */}
+      <TabsParametro
+        titlesMain={titlesMainsOfTabs}
+        Childrens={componentsOfTabsMain}
+        titles={titles}
 
-      <TabsPage
-        Childrens={componentsOfTabs}
-        TabsQtd={quantidadeItemsChildTabs}
-        titles={tabChildren}
       />
 
       <div className="row">
