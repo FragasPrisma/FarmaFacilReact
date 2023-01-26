@@ -16,7 +16,7 @@ const ItemsParametro = [
   { titulo: "NFe/sped" },
   { titulo: "NFSe/CFSe" },
   { titulo: "Geral" },
-  { titulo: "Test" },
+  { titulo: "Integrações Web" },
 ];
 
 export const itemsHandlesChildrenGeral = ItemsParametro.map(x => x.titulo)

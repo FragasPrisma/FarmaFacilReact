@@ -12,6 +12,7 @@ import { TabFarmacia } from "./TabFarmacia";
 import { TabGeral } from "./TabGeral";
 import { TabGeralManipulacao } from "./TabGeralManipulacao";
 import { TabImpressao } from "./TabImpressao";
+import { TabIntegracaoWeb } from "./TabIntegracaoWeb";
 import { TabNfe } from "./TabNfe";
 import { TabNFSe } from "./TabNfse";
 
@@ -57,7 +58,8 @@ export function Parametro() {
     <TabCartoes />,
     <TabNfe />,
     <TabNFSe/>,
-    <TabGeral />
+    <TabGeral />,
+    <TabIntegracaoWeb />
   );
 
   componentsOfTabsManipulacao.push(
