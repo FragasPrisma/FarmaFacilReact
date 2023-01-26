@@ -96,7 +96,7 @@ export function AppRoutes() {
       return <div className="loading">Carregando...</div>;
     }
 
-    if (!authenticated) {
+    if (authenticated) {
       return <Navigate to="/login" />;
     }
 
