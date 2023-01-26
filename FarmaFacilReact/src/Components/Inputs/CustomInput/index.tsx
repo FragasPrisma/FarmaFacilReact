@@ -6,7 +6,7 @@ interface IInput {
     placeholder?: string;
     type: string;
     name?: string;
-    required: boolean;
+    required?: boolean;
     readonly?: boolean;
     value?: any;
     maxLength?: number|undefined;

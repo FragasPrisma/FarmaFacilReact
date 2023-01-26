@@ -12,10 +12,12 @@ export function CidadeDetails() {
     const [codigoIbge, setCodigoIbge] = useState(Number);
     const [codigoSiafi,setCodigoSiafi] = useState(Number);
     const [dataCfps,setDataCfps] = useState();
+    
+    let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
         const loadCidade = async () => {
-            const response = await GetId("RetornaCidadePorId",id?.toString());
+            const response = await GetId("RetornaCidadePorId", idParams);
             setNome(response.data.nome)
             setCodigoIbge(response.data.codigoIbge)
             setCodigoSiafi(response.data.codigoSiafi)

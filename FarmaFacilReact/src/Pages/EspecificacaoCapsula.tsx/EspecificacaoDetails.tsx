@@ -9,13 +9,14 @@ export function EspecificacaoDetails() {
 
     const [descricao, setDescricao] = useState("");
     const [prioridade, setPrioridade] = useState(Number);
-
     const { id } = useParams();
+
+    let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaEspecificacaoCapsulaPorId", id?.toString());
+            const response = await GetId("RetornaEspecificacaoCapsulaPorId", idParams);
             setDescricao(response.data.descricao);
             setPrioridade(response.data.prioridade)
         }

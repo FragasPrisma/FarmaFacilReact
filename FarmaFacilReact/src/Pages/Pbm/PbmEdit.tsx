@@ -18,12 +18,15 @@ export function PbmEdit() {
   const [observacao, setObservacao] = useState("");
   const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
-  const[data] = useState({id:0,nome:"",observacao:""});
+  const [data] = useState({id:0,nome:"",observacao:""});
+  const [isLoading,setIsLoading] = useState(false);
+
+  let idParams = !id ? "0" : id.toString();
 
   useEffect(() =>{
     
     async function Init() {
-      const response = await GetId("RetornaPbmPorId", id?.toString());
+      const response = await GetId("RetornaPbmPorId", idParams);
       if(response.status == 200){
         setPbmId(response.data.id);
         setNome(response.data.nome);
@@ -35,11 +38,12 @@ export function PbmEdit() {
   },[])
     
   async function submit() {
-
     setErroNome("");
+    setIsLoading(true);
 
     if(!nome.trim()){
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErroNome("Campo nome é obrigatório !")
@@ -60,6 +64,7 @@ export function PbmEdit() {
       }, 2000)
     }else{
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErroNome(resp.request.response)
@@ -106,7 +111,7 @@ export function PbmEdit() {
           </div>
           <div className="row">
             <div className="col-6 mt-2">
-              <ButtonConfirm onCLick={submit}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="pbm" />
             </div>
           </div>

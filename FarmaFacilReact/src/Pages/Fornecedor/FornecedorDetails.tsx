@@ -50,10 +50,12 @@ export function FornecedorDetails() {
     const [dataPlanoConta, setDataPlanoConta] = useState("");
     const [dataBanco, setDataBanco] = useState("");
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         const loadData = async () => {
-            const response = await GetId("RetornaFornecedorPorId",id?.toString());
+            const response = await GetId("RetornaFornecedorPorId", idParams);
             let resp = response.data;
 
             setAgencia(resp.agencia)

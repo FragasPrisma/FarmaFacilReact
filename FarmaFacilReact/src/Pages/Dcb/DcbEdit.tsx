@@ -19,6 +19,7 @@ export function DcbEdit() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [dcbId, setDcbId] = useState(0);
     const { id } = useParams();
+    const [isLoading,setIsLoading] = useState(false);
 
     const [data] = useState({
         id: 0,
@@ -26,10 +27,12 @@ export function DcbEdit() {
         descricao: ""
     });
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() =>{
     
         async function Init() {
-          const response = await GetId("RetornaDcbPorId", id?.toString());
+          const response = await GetId("RetornaDcbPorId", idParams);
           if(response.status == 200){
             setDcbId(response.data.id);
             setCodigoDcb(response.data.codigoDcb);
@@ -41,11 +44,13 @@ export function DcbEdit() {
     },[])
 
     async function submit() {
-        setErroCodigoDcb("")
-        setErroDescricao("")
+        setErroCodigoDcb("");
+        setErroDescricao("");
+        setIsLoading(true);
 
         if (!codigoDcb.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroCodigoDcb("Campo código dcb é obrigatório!")
@@ -54,6 +59,7 @@ export function DcbEdit() {
         }
         if (!descricao.trim()) {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDescricao("Campo descrição é obrigatório!")
@@ -74,10 +80,9 @@ export function DcbEdit() {
             }, 2000)
         } else {
             setIsOpenFail(true);
+            setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroCodigoDcb(resp.request.response)
-                setDescricao(resp.request.response)
             }, 2000)
         }
     }
@@ -121,7 +126,7 @@ export function DcbEdit() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} />
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
                             <ButtonCancel to="dcb" />
                         </div>
                     </div>

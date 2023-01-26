@@ -22,10 +22,12 @@ export function PosAdquirenteEdit() {
     const [idPosAdquirente,setId] = useState(0);
     const { id } = useParams();
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaPosAdquirentePorId", id?.toString());
+            const response = await GetId("RetornaPosAdquirentePorId", idParams);
             setId(response.data.id);
             setDescricao(response.data.descricao);
             setChaveRequisicao(response.data.chaveRequisicao)

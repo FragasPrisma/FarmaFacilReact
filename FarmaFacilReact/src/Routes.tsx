@@ -16,12 +16,21 @@ import { DciEdit } from "./Pages/Dci/DciEdit";
 import { Fornecedor } from "./Pages/Fornecedor";
 import { Grupo } from "./Pages/Grupo";
 import { Laboratorio } from "./Pages/Laboratorio";
+import { LaboratorioCreate } from "./Pages/Laboratorio/LaboratorioCreate";
+import { LaboratorioDetails } from "./Pages/Laboratorio/LaboratorioDetails";
+import { LaboratorioEdit } from "./Pages/Laboratorio/LaboratorioEdit";
 import { Login } from "./Pages/Login";
 import { Nbm } from "./Pages/Nbm";
+import { NbmCreate } from "./Pages/Nbm/NbmCreate";
+import { NbmDetails } from "./Pages/Nbm/NbmDetails";
+import { NbmEdit } from "./Pages/Nbm/NbmEdit";
 import { Ncm } from "./Pages/Ncm";
 import { Pbm } from "./Pages/Pbm/";
 import { PbmCreate } from "./Pages/Pbm/PbmCreate";
 import { PrincipioAtivo } from "./Pages/PrincipioAtivo";
+import { PrincipioAtivoCreate } from "./Pages/PrincipioAtivo/PrincipioAtivoCreate";
+import { PrincipioAtivoDetails } from "./Pages/PrincipioAtivo/PrincipioAtivoDetails";
+import { PrincipioAtivoEdit } from "./Pages/PrincipioAtivo/PrincipioAtivoEdit";
 import { Produto } from "./Pages/Produto";
 import { Home } from "./Pages/Home";
 import { DefaultLayout } from "./Layout/LayoutDefault";
@@ -35,13 +44,18 @@ import { Parametro } from "./Pages/Parametro";
 import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
 import { FornecedorEdit } from "./Pages/Fornecedor/FornecedorEdit";
 import { FornecedorDetails } from "./Pages/Fornecedor/FornecedorDetails";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Especialidade } from "./Pages/Especialidade";
+import { EspecialidadeCreate } from "./Pages/Especialidade/EspecialidadeCreate";
+import { EspecialidadeDetails } from "./Pages/Especialidade/EspecialidadeDetails";
+import { EspecialidadeEdit } from "./Pages/Especialidade/EspecialidadeEdit";
+import { TipoContato } from "./Pages/TipoContato";
+import { TipoContatoCreate } from "./Pages/TipoContato/TipoContatoCreate";
+import { TipoContatoDetails } from "./Pages/TipoContato/TipoContatoDetails";
+import { TipoContatoEdit } from "./Pages/TipoContato/TipoContatoEdit";
+import { TipoJustificativa } from "./Pages/TipoJustificativa";
+import { TipoJustificativaCreate } from "./Pages/TipoJustificativa/TipoJustificativaCreate";
+import { TipoJustificativaDetails } from "./Pages/TipoJustificativa/TipoJustificativaDetails";
+import { TipoJustificativaEdit } from "./Pages/TipoJustificativa/TipoJustificativaEdit";
 import { Cidade } from "./Pages/Cidade";
 import { CidadeCreate } from "./Pages/Cidade/CidadeCreate";
 import { CidadeEdit } from "./Pages/Cidade/CidadeEdit";
@@ -63,8 +77,17 @@ import { PosAdquirenteCreate } from "./Pages/PosAdquirente/PosAdquirenteCreate";
 import { PosAdquirenteEdit } from "./Pages/PosAdquirente/PosAdquirenteEdit";
 import { PosAdquirenteDetails } from "./Pages/PosAdquirente/PosAdquirenteDetails";
 import { AdministradoraDeCartao } from "./Pages/AdministradoCartao";
+import { Posologia } from "./Pages/Posologia";
+import { PosologiaCreate } from "./Pages/Posologia/PosologiaCreate";
+import { PosologiaDetails } from "./Pages/Posologia/PosologiaDetails";
+import { PosologiaEdit } from "./Pages/Posologia/PosologiaEdit";
 
-
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -74,7 +97,7 @@ export function AppRoutes() {
       return <div className="loading">Carregando...</div>;
     }
 
-    if (!authenticated) {
+    if (authenticated) {
       return <Navigate to="/login" />;
     }
 
@@ -329,6 +352,31 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route 
+              path="/laboratorio/create"
+              element={
+                <Private>
+                  <LaboratorioCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/laboratorio/details/:id"
+              element={
+                <Private>
+                  <LaboratorioDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/laboratorio/edit/:id"
+              element={
+                <Private>
+                  <LaboratorioEdit />
+                </Private>
+              }
+            />
+
             <Route
               path="/nbm"
               element={
@@ -337,6 +385,31 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route
+              path="/nbm/create"
+              element={
+                <Private>
+                  <NbmCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/nbm/details/:id"
+              element={
+                <Private>
+                  <NbmDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/nbm/edit/:id"
+              element={
+                <Private>
+                  <NbmEdit />
+                </Private>
+              }
+            />
+
             <Route
               path="/ncm"
               element={
@@ -533,10 +606,162 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/principioAtivo/create"
+              element={
+                <Private>
+                  <PrincipioAtivoCreate />
+                </Private>
+              } 
+            />
+            <Route
+              path="/principioAtivo/details/:id"
+              element={
+                <Private>
+                  <PrincipioAtivoDetails />
+                </Private>
+              } 
+            />
+            <Route
+              path="/principioAtivo/edit/:id"
+              element={
+                <Private>
+                  <PrincipioAtivoEdit />
+                </Private>
+              } 
+            />
+            <Route
               path="/produto"
               element={
                 <Private>
                   <Produto />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade"
+              element={
+                <Private>
+                  <Especialidade />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade/create"
+              element={
+                <Private>
+                  <EspecialidadeCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade/details/:id"
+              element={
+                <Private>
+                  <EspecialidadeDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/especialidade/edit/:id"
+              element={
+                <Private>
+                  <EspecialidadeEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato"
+              element={
+                <Private>
+                  <TipoContato />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato/create"
+              element={
+                <Private>
+                  <TipoContatoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato/details/:id"
+              element={
+                <Private>
+                  <TipoContatoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoContato/edit/:id"
+              element={
+                <Private>
+                  <TipoContatoEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa"
+              element={
+                <Private>
+                  <TipoJustificativa />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa/create"
+              element={
+                <Private>
+                  <TipoJustificativaCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa/details/:id"
+              element={
+                <Private>
+                  <TipoJustificativaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tipoJustificativa/edit/:id"
+              element={
+                <Private>
+                  <TipoJustificativaEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia"
+              element={
+                <Private>
+                  <Posologia />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia/create"
+              element={
+                <Private>
+                  <PosologiaCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia/details/:id"
+              element={
+                <Private>
+                  <PosologiaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia/edit/:id"
+              element={
+                <Private>
+                  <PosologiaEdit />
                 </Private>
               }
             />

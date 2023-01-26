@@ -12,10 +12,12 @@ export function EnsaioDetails() {
     const [idEnsaio, setId] = useState(0);
     const [nomeFarmacopeia, setNomeFarmacopeia] = useState("");
 
+    let idParams = !id ? "0" : id.toString();
+
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaEnsaioPorId", id?.toString());
+            const response = await GetId("RetornaEnsaioPorId", idParams);
             setId(response.data.id);
             setNome(response.data.nome);
             if (response.data.farmacopeia != null) {

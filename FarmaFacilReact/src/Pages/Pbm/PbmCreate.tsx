@@ -11,11 +11,12 @@ import { useNavigate } from "react-router-dom";
 
 export function PbmCreate() {
   const navigate = useNavigate();
-  const [nome, setNome] = useState("");
-  const [observacao, setObservacao] = useState("");
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
+  const [nome, setNome] = useState("");
+  const [observacao, setObservacao] = useState("");
   const [erroNome, setErroNome] = useState("");
+  const [isLoading,setIsLoading] = useState(false);
 
   const data = {
     id: 0, //id 0 é default
@@ -25,8 +26,10 @@ export function PbmCreate() {
 
   async function submit() {
     setErroNome("")
+    setIsLoading(true)
     if (!nome.trim()) {
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErroNome("Campo nome é obrigatório !")
@@ -42,6 +45,7 @@ export function PbmCreate() {
       }, 2000)
     } else {
       setIsOpenFail(true);
+      setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
         setErroNome(response.request.response)
@@ -87,7 +91,7 @@ export function PbmCreate() {
           </div>
           <div className="row">
             <div className="col-6 mt-2">
-              <ButtonConfirm onCLick={submit} />
+              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
               <ButtonCancel to="pbm" />
             </div>
           </div>
