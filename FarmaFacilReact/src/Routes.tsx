@@ -76,6 +76,10 @@ import { PosAdquirente } from "./Pages/PosAdquirente";
 import { PosAdquirenteCreate } from "./Pages/PosAdquirente/PosAdquirenteCreate";
 import { PosAdquirenteEdit } from "./Pages/PosAdquirente/PosAdquirenteEdit";
 import { PosAdquirenteDetails } from "./Pages/PosAdquirente/PosAdquirenteDetails";
+import { Posologia } from "./Pages/Posologia";
+import { PosologiaCreate } from "./Pages/Posologia/PosologiaCreate";
+import { PosologiaDetails } from "./Pages/Posologia/PosologiaDetails";
+import { PosologiaEdit } from "./Pages/Posologia/PosologiaEdit";
 
 import {
   BrowserRouter as Router,
@@ -83,7 +87,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -717,6 +720,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <TipoJustificativaEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia"
+              element={
+                <Private>
+                  <Posologia />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia/create"
+              element={
+                <Private>
+                  <PosologiaCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia/details/:id"
+              element={
+                <Private>
+                  <PosologiaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/posologia/edit/:id"
+              element={
+                <Private>
+                  <PosologiaEdit />
                 </Private>
               }
             />

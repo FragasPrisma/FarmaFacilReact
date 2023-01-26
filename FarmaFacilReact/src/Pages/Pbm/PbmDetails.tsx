@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 export function PbmDetails() {
   const [nome, setNome] = useState("");
   const [observacao, setObservacao] = useState("");
-  const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
 
   let idParams = !id ? "0" : id.toString()
@@ -18,7 +17,6 @@ export function PbmDetails() {
     async function Init() {
       const response = await GetId("RetornaPbmPorId", idParams);
       if(response.status == 200){
-        setPbmId(response.data.id);
         setNome(response.data.nome);
         setObservacao(response.data.observacao)
       }
