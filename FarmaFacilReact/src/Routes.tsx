@@ -62,6 +62,7 @@ import { PosAdquirente } from "./Pages/PosAdquirente";
 import { PosAdquirenteCreate } from "./Pages/PosAdquirente/PosAdquirenteCreate";
 import { PosAdquirenteEdit } from "./Pages/PosAdquirente/PosAdquirenteEdit";
 import { PosAdquirenteDetails } from "./Pages/PosAdquirente/PosAdquirenteDetails";
+import { AdministradoraDeCartao } from "./Pages/AdministradoCartao";
 
 
 
@@ -96,6 +97,15 @@ export function AppRoutes() {
             }
           >
             <Route path="/dashboard" element={<Private> <Dashboard /> </Private>} />
+
+            <Route
+              path="/administradoradecartao"
+              element={
+                <Private>
+                  <AdministradoraDeCartao />
+                </Private>
+              }
+            />
 
             <Route
               path="/cidade"
