@@ -12,8 +12,10 @@ import { TabFarmacia } from "./TabFarmacia";
 import { TabGeral } from "./TabGeral";
 import { TabGeralManipulacao } from "./TabGeralManipulacao";
 import { TabImpressao } from "./TabImpressao";
+import { TabImpressaoManipulacao } from "./TabImpressaoManipulacao";
 import { TabNfe } from "./TabNfe";
 import { TabNFSe } from "./TabNfse";
+import { TabOpcaoManipulacao } from "./TabOpcaoManipulacao";
 
 export function Parametro() {
 
@@ -62,8 +64,8 @@ export function Parametro() {
 
   componentsOfTabsManipulacao.push(
     <TabGeralManipulacao/>,
-    <TabGeralManipulacao/>,
-    <TabGeralManipulacao/>
+    <TabOpcaoManipulacao/>,
+    <TabImpressaoManipulacao/>
   )
   componentsOfTabsAcabado.push(
     <TabAcabado/>
