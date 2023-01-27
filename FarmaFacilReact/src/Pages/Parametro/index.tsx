@@ -4,13 +4,13 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import TabsParametro from "../../Components/Others/TabsParametro";
 import { itemsHandles, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao, itemsHandlesChildrenAcabado } from "../../Enum/ItemsParametro";
-import { TabAcabado } from "./TabAcabado";
+import { TabAcabado , drogariaAcabado} from "./TabAcabado";
 import { TabCartoes } from "./TabCartoes";
 import { TabConvenios } from "./TabConvenios";
 import { TabCuspomFiscal } from "./TabCupomFiscal";
 import { TabFarmacia } from "./TabFarmacia";
 import { TabGeral } from "./TabGeral";
-import { TabGeralManipulacao } from "./TabGeralManipulacao";
+import { geralManipulacao, TabGeralManipulacao } from "./TabGeralManipulacao";
 import { TabImpressao } from "./TabImpressao";
 import { TabIntegracaoWeb } from "./TabIntegracaoWeb";
 import { TabImpressaoManipulacao } from "./TabImpressaoManipulacao";
@@ -95,7 +95,9 @@ export function Parametro() {
 
   async function submit() {
 
-    
+    console.log(geralManipulacao)
+    console.log(drogariaAcabado)
+    return;
   }
   return (
     <>
