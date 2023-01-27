@@ -201,39 +201,39 @@ export const TabGeralManipulacao = () => {
                                     <CheckboxCustom options={[
                                         "Passagem Monitorada"
                                     ]}
-                                        value={pesagemMonitorada}
-                                        onClickOptions={(checked) => setPesagemMonitorada(checked)}
+                                        check={pesagemMonitorada}
+                                        onClickOptions={(e) => setPesagemMonitorada(e.target.checked)}
                                     />
                                     <CheckboxCustom options={[
                                         "Avisar Estoque Mínimo na Venda"
                                     ]}
-                                        value={avisarEstoqueMinimoDeVenda}
-                                        onClickOptions={(checked) => setAvisarEstoqueMinimoDeVenda(checked)}
+                                        check={avisarEstoqueMinimoDeVenda}
+                                        onClickOptions={(e) => setAvisarEstoqueMinimoDeVenda(e.target.checked)}
                                     />
                                     <CheckboxCustom options={[
                                         "Entrega Registro Receituário Geral",
                                     ]}
-                                        value={entregarRegistroReceituarioGeral}
-                                        onClickOptions={(checked) => setEntregarRegistroReceituarioGeral(checked)}
+                                        check={entregarRegistroReceituarioGeral}
+                                        onClickOptions={(e) => setEntregarRegistroReceituarioGeral(e.target.checked)}
                                     />
                                     <CheckboxCustom options={[
                                         "Validade Fórmula por Lote"
                                     ]}
-                                        value={validadeFormulaPorLote}
-                                        onClickOptions={(checked) => setValidadeFormulaPorLote(checked)}
+                                        check={validadeFormulaPorLote}
+                                        onClickOptions={(e) => setValidadeFormulaPorLote(e.target.checked)}
                                     />
                                     <CheckboxCustom options={[
                                         "Habilita PCP"
                                     ]}
-                                        value={habilitaPCP}
-                                        onClickOptions={(checked) => setHabilitaPCP(checked)}
+                                        check={habilitaPCP}
+                                        onClickOptions={(e) => setHabilitaPCP(e.target.checked)}
                                     />
                                 </div>
                                 <CheckboxCustom options={[
                                     "Pesagem Automatizada dos Itens",
                                 ]}
-                                    value={pesagemAutomatizadaDosItens}
-                                    onClickOptions={(checked) => setPesagemAutomatizadaDosItens(checked)}
+                                    check={pesagemAutomatizadaDosItens}
+                                    onClickOptions={(e) => setPesagemAutomatizadaDosItens(e.target.checked)}
                                 />
                             </div>
                         </div>
@@ -259,8 +259,8 @@ export const TabGeralManipulacao = () => {
                             <CheckboxCustom options={[
                                 "Habilita quarentena"
                             ]}
-                                value={habilitaQuarentena}
-                                onClickOptions={(checked) => setHabilitaQuarentena(checked)}
+                                check={habilitaQuarentena}
+                                onClickOptions={(e) => setHabilitaQuarentena(e.target.checked)}
                             />
                             <CheckboxCustom options={[
                                 "Farmácia veterinária"
@@ -269,26 +269,26 @@ export const TabGeralManipulacao = () => {
                             <CheckboxCustom options={[
                                 "Deduzir quantidade do Lote anterior na dinamização"
                             ]}
-                                value={deduzirQuantidadeLoteAnteriorDaDinamizacao}
-                                onClickOptions={(checked) => setDeduzirQuantidadeLoteAnteriorDaDinamizacao(checked)}
+                                check={deduzirQuantidadeLoteAnteriorDaDinamizacao}
+                                onClickOptions={(e) => setDeduzirQuantidadeLoteAnteriorDaDinamizacao(e.target.checked)}
                             />
                             <CheckboxCustom options={[
                                 "Buscar último fator lote orçamento (UI/UFC/UTR)",
                             ]}
-                                value={buscaultimoFatorLoteOrcamentoUIUFCUTR}
-                                onClickOptions={(checked) => setBuscaultimoFatorLoteOrcamentoUIUFCUTR(checked)}
+                                check={buscaultimoFatorLoteOrcamentoUIUFCUTR}
+                                onClickOptions={(e) => setBuscaultimoFatorLoteOrcamentoUIUFCUTR(e.target.checked)}
                             />
                             <CheckboxCustom options={[
                                 "Manter valor da pré-venda"
                             ]}
-                                value={manterValorDaPreVenda}
-                                onClickOptions={(checked) => setManterValorDaPreVenda(checked)}
+                                check={manterValorDaPreVenda}
+                                onClickOptions={(e) => setManterValorDaPreVenda(e.target.checked)}
                             />
                             <CheckboxCustom options={[
                                 "Exibir QSP automático"
                             ]}
-                                value={exibirQSPAutomático}
-                                onClickOptions={(checked) => setExibirQSPAutomático(checked)}
+                                check={exibirQSPAutomático}
+                                onClickOptions={(e) => setExibirQSPAutomático(e.target.checked)}
                             />
 
                         </div>

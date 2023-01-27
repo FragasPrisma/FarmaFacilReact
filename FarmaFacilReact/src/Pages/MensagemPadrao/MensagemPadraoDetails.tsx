@@ -60,7 +60,6 @@ export function MensagemPadraoDetials() {
                         <div className="col-2 mb-3">
                             <CheckboxCustom
                                 options={["Descrição Rótulo"]}
-                                onClickOptions={(check) => setDescricaoRotulo(check)}
                                 check={descricaoRotulo}
                                 readOnly={true}
                             />
@@ -68,7 +67,6 @@ export function MensagemPadraoDetials() {
                         <div className="col-2">
                             <CheckboxCustom
                                 options={["Enviar Automáticamente"]}
-                                onClickOptions={(check) => setEnviarAutomatico(check)}
                                 check={enviarAutomatico}
                                 readOnly={true}
                             />
