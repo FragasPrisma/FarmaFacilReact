@@ -24,4 +24,5 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Pós Adquirente"},
   {img: Flat, titulo:"Posologia"},
   {img: Flat, titulo:"Tributo"},
+  {img: Flat, titulo:"Máquina Pós"},
 ];
