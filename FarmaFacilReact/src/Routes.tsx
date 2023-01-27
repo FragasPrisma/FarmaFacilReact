@@ -80,6 +80,10 @@ import { Posologia } from "./Pages/Posologia";
 import { PosologiaCreate } from "./Pages/Posologia/PosologiaCreate";
 import { PosologiaDetails } from "./Pages/Posologia/PosologiaDetails";
 import { PosologiaEdit } from "./Pages/Posologia/PosologiaEdit";
+import { FuncionarioLaboratorio } from "./Pages/FuncionarioLaboratorio";
+import { FuncionarioLaboratorioCreate } from "./Pages/FuncionarioLaboratorio/FuncionarioLaboratorioCreate";
+import { FuncionarioLaboratorioEdit } from "./Pages/FuncionarioLaboratorio/FuncionarioLaboratorioEdit";
+import { FuncionarioLaboratorioDetails } from "./Pages/FuncionarioLaboratorio/FuncionarioLaboratorioDetails";
 
 import {
   BrowserRouter as Router,
@@ -87,6 +91,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -752,6 +757,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PosologiaEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/funcionarioLaboratorio"
+              element={
+                <Private>
+                  <FuncionarioLaboratorio />
+                </Private>
+              }
+            />
+            <Route 
+              path="/funcionarioLaboratorio/create"
+              element={
+                <Private>
+                  <FuncionarioLaboratorioCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/funcionarioLaboratorio/details/:id"
+              element={
+                <Private>
+                  <FuncionarioLaboratorioDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/funcionarioLaboratorio/edit/:id"
+              element={
+                <Private>
+                  <FuncionarioLaboratorioEdit />
                 </Private>
               }
             />
