@@ -3,6 +3,7 @@ import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
 
 interface IInput {
     label: string;
+    step?: string;
     placeholder?: string;
     type: string;
     name?: string;
@@ -14,7 +15,7 @@ interface IInput {
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void
  }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value,maxLength,erro,  OnChange }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step }: IInput) {
     return (
         <ContainerInput >
             <div className="containerAbc">
@@ -26,6 +27,7 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                 </div>
                 <InputCustomized
                     type={type}
+                    step={step}
                     placeholder={placeholder}
                     name={name}
                     value={value}

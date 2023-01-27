@@ -1,3 +1,9 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import React, { useState, useContext } from "react";
 import { AuthProvider, AuthContext } from "./Context/auth";
 import { Bairro } from "./Pages/Bairro";
@@ -100,13 +106,10 @@ import { Tributo } from "./Pages/Tributo";
 import { TributoCreate } from "./Pages/Tributo/TributoCreate";
 import { TributoEdit } from "./Pages/Tributo/TributoEdit";
 import { TributoDetails } from "./Pages/Tributo/TributoDetails";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { EtapaCreate } from "./Pages/Etapa/EtapaCreate";
+import { EtapaDetails } from "./Pages/Etapa/EtapaDetails";
+import { EtapaEdit } from "./Pages/Etapa/EtapaEdit";
+import { Etapa } from "./Pages/Etapa";
 import { Portador } from "./Pages/Portador";
 import { PortadorCreate } from "./Pages/Portador/PortadorCreate";
 import { PortadorEdit } from "./Pages/Portador/PortadorEdit";
@@ -128,6 +131,10 @@ import { MetodoCreate } from "./Pages/Metodo/MetodoCreate";
 import { MetodoEdit } from "./Pages/Metodo/MetodoEdit";
 import { MetodoDetails } from "./Pages/Metodo/MetodoDetails";
 import { FormaDepagamento } from "./Pages/FormaPagamento";
+import { MaquinaPos } from "./Pages/MaquinaPos";
+import { MaquinaPosCreate } from './Pages/MaquinaPos/MaquinaPosCreate';
+import { MaquinaPosDetails } from './Pages/MaquinaPos/MaquinaPosDetails';
+import { MaquinaPosEdit } from './Pages/MaquinaPos/MaquinaPosEdit';
 import { FormaPagamentoCreate } from "./Pages/FormaPagamento/FormaPagamentoCreate";
 import { FormaPagamentoEdit } from "./Pages/FormaPagamento/FormaPagamentoEdit";
 import { FormaPagamentoDetails } from "./Pages/FormaPagamento/FormaPagamentoDetails";
@@ -1103,6 +1110,38 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route 
+              path="/maquinapos"
+              element={
+                <Private>
+                  <MaquinaPos />
+                </Private>
+              }
+            />
+              <Route 
+              path="/maquinapos/create"
+              element={
+                <Private>
+                  <MaquinaPosCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/maquinapos/details/:id"
+              element={
+                <Private>
+                  <MaquinaPosDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/maquinapos/edit/:id"
+              element={
+                <Private>
+                  <MaquinaPosEdit />
+                </Private>
+              }
+            />
             <Route
               path="/posologia"
               element={
@@ -1164,6 +1203,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FuncionarioLaboratorioEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa"
+              element={
+                <Private>
+                  <Etapa />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa/create"
+              element={
+                <Private>
+                  <EtapaCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa/details/:id"
+              element={
+                <Private>
+                  <EtapaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa/edit/:id"
+              element={
+                <Private>
+                  <EtapaEdit />
                 </Private>
               }
             />

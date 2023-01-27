@@ -2,65 +2,84 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
+import { ChangeEvent, useState, useEffect } from "react";
+import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { ChangeEvent, useState } from "react";
-import { postFormAll } from "../../Services/Api";
+import { useParams, useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { useNavigate } from "react-router-dom";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
-import { CustomDropDown } from "./../../Components/Inputs/CustomDropDown/index";
-import { RadioCustom } from "./../../Components/Inputs/RadioCustom/index";
+import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 
-export function TributoCreate() {
+export function MaquinaPosEdit() {
   const navigate = useNavigate();
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
-  const [erroNome, setErroNome] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [erroNome, setErroNome] = useState("");
+  const { id } = useParams();
 
-  const [descricao, setDescricao] = useState("");
-  const [codigo, setCodigo] = useState("");
-  const [tipoTributo, setTipoTributo] = useState(0);
-  const [tipoTributoLabel, setTipoTributoLabel] = useState("");
-
-  const data = {
+  const [data] = useState({
     id: 0,
-    tipoTributo: tipoTributo,
-    descricao: descricao.trim(),
-    codigo: codigo.trim(),
-  };
+    descricao: "",
+    serialPos: "",
+    adquirentePosId: 0,
+  });
+  const [serialPos, setSerialPos] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [adquirenteId, setAdquirenteId] = useState();
+  const [adquirente, setAdquirente] = useState([]);
 
-  function setOptions(value: number, label: string) {
-    setTipoTributo(value);
-    setTipoTributoLabel(label);
-  }
+  let idParams = !id ? "0" : id.toString();
+
+  useEffect(() => {
+    async function Init() {
+      const response = await GetId("RetornaMaquinaPosPorId", idParams);
+      if (response.status == 200) {
+        // setAdquirente(response.data);
+
+        setDescricao(response.data.descricao);
+        setSerialPos(response.data.serialPos);
+        setAdquirente(response.data.adquirentePos.descricao);
+        // setTipoTributo(response.data.tipoTributo);
+      }
+    }
+
+    Init();
+  }, []);
 
   async function submit() {
     setErroNome("");
     setIsLoading(true);
-    if (!descricao.trim() || !codigo.trim()) {
+
+    if (!serialPos.trim()) {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome("Campo é obrigatório!");
+        setErroNome("Campo Serial é obrigatório !");
       }, 2000);
       return;
     }
-    const response = await postFormAll("AdicionarTributo", data);
 
-    if (response.status === 200) {
+    // data.id = adquirenteId;
+    // data.descricao = descricao.trim();
+    // data.serialPos = serialPos.trim();
+    // data.adquirentePosId = adquirentePosId;
+
+    const resp = await postFormAll("EditarMaquinaPos", data);
+
+    if (resp.status == 200) {
       setIsOpenSuccess(true);
       setTimeout(() => {
-        navigate("/tributo");
+        navigate("/maquinapos");
       }, 2000);
     } else {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome(response.request.response);
+        setErroNome(resp.request.response);
       }, 2000);
     }
   }
@@ -68,7 +87,7 @@ export function TributoCreate() {
   return (
     <>
       <HeaderMainContent
-        title="Adicionar Tributo"
+        title="Editar Máquina Pós"
         IncludeButton={false}
         ReturnButton={false}
       />
@@ -77,29 +96,29 @@ export function TributoCreate() {
           <div className="row">
             <div className="col-5">
               <CustomInput
-                label="Código"
+                label="Descrição"
                 type="text"
-                placeholder="Digite o código do Tributo"
-                value={codigo}
+                placeholder="Digite uma descrição do máquina pós"
+                value={descricao}
                 maxLength={10}
                 erro={erroNome}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCodigo(e.target.value)
+                  setDescricao(e.target.value)
                 }
-                required={true}
+                required={false}
               />
             </div>
           </div>
           <div className="row">
             <div className="col-6">
               <CustomInput
-                label="Descrição"
+                label="Serial"
                 type="textarea"
-                placeholder="Digite uma descrição para o Tributo"
-                value={descricao}
+                placeholder="Digite um Serial para máquina pós"
+                value={serialPos}
                 maxLength={150}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setDescricao(e.target.value)
+                  setSerialPos(e.target.value)
                 }
                 required={true}
               />
@@ -108,23 +127,12 @@ export function TributoCreate() {
 
           <div className="row">
             <div className="col-3">
-              <RadioCustom
-                titleComponet="Tipo Tributo"
-                name="Tipo Tributo"
-                options={[
-                  "CST",
-                  "CSOSN",
-                  "SituacaoDocumento",
-                  "DocumentosFiscais",
-                  "CstPisCofins",
-                  "CstIss",
-                  "CFPS",
-                  "CEST",
-                  "CodigoBeneficioFiscal",
-                  "CstIpi",
-                ]}
-                value={tipoTributo}
-                onClickOptions={(value, label) => setOptions(value, label)}
+              <CustomDropDown
+                data={adquirente}
+                title="Selecione um Adquirente"
+                filter="descricao"
+                label="Adquirente"
+                Select={(id) => setAdquirenteId(id)}
               />
             </div>
           </div>
@@ -132,7 +140,7 @@ export function TributoCreate() {
           <div className="row">
             <div className="col-6 mt-2">
               <ButtonConfirm onCLick={submit} isLoading={isLoading} />
-              <ButtonCancel to="tributo" />
+              <ButtonCancel to="maquinapos" />
             </div>
           </div>
         </Container>
