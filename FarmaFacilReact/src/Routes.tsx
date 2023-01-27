@@ -1,3 +1,10 @@
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import React, { useState, useContext } from "react";
 import { AuthProvider, AuthContext } from "./Context/auth";
 import { Bairro } from "./Pages/Bairro";
@@ -80,13 +87,10 @@ import { Posologia } from "./Pages/Posologia";
 import { PosologiaCreate } from "./Pages/Posologia/PosologiaCreate";
 import { PosologiaDetails } from "./Pages/Posologia/PosologiaDetails";
 import { PosologiaEdit } from "./Pages/Posologia/PosologiaEdit";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Tributo } from "./Pages/Tributo";
+import { TributoCreate } from "./Pages/Tributo/TributoCreate";
+import { TributoEdit } from "./Pages/Tributo/TributoEdit";
+import { TributoDetails } from "./Pages/Tributo/TributoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -707,6 +711,43 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route 
+              path="/tributo"
+              element={
+                <Private>
+                  <Tributo />
+                </Private>
+              }
+            />
+            <Route
+              path="/tributo/create"
+              element={
+                <Private>
+                  <TributoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/tributo/edit/:id"
+              element={
+                <Private>
+                  <TributoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/tributo/details/:id"
+              element={
+                <Private>
+                  <TributoDetails/>
+                </Private>
+              }
+            />
+
+
+
             <Route 
               path="/tipoJustificativa/details/:id"
               element={

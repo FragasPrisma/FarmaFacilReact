@@ -4,7 +4,6 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-// Resolvendo merge
 
 export function Pbm() {
   const [data, setData] = useState([]);

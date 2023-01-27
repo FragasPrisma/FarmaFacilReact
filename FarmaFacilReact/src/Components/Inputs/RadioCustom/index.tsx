@@ -4,7 +4,7 @@ interface ISelect {
   titleComponet?: string;
   options: string[];
   name: string;
-  onClickOptions: (options: number, label: string) => void;
+  onClickOptions?: (options: number, label: string) => void ;
   value: number;
 }
 

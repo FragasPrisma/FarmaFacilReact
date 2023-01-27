@@ -33,7 +33,7 @@ export function SearchContentScreens({ text ,data, filter,headerTable}: IDataSea
       filterArray();
     }
 
-  },[value,data]);
+  },[ value, data ]);
   
   return (
     <ContainerSearch className="">
