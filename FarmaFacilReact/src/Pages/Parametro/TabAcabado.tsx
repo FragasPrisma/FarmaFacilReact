@@ -72,8 +72,8 @@ export const TabAcabado = () => {
                     <CheckboxCustom options={[
                         "Avisar estoque mínimo na venda"
                     ]} 
-                    value={estoqueMinimoAvisarEstoqueMinimoNaVenda}
-                    onClickOptions={(checked)=> setEstoqueMinimoAvisarEstoqueMinimoNaVenda(checked)}
+                    check={estoqueMinimoAvisarEstoqueMinimoNaVenda}
+                    onClickOptions={(e)=> setEstoqueMinimoAvisarEstoqueMinimoNaVenda(e.target.checked)}
                     />
                 </div>
             </div>
