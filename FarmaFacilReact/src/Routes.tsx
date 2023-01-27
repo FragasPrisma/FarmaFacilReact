@@ -91,6 +91,10 @@ import {
 import { AdministradoraCartaoCreate } from "./Pages/AdministradoCartao/AdministradoraCartaoCreate";
 import { AdministradoraCartaoEdit } from "./Pages/AdministradoCartao/AdministradoraCartaoEdit";
 import { AdministradoraCartaoDetails } from "./Pages/AdministradoCartao/AdministradoraCartaoDetails";
+import { Motivo } from "./Pages/Motivo";
+import { MotivoCreate } from "./Pages/Motivo/MotivoCreate";
+import { MotivoEdit } from "./Pages/Motivo/MotivoEdit";
+import { MotivoDetails } from "./Pages/Motivo/MotivoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -403,6 +407,42 @@ export function AppRoutes() {
               element={
                 <Private>
                   <LaboratorioEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo"
+              element={
+                <Private>
+                  <Motivo />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo/create"
+              element={
+                <Private>
+                  <MotivoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo/edit/:id"
+              element={
+                <Private>
+                  <MotivoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo/details/:id"
+              element={
+                <Private>
+                  <MotivoDetails />
                 </Private>
               }
             />

@@ -10,6 +10,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Fornecedor"},
   {img: Flat, titulo:"Grupo"},
   {img: Flat, titulo:"Laboratorio"},
+  {img: Flat, titulo:"Motivo"},
   {img: Flat, titulo:"Nbm"},
   {img: Flat, titulo:"Ncm"},
   {img: Flat, titulo:"Pbm"},
