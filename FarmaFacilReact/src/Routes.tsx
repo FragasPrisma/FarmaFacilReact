@@ -1,3 +1,9 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import React, { useState, useContext } from "react";
 import { AuthProvider, AuthContext } from "./Context/auth";
 import { Bairro } from "./Pages/Bairro";
@@ -100,13 +106,10 @@ import { Tributo } from "./Pages/Tributo";
 import { TributoCreate } from "./Pages/Tributo/TributoCreate";
 import { TributoEdit } from "./Pages/Tributo/TributoEdit";
 import { TributoDetails } from "./Pages/Tributo/TributoDetails";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { EtapaCreate } from "./Pages/Etapa/EtapaCreate";
+import { EtapaDetails } from "./Pages/Etapa/EtapaDetails";
+import { EtapaEdit } from "./Pages/Etapa/EtapaEdit";
+import { Etapa } from "./Pages/Etapa";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -948,6 +951,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FuncionarioLaboratorioEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa"
+              element={
+                <Private>
+                  <Etapa />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa/create"
+              element={
+                <Private>
+                  <EtapaCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa/details/:id"
+              element={
+                <Private>
+                  <EtapaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/etapa/edit/:id"
+              element={
+                <Private>
+                  <EtapaEdit />
                 </Private>
               }
             />

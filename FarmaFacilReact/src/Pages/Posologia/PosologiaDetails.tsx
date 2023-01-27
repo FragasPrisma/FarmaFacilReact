@@ -60,6 +60,7 @@ export function PosologiaDetails() {
                                 label={`Capsulas/Doses por ${periodoLabel}`}
                                 type="number"
                                 value={quantidade}
+                                readonly={true}
                             />
                         </div>
                         <div className="col-2">
