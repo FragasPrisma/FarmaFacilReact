@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { url } from "inspector";
 
 const API_URL = "https://localhost:44326/api/";
 

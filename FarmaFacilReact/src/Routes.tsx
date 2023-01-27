@@ -85,13 +85,6 @@ import { FuncionarioLaboratorio } from "./Pages/FuncionarioLaboratorio";
 import { FuncionarioLaboratorioCreate } from "./Pages/FuncionarioLaboratorio/FuncionarioLaboratorioCreate";
 import { FuncionarioLaboratorioEdit } from "./Pages/FuncionarioLaboratorio/FuncionarioLaboratorioEdit";
 import { FuncionarioLaboratorioDetails } from "./Pages/FuncionarioLaboratorio/FuncionarioLaboratorioDetails";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
 import { AdministradoraCartaoCreate } from "./Pages/AdministradoCartao/AdministradoraCartaoCreate";
 import { AdministradoraCartaoEdit } from "./Pages/AdministradoCartao/AdministradoraCartaoEdit";
 import { AdministradoraCartaoDetails } from "./Pages/AdministradoCartao/AdministradoraCartaoDetails";
@@ -103,7 +96,17 @@ import { Pais } from "./Pages/Pais";
 import { PaisCreate } from "./Pages/Pais/PaisCreate";
 import { PaisEdit } from "./Pages/Pais/PaisEdit";
 import { PaisDetails } from "./Pages/Pais/PaisDetails";
+import { Tributo } from "./Pages/Tributo";
+import { TributoCreate } from "./Pages/Tributo/TributoCreate";
+import { TributoEdit } from "./Pages/Tributo/TributoEdit";
+import { TributoDetails } from "./Pages/Tributo/TributoDetails";
 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -831,7 +834,44 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route 
+              path="/tributo"
+              element={
+                <Private>
+                  <Tributo />
+                </Private>
+              }
+            />
             <Route
+              path="/tributo/create"
+              element={
+                <Private>
+                  <TributoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/tributo/edit/:id"
+              element={
+                <Private>
+                  <TributoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/tributo/details/:id"
+              element={
+                <Private>
+                  <TributoDetails/>
+                </Private>
+              }
+            />
+
+
+
+            <Route 
               path="/tipoJustificativa/details/:id"
               element={
                 <Private>

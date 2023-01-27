@@ -26,5 +26,6 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Especificação Cápsula"},
   {img: Flat, titulo:"Pós Adquirente"},
   {img: Flat, titulo:"Posologia"},
-  {img: Flat, titulo:"Funcionário Laboratório"}
+  {img: Flat, titulo:"Funcionário Laboratório"},
+  {img: Flat, titulo:"Tributo"},
 ];
