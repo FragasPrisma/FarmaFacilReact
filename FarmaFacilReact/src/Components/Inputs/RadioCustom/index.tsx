@@ -6,9 +6,10 @@ interface ISelect {
   name: string;
   onClickOptions?: (options: number, label: string) => void ;
   value: number;
+  readonly?:boolean
 }
 
-export function RadioCustom({ titleComponet, options, name, onClickOptions, value}: ISelect) {
+export function RadioCustom({ titleComponet, options, name, onClickOptions, value,readonly}: ISelect) {
 
   function ReloadOption(option:number, label:string){
     onClickOptions(option, label);
@@ -26,9 +27,9 @@ export function RadioCustom({ titleComponet, options, name, onClickOptions, valu
           <div key={index}>
             {
               value == index ? 
-                <input type="radio" name={name} onChange={() => ReloadOption(index, option)} checked={true} disabled={true}/>
+                <input type="radio" name={name} onChange={() => ReloadOption(index, option)} checked={true} disabled={readonly}/>
                 :
-                <input type="radio" name={name} onChange={() => ReloadOption(index, option)} checked={false} disabled={true}/>
+                <input type="radio" name={name} onChange={() => ReloadOption(index, option)} checked={false} disabled={readonly}/>
             }
             <label>{option}</label>
           </div>

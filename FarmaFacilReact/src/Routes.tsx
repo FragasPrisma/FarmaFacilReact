@@ -119,6 +119,10 @@ import { MensagemPadrao } from "./Pages/MensagemPadrao";
 import { MensagemPadraoCreate } from "./Pages/MensagemPadrao/MensagemPadraoCreate";
 import { MensagemPadraoEdit } from "./Pages/MensagemPadrao/MensagemPadraoEdit";
 import { MensagemPadraoDetials } from "./Pages/MensagemPadrao/MensagemPadraoDetails";
+import { Bula } from "./Pages/Bula";
+import { BulaCreate } from "./Pages/Bula/BulaCreate";
+import { BulaEdit } from "./Pages/Bula/BulaEdit";
+import { BulaDetails } from "./Pages/Bula/BulaDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -253,6 +257,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <BairroEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/bula"
+              element={
+                <Private>
+                  <Bula />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/bula/create"
+              element={
+                <Private>
+                  <BulaCreate />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/bula/edit/:id"
+              element={
+                <Private>
+                  <BulaEdit />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/bula/details/:id"
+              element={
+                <Private>
+                  <BulaDetails />{" "}
                 </Private>
               }
             />

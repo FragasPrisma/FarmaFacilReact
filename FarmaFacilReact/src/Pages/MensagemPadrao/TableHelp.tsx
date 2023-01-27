@@ -19,11 +19,11 @@ export function TableHelp() {
                     </tr>
                     <tr>
                         <td>[FORMULASCOMPLETA]</td>
-                        <td>Listade Fórmulas COM detalhamento dos itens da formula e SEM a informação da Previsão de Entrega;</td>
+                        <td>Lista de Fórmulas COM detalhamento dos itens da formula e SEM a informação da Previsão de Entrega;</td>
                     </tr>
                     <tr>
                         <td>[FORMULASCOMPLETADESCONTO]</td>
-                        <td>Listade Fórmulas COM detalhamento dos itens da formula COM a informação do DESCONTO. Mas, SEM a informação da Previsão de Entrega;</td>
+                        <td>Lista de Fórmulas COM detalhamento dos itens da formula COM a informação do DESCONTO. Mas, SEM a informação da Previsão de Entrega;</td>
                     </tr>
                     <tr>
                         <td>[FORMULASENTREGADESCONTO]</td>

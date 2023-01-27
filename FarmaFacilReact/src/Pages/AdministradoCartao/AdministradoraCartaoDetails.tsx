@@ -102,6 +102,7 @@ export function AdministradoraCartaoDetails() {
                                         "HiperCard",
                                         "Integracao4S"]}
                                     name="gerenciador"
+                                    readonly={true}
                                     onClickOptions={(value, label) => setGerenciador(value)}
                                     titleComponet="Gerenciador TEF"
                                     value={gerenciador}
@@ -116,6 +117,7 @@ export function AdministradoraCartaoDetails() {
                                             "ViasDiferenciadas",
                                             "CupomReduzido"]}
                                         name="cieloPremia"
+                                        readonly={true}
                                         onClickOptions={(value, label) => setCieloPremia(value)}
                                         value={cieloPremia}
                                     />
@@ -127,6 +129,7 @@ export function AdministradoraCartaoDetails() {
                                 <RadioCustom
                                     options={["Débito",
                                         "Crédito"]}
+                                    readonly={true}
                                     name="modalidade"
                                     onClickOptions={(value, label) => setmodalidade(value)}
                                     titleComponet="Modadilade"
