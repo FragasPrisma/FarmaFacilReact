@@ -12,7 +12,9 @@ interface ISelect {
 export function RadioCustom({ titleComponet, options, name, onClickOptions, value,readonly}: ISelect) {
 
   function ReloadOption(option:number, label:string){
-    onClickOptions(option, label);
+    if (onClickOptions) {
+      onClickOptions(option, label);
+    }
   };
   
   return (
