@@ -103,6 +103,10 @@ import { Portador } from "./Pages/Portador";
 import { PortadorCreate } from "./Pages/Portador/PortadorCreate";
 import { PortadorEdit } from "./Pages/Portador/PortadorEdit";
 import { PortadorDetails } from "./Pages/Portador/PortadorDetails";
+import { ContaCorrente } from "./Pages/ContaCorrente";
+import { ContaCorrenteCreate } from "./Pages/ContaCorrente/ContaCorrenteCreate";
+import { ContaCorrenteEdit } from "./Pages/ContaCorrente/ContaCorrenteEdit";
+import { ContaCorrenteDetails } from "./Pages/ContaCorrente/ContaCorrenteDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -272,7 +276,38 @@ export function AppRoutes() {
                 </Private>
               }
             />
-
+            <Route
+              path="/contacorrente"
+              element={
+                <Private>
+                  <ContaCorrente />
+                </Private>
+              }
+            />
+            <Route
+              path="/contacorrente/create"
+              element={
+                <Private>
+                  <ContaCorrenteCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/contacorrente/edit/:id"
+              element={
+                <Private>
+                  <ContaCorrenteEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contacorrente/details/:id"
+              element={
+                <Private>
+                  <ContaCorrenteDetails />
+                </Private>
+              }
+            />
             <Route
               path="/dcb"
               element={
