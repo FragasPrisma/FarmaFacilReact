@@ -95,6 +95,10 @@ import { Motivo } from "./Pages/Motivo";
 import { MotivoCreate } from "./Pages/Motivo/MotivoCreate";
 import { MotivoEdit } from "./Pages/Motivo/MotivoEdit";
 import { MotivoDetails } from "./Pages/Motivo/MotivoDetails";
+import { Pais } from "./Pages/Pais";
+import { PaisCreate } from "./Pages/Pais/PaisCreate";
+import { PaisEdit } from "./Pages/Pais/PaisEdit";
+import { PaisDetails } from "./Pages/Pais/PaisDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -628,6 +632,41 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PosAdquirenteDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pais"
+              element={
+                <Private>
+                  <Pais />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pais/create"
+              element={
+                <Private>
+                  <PaisCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pais/edit/:id"
+              element={
+                <Private>
+                  <PaisEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/pais/details/:id"
+              element={
+                <Private>
+                  <PaisDetails />
                 </Private>
               }
             />
