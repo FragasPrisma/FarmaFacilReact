@@ -8,26 +8,22 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { time, timeStamp } from "console";
-import { NumberEight } from "phosphor-react";
+import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
 
-export function PaisCreate() {
+export function PortadorCreate() {
 
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState("");
-  const [codigoIbge,setCodigoIbge] = useState(0);
-  const [codigoTelefonico,setCodigoTelefonico] = useState(Number);
+  const [portadorInativo,setPortadorInativo] = useState(false);
   const [erro, setErro] = useState("");
-  const [erroIbge, setErroIbge] = useState("");
   const navigate = useNavigate();
 
   const data = {
     id: 0, 
     nome: nome.trim(),
-    codigoIbge:codigoIbge,
-    codigoTelefonico:codigoTelefonico
+    portadorInativo:portadorInativo
   };
 
   async function submit() {
@@ -41,18 +37,12 @@ export function PaisCreate() {
       return;
     }
 
-    if (codigoIbge <= 0) {
-        setErroIbge("Código IBGE é obrigatório !")
-        setIsLoading(false);
-        return;
-      }
-
-    const resp = await postFormAll("AdicionarPais", data);
+    const resp = await postFormAll("AdicionarPortador", data);
 
     if (resp.status == 200) {
       setIsOpenSuccess(true);
       setTimeout(() => {
-        navigate("/pais");
+        navigate("/portador");
       }, 2000)
     } else {
       setIsOpenFail(true);
@@ -65,11 +55,11 @@ export function PaisCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR PAÍS" IncludeButton={false} ReturnButton={false} />
+      <HeaderMainContent title="ADICIONAR PORTADOR" IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
         <Container>
           <div className="row">
-            <div className="col-6 mb-3">
+            <div className="col-5 mb-3">
               <CustomInput
                 label="Nome"
                 type="text"
@@ -85,36 +75,18 @@ export function PaisCreate() {
             </div>
           </div>
           <div className="row">
-            <div className="col-3">
-              <CustomInput
-                label="Código IBGE"
-                type="number"
-                placeholder="Digite o código IBGE"
-                value={codigoIbge}
-                erro={erroIbge}
-                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCodigoIbge(parseInt(e.target.value))
-                }
-                required={true}
-              />
-            </div>
-            <div className="col-3">
-              <CustomInput
-                label="Código Telefonico"
-                type="number"
-                placeholder="Digite o código telefonico"
-                value={codigoTelefonico}
-                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCodigoTelefonico(parseInt(e.target.value))
-                }
-                required={false}
+            <div className="col-2 mb-3">
+              <CheckboxCustom
+                options={["Portador Inativo"]}
+                onClickOptions={(check) => setPortadorInativo(check)}
+                check={portadorInativo}
               />
             </div>
           </div>
           <div className="row">
-            <div className="col-6 mt-3">
+            <div className="col-6">
               <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
-              <ButtonCancel to="pais" />
+              <ButtonCancel to="portador" />
             </div>
           </div>
         </Container>

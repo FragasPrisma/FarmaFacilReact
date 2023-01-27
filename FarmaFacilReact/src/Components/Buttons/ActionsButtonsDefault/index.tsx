@@ -19,10 +19,10 @@ export function ActionsButtonsDefault({id, pathParameters, urlText}: Path) {
 
     return (
         <div>
-            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ","")}/details/${id}`}>
+            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '')}/details/${id}`}>
                 <DetailsButton><Eye size={22} color="#cf0209" /></DetailsButton>
             </NavLink>
-            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ","")}/edit/${id}`}>
+            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '')}/edit/${id}`}>
                 <EditButton><NotePencil size={20} color="#cf0209" /></EditButton>
             </NavLink>
                 <DeleteButton  onClick={openModalDelete}><Trash size={20} color="#cf0209" /> </DeleteButton>

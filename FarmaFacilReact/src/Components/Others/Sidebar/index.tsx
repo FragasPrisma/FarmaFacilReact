@@ -42,7 +42,9 @@ export function Sidebar() {
                     .toLowerCase()
                     .normalize("NFD")
                     .replace(/[\u0300-\u036f]/g, "")
-                    .replace(" ","")}`}
+                    .replace(/\s/g, '')
+                    .trim()
+                    }`}
                 >
                     <img src={optionMenuItem.img} className="img_options" />
                   {optionMenuItem.titulo}

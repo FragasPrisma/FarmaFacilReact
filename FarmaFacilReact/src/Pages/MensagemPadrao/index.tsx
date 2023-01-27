@@ -4,14 +4,14 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Farmacopeia(){
+export function MensagemPadrao(){
     const [pagina,setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const loadDataTable = async () => {
-            const response = await getAll(`ListaPaginacaoFarmacopeia/${pagina}`);
+            const response = await getAll(`ListaPaginacaoMensagensPadrao/${pagina}`);
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
         }
@@ -21,8 +21,8 @@ export function Farmacopeia(){
 
     return (
         <>
-            <HeaderMainContent title="FARMACOPÉIA" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Farmacopéia" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <HeaderMainContent title="MENSAGENS PADRÃO" IncludeButton={true} ReturnButton={false}/>
+            <SearchContentScreens text="Mensagens Padrão" data={data} filter={"statusDescricao"} headerTable={["id", "statusDescricao"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

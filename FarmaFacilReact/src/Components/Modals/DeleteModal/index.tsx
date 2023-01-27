@@ -38,13 +38,13 @@ export function DeleteModal({
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(" ", "")}PorId`, idItem);
+      .replace(/\s/g, '')}PorId`, idItem);
     const payload = requestGetItemById.data;
     const resp = await deleteDetail(`Excluir${urlText
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(" ", "")}`, payload);
+      .replace(/\s/g, '')}`, payload);
 
     if (resp.status == 200) {
       closeModal();
