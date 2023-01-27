@@ -115,6 +115,10 @@ import { ContaCorrente } from "./Pages/ContaCorrente";
 import { ContaCorrenteCreate } from "./Pages/ContaCorrente/ContaCorrenteCreate";
 import { ContaCorrenteEdit } from "./Pages/ContaCorrente/ContaCorrenteEdit";
 import { ContaCorrenteDetails } from "./Pages/ContaCorrente/ContaCorrenteDetails";
+import { MensagemPadrao } from "./Pages/MensagemPadrao";
+import { MensagemPadraoCreate } from "./Pages/MensagemPadrao/MensagemPadraoCreate";
+import { MensagemPadraoEdit } from "./Pages/MensagemPadrao/MensagemPadraoEdit";
+import { MensagemPadraoDetials } from "./Pages/MensagemPadrao/MensagemPadraoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -497,7 +501,39 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            <Route
+              path="/mensagenspadrao"
+              element={
+                <Private>
+                  <MensagemPadrao />
+                </Private>
+              }
+            />
 
+            <Route
+              path="/mensagenspadrao/create"
+              element={
+                <Private>
+                  <MensagemPadraoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/mensagenspadrao/edit/:id"
+              element={
+                <Private>
+                  <MensagemPadraoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/mensagenspadrao/details/:id"
+              element={
+                <Private>
+                  <MensagemPadraoDetials />
+                </Private>
+              }
+            />
             <Route
               path="/nbm"
               element={
@@ -906,7 +942,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tributo"
               element={
                 <Private>
@@ -936,14 +972,14 @@ export function AppRoutes() {
               path="/tributo/details/:id"
               element={
                 <Private>
-                  <TributoDetails/>
+                  <TributoDetails />
                 </Private>
               }
             />
 
 
 
-            <Route 
+            <Route
               path="/tipoJustificativa/details/:id"
               element={
                 <Private>
@@ -991,7 +1027,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/funcionarioLaboratorio"
               element={
                 <Private>
@@ -999,7 +1035,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/funcionarioLaboratorio/create"
               element={
                 <Private>
@@ -1007,7 +1043,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/funcionarioLaboratorio/details/:id"
               element={
                 <Private>
@@ -1015,7 +1051,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/funcionarioLaboratorio/edit/:id"
               element={
                 <Private>
