@@ -29,7 +29,7 @@ export function Tributo() {
         text="Tributo"
         data={data}
         filter={"descricao"}
-        headerTable={["id", "timoTributo", "descricao", "codigo"]}
+        headerTable={["id", "tipoTributo", "descricao", "codigo"]}
       />
       <Paginations
         pagina={pagina}
