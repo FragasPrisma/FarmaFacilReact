@@ -131,6 +131,10 @@ import { MetodoCreate } from "./Pages/Metodo/MetodoCreate";
 import { MetodoEdit } from "./Pages/Metodo/MetodoEdit";
 import { MetodoDetails } from "./Pages/Metodo/MetodoDetails";
 import { FormaDepagamento } from "./Pages/FormaPagamento";
+import { MaquinaPos } from "./Pages/MaquinaPos";
+import { MaquinaPosCreate } from './Pages/MaquinaPos/MaquinaPosCreate';
+import { MaquinaPosDetails } from './Pages/MaquinaPos/MaquinaPosDetails';
+import { MaquinaPosEdit } from './Pages/MaquinaPos/MaquinaPosEdit';
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1076,6 +1080,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <TipoJustificativaEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/maquinapos"
+              element={
+                <Private>
+                  <MaquinaPos />
+                </Private>
+              }
+            />
+              <Route 
+              path="/maquinapos/create"
+              element={
+                <Private>
+                  <MaquinaPosCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/maquinapos/details/:id"
+              element={
+                <Private>
+                  <MaquinaPosDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/maquinapos/edit/:id"
+              element={
+                <Private>
+                  <MaquinaPosEdit />
                 </Private>
               }
             />

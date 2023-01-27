@@ -5,7 +5,7 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
@@ -14,12 +14,11 @@ export function TributoEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
-  const [erroNome,setErroNome] = useState("");
+  const [erroNome, setErroNome] = useState("");
   const [tributoId, setTributoId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({id: 0, tipoTributo: 0, codigo: "", descricao:""});
-  const [isLoading,setIsLoading] = useState(false);
-
+  const [data] = useState({ id: 0, tipoTributo: 0, codigo: "", descricao: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   const [descricao, setDescricao] = useState("");
   const [codigo, setCodigo] = useState("");
@@ -33,62 +32,64 @@ export function TributoEdit() {
     setTipoTributoLabel(label);
   }
 
-  useEffect(() =>{
-    
+  useEffect(() => {
     async function Init() {
       const response = await GetId("RetornaTributoPorId", idParams);
-      if(response.status == 200){
+      if (response.status == 200) {
         setCodigo(response.data.codigo);
         setDescricao(response.data.descricao);
-        setTipoTributo(response.data.tipoTributo)
+        setTipoTributo(response.data.tipoTributo);
       }
     }
 
-    Init()
-  },[])
-    
+    Init();
+  }, []);
+
   async function submit() {
     setErroNome("");
     setIsLoading(true);
 
-    if(!descricao.trim() || !codigo.trim()){
+    if (!descricao.trim() || !codigo.trim()) {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome("Campo nome é obrigatório !")
-      }, 2000)
+        setErroNome("Campo nome é obrigatório !");
+      }, 2000);
       return;
     }
 
     data.id = tributoId;
     data.codigo = codigo.trim();
     data.descricao = descricao.trim();
-    data.tipoTributo = tipoTributo
-    
+    data.tipoTributo = tipoTributo;
+
     const resp = await postFormAll("EditarTributo", data);
 
-    if(resp.status == 200){
+    if (resp.status == 200) {
       setIsOpenSuccess(true);
       setTimeout(() => {
         navigate("/tributo");
-      }, 2000)
-    }else{
+      }, 2000);
+    } else {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome(resp.request.response)
-      }, 2000)
+        setErroNome(resp.request.response);
+      }, 2000);
     }
-
   }
 
   return (
     <>
-      <HeaderMainContent title="Editar Tributo" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent
+        title="Editar Tributo"
+        IncludeButton={false}
+        ReturnButton={false}
+      />
       <div className="form-group">
-      <Container>
+        <Container>
           <div className="row">
             <div className="col-5">
               <CustomInput
@@ -119,7 +120,6 @@ export function TributoEdit() {
             </div>
           </div>
 
-
           <div className="row">
             <div className="col-3">
               <RadioCustom
@@ -135,10 +135,10 @@ export function TributoEdit() {
                   "CFPS",
                   "CEST",
                   "CodigoBeneficioFiscal",
-                  "CstIpi"
+                  "CstIpi",
                 ]}
                 value={tipoTributo}
-                onClickOptions={(value, label) => setOptions(value,label)}
+                onClickOptions={(value, label) => setOptions(value, label)}
               />
             </div>
           </div>
@@ -150,7 +150,7 @@ export function TributoEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com" />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

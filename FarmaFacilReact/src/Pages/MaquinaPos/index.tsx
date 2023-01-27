@@ -4,32 +4,38 @@ import Paginations from "../../Components/Others/Pagination";
 import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { getAll } from "../../Services/Api";
 
-export function Tributo() {
+export function MaquinaPos() {
   const [data, setData] = useState([]);
   const [pagina, setPagina] = useState(1);
   const [qtdPagina, setQtdPagina] = useState(0);
 
   useEffect(() => {
-    const loadDataTableTributo = async () => {
-      const response = await getAll(`ListaPaginacaoTributo/${pagina}`);
+    const loadDataTableMaquinaPos = async () => {
+      const response = await getAll(`ListaPaginacaoMaquinaPos/${pagina}`);
+
       setQtdPagina(response.data.total);
       setData(response.data.listGroup);
     };
-    loadDataTableTributo();
+    loadDataTableMaquinaPos();
   }, [pagina]);
 
   return (
     <>
       <HeaderMainContent
-        title="Tributo"
+        title="Máquina Pós"
         IncludeButton={true}
         ReturnButton={false}
       />
       <SearchContentScreens
-        text="Tributo"
+        text="Máquina Pós"
         data={data}
         filter={"descricao"}
-        headerTable={["id", "timoTributo", "descricao", "codigo"]}
+        headerTable={[
+          "id",
+          "descricao",
+          "serialPos",
+          "adquirentePosId"
+        ]}
       />
       <Paginations
         pagina={pagina}
