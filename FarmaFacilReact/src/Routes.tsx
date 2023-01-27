@@ -135,6 +135,9 @@ import { MaquinaPos } from "./Pages/MaquinaPos";
 import { MaquinaPosCreate } from './Pages/MaquinaPos/MaquinaPosCreate';
 import { MaquinaPosDetails } from './Pages/MaquinaPos/MaquinaPosDetails';
 import { MaquinaPosEdit } from './Pages/MaquinaPos/MaquinaPosEdit';
+import { FormaPagamentoCreate } from "./Pages/FormaPagamento/FormaPagamentoCreate";
+import { FormaPagamentoEdit } from "./Pages/FormaPagamento/FormaPagamentoEdit";
+import { FormaPagamentoDetails } from "./Pages/FormaPagamento/FormaPagamentoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -696,6 +699,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FormaDepagamento />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento/create"
+              element={
+                <Private>
+                  <FormaPagamentoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento/edit/:id"
+              element={
+                <Private>
+                  <FormaPagamentoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento/details/:id"
+              element={
+                <Private>
+                  <FormaPagamentoDetails />
                 </Private>
               }
             />
