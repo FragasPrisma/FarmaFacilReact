@@ -4,26 +4,27 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
+// Resolvendo merge
 
-export function Pbm() {
+export function FuncionarioLaboratorio() {
   const [data, setData] = useState([]);
   const [pagina, setPagina] = useState(1);
   const [qtdPagina, setQtdPagina] = useState(0);
 
   useEffect(() => {
-    const loadDataTablePbm = async () => {
-      const response = await getAll(`ListaPaginacaoPbm/${pagina}`);
+    const loadDataTableFuncionarioLaboratorio = async () => {
+      const response = await getAll(`ListaPaginacaoFuncionarioLaboratorio/${pagina}`);
       setQtdPagina(response.data.total);
       setData(response.data.listGroup);
     }
 
-    loadDataTablePbm()
+    loadDataTableFuncionarioLaboratorio()
   }, [pagina]);
 
   return (
     <>
-      <HeaderMainContent title="PBM" IncludeButton={true} ReturnButton={false} />
-      <SearchContentScreens text="Pbm" data={data} filter={"nome"} headerTable={["id", "nome", "observacao"]} />
+      <HeaderMainContent title="FUNCIONÁRIO LABORATÓRIO" IncludeButton={true} ReturnButton={false} />
+      <SearchContentScreens text="FuncionarioLaboratorio" data={data} filter={"nome"} headerTable={["id", "nome"]} />
       <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
     </>
   );
