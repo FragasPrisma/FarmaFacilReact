@@ -9,9 +9,6 @@ interface ISelect {
 }
 
 export function CheckboxCustom({ titleComponet, options, onClickOptions, value }: ISelect) {
-  function ReloadCheck(option: boolean) {
-    onClickOptions(option);
-  };
   return (
     <>
       {titleComponet ? (
@@ -22,7 +19,7 @@ export function CheckboxCustom({ titleComponet, options, onClickOptions, value }
       <ContainerCheck>
         {options.map((option, index) => (
           <div key={index}>
-            <input type="checkbox" checked={value} onChange={(e: ChangeEvent<HTMLInputElement>) => ReloadCheck(e.target.checked)} />
+            <input type="checkbox" checked={value} onChange={() => onClickOptions}  />
             <label>{option}</label>
           </div>
         ))}

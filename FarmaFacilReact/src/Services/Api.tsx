@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 const API_URL = "https://localhost:44326/api/";
+//const API_URL = "https://api-ffweb.prismafive.com.br/api/"
 
 export const api = axios.create({
   baseURL: API_URL,
