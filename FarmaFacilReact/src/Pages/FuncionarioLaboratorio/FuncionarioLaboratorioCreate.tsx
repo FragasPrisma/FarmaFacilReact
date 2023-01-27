@@ -76,7 +76,11 @@ export function FuncionarioLaboratorioCreate() {
                     </div>
                     <div className="row">
                         <div className="col-1">
-                            <CheckboxCustom options={["Ativo"]}/>
+                            <CheckboxCustom 
+                                options={["Ativo"]}
+                                check={ativo}
+                                onClickOptions={(check) => setAtivo(check)}
+                            />
                         </div>
                     </div>
                     <div className="row">
