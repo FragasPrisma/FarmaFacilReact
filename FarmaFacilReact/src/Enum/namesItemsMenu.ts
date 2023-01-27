@@ -22,7 +22,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Pbm"},
   {img: Flat, titulo:"Principio Ativo"},
   {img: Flat, titulo:"Produto"},
-  {img: Flat, titulo:"Parametro"},
+  // {img: Flat, titulo:"Parametro"},
   {img: Flat, titulo:"Tipo Contato"},
   {img: Flat, titulo:"Tipo Justificativa"},
   {img: Flat, titulo:"Cidade"},

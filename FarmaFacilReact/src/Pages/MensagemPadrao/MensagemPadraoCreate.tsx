@@ -105,14 +105,14 @@ export function MensagemPadraoCreate() {
                         <div className="col-2 mb-3">
                             <CheckboxCustom
                                 options={["Descrição Rótulo"]}
-                                onClickOptions={(check) => setDescricaoRotulo(check)}
+                                onClickOptions={(e) => setDescricaoRotulo(e.target.checked)}
                                 check={descricaoRotulo}
                             />
                         </div>
                         <div className="col-2">
                             <CheckboxCustom
                                 options={["Enviar Automáticamente"]}
-                                onClickOptions={(check) => setEnviarAutomatico(check)}
+                                onClickOptions={(e) => setEnviarAutomatico(e.target.checked)}
                                 check={enviarAutomatico}
                             />
                         </div>

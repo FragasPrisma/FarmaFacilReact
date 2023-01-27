@@ -44,7 +44,6 @@ export function PortadorDetails() {
                         <div className="col-2 mb-3">
                             <CheckboxCustom
                                 options={["Portador Inativo"]}
-                                onClickOptions={(check) => setPortadorInativo(check)}
                                 check={portadorInativo}
                                 readOnly={true}
                             />

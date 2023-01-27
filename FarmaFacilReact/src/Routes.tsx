@@ -404,14 +404,14 @@ export function AppRoutes() {
               }
             />
 
-            <Route
+            {/* <Route
               path="/parametro"
               element={
                 <Private>
                   <Parametro />
                 </Private>
               }
-            />
+            /> */}
             <Route
               path="/dci"
               element={

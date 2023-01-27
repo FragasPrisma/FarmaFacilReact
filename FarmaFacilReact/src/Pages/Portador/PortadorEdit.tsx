@@ -93,7 +93,7 @@ export function PortadorEdit() {
             <div className="col-2 mb-3">
               <CheckboxCustom
                 options={["Portador Inativo"]}
-                onClickOptions={(check) => setPortadorInativo(check)}
+                onClickOptions={(e) => setPortadorInativo(e.target.checked)}
                 check={portadorInativo}
               />
             </div>
