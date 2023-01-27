@@ -44,7 +44,7 @@ export function AdministradoraCartaoEdit() {
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaAdministradoraCartaoPorId", idParams);
+            const response = await GetId("RetornaAdministradoraDeCartaoPorId", idParams);
             
             setId(response.data.id);
             setNome(response.data.nome);
@@ -125,7 +125,7 @@ export function AdministradoraCartaoEdit() {
         if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/administradoracartao");
+                navigate("/administradoradecartao");
             }, 2000)
         } else {
             setIsOpenFail(true);
@@ -139,7 +139,7 @@ export function AdministradoraCartaoEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR ADMINISTRADORA CARTÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="EDITAR ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {idAdministradora > 0 &&
                     <Container>
@@ -257,7 +257,7 @@ export function AdministradoraCartaoEdit() {
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
-                        <ButtonCancel to="administradoracartao" />
+                        <ButtonCancel to="administradoradecartao" />
                     </div>
                 </div>
                 <SuccessModal show={isOpenSuccess} />

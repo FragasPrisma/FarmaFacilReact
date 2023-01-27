@@ -127,6 +127,7 @@ import { Metodo } from "./Pages/Metodo";
 import { MetodoCreate } from "./Pages/Metodo/MetodoCreate";
 import { MetodoEdit } from "./Pages/Metodo/MetodoEdit";
 import { MetodoDetails } from "./Pages/Metodo/MetodoDetails";
+import { FormaDepagamento } from "./Pages/FormaPagamento";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -161,7 +162,7 @@ export function AppRoutes() {
             <Route path="/dashboard" element={<Private> <Dashboard /> </Private>} />
 
             <Route
-              path="/administradoracartao"
+              path="/administradoradecartao"
               element={
                 <Private>
                   <AdministradoraDeCartao />
@@ -170,7 +171,7 @@ export function AppRoutes() {
             />
 
             <Route
-              path="/administradoracartao/create"
+              path="/administradoradecartao/create"
               element={
                 <Private>
                   <AdministradoraCartaoCreate />
@@ -179,7 +180,7 @@ export function AppRoutes() {
             />
 
             <Route
-              path="/administradoracartao/edit/:id"
+              path="/administradoradecartao/edit/:id"
               element={
                 <Private>
                   <AdministradoraCartaoEdit />
@@ -188,7 +189,7 @@ export function AppRoutes() {
             />
 
             <Route
-              path="/administradoracartao/details/:id"
+              path="/administradoradecartao/details/:id"
               element={
                 <Private>
                   <AdministradoraCartaoDetails />
@@ -680,6 +681,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FarmacopeiaDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento"
+              element={
+                <Private>
+                  <FormaDepagamento />
                 </Private>
               }
             />

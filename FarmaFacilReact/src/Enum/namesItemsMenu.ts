@@ -1,7 +1,7 @@
 import Flat from "../assets/img/bench.png"
 
 export const namesItemsMenu = [
-  {img: Flat, titulo:"Administradora Cartão"},
+  {img: Flat, titulo:"Administradora de Cartão"},
   {img: Flat, titulo:"Bairro"},
   {img: Flat, titulo:"Bula"},
   {img: Flat, titulo:"Classe"},
@@ -27,6 +27,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Tipo Justificativa"},
   {img: Flat, titulo:"Cidade"},
   {img: Flat, titulo:"Farmacopéia"},
+  {img: Flat, titulo:"Forma de Pagamento"},
   {img: Flat, titulo:"Ensaio"},
   {img: Flat, titulo:"Especificação Cápsula"},
   {img: Flat, titulo:"Pós Adquirente"},

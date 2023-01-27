@@ -1,14 +1,9 @@
-import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
-import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState, useEffect } from "react";
-import { getAll, GetId, postFormAll } from "../../Services/Api";
+import { useState, useEffect } from "react";
+import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
-import { useNavigate, useParams } from "react-router-dom";
-import { SuccessModal } from "../../Components/Modals/SuccessModal";
-import { FailModal } from "../../Components/Modals/FailModal";
-import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
 
@@ -32,7 +27,7 @@ export function AdministradoraCartaoDetails() {
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaAdministradoraCartaoPorId", idParams);
+            const response = await GetId("RetornaAdministradoraDeCartaoPorId", idParams);
 
             setNome(response.data.nome);
             setPrazoDeRecebimento(response.data.prazoRecebimento)
@@ -48,7 +43,6 @@ export function AdministradoraCartaoDetails() {
             if (response.data.planoDeConta) {
                 setDescricaoPLanoDeContas(response.data.planoDeConta.descricao)
             }
-            console.log(response.data)
         }
 
         Init()
@@ -56,7 +50,7 @@ export function AdministradoraCartaoDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES ADMINISTRADORA CARTÃO" IncludeButton={false} ReturnButton={true} to="administradoracartao" />
+            <HeaderMainContent title="DETALHES ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={true} to="administradoradecartao" />
             <div className="form-group">
                 {nome &&
                     <Container>

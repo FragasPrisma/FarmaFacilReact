@@ -91,7 +91,7 @@ export function AdministradoraCartaoCreate() {
         if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/administradoracartao");
+                navigate("/administradoradecartao");
             }, 2000)
         } else {
             setIsOpenFail(true);
@@ -105,7 +105,7 @@ export function AdministradoraCartaoCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="ADICIONAR DE ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -213,7 +213,7 @@ export function AdministradoraCartaoCreate() {
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
-                        <ButtonCancel to="administradoracartao" />
+                        <ButtonCancel to="administradoradecartao" />
                     </div>
                 </div>
                 <SuccessModal show={isOpenSuccess} />

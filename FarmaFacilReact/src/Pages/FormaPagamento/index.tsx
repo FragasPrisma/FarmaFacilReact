@@ -4,25 +4,25 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function AdministradoraDeCartao(){
+export function FormaDepagamento(){
     const [pagina,setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const loadDataTableBairro = async () => {
-            const response = await getAll(`ListaPaginacaoAdministradoraCartao/${pagina}`);
+        const loadDataTable = async () => {
+            const response = await getAll(`ListaPaginacaoFormaPagamento/${pagina}`);
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
         }
 
-        loadDataTableBairro()
+        loadDataTable()
     }, [pagina]);
 
     return (
         <>
-            <HeaderMainContent title="ADMINISTRADORA DE CARTÃO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Administradora de Cartão" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <HeaderMainContent title="FORMA DE PAGAMENTO" IncludeButton={true} ReturnButton={false}/>
+            <SearchContentScreens text="Forma de Pagamento" data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );
