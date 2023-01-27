@@ -45,7 +45,6 @@ export function BulaDetails() {
                         <div className="col-2 mt-4">
                             <CheckboxCustom
                                 options={["Limitação visual"]}
-                                onClickOptions={(check) => setLimitacaoVisual(check)}
                                 check={limitacaoVisual}
                                 readOnly={true}
                             />

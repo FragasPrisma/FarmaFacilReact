@@ -1,7 +1,7 @@
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState } from "react";
+import { useState , ChangeEvent } from "react";
 import { postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
@@ -85,7 +85,8 @@ export function BulaCreate() {
                         <div className="col-2 mt-4">
                             <CheckboxCustom
                                 options={["Limitação visual"]}
-                                onClickOptions={(check) => setLimitacaoVisual(check)}
+                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setLimitacaoVisual(e.target.checked)}
                                 check={limitacaoVisual}
                             />
                         </div>

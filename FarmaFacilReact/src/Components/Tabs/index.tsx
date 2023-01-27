@@ -19,12 +19,13 @@ function TabsPage({ Childrens, TabsQtd, titles }: IData) {
       <DivCustom>
         <TabsCustom
           defaultActiveKey={titles[0]}
-          transition={false}
+          transition={true}
           id="noanim-tab-example"
           className="nav-tabs"
         >
           {arrayTabs.map((item) => (
             <TabCustom
+              transition={true}
               className=".nav-item"
               key={item}
               eventKey={titles[item]}

@@ -47,7 +47,6 @@ export function FuncionarioLaboratorioDetails() {
                             <CheckboxCustom 
                                 options={["Ativo"]}
                                 check={ativo}
-                                onClickOptions={(check) => setAtivo(check)}
                                 readOnly={true}
                             />
                         </div>

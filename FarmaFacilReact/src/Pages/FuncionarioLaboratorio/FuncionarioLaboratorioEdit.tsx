@@ -100,7 +100,8 @@ export function FuncionarioLaboratorioEdit() {
                             <CheckboxCustom 
                                 options={["Ativo"]}
                                 check={ativo}
-                                onClickOptions={(check) => setAtivo(check)}
+                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) =>
+                                  setAtivo(e.target.checked)}
                             />
                         </div>
                     </div>

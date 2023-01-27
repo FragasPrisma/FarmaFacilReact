@@ -1,7 +1,7 @@
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState , useEffect } from "react";
+import { useState , useEffect , ChangeEvent } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
@@ -98,7 +98,8 @@ export function BulaEdit() {
                         <div className="col-2 mt-4">
                             <CheckboxCustom
                                 options={["Limitação visual"]}
-                                onClickOptions={(check) => setLimitacaoVisual(check)}
+                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setLimitacaoVisual(e.target.checked)}
                                 check={limitacaoVisual}
                             />
                         </div>
