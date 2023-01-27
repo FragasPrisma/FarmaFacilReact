@@ -76,6 +76,7 @@ import { PosAdquirente } from "./Pages/PosAdquirente";
 import { PosAdquirenteCreate } from "./Pages/PosAdquirente/PosAdquirenteCreate";
 import { PosAdquirenteEdit } from "./Pages/PosAdquirente/PosAdquirenteEdit";
 import { PosAdquirenteDetails } from "./Pages/PosAdquirente/PosAdquirenteDetails";
+import { AdministradoraDeCartao } from "./Pages/AdministradoCartao";
 import { Posologia } from "./Pages/Posologia";
 import { PosologiaCreate } from "./Pages/Posologia/PosologiaCreate";
 import { PosologiaDetails } from "./Pages/Posologia/PosologiaDetails";
@@ -91,6 +92,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { AdministradoraCartaoCreate } from "./Pages/AdministradoCartao/AdministradoraCartaoCreate";
+import { AdministradoraCartaoEdit } from "./Pages/AdministradoCartao/AdministradoraCartaoEdit";
+import { AdministradoraCartaoDetails } from "./Pages/AdministradoCartao/AdministradoraCartaoDetails";
 
 
 export function AppRoutes() {
@@ -101,7 +105,7 @@ export function AppRoutes() {
       return <div className="loading">Carregando...</div>;
     }
 
-    if (authenticated) {
+    if (!authenticated) {
       return <Navigate to="/login" />;
     }
 
@@ -124,6 +128,42 @@ export function AppRoutes() {
             }
           >
             <Route path="/dashboard" element={<Private> <Dashboard /> </Private>} />
+
+            <Route
+              path="/administradoracartao"
+              element={
+                <Private>
+                  <AdministradoraDeCartao />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/administradoracartao/create"
+              element={
+                <Private>
+                  <AdministradoraCartaoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/administradoracartao/edit/:id"
+              element={
+                <Private>
+                  <AdministradoraCartaoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/administradoracartao/details/:id"
+              element={
+                <Private>
+                  <AdministradoraCartaoDetails />
+                </Private>
+              }
+            />
 
             <Route
               path="/cidade"
@@ -173,7 +213,7 @@ export function AppRoutes() {
               path="/bairro/create"
               element={
                 <Private>
-                  <BairroCreate/>
+                  <BairroCreate />
                 </Private>
               }
             />
@@ -181,7 +221,7 @@ export function AppRoutes() {
               path="/bairro/details/:id"
               element={
                 <Private>
-                  <BairroDetails/>
+                  <BairroDetails />
                 </Private>
               }
             />
@@ -189,7 +229,7 @@ export function AppRoutes() {
               path="/bairro/edit/:id"
               element={
                 <Private>
-                  <BairroEdit/>
+                  <BairroEdit />
                 </Private>
               }
             />
@@ -221,7 +261,7 @@ export function AppRoutes() {
               path="/classe/edit/:id"
               element={
                 <Private>
-                  <ClasseEdit/>
+                  <ClasseEdit />
                 </Private>
               }
             />
@@ -234,7 +274,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/dcb/create"
               element={
                 <Private>
@@ -275,7 +315,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/dci/create"
               element={
                 <Private>
@@ -347,7 +387,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/laboratorio/create"
               element={
                 <Private>
@@ -355,7 +395,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/laboratorio/details/:id"
               element={
                 <Private>
@@ -363,7 +403,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/laboratorio/edit/:id"
               element={
                 <Private>
@@ -587,7 +627,7 @@ export function AppRoutes() {
               path="/pbm/details/:id"
               element={
                 <Private>
-                  <PbmDetails/>
+                  <PbmDetails />
                 </Private>
               }
             />
@@ -606,7 +646,7 @@ export function AppRoutes() {
                 <Private>
                   <PrincipioAtivoCreate />
                 </Private>
-              } 
+              }
             />
             <Route
               path="/principioAtivo/details/:id"
@@ -614,7 +654,7 @@ export function AppRoutes() {
                 <Private>
                   <PrincipioAtivoDetails />
                 </Private>
-              } 
+              }
             />
             <Route
               path="/principioAtivo/edit/:id"
@@ -622,7 +662,7 @@ export function AppRoutes() {
                 <Private>
                   <PrincipioAtivoEdit />
                 </Private>
-              } 
+              }
             />
             <Route
               path="/produto"
@@ -664,7 +704,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoContato"
               element={
                 <Private>
@@ -672,7 +712,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoContato/create"
               element={
                 <Private>
@@ -680,7 +720,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoContato/details/:id"
               element={
                 <Private>
@@ -688,7 +728,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoContato/edit/:id"
               element={
                 <Private>
@@ -696,7 +736,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoJustificativa"
               element={
                 <Private>
@@ -704,7 +744,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoJustificativa/create"
               element={
                 <Private>
@@ -712,7 +752,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoJustificativa/details/:id"
               element={
                 <Private>
@@ -720,7 +760,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/tipoJustificativa/edit/:id"
               element={
                 <Private>
@@ -728,7 +768,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/posologia"
               element={
                 <Private>
@@ -736,7 +776,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/posologia/create"
               element={
                 <Private>
@@ -744,7 +784,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/posologia/details/:id"
               element={
                 <Private>
@@ -752,7 +792,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/posologia/edit/:id"
               element={
                 <Private>

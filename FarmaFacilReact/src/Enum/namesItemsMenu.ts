@@ -1,6 +1,7 @@
 import Flat from "../assets/img/bench.png"
 
 export const namesItemsMenu = [
+  {img: Flat, titulo:"Administradora Cartão"},
   {img: Flat, titulo:"Bairro"},
   {img: Flat, titulo:"Classe"},
   {img: Flat, titulo:"Dcb"},
