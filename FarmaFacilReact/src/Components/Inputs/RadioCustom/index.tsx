@@ -26,9 +26,9 @@ export function RadioCustom({ titleComponet, options, name, onClickOptions, valu
           <div key={index}>
             {
               value == index ? 
-                <input type="radio" name={name} onClick={() => ReloadOption(index, option)} checked={true}/>
+                <input type="radio" name={name} onChange={() => ReloadOption(index, option)} checked={true} disabled={true}/>
                 :
-                <input type="radio" name={name} onClick={() => ReloadOption(index, option)} checked={false}/>
+                <input type="radio" name={name} onChange={() => ReloadOption(index, option)} checked={false} disabled={true}/>
             }
             <label>{option}</label>
           </div>

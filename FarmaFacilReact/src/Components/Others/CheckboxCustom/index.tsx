@@ -3,9 +3,17 @@ import { ContainerCheck, TitleContainer } from "./styles";
 interface ISelect {
   titleComponet?: string;
   options: string[];
+  check?:boolean;
+  onClickOptions: (check:boolean) => void;
+  readOnly?:boolean;
 }
 
-export function CheckboxCustom({ titleComponet, options }: ISelect) {
+export function CheckboxCustom({ titleComponet, options, check ,onClickOptions,readOnly}: ISelect) {
+
+  function ReloadCheck(check:boolean){
+    onClickOptions(check);
+  };
+
   return (
     <>
       {titleComponet ? (
@@ -16,7 +24,7 @@ export function CheckboxCustom({ titleComponet, options }: ISelect) {
       <ContainerCheck>
         {options.map((option, index) => (
           <div key={index}>
-            <input type="checkbox" />
+            <input type="checkbox" checked={check} onChange={(e) => ReloadCheck(e.target.checked)} disabled={readOnly}/>
             <label>{option}</label>
           </div>
         ))}
