@@ -1,28 +1,28 @@
+import { useEffect, useState } from "react";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
-import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Farmacopeia(){
-    const [pagina,setPagina] = useState(1);
-    const [qtdPagina, setQtdPagina] = useState(0);
+export function Etapa() {
     const [data, setData] = useState([]);
+    const [pagina, setPagina] = useState(1);
+    const [qtdPagina, setQtdPagina] = useState(0);
 
     useEffect(() => {
-        const loadDataTable = async () => {
-            const response = await getAll(`ListaPaginacaoFarmacopeia/${pagina}`);
+        const loadDataTablePbm = async () => {
+            const response = await getAll(`ListaPaginacaoEtapa/${pagina}`);
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
         }
 
-        loadDataTable()
+        loadDataTablePbm()
     }, [pagina]);
 
     return (
         <>
-            <HeaderMainContent title="FARMACOPÉIA" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Farmacopéia" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <HeaderMainContent title="ETAPA" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Etapa" data={data} filter={"descricao"} headerTable={["id", "sequencia", "descricao"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

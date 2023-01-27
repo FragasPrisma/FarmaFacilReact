@@ -4,25 +4,25 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Farmacopeia(){
+export function AdministradoraDeCartao(){
     const [pagina,setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const loadDataTable = async () => {
-            const response = await getAll(`ListaPaginacaoFarmacopeia/${pagina}`);
+        const loadDataTableBairro = async () => {
+            const response = await getAll(`ListaPaginacaoAdministradoraCartao/${pagina}`);
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
         }
 
-        loadDataTable()
+        loadDataTableBairro()
     }, [pagina]);
 
     return (
         <>
-            <HeaderMainContent title="FARMACOPÉIA" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Farmacopéia" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <HeaderMainContent title="ADMINISTRADORA DE CARTÃO" IncludeButton={true} ReturnButton={false}/>
+            <SearchContentScreens text="Administradora de Cartão" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

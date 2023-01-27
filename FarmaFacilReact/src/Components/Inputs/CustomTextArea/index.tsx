@@ -3,19 +3,19 @@ import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
 
 interface IInput {
     label: string;
-    step?: string;
     placeholder?: string;
-    type: string;
     name?: string;
     required?: boolean;
     readonly?: boolean;
     value?: any;
     maxLength?: number|undefined;
     erro?:string;
-    OnChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    cols:number;
+    rows:number
+    OnChange?: (e: any) => void
  }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step }: IInput) {
+export function CustomTextArea({ label, placeholder, name, readonly, required, value,maxLength,erro,cols,rows,OnChange }: IInput) {
     return (
         <ContainerInput >
             <div className="containerAbc">
@@ -26,13 +26,13 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                     }
                 </div>
                 <InputCustomized
-                    type={type}
-                    step={step}
                     placeholder={placeholder}
                     name={name}
                     value={value}
                     readOnly={readonly}
                     maxLength={maxLength}
+                    cols={cols}
+                    rows={rows}
                     onChange={OnChange}
                 />
             </div>
