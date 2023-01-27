@@ -95,6 +95,14 @@ import {
 import { AdministradoraCartaoCreate } from "./Pages/AdministradoCartao/AdministradoraCartaoCreate";
 import { AdministradoraCartaoEdit } from "./Pages/AdministradoCartao/AdministradoraCartaoEdit";
 import { AdministradoraCartaoDetails } from "./Pages/AdministradoCartao/AdministradoraCartaoDetails";
+import { Motivo } from "./Pages/Motivo";
+import { MotivoCreate } from "./Pages/Motivo/MotivoCreate";
+import { MotivoEdit } from "./Pages/Motivo/MotivoEdit";
+import { MotivoDetails } from "./Pages/Motivo/MotivoDetails";
+import { Pais } from "./Pages/Pais";
+import { PaisCreate } from "./Pages/Pais/PaisCreate";
+import { PaisEdit } from "./Pages/Pais/PaisEdit";
+import { PaisDetails } from "./Pages/Pais/PaisDetails";
 
 
 export function AppRoutes() {
@@ -413,6 +421,42 @@ export function AppRoutes() {
             />
 
             <Route
+              path="/motivo"
+              element={
+                <Private>
+                  <Motivo />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo/create"
+              element={
+                <Private>
+                  <MotivoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo/edit/:id"
+              element={
+                <Private>
+                  <MotivoEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/motivo/details/:id"
+              element={
+                <Private>
+                  <MotivoDetails />
+                </Private>
+              }
+            />
+
+            <Route
               path="/nbm"
               element={
                 <Private>
@@ -593,6 +637,41 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PosAdquirenteDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pais"
+              element={
+                <Private>
+                  <Pais />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pais/create"
+              element={
+                <Private>
+                  <PaisCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/pais/edit/:id"
+              element={
+                <Private>
+                  <PaisEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/pais/details/:id"
+              element={
+                <Private>
+                  <PaisDetails />
                 </Private>
               }
             />
