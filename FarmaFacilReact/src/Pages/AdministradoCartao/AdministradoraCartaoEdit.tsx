@@ -231,7 +231,9 @@ export function AdministradoraCartaoEdit() {
                                 <CheckboxCustom
                                     options={["Administradora Ativa"]}
                                     check={ativo}
-                                    onClickOptions={(check) => setAtivo(check)}
+                                    onClickOptions={(e: ChangeEvent<HTMLInputElement>) =>
+                                        setAtivo(e.target.checked)
+                                    }
                                 />
                             </div>
                         </div>

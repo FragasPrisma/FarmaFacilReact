@@ -134,7 +134,6 @@ export function AdministradoraCartaoDetails() {
                                 <CheckboxCustom
                                     options={["Administradora Ativa"]}
                                     check={ativo}
-                                    onClickOptions={(check) => setAtivo(check)}
                                     readOnly={true}
                                 />
                             </div>

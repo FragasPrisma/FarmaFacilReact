@@ -12,7 +12,7 @@ import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
 
-export function AdministradoraCartaoCreate() {
+export function FormaPagamentoCreate() {
 
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
@@ -49,7 +49,7 @@ export function AdministradoraCartaoCreate() {
         }
         loadDataPlanoDeContas()
     }, []);
-    
+
     const data = {
         id: 0,
         nome: nome,
