@@ -1,10 +1,15 @@
-FROM node:14.21.1
+FROM node:14
 
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY package.json ./
+COPY package*.json ./
+
 RUN npm install
 
-EXPOSE 8080
+COPY . .
 
-CMD ["npm", "run", "dev"]
+#RUN npm run build
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "dev" ]
