@@ -99,6 +99,10 @@ import { Pais } from "./Pages/Pais";
 import { PaisCreate } from "./Pages/Pais/PaisCreate";
 import { PaisEdit } from "./Pages/Pais/PaisEdit";
 import { PaisDetails } from "./Pages/Pais/PaisDetails";
+import { Portador } from "./Pages/Portador";
+import { PortadorCreate } from "./Pages/Portador/PortadorCreate";
+import { PortadorEdit } from "./Pages/Portador/PortadorEdit";
+import { PortadorDetails } from "./Pages/Portador/PortadorDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -667,6 +671,39 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PaisDetails />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/portador"
+              element={
+                <Private>
+                  <Portador />
+                </Private>
+              }
+            />
+            <Route
+              path="/portador/create"
+              element={
+                <Private>
+                  <PortadorCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/portador/edit/:id"
+              element={
+                <Private>
+                  <PortadorEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/portador/details/:id"
+              element={
+                <Private>
+                  <PortadorDetails />
                 </Private>
               }
             />
