@@ -123,6 +123,10 @@ import { Bula } from "./Pages/Bula";
 import { BulaCreate } from "./Pages/Bula/BulaCreate";
 import { BulaEdit } from "./Pages/Bula/BulaEdit";
 import { BulaDetails } from "./Pages/Bula/BulaDetails";
+import { Metodo } from "./Pages/Metodo";
+import { MetodoCreate } from "./Pages/Metodo/MetodoCreate";
+import { MetodoEdit } from "./Pages/Metodo/MetodoEdit";
+import { MetodoDetails } from "./Pages/Metodo/MetodoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -498,6 +502,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <LaboratorioEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/metodo"
+              element={
+                <Private>
+                  <Metodo />
+                </Private>
+              }
+            />
+            <Route
+              path="/metodo/create"
+              element={
+                <Private>
+                  <MetodoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/metodo/edit/:id"
+              element={
+                <Private>
+                  <MetodoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/metodo/details/:id"
+              element={
+                <Private>
+                  <MetodoDetails />
                 </Private>
               }
             />

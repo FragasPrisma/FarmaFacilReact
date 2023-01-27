@@ -13,6 +13,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Grupo"},
   {img: Flat, titulo:"Laboratorio"},
   {img: Flat, titulo:"Mensagens Padrão"},
+  {img: Flat, titulo:"Método"},
   {img: Flat, titulo:"Motivo"},
   {img: Flat, titulo:"Nbm"},
   {img: Flat, titulo:"Ncm"},
