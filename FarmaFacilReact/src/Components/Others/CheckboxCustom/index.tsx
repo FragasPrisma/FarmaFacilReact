@@ -1,4 +1,5 @@
 import { ContainerCheck, TitleContainer } from "./styles";
+import { ChangeEvent } from "react";
 
 interface ISelect {
   titleComponet?: string;
@@ -17,7 +18,7 @@ export function CheckboxCustom({ titleComponet, options, check ,onClickOptions,r
   return (
     <>
       {titleComponet ? (
-        <TitleContainer>{titleComponet + ":"}</TitleContainer>
+        <TitleContainer>{titleComponet}</TitleContainer>
       ) : (
         <></>
       )}

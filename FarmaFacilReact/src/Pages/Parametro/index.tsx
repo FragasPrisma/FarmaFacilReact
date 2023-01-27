@@ -2,65 +2,122 @@ import { ChangeEvent, useState } from "react";
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { CustomInput } from "../../Components/Inputs/CustomInput";
-import TabsPage from "../../Components/Tabs";
-import { itemsHandles, itemsHandlesChildren } from "../../Enum/ItemsParametro";
-import { Container, ContainerItems } from "./styles";
+import TabsParametro from "../../Components/Others/TabsParametro";
+import { itemsHandles, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao, itemsHandlesChildrenAcabado } from "../../Enum/ItemsParametro";
+import { TabAcabado , drogariaAcabado} from "./TabAcabado";
 import { TabCartoes } from "./TabCartoes";
 import { TabConvenios } from "./TabConvenios";
 import { TabCuspomFiscal } from "./TabCupomFiscal";
 import { TabFarmacia } from "./TabFarmacia";
+import { TabGeral } from "./TabGeral";
+import { geralManipulacao, TabGeralManipulacao } from "./TabGeralManipulacao";
 import { TabImpressao } from "./TabImpressao";
+import { TabIntegracaoWeb } from "./TabIntegracaoWeb";
+import { TabImpressaoManipulacao } from "./TabImpressaoManipulacao";
 import { TabNfe } from "./TabNfe";
 import { TabNFSe } from "./TabNfse";
+import { TabOpcaoManipulacao } from "./TabOpcaoManipulacao";
+import { TabPrisma5Loader } from "./TabPrisma5Loader";
+import { TabPrismaSync } from "./TabPrismaSync";
+import { TabSiproquim } from "./TabSiproquim";
+import { TabGestaoEntrega } from "./TabGestaoEntrega";
 
 export function Parametro() {
-  let componentsOfTabs: any = [];
+
+  let componentsOfTabsGeral: any = [];
+  let componentsOfTabsManipulacao: any = [];
+  let componentsOfTabsAcabado: any = [];
+  let componentsOfTabsMain: any[] = [];
 
   let titlesMainsOfTabs: string[] = [];
   titlesMainsOfTabs.push(...itemsHandles);
   let quantidadeItemsTabs = titlesMainsOfTabs.length;
 
-  //let tabChildren: any = [];
-  //tabChildren.push(...itemsHandlesChildren);
-  
-  let tabChildren = itemsHandlesChildren;
-  let quantidadeItemsChildTabs = tabChildren.length;
+  let tabChildrenGeral = itemsHandlesChildrenGeral;
+  let quantidadeItemsChildGeral = tabChildrenGeral.length;
+  let titlesGeralOfTabs: string[] = [];
+  titlesGeralOfTabs.push(...itemsHandlesChildrenGeral);
 
-  componentsOfTabs.push(
+  let tabChildrenManipulacao = itemsHandlesChildrenManipulacao;
+  let quantidadeItemsChildManipulacao = tabChildrenManipulacao.length;
+  let titlesGeralOfTabsManipulacao: string[] = [];
+  titlesGeralOfTabsManipulacao.push(...itemsHandlesChildrenManipulacao);
+
+  let tabChildrenAcabado = itemsHandlesChildrenAcabado;
+  let quantidadeItensChildAcabado = tabChildrenAcabado.length;
+  let titlesAcabadoOfTabs: string[] = [];
+  titlesAcabadoOfTabs.push(...itemsHandlesChildrenAcabado);
+
+  let titles: string[][] = [];
+
+  titles.push(
+    titlesGeralOfTabs,
+    titlesGeralOfTabsManipulacao,
+    titlesAcabadoOfTabs
+  )
+
+  componentsOfTabsGeral.push(
     <TabFarmacia />,
     <TabImpressao />,
     <TabCuspomFiscal />,
     <TabConvenios />,
     <TabCartoes />,
     <TabNfe />,
-    <TabNFSe/>
+    <TabNFSe />,
+    <TabGeral />,
+    <TabIntegracaoWeb />,
+    <TabPrisma5Loader />,
+    <TabPrismaSync />,
+    <TabSiproquim />,
+    <TabGestaoEntrega />
   );
 
+  componentsOfTabsManipulacao.push(
+    <TabGeralManipulacao />,
+    <TabOpcaoManipulacao />,
+    <TabImpressaoManipulacao />
+  )
+  componentsOfTabsAcabado.push(
+    <TabAcabado />
+  )
+
+  componentsOfTabsMain.push(
+    componentsOfTabsGeral
+  )
+
+  componentsOfTabsMain.push(
+    componentsOfTabsManipulacao
+  )
+
+  componentsOfTabsMain.push(
+    componentsOfTabsAcabado
+  )
+
+  async function submit() {
+
+    console.log(geralManipulacao)
+    console.log(drogariaAcabado)
+    return;
+  }
   return (
     <>
       <HeaderMainContent
         title="Parametro"
-        IncludeButton={true}
-        ReturnButton={false}
+        IncludeButton={false}
+        ReturnButton={true}
+        to="dashboard"
       />
 
-      {/* <TabsPage
-        ChildTabs={tabChildren}
-        TabsQtd={quantidadeItemsTabs}
-        titles={titlesMainsOfTabs}
-      /> */}
+      <TabsParametro
+        titlesMain={titlesMainsOfTabs}
+        Childrens={componentsOfTabsMain}
+        titles={titles}
 
-      <TabsPage
-        Childrens={componentsOfTabs}
-        TabsQtd={quantidadeItemsChildTabs}
-        titles={tabChildren}
       />
 
       <div className="row">
         <div className="col-6">
-          <ButtonConfirm />
-            <ButtonCancel to="fornecedor" />
+          <ButtonConfirm onCLick={submit} />
         </div>
       </div>
     </>

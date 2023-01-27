@@ -5,10 +5,11 @@ import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 export const TabImpressao = () => {
   return (
     <>
-      <div className="row">
-        <div className="col-3">
+      <div className="row mt-4">
+
+      <FieldsetCustom legend="Tipo" numberCols={2}>
+        <div className="col-11 mt-3">
           <CheckboxCustom
-            titleComponet="Tipo"
             options={[
               "Imprimir sempre",
               "Perguntar se deseja imprimir",
@@ -16,9 +17,11 @@ export const TabImpressao = () => {
             ]}
           />
         </div>
-        <div className="col-3">
+        </FieldsetCustom>
+
+        <FieldsetCustom legend="Impressora Recibo Fidelidade" numberCols={3}>
+        <div className="col-11 mt-3">
           <CheckboxCustom
-            titleComponet="Impressora Recibo Fidelidade"
             options={[
               "Matricial",
               "Relátorio Gerencial ECF",
@@ -27,36 +30,47 @@ export const TabImpressao = () => {
             ]}
           />
         </div>
-        <div className="col-3 mt-4">
-          <CheckboxCustom options={["Imprimir quantidade no item"]} />
-          <CheckboxCustom options={["Imprimir Etiqueta na Venda"]} />
-          <CheckboxCustom options={["Imprimir Farmaceutico na Etiqueta"]} />
-          <CheckboxCustom options={["Imprimir Cabeçalho"]} />
-          <div className="col-5 ">
+        </FieldsetCustom>
+
+      </div>
+
+      <div className="row mt-3">
+        <FieldsetCustom numberCols={2}>
+          <div className="col-12 mt-4">
+            <CheckboxCustom options={["Imprimir quantidade no item"]} />
+            <CheckboxCustom options={["Imprimir Etiqueta na Venda"]} />
+            <CheckboxCustom options={["Imprimir Farmaceutico na Etiqueta"]} />
+          </div>
+        </FieldsetCustom>
+
+        <FieldsetCustom numberCols={2}>
+          <div className="col-12 mt-4">
+            <CheckboxCustom options={["Imprimir Cabeçalho"]} />
+          </div>
+          <FieldsetCustom numberCols={12}>
+            <div className="col-12 ">
+              <CustomInput label="Número Vias" required={false} type="string" />
               <CustomInput
                 label="Linhas Cupons"
                 required={false}
                 type="string"
               />
-              <CustomInput label="Número Vias" required={false} type="string" />
-              
             </div>
+          </FieldsetCustom>
+        </FieldsetCustom>
 
-            <div className="col-12 ">
+        <FieldsetCustom numberCols={3}>
+          <div className="col-12 mt-4 ">
             <CheckboxCustom options={["Imprimir Comprovante de Débito"]} />
-              <CustomInput label="Número Vias" required={false} type="string" />
+            <CustomInput label="Número Vias" required={false} type="string" />
             <CheckboxCustom options={["Bloquear Reimpressão Venda/Ordem"]} />
-            </div>
-          
-        </div>
+          </div>
+        </FieldsetCustom>
       </div>
 
-
-
       <div className="row">
-
-      <FieldsetCustom legend="Impressora" numberCols={2}>
-      <div className="col-12 mt-4">
+        <FieldsetCustom legend="Impressora" numberCols={2}>
+          <div className="col-12 mt-4">
             <CheckboxCustom
               options={[
                 "Matricial",
@@ -70,67 +84,40 @@ export const TabImpressao = () => {
               ]}
             />
           </div>
-          
-              {/* <div className="col-1">
-           
-              </div> */}
-        
-          </FieldsetCustom>
+        </FieldsetCustom>
 
-          <FieldsetCustom numberCols={2}>
-            <div className="col-12 mt-4">
-              <CheckboxCustom options={["Lado a Lado"]} />
-              <CheckboxCustom options={["Destaca Número Venda"]} />
-              <CheckboxCustom options={["Destaca Nome Cliente"]} />
-            </div>
-          </FieldsetCustom>
+        <FieldsetCustom numberCols={2}>
+          <div className="col-12 mt-4">
+            <CheckboxCustom options={["Lado a Lado"]} />
+            <CheckboxCustom options={["Destaca Número Venda"]} />
+            <CheckboxCustom options={["Destaca Nome Cliente"]} />
+          </div>
+        </FieldsetCustom>
 
-
-
-        <FieldsetCustom legend="Test" numberCols={3}>
-
+        <FieldsetCustom legend="Impressão de itens da venda" numberCols={3}>
           <div className="col-10 mt-4">
-            <CheckboxCustom
-              titleComponet="Impressão de itens da venda"
-              options={["Detalhado", "Agrupado"]}
-              />
+            <CheckboxCustom options={["Detalhado", "Agrupado"]} />
           </div>
+        </FieldsetCustom>
 
-          </FieldsetCustom>
-
-          <FieldsetCustom legend="test sfs" numberCols={3}>
-
+        <FieldsetCustom legend="Confissão de Dívida" numberCols={3}>
           <div className="col-10 mt-4">
-            <CheckboxCustom
-              titleComponet="Confissão de Dívida"
-              options={["40 Colunas", "60 Colunas"]}
-              />
+            <CheckboxCustom options={["40 Colunas", "60 Colunas"]} />
           </div>
-
-          </FieldsetCustom>
-
-          
-
-
-          </div>
-    
-
-
-
-
-
-
-
-      
-      <div className="row">
-        <div className="col-6">
-          <CustomInput type="string" label="Linha 1" required={false} />
-        </div>
+        </FieldsetCustom>
       </div>
+
       <div className="row">
-        <div className="col-6">
-          <CustomInput type="string" label="Linha 2" required={false} />
-        </div>
+        <FieldsetCustom legend="Mensagem Comprovante" numberCols={3}>
+          <div className="col-12">
+            <CustomInput type="string" label="Linha 1" required={false} />
+          </div>
+        </FieldsetCustom>
+        <FieldsetCustom numberCols={3}>
+          <div className="col-12">
+            <CustomInput type="string" label="Linha 2" required={false} />
+          </div>
+        </FieldsetCustom>
       </div>
     </>
   );
