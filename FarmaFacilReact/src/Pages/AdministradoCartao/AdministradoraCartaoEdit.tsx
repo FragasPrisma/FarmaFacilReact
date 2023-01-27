@@ -34,11 +34,12 @@ export function AdministradoraCartaoEdit() {
 
     const [fornecedores, setFornecedores] = useState([]);
     const [planoDeContas, setPlanoDeContas] = useState([]);
-    const { id } = useParams();
+    
 
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [descricaoPLanoDeContas, setDescricaoPLanoDeContas] = useState("");
 
+    const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {

@@ -128,6 +128,9 @@ import { MetodoCreate } from "./Pages/Metodo/MetodoCreate";
 import { MetodoEdit } from "./Pages/Metodo/MetodoEdit";
 import { MetodoDetails } from "./Pages/Metodo/MetodoDetails";
 import { FormaDepagamento } from "./Pages/FormaPagamento";
+import { FormaPagamentoCreate } from "./Pages/FormaPagamento/FormaPagamentoCreate";
+import { FormaPagamentoEdit } from "./Pages/FormaPagamento/FormaPagamentoEdit";
+import { FormaPagamentoDetails } from "./Pages/FormaPagamento/FormaPagamentoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -689,6 +692,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FormaDepagamento />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento/create"
+              element={
+                <Private>
+                  <FormaPagamentoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento/edit/:id"
+              element={
+                <Private>
+                  <FormaPagamentoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/formadepagamento/details/:id"
+              element={
+                <Private>
+                  <FormaPagamentoDetails />
                 </Private>
               }
             />

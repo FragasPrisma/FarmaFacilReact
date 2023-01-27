@@ -1,95 +1,55 @@
-import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
-import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState, useEffect } from "react";
-import { getAll, postFormAll } from "../../Services/Api";
+import { useState, useEffect } from "react";
+import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
-import { useNavigate } from "react-router-dom";
-import { SuccessModal } from "../../Components/Modals/SuccessModal";
-import { FailModal } from "../../Components/Modals/FailModal";
-import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
 
-export function FormaPagamentoCreate() {
-
-    const [isOpenSuccess, setIsOpenSuccess] = useState(false);
-    const [isOpenFail, setIsOpenFail] = useState(false);
-    const navigate = useNavigate();
+export function FormaPagamentoDetails() {
 
     const [descricao, setDescricao] = useState("");
     const [tipoPagamento, setTipoPagamento] = useState(0);
     const [autorizarDescontos, setAutorizarDescontos] = useState(0);
     const [conciliacao, setConciliacao] = useState(false);
-    const [planoDeContaId, setPlanoDeContaId] = useState();
 
-    const [erroDescricao, setErroDescricao] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [descricaoPLanoDeContas, setDescricaoPLanoDeContas] = useState("");
 
-    const [planoDeContas, setPlanoDeContas] = useState([]);
+    const { id } = useParams();
+    let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
-        const loadDataPlanoDeContas = async () => {
-            const response = await getAll("ListaPlanoDeContas");
-            setPlanoDeContas(response.data);
-        }
-        loadDataPlanoDeContas()
-    }, []);
 
-    const data = {
-        id: 0,
-        descricao: descricao,
-        tipoPagamento: tipoPagamento,
-        autorizarDescontos: autorizarDescontos,
-        conciliacao: conciliacao,
-        planoDeContaId: planoDeContaId
-    };
+        async function Init() {
+            const response = await GetId("RetornaFormaDePagamentoPorId", idParams);
 
-    async function submit() {
+            setDescricao(response.data.descricao);
+            setTipoPagamento(response.data.tipoPagamento)
+            setAutorizarDescontos(response.data.autorizarDescontos)
+            setConciliacao(response.data.conciliacao)
 
-        setErroDescricao("")
-        setIsLoading(true);
-
-        if (!descricao.trim()) {
-            setErroDescricao("Campo descrição é obrigatório !")
-            setIsLoading(false);
-            return;
+            if (response.data.planoDeConta) {
+                setDescricaoPLanoDeContas(response.data.planoDeConta.descricao)
+            }
         }
 
-        const resp = await postFormAll("AdicionarFormaPagamento", data);
-
-        if (resp.status == 200) {
-            setIsOpenSuccess(true);
-            setTimeout(() => {
-                navigate("/formadepagamento");
-            }, 2000)
-        } else {
-            setIsOpenFail(true);
-            setIsLoading(false);
-            setTimeout(() => {
-                setIsOpenFail(false);
-            }, 2000)
-        }
-    }
+        Init()
+    }, [])
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR FORMA DE PAGAMENTO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="DETALHES FORMA DE PAGAMENTO" IncludeButton={false} ReturnButton={true} to="formadepagamento" />
             <div className="form-group">
+
                 <Container>
                     <div className="row">
                         <div className="col-5">
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                placeholder="Digite a descrição"
                                 value={descricao}
-                                maxLength={50}
-                                erro={erroDescricao}
-                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setDescricao(e.target.value)
-                                }
+                                readonly={true}
                                 required={true}
                             />
                         </div>
@@ -112,6 +72,7 @@ export function FormaPagamentoCreate() {
                                     "Programa de Fidelidade",
                                     "CashBack"
                                 ]}
+                                readonly={true}
                                 name="tipo"
                                 onClickOptions={(value, label) => setTipoPagamento(value)}
                                 titleComponet="Tipo"
@@ -126,6 +87,7 @@ export function FormaPagamentoCreate() {
                                     "Autorizado Através de Senha",
                                     "Não Autorizado"]}
                                 name="descontos"
+                                readonly={true}
                                 onClickOptions={(value, label) => setAutorizarDescontos(value)}
                                 value={autorizarDescontos}
                             />
@@ -133,24 +95,23 @@ export function FormaPagamentoCreate() {
                                 <CheckboxCustom
                                     options={["Conciliação"]}
                                     check={conciliacao}
-                                    onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConciliacao(e.target.checked)}
+                                    readOnly={true}
                                 />
                                 <div className="col-12">
-                                    <CustomDropDown data={planoDeContas} title="Selecione o Plano de Conta" filter="descricao" label="PLano de Contas" Select={(Id) => setPlanoDeContaId(Id)} />
+                                    <CustomInput
+                                        label="Plano de Contas"
+                                        type="text"
+                                        value={descricaoPLanoDeContas}
+                                        readonly={true}
+                                        required={true}
+                                    />
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </Container>
-                <div className="row">
-                    <div className="col-6">
-                        <ButtonConfirm onCLick={submit} isLoading={isLoading} />
-                        <ButtonCancel to="formadepagamento" />
-                    </div>
-                </div>
-                <SuccessModal show={isOpenSuccess} />
-                <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
+
             </div>
         </>
     );

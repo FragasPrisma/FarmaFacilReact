@@ -105,7 +105,7 @@ export function AdministradoraCartaoCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR DE ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="ADICIONAR ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
