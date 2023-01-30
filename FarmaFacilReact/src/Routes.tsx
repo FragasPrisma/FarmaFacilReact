@@ -158,6 +158,14 @@ import { Visitador } from "./Pages/Visitador";
 import { VisitadorCreate } from "./Pages/Visitador/VisitadorCreate";
 import { VisitadorDetails } from "./Pages/Visitador/VisitadorDetails";
 import { VisitadorEdit } from "./Pages/Visitador/VisitadorEdit";
+import { Contabilista } from "./Pages/Contabilista";
+import { ContabilistaCreate } from "./Pages/Contabilista/ContabilistaCreate";
+import { ContabilistaEdit } from "./Pages/Contabilista/ContabilistaEdit";
+import { ContabilistaDetails } from "./Pages/Contabilista/ContabilistaDetails";
+import { Categoria } from "./Pages/Categoria";
+import { CategoriaCreate } from "./Pages/Categoria/CategoriaCreate";
+import { CategoriaEdit } from "./Pages/Categoria/CategoriaEdit";
+import { CategoriaDetails } from "./Pages/Categoria/CategoriaDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -328,6 +336,38 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/categoria"
+              element={
+                <Private>
+                  <Categoria />
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria/create"
+              element={
+                <Private>
+                  <CategoriaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria/edit/:id"
+              element={
+                <Private>
+                  <CategoriaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria/details/:id"
+              element={
+                <Private>
+                  <CategoriaDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/classe"
               element={
                 <Private>
@@ -356,6 +396,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ClasseEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista"
+              element={
+                <Private>
+                  <Contabilista />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista/create"
+              element={
+                <Private>
+                  <ContabilistaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista/edit/:id"
+              element={
+                <Private>
+                  <ContabilistaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista/details/:id"
+              element={
+                <Private>
+                  <ContabilistaDetails />
                 </Private>
               }
             />
