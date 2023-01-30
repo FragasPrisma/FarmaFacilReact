@@ -140,6 +140,10 @@ import { FormaPagamentoEdit } from "./Pages/FormaPagamento/FormaPagamentoEdit";
 import { FormaPagamentoDetails } from "./Pages/FormaPagamento/FormaPagamentoDetails";
 import { Transportador } from "./Pages/Transportador";
 import { TransportadorCreate } from "./Pages/Transportador/TransportadorCreate";
+import { BancoEdit } from "./Pages/Banco/BancoEdit";
+import { BancoDetails } from "./Pages/Banco/BancoDetails";
+import { BancoCreate } from "./Pages/Banco/BancoCreate";
+import { Banco } from "./Pages/Banco";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1253,6 +1257,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <EtapaEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/banco"
+              element={
+                <Private>
+                  <Banco />
+                </Private>
+              }
+            />
+            <Route 
+              path="/banco/create"
+              element={
+                <Private>
+                  <BancoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/banco/details/:id"
+              element={
+                <Private>
+                  <BancoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/banco/edit/:id"
+              element={
+                <Private>
+                  <BancoEdit />
                 </Private>
               }
             />

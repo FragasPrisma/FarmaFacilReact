@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: any) => {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    if (!token) setAuthentication(true);
+    if (token) setAuthentication(true);
     
     navigate("/dashboard");
     
