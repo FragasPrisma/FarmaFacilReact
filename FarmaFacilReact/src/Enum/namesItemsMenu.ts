@@ -24,6 +24,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Mensagens Padrão"},
   {img: Flat, titulo:"Método"},
   {img: Flat, titulo:"Motivo"},
+  {img: Flat, titulo:"Natureza de Operação"},
   {img: Flat, titulo:"Nbm"},
   // {img: Flat, titulo:"Ncm"},
   {img: Flat, titulo:"País"},
@@ -38,4 +39,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Tipo Justificativa"},
   {img: Flat, titulo:"Tributo"},
   {img: Flat, titulo:"Turno"},
+  {img: Flat, titulo:"Transportador"},
+  {img: Flat, titulo:"Etapa"},
+  {img: Flat, titulo:"Máquina Pós"},
 ];

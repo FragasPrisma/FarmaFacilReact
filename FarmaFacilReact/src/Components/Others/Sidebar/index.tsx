@@ -34,8 +34,8 @@ export function Sidebar() {
       {stateArrow && (
         <div className="container_items_menu">
           <ul className="ul_menu">
-            {namesItemsMenu.map((optionMenuItem: any) => (
-              <li className="li_itens">
+            {namesItemsMenu.map((optionMenuItem: any,index) => (
+              <li className="li_itens" key={index}>
                 <NavLink
                   className="navLink"
                   to={`/${optionMenuItem.titulo

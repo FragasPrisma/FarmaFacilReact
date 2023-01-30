@@ -5,7 +5,7 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 
@@ -13,21 +13,21 @@ export function PbmEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
-  const [erroNome,setErroNome] = useState("");
+  const [erroNome, setErroNome] = useState("");
   const [nome, setNome] = useState("");
   const [observacao, setObservacao] = useState("");
   const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({id:0,nome:"",observacao:""});
-  const [isLoading,setIsLoading] = useState(false);
+  const [data] = useState({ id: 0, nome: "", observacao: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   let idParams = !id ? "0" : id.toString();
 
-  useEffect(() =>{
-    
+  useEffect(() => {
+
     async function Init() {
       const response = await GetId("RetornaPbmPorId", idParams);
-      if(response.status == 200){
+      if (response.status == 200) {
         setPbmId(response.data.id);
         setNome(response.data.nome);
         setObservacao(response.data.observacao)
@@ -35,13 +35,13 @@ export function PbmEdit() {
     }
 
     Init()
-  },[])
-    
+  }, [])
+
   async function submit() {
     setErroNome("");
     setIsLoading(true);
 
-    if(!nome.trim()){
+    if (!nome.trim()) {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
@@ -54,15 +54,15 @@ export function PbmEdit() {
     data.id = pbmId;
     data.nome = nome.trim();
     data.observacao = observacao.trim();
-    
+
     const resp = await postFormAll("EditarPbm", data);
 
-    if(resp.status == 200){
+    if (resp.status == 200) {
       setIsOpenSuccess(true);
       setTimeout(() => {
         navigate("/pbm");
       }, 2000)
-    }else{
+    } else {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
@@ -75,7 +75,7 @@ export function PbmEdit() {
 
   return (
     <>
-      <HeaderMainContent title="EDITAR PBM" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent title="EDITAR PBM" IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -95,28 +95,28 @@ export function PbmEdit() {
             </div>
           </div>
           <div className="row">
-              <div className="col-6">
-                <CustomInput
-                  label="Observação"
-                  type="textarea"
-                  placeholder="Digite uma descrição para o Pbm"
-                  value={observacao}
-                  maxLength={150}
-                  OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setObservacao(e.target.value)
-                  }
-                  required={false}
-                />
+            <div className="col-6">
+              <CustomInput
+                label="Observação"
+                type="textarea"
+                placeholder="Digite uma descrição para o Pbm"
+                value={observacao}
+                maxLength={150}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setObservacao(e.target.value)
+                }
+                required={false}
+              />
             </div>
           </div>
           <div className="row">
             <div className="col-6 mt-2">
-              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading} />
               <ButtonCancel to="pbm" />
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com" />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
