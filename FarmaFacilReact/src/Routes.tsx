@@ -166,6 +166,10 @@ import { Categoria } from "./Pages/Categoria";
 import { CategoriaCreate } from "./Pages/Categoria/CategoriaCreate";
 import { CategoriaEdit } from "./Pages/Categoria/CategoriaEdit";
 import { CategoriaDetails } from "./Pages/Categoria/CategoriaDetails";
+import { Estado } from "./Pages/Estado";
+import { EstadoCreate } from "./Pages/Estado/EstadoCreate";
+import { EstadoEdit } from "./Pages/Estado/EstadoEdit";
+import { EstadoDetails } from "./Pages/Estado/EstadoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1489,6 +1493,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <VisitadorEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado"
+              element={
+                <Private>
+                  <Estado />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado/create"
+              element={
+                <Private>
+                  <EstadoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado/details/:id"
+              element={
+                <Private>
+                  <EstadoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado/edit/:id"
+              element={
+                <Private>
+                  <EstadoEdit />
                 </Private>
               }
             />

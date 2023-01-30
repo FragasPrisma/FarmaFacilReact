@@ -49,7 +49,6 @@ export function PbmCreate() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome(response.request.response)
       }, 2000)
     }
   }

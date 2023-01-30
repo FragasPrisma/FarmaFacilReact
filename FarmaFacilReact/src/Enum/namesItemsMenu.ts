@@ -45,4 +45,5 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Etapa"},
   {img: Flat, titulo:"Máquina Pós"},
   {img: Flat, titulo:"Visitador"},
+  {img: Flat, titulo:"Estado"},
 ];
