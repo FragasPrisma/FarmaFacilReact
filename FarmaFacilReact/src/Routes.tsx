@@ -158,6 +158,10 @@ import { Categoria } from "./Pages/Categoria";
 import { CategoriaCreate } from "./Pages/Categoria/CategoriaCreate";
 import { CategoriaEdit } from "./Pages/Categoria/CategoriaEdit";
 import { CategoriaDetails } from "./Pages/Categoria/CategoriaDetails";
+import { ListaControlado } from "./Pages/ListaControlado";
+import { ListaControladoCreate } from "./Pages/ListaControlado/ListaControladoCreate";
+import { ListaControladoEdit } from "./Pages/ListaControlado/ListaControladoEdit";
+import { ListaControladoDetails } from "./Pages/ListaControlado/ListaControladoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -597,6 +601,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <LaboratorioEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/listacontrolado"
+              element={
+                <Private>
+                  <ListaControlado />
+                </Private>
+              }
+            />
+            <Route
+              path="/listacontrolado/create"
+              element={
+                <Private>
+                  <ListaControladoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/listacontrolado/edit/:id"
+              element={
+                <Private>
+                  <ListaControladoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/listacontrolado/details/:id"
+              element={
+                <Private>
+                  <ListaControladoDetails />
                 </Private>
               }
             />
