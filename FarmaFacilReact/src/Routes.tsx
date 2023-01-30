@@ -150,6 +150,10 @@ import { NaturezaDeOperecao } from "./Pages/NaturezaOperacao";
 import { NaturezaOperacaoCreate } from "./Pages/NaturezaOperacao/NaturezaOperacaoCreate";
 import { NaturezaOperacaoEdit } from "./Pages/NaturezaOperacao/NaturezaOperacaoEdit";
 import { NaturezaOperacaoDetails } from "./Pages/NaturezaOperacao/NaturezaOperacaoDetails";
+import { Contabilista } from "./Pages/Contabilista";
+import { ContabilistaCreate } from "./Pages/Contabilista/ContabilistaCreate";
+import { ContabilistaEdit } from "./Pages/Contabilista/ContabilistaEdit";
+import { ContabilistaDetails } from "./Pages/Contabilista/ContabilistaDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -348,6 +352,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ClasseEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista"
+              element={
+                <Private>
+                  <Contabilista />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista/create"
+              element={
+                <Private>
+                  <ContabilistaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista/edit/:id"
+              element={
+                <Private>
+                  <ContabilistaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contabilista/details/:id"
+              element={
+                <Private>
+                  <ContabilistaDetails />
                 </Private>
               }
             />

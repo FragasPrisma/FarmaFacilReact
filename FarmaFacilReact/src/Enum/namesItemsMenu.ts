@@ -8,6 +8,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Cidade"},
   {img: Flat, titulo:"Classe"},
   {img: Flat, titulo:"Conta Corrente"},
+  {img: Flat, titulo:"Contabilista"},
   {img: Flat, titulo:"Dcb"},
   {img: Flat, titulo:"Dci"},
   {img: Flat, titulo:"Ensaio"},
