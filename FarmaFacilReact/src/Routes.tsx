@@ -154,6 +154,10 @@ import { NaturezaDeOperecao } from "./Pages/NaturezaOperacao";
 import { NaturezaOperacaoCreate } from "./Pages/NaturezaOperacao/NaturezaOperacaoCreate";
 import { NaturezaOperacaoEdit } from "./Pages/NaturezaOperacao/NaturezaOperacaoEdit";
 import { NaturezaOperacaoDetails } from "./Pages/NaturezaOperacao/NaturezaOperacaoDetails";
+import { Visitador } from "./Pages/Visitador";
+import { VisitadorCreate } from "./Pages/Visitador/VisitadorCreate";
+import { VisitadorDetails } from "./Pages/Visitador/VisitadorDetails";
+import { VisitadorEdit } from "./Pages/Visitador/VisitadorEdit";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1381,6 +1385,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <TurnoEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador"
+              element={
+                <Private>
+                  <Visitador />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador/create"
+              element={
+                <Private>
+                  <VisitadorCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador/details/:id"
+              element={
+                <Private>
+                  <VisitadorDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador/edit/:id"
+              element={
+                <Private>
+                  <VisitadorEdit />
                 </Private>
               }
             />
