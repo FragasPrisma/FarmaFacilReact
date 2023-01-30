@@ -154,6 +154,10 @@ import { Contabilista } from "./Pages/Contabilista";
 import { ContabilistaCreate } from "./Pages/Contabilista/ContabilistaCreate";
 import { ContabilistaEdit } from "./Pages/Contabilista/ContabilistaEdit";
 import { ContabilistaDetails } from "./Pages/Contabilista/ContabilistaDetails";
+import { Categoria } from "./Pages/Categoria";
+import { CategoriaCreate } from "./Pages/Categoria/CategoriaCreate";
+import { CategoriaEdit } from "./Pages/Categoria/CategoriaEdit";
+import { CategoriaDetails } from "./Pages/Categoria/CategoriaDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -320,6 +324,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <BulaDetails />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria"
+              element={
+                <Private>
+                  <Categoria />
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria/create"
+              element={
+                <Private>
+                  <CategoriaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria/edit/:id"
+              element={
+                <Private>
+                  <CategoriaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/categoria/details/:id"
+              element={
+                <Private>
+                  <CategoriaDetails />
                 </Private>
               }
             />

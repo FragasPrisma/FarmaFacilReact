@@ -5,6 +5,7 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Bairro"},
   {img: Flat, titulo:"Banco"},
   {img: Flat, titulo:"Bula"},
+  {img: Flat, titulo:"Categoria"},
   {img: Flat, titulo:"Cidade"},
   {img: Flat, titulo:"Classe"},
   {img: Flat, titulo:"Conta Corrente"},

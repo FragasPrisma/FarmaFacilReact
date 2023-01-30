@@ -34,7 +34,7 @@ export function Sidebar() {
       {stateArrow && (
         <div className="container_items_menu">
           <ul className="ul_menu">
-            {namesItemsMenu.map((optionMenuItem: any,index) => (
+            {namesItemsMenu.map((optionMenuItem: any, index) => (
               <li className="li_itens" key={index}>
                 <NavLink
                   className="navLink"
@@ -46,7 +46,7 @@ export function Sidebar() {
                     .trim()
                     }`}
                 >
-                    <img src={optionMenuItem.img} className="img_options" />
+                  <img src={optionMenuItem.img} className="img_options" />
                   {optionMenuItem.titulo}
                 </NavLink>
               </li>
@@ -55,5 +55,6 @@ export function Sidebar() {
         </div>
       )}
     </MenuSidebar>
+
   );
 }
