@@ -162,6 +162,10 @@ import { ListaControlado } from "./Pages/ListaControlado";
 import { ListaControladoCreate } from "./Pages/ListaControlado/ListaControladoCreate";
 import { ListaControladoEdit } from "./Pages/ListaControlado/ListaControladoEdit";
 import { ListaControladoDetails } from "./Pages/ListaControlado/ListaControladoDetails";
+import { Banner } from "./Pages/Banner";
+import { BannerCreate } from "./Pages/Banner/BannerCreate";
+import { BannerEdit } from "./Pages/Banner/BannerEdit";
+import { BannerDetails } from "./Pages/Banner/BannerDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -227,6 +231,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <AdministradoraCartaoDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/banner"
+              element={
+                <Private>
+                  <Banner />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/banner/create"
+              element={
+                <Private>
+                  <BannerCreate />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/banner/edit/:id"
+              element={
+                <Private>
+                  <BannerEdit />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/banner/details/:id"
+              element={
+                <Private>
+                  <BannerDetails />{" "}
                 </Private>
               }
             />
