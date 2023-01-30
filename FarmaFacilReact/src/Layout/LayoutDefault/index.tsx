@@ -4,15 +4,23 @@ import { Sidebar } from "../../Components/Others/Sidebar";
 import { LayoutContainer } from "./styles";
 
 export function DefaultLayout() {
+
   return (
-    <LayoutContainer>
+    <>
       <Header />
-      <div className="container_main">
-        <Sidebar />
-        <div className="container_body_content">
+    <LayoutContainer>
+      
+       
+        <div className="container_menu">
+          <Sidebar />
+        </div>
+
+        <div className="container_outlet">
           <Outlet />
         </div>
-      </div>
+
+
     </LayoutContainer>
+    </>
   );
 }
