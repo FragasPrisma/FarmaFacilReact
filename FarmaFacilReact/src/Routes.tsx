@@ -141,6 +141,10 @@ import { FormaPagamentoDetails } from "./Pages/FormaPagamento/FormaPagamentoDeta
 import { Transportador } from "./Pages/Transportador";
 import { TransportadorCreate } from "./Pages/Transportador/TransportadorCreate";
 import { BancoEdit } from "./Pages/Banco/BancoEdit";
+import { Turno } from "./Pages/Turno";
+import { TurnoCreate } from "./Pages/Turno/TurnoCreate";
+import { TurnoDetails } from "./Pages/Turno/TurnoDetails";
+import { TurnoEdit } from "./Pages/Turno/TurnoEdit";
 import { BancoDetails } from "./Pages/Banco/BancoDetails";
 import { BancoCreate } from "./Pages/Banco/BancoCreate";
 import { Banco } from "./Pages/Banco";
@@ -150,6 +154,10 @@ import { NaturezaDeOperecao } from "./Pages/NaturezaOperacao";
 import { NaturezaOperacaoCreate } from "./Pages/NaturezaOperacao/NaturezaOperacaoCreate";
 import { NaturezaOperacaoEdit } from "./Pages/NaturezaOperacao/NaturezaOperacaoEdit";
 import { NaturezaOperacaoDetails } from "./Pages/NaturezaOperacao/NaturezaOperacaoDetails";
+import { Visitador } from "./Pages/Visitador";
+import { VisitadorCreate } from "./Pages/Visitador/VisitadorCreate";
+import { VisitadorDetails } from "./Pages/Visitador/VisitadorDetails";
+import { VisitadorEdit } from "./Pages/Visitador/VisitadorEdit";
 import { Contabilista } from "./Pages/Contabilista";
 import { ContabilistaCreate } from "./Pages/Contabilista/ContabilistaCreate";
 import { ContabilistaEdit } from "./Pages/Contabilista/ContabilistaEdit";
@@ -158,6 +166,10 @@ import { Categoria } from "./Pages/Categoria";
 import { CategoriaCreate } from "./Pages/Categoria/CategoriaCreate";
 import { CategoriaEdit } from "./Pages/Categoria/CategoriaEdit";
 import { CategoriaDetails } from "./Pages/Categoria/CategoriaDetails";
+import { Estado } from "./Pages/Estado";
+import { EstadoCreate } from "./Pages/Estado/EstadoCreate";
+import { EstadoEdit } from "./Pages/Estado/EstadoEdit";
+import { EstadoDetails } from "./Pages/Estado/EstadoDetails";
 import { ListaControlado } from "./Pages/ListaControlado";
 import { ListaControladoCreate } from "./Pages/ListaControlado/ListaControladoCreate";
 import { ListaControladoEdit } from "./Pages/ListaControlado/ListaControladoEdit";
@@ -1507,6 +1519,102 @@ export function AppRoutes() {
               element={
                 <Private>
                   <BancoEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno"
+              element={
+                <Private>
+                  <Turno />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno/create"
+              element={
+                <Private>
+                  <TurnoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno/details/:id"
+              element={
+                <Private>
+                  <TurnoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno/edit/:id"
+              element={
+                <Private>
+                  <TurnoEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador"
+              element={
+                <Private>
+                  <Visitador />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador/create"
+              element={
+                <Private>
+                  <VisitadorCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador/details/:id"
+              element={
+                <Private>
+                  <VisitadorDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/visitador/edit/:id"
+              element={
+                <Private>
+                  <VisitadorEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado"
+              element={
+                <Private>
+                  <Estado />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado/create"
+              element={
+                <Private>
+                  <EstadoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado/details/:id"
+              element={
+                <Private>
+                  <EstadoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/estado/edit/:id"
+              element={
+                <Private>
+                  <EstadoEdit />
                 </Private>
               }
             />

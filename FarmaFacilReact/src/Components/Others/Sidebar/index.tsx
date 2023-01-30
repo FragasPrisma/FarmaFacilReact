@@ -1,6 +1,6 @@
-import { CaretDown, CaretUp, ListPlus, X } from "phosphor-react";
-import { MenuSidebar } from "./styles";
-import { useState } from "react";
+import { CaretDown, CaretRight, CaretUp, ListPlus, X } from "phosphor-react";
+import { MenuSidebar, NavLinkCustom } from "./styles";
+import { SetStateAction, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { namesItemsMenu } from "../../../Enum/namesItemsMenu";
 
@@ -9,6 +9,16 @@ export function Sidebar() {
 
   const openMenu = () => {
     setStateArrow(!stateArrow);
+  };
+
+  const [activeSubMenu, setActiveSubMenu] = useState("");
+
+  const handleSubMenuClick = (subMenu: SetStateAction<string>) => {
+    if (activeSubMenu === subMenu) {
+      setActiveSubMenu("");
+    } else {
+      setActiveSubMenu(subMenu);
+    }
   };
 
   return (
@@ -21,11 +31,11 @@ export function Sidebar() {
 
           {stateArrow ? (
             <div className="caret">
-              <CaretUp size={20} color="#fff" />
+              <CaretDown size={20} color="#fff" />
             </div>
           ) : (
             <div className="caret">
-              <CaretDown size={20} color="#fff" />
+              <CaretUp size={20} color="#fff" />
             </div>
           )}
         </div>
@@ -34,21 +44,30 @@ export function Sidebar() {
       {stateArrow && (
         <div className="container_items_menu">
           <ul className="ul_menu">
-            {namesItemsMenu.map((optionMenuItem: any, index) => (
-              <li className="li_itens" key={index}>
-                <NavLink
-                  className="navLink"
-                  to={`/${optionMenuItem.titulo
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .replace(/\s/g, '')
-                    .trim()
-                    }`}
-                >
-                  <img src={optionMenuItem.img} className="img_options" />
-                  {optionMenuItem.titulo}
-                </NavLink>
+            {namesItemsMenu.map((item) => (
+              <li key={item.titulo} className="li_itens">
+                {item.hasSubMenu && (
+                  <div className="container_itens_menu" onClick={() => handleSubMenuClick(item.titulo)}>
+                    <img className="img_options" src={item.img}  />
+                    {item.titulo}
+                    {activeSubMenu === item.titulo ? (
+                      <CaretUp />
+                    ) : (
+                      <CaretDown />
+                    )}
+                  </div>
+                )}
+                {item.hasSubMenu && activeSubMenu === item.titulo && (
+                  <ul>
+                    {item.subMenu.map((subMenu) => (
+                      <li key={subMenu.titulo} className="li_itens">
+                        <NavLinkCustom to={subMenu.link}>
+                          {subMenu.titulo}
+                        </NavLinkCustom>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
