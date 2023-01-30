@@ -13,10 +13,11 @@ export function PbmCreate() {
   const navigate = useNavigate();
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
+  const [isLoading,setIsLoading] = useState(false);
   const [nome, setNome] = useState("");
   const [observacao, setObservacao] = useState("");
   const [erroNome, setErroNome] = useState("");
-  const [isLoading,setIsLoading] = useState(false);
+  
 
   const data = {
     id: 0, //id 0 é default

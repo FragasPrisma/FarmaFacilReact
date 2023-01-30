@@ -37,4 +37,5 @@ export const namesItemsMenu = [
   {img: Flat, titulo:"Tipo Contato"},
   {img: Flat, titulo:"Tipo Justificativa"},
   {img: Flat, titulo:"Tributo"},
+  {img: Flat, titulo:"Turno"},
 ];

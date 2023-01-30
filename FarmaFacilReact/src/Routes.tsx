@@ -142,6 +142,10 @@ import { Banco } from "./Pages/Banco";
 import { BancoCreate } from "./Pages/Banco/BancoCreate";
 import { BancoDetails } from "./Pages/Banco/BancoDetails";
 import { BancoEdit } from "./Pages/Banco/BancoEdit";
+import { Turno } from "./Pages/Turno";
+import { TurnoCreate } from "./Pages/Turno/TurnoCreate";
+import { TurnoDetails } from "./Pages/Turno/TurnoDetails";
+import { TurnoEdit } from "./Pages/Turno/TurnoEdit";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1271,6 +1275,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <BancoEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno"
+              element={
+                <Private>
+                  <Turno />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno/create"
+              element={
+                <Private>
+                  <TurnoCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno/details/:id"
+              element={
+                <Private>
+                  <TurnoDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/turno/edit/:id"
+              element={
+                <Private>
+                  <TurnoEdit />
                 </Private>
               }
             />
