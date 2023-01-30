@@ -138,6 +138,8 @@ import { MaquinaPosEdit } from './Pages/MaquinaPos/MaquinaPosEdit';
 import { FormaPagamentoCreate } from "./Pages/FormaPagamento/FormaPagamentoCreate";
 import { FormaPagamentoEdit } from "./Pages/FormaPagamento/FormaPagamentoEdit";
 import { FormaPagamentoDetails } from "./Pages/FormaPagamento/FormaPagamentoDetails";
+import { Transportador } from "./Pages/Transportador";
+import { TransportadorCreate } from "./Pages/Transportador/TransportadorCreate";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1006,6 +1008,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <EspecialidadeEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/transportador"
+              element={
+                <Private>
+                  <Transportador />
+                </Private>
+              }
+            />
+            <Route
+              path="/transportador/create"
+              element={
+                <Private>
+                  <TransportadorCreate />
                 </Private>
               }
             />
