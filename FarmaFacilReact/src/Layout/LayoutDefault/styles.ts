@@ -1,16 +1,33 @@
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
 
 export const LayoutContainer = styled.div`
-  .container_main {
-    display: flex;
-  }
-  
-  .container_body_content {
-    margin-top: 0.687rem;
-    margin-left: 2.812rem;
-    width: calc(100% - 330px);
-  }
+
+display: flex;
+
+.container_outlet {
+  height: calc(100vh - 5.68rem);
+  max-height: 300rem;
+  width: 110rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+}
+
+.container_outlet::-webkit-scrollbar {
+  width: 0.2em;
+  background-color: #ECECEC;
+}
+
+.container_outlet::-webkit-scrollbar-thumb {
+  background-color: #cf0209;
+}
+
+.container_outlet::-webkit-scrollbar-thumb:hover {
+  background-color: #cf0209;
+}
+
 
 `;
 

@@ -3,12 +3,11 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
-import { GetId, postFormAll } from "../../Services/Api";
+import { getAll, GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams, useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 
 export function MaquinaPosEdit() {
@@ -17,6 +16,10 @@ export function MaquinaPosEdit() {
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [erroNome, setErroNome] = useState("");
+
+
+
+  const [adquirentePosDescricao, setAdquirentePosDescricao] = useState("");
   const { id } = useParams();
 
   const [data] = useState({
@@ -27,7 +30,7 @@ export function MaquinaPosEdit() {
   });
   const [serialPos, setSerialPos] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [adquirenteId, setAdquirenteId] = useState();
+  const [adquirenteId, setAdquirenteId] = useState(0);
   const [adquirente, setAdquirente] = useState([]);
 
   let idParams = !id ? "0" : id.toString();
@@ -36,15 +39,18 @@ export function MaquinaPosEdit() {
     async function Init() {
       const response = await GetId("RetornaMaquinaPosPorId", idParams);
       if (response.status == 200) {
-        // setAdquirente(response.data);
-
         setDescricao(response.data.descricao);
         setSerialPos(response.data.serialPos);
-        setAdquirente(response.data.adquirentePos.descricao);
-        // setTipoTributo(response.data.tipoTributo);
+        setAdquirentePosDescricao(response.data.adquirentePos.descricao);
       }
     }
 
+    const loadDataAdquirente = async () => {
+      const response = await getAll("ListaPosAdquirente");
+      setAdquirente(response.data);
+    };
+
+    loadDataAdquirente();
     Init();
   }, []);
 
@@ -62,10 +68,10 @@ export function MaquinaPosEdit() {
       return;
     }
 
-    // data.id = adquirenteId;
-    // data.descricao = descricao.trim();
-    // data.serialPos = serialPos.trim();
-    // data.adquirentePosId = adquirentePosId;
+    //data.id = adquirenteId;
+    data.descricao = descricao.trim();
+    data.serialPos = serialPos.trim();
+    data.adquirentePosId = adquirenteId;
 
     const resp = await postFormAll("EditarMaquinaPos", data);
 
@@ -127,13 +133,19 @@ export function MaquinaPosEdit() {
 
           <div className="row">
             <div className="col-3">
-              <CustomDropDown
-                data={adquirente}
-                title="Selecione um Adquirente"
-                filter="descricao"
-                label="Adquirente"
-                Select={(id) => setAdquirenteId(id)}
-              />
+              {
+                <CustomDropDown
+                  data={adquirente}
+                  title={
+                    !adquirentePosDescricao
+                      ? "Selecione um Adquirente"
+                      : adquirentePosDescricao
+                  }
+                  filter="descricao"
+                  label="Adquirente"
+                  Select={(id) => setAdquirenteId(id)}
+                />
+              }
             </div>
           </div>
 
