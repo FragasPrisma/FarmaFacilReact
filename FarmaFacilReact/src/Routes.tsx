@@ -144,6 +144,12 @@ import { BancoEdit } from "./Pages/Banco/BancoEdit";
 import { BancoDetails } from "./Pages/Banco/BancoDetails";
 import { BancoCreate } from "./Pages/Banco/BancoCreate";
 import { Banco } from "./Pages/Banco";
+import { TransportadorEdit } from "./Pages/Transportador/TransportadorEdit";
+import { TransportadorDetails } from "./Pages/Transportador/TransportadorDetails";
+import { NaturezaDeOperecao } from "./Pages/NaturezaOperacao";
+import { NaturezaOperacaoCreate } from "./Pages/NaturezaOperacao/NaturezaOperacaoCreate";
+import { NaturezaOperacaoEdit } from "./Pages/NaturezaOperacao/NaturezaOperacaoEdit";
+import { NaturezaOperacaoDetails } from "./Pages/NaturezaOperacao/NaturezaOperacaoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -805,6 +811,40 @@ export function AppRoutes() {
             />
 
             <Route
+              path="/naturezadeoperacao"
+              element={
+                <Private>
+                  <NaturezaDeOperecao />
+                </Private>
+              }
+            />
+            <Route
+              path="/naturezadeoperacao/create"
+              element={
+                <Private>
+                  <NaturezaOperacaoCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/naturezadeoperacao/edit/:id"
+              element={
+                <Private>
+                  <NaturezaOperacaoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/naturezadeoperacao/details/:id"
+              element={
+                <Private>
+                  <NaturezaOperacaoDetails />
+                </Private>
+              }
+            />
+
+            <Route
               path="/posadquirente"
               element={
                 <Private>
@@ -1032,6 +1072,22 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/transportador/edit/:id"
+              element={
+                <Private>
+                  <TransportadorEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/transportador/details/:id"
+              element={
+                <Private>
+                  <TransportadorDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/tipoContato"
               element={
                 <Private>
@@ -1132,7 +1188,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/maquinapos"
               element={
                 <Private>
@@ -1140,7 +1196,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-              <Route 
+            <Route
               path="/maquinapos/create"
               element={
                 <Private>
@@ -1148,7 +1204,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/maquinapos/details/:id"
               element={
                 <Private>
@@ -1156,7 +1212,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/maquinapos/edit/:id"
               element={
                 <Private>
@@ -1228,7 +1284,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/etapa"
               element={
                 <Private>
@@ -1236,7 +1292,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/etapa/create"
               element={
                 <Private>
@@ -1244,7 +1300,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/etapa/details/:id"
               element={
                 <Private>
@@ -1252,7 +1308,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/etapa/edit/:id"
               element={
                 <Private>
@@ -1260,7 +1316,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/banco"
               element={
                 <Private>
@@ -1268,7 +1324,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/banco/create"
               element={
                 <Private>
@@ -1276,7 +1332,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/banco/details/:id"
               element={
                 <Private>
@@ -1284,7 +1340,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/banco/edit/:id"
               element={
                 <Private>

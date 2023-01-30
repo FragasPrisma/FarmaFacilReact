@@ -16,24 +16,56 @@ export function TransportadorCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
 
-    const [bairroId,setBairroId] = useState();
-    const [cidadeId,setCidadeId] = useState();
-    const [estadoId,setEstadoId] = useState();
-    const [estadoPlacaId,setEstadoPlacaId] = useState();
+    const [bairroId, setBairroId] = useState();
+    const [cidadeId, setCidadeId] = useState();
+    const [estadoId, setEstadoId] = useState();
+    const [estadoPlacaId, setEstadoPlacaId] = useState();
     const [nome, setNome] = useState("");
-    const [cpfCnpj,setCpfCnpj] = useState("");
-    const [ie,setIe] = useState("");
-    const [cep,setCep] = useState("");
-    const [endereco,setEndereco] = useState("");
-    const [numero,setNumero] = useState("");
-    const [ddd,setDdd] = useState("");
-    const [telefone,setTelefone] = useState("");
-    const [codigoAntt,setCodigoAntt] = useState("");
-    const [placa,setPlaca] = useState("");
+    const [cpfCnpj, setCpfCnpj] = useState("");
+    const [ie, setIe] = useState("");
+    const [cep, setCep] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [numero, setNumero] = useState("");
+    const [ddd, setDdd] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [codigoAntt, setCodigoAntt] = useState("");
+    const [placa, setPlaca] = useState("");
 
     const [erroNome, setErroNome] = useState("");
-    const [farmacopeias, setFarmacopeias] = useState([]);
+    const [erroCnpj, setErroCnpj] = useState("");
+
     const [isLoading, setIsLoading] = useState(false);
+
+    const [estados, setEstados] = useState([]);
+    const [cidades, setCidades] = useState([]);
+    const [bairros, setBairros] = useState([]);
+
+    useEffect(() => {
+        const loadDataBairro = async () => {
+            const response = await getAll("ListaBairro");
+            setBairros(response.data);
+        }
+
+        loadDataBairro()
+    }, []);
+
+    useEffect(() => {
+        const loadDataCidade = async () => {
+            const response = await getAll("ListaCidade");
+            setCidades(response.data);
+        }
+
+        loadDataCidade()
+    }, []);
+
+    useEffect(() => {
+        const loadDataEstado = async () => {
+            const response = await getAll("ListaEstado");
+            setEstados(response.data);
+        }
+
+        loadDataEstado()
+    }, []);
 
     const data = {
         id: 0,
@@ -53,15 +85,6 @@ export function TransportadorCreate() {
         placa: placa
     };
 
-    useEffect(() => {
-        const loadDataFarmacopeia = async () => {
-            const response = await getAll("ListaFarmacopeia");
-            setFarmacopeias(response.data);
-        }
-
-        loadDataFarmacopeia()
-    }, []);
-
     async function submit() {
 
         setErroNome("")
@@ -73,12 +96,18 @@ export function TransportadorCreate() {
             return;
         }
 
+        if (!cpfCnpj.trim()) {
+            setErroCnpj("Campo CPF/CNPJ é obrigatório !")
+            setIsLoading(false);
+            return;
+        }
+
         const resp = await postFormAll("AdicionarTransportador", data);
 
         if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/ensaio");
+                navigate("/transportador");
             }, 2000)
         } else {
             setIsOpenFail(true);
@@ -96,13 +125,13 @@ export function TransportadorCreate() {
             <div className="form-group">
                 <Container>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-8">
                             <CustomInput
                                 label="Nome"
                                 type="text"
                                 placeholder="Digite o nome"
                                 value={nome}
-                                maxLength={50}
+                                maxLength={100}
                                 erro={erroNome}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setNome(e.target.value)
@@ -112,12 +141,13 @@ export function TransportadorCreate() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-3">
+                        <div className="col-4">
                             <CustomInput
                                 label="CPF/CNPJ"
                                 type="text"
                                 placeholder="Digite o CPF/CNPJ"
                                 value={cpfCnpj}
+                                erro={erroCnpj}
                                 maxLength={14}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setCpfCnpj(e.target.value)
@@ -125,27 +155,152 @@ export function TransportadorCreate() {
                                 required={true}
                             />
                         </div>
-                        <div className="col-3">
+                        <div className="col-4">
                             <CustomInput
                                 label="Inscrição Estadual"
                                 type="text"
                                 placeholder="Digite a Inscrição Estadual"
                                 value={ie}
-                                maxLength={14}
+                                maxLength={11}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setIe(e.target.value)
                                 }
-                                required={true}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-2">
+                            <CustomInput
+                                label="CEP"
+                                type="text"
+                                placeholder="Digite o CEP"
+                                value={cep}
+                                maxLength={10}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setCep(e.target.value)
+                                }
+                                required={false}
+                            />
+                        </div>
+                        <div className="col-4">
+                            <CustomInput
+                                label="Endereço"
+                                type="text"
+                                placeholder="Digite o Endereço"
+                                value={endereco}
+                                maxLength={60}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setEndereco(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="col-2">
+                            <CustomInput
+                                label="Número"
+                                type="text"
+                                placeholder="Digite o número"
+                                value={numero}
+                                maxLength={10}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setNumero(e.target.value)
+                                }
+                                required={false}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-2">
+                            <CustomDropDown 
+                            data={estados} 
+                            title="Selecione o Estado" 
+                            filter="sigla" 
+                            label="Estado" 
+                            Select={(estadoId) => 
+                            setEstadoId(estadoId)} />
+                        </div>
+                        <div className="col-4">
+                            <CustomDropDown 
+                            data={cidades} 
+                            title="Selecione a Cidade" 
+                            filter="nome" 
+                            label="Cidade" 
+                            Select={(cidadeId) => setCidadeId(cidadeId)} />
+                        </div>
+                        <div className="col-2">
+                            <CustomDropDown 
+                            data={bairros} 
+                            title="Selecione o Bairro" 
+                            filter="nome" 
+                            label="Bairro" 
+                            Select={(bairroId) => setBairroId(bairroId)} />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-2">
+                            <CustomInput
+                                label="DDD"
+                                type="text"
+                                placeholder="Digite o DDD"
+                                value={ddd}
+                                maxLength={2}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setDdd(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="col-4">
+                            <CustomInput
+                                label="Telefone"
+                                type="text"
+                                placeholder="Digite o telefone"
+                                value={telefone}
+                                maxLength={20}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setTelefone(e.target.value)
+                                }
                             />
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-5">
-                            {/* <CustomDropDown data={farmacopeias} title="Selecione a Farmacopéia" filter="nome" label="Farmacopéia" Select={(id) => setFarmacopeiaId(id)} /> */}
+                        <div className="col-2">
+                            <CustomInput
+                                label="Código ANTT"
+                                type="text"
+                                placeholder="Digite o código ANTT"
+                                value={codigoAntt}
+                                maxLength={10}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setCodigoAntt(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="col-4">
+                            <CustomDropDown 
+                            data={estados} 
+                            title="Selecione o Estado da placa" 
+                            filter="sigla" 
+                            label="Estado Placa" 
+                            Select={(estadoIdPlaca) => setEstadoPlacaId(estadoIdPlaca)} />
+                        </div>
+                        <div className="col-2">
+                            <CustomInput
+                                label="Placa do Veículo"
+                                type="text"
+                                placeholder="Digite a placa do veículo"
+                                value={placa}
+                                maxLength={20}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setPlaca(e.target.value)
+                                }
+                            />
                         </div>
                     </div>
+
                 </Container>
-                <div className="row">
+                <div className="row mt-3">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                         <ButtonCancel to="transportador" />
