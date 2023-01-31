@@ -21,7 +21,7 @@ import Flat from "../assets/img/bench.png";
 
 export const namesItemsMenu = [
   {
-    img: Flat,
+    img: "",
     titulo: "Estoque",
     hasSubMenu: true,
     subMenu: [
@@ -40,80 +40,77 @@ export const namesItemsMenu = [
   },
 
   {
-    img: Flat,
-    titulo: "Parametro",
-    hasSubMenu: true,
-    subMenu: [
-      { img: Flat, titulo: "Bairro", link: "/bairro" },
-      { img: Flat, titulo: "Cidade", link: "/cidade" },
-      //{ img: Flat, titulo: "Parametro", link: "/parametro" },
-      { img: Flat, titulo: "Máquina Pós", link: "/maquinapos" },
-      { img: Flat, titulo: "País", link: "/pais" },
-      { img: Flat, titulo: "Portador", link: "/portador" },
-      { img: Flat, titulo: "Farmacopéia", link: "/farmacopeia" },
-      { img: Flat, titulo: "Ensaio", link: "/ensaio" },
-      { img: Flat, titulo: "Pós Adquirente", link: "/posadquirente" },
-      { img: Flat, titulo: "Tributo", link: "/tributo" },
-      { img: Flat, titulo: "Banco", link: "/banco" },
-      { img: Flat, titulo: "Lista de Controlado", link: "/listaControlado" },
-      { img: Flat, titulo: "Natureza de Operação", link: "/naturezaDeOperacao" },
-      { img: Flat, titulo: "Transportador", link: "/transportador" },
-      { img: Flat, titulo: "Contabilista", link: "/contabilista" },
-    ],
-  },
-
-  {
-    img: Flat,
+    img: "",
     titulo: "Venda",
     hasSubMenu: true,
     subMenu: [
-      { img: Flat, titulo: "Administradora de Cartão", link: "/administradoradecartao" },
-      { img: Flat, titulo: "Forma de Pagamento", link: "/formadepagamento" },
-      { img: Flat, titulo: "Especialidade", link: "/especialidade" },
-      { img: Flat, titulo: "Mensagens Padrão", link: "/mensagenspadrao" },
-      { img: Flat, titulo: "Método", link: "/metodo" },
-      { img: Flat, titulo: "Tipo Contato", link: "/tipocontato" },
-      { img: Flat, titulo: "Tipo Justificativa", link: "/tipojustificativa" },
-      { img: Flat, titulo: "Posologia",link: "/posologia"  },
-      { img: Flat, titulo: "Visitador", link: "/visitador" },
-      { img: Flat, titulo: "Turno", link: "/turno" },
+      { img: "", titulo: "Administradora de Cartão", link: "/administradoradecartao" },
+      { img: "", titulo: "Forma de Pagamento", link: "/formadepagamento" },
+      { img: "", titulo: "Especialidade", link: "/especialidade" },
+      { img: "", titulo: "Mensagens Padrão", link: "/mensagenspadrao" },
+      { img: "", titulo: "Método", link: "/metodo" },
+      { img: "", titulo: "Tipo Contato", link: "/tipocontato" },
+      { img: "", titulo: "Tipo Justificativa", link: "/tipojustificativa" },
+      { img: "", titulo: "Posologia",link: "/posologia"  },
+      { img: "", titulo: "Visitador", link: "/visitador" },
+      { img: "", titulo: "Turno", link: "/turno" },
     ],
   },
 
   {
-    img: Flat,
+    img: "",
     titulo: "Produção",
     hasSubMenu: true,
     subMenu: [
-      { img: Flat, titulo: "Bula", link: "/bula" },
-      { img: Flat, titulo: "Funcionário Laboratório", link: "/funcionariolaboratorio" },
-      { img: Flat, titulo: "Especificação Cápsula", link: "/especificacaocapsula" },
+      { img: "", titulo: "Bula", link: "/bula" },
+      { img: "", titulo: "Funcionário Laboratório", link: "/funcionariolaboratorio" },
+      { img: "", titulo: "Especificação Cápsula", link: "/especificacaocapsula" },
     ],
   },
-
   {
-    img: Flat,
-    titulo: "Financeiro",
-    hasSubMenu: true,
-    subMenu: [{ img: Flat, titulo: "Conta Corrente", link: "/contacorrente" }],
-  },
-
-  {
-    img: Flat,
+    img: "",
     titulo: "PCP",
     hasSubMenu: true,
     subMenu: [
-      { img: Flat, titulo: "Etapa", link: "/etapa" },
-      { img: Flat, titulo: "Motivo", link: "/motivo" },
+      { img: "", titulo: "Etapa", link: "/etapa" },
+      { img: "", titulo: "Motivo", link: "/motivo" },
     ],
   },
 
   {
-    img: Flat,
+    img: "",
+    titulo: "Financeiro",
+    hasSubMenu: true,
+    subMenu: [{ img: "", titulo: "Conta Corrente", link: "/contacorrente" }],
+  },
+  {
+    img: "",
     titulo: "E-Commerce",
     hasSubMenu: true,
     subMenu: [
-      { img: Flat, titulo: "Categoria", link: "/categoria" },
+      { img: "", titulo: "Categoria", link: "/categoria" },
+    ],
+  },
+  {
+    img: "",
+    titulo: "Parametro",
+    hasSubMenu: true,
+    subMenu: [
+      { img: "", titulo: "Bairro", link: "/bairro" },
+      { img: "", titulo: "Cidade", link: "/cidade" },
+      //{ img: "", titulo: "Parametro", link: "/parametro" },
+      { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
+      { img: "", titulo: "País", link: "/pais" },
+      { img: "", titulo: "Portador", link: "/portador" },
+      { img: "", titulo: "Farmacopéia", link: "/farmacopeia" },
+      { img: "", titulo: "Ensaio", link: "/ensaio" },
+      { img: "", titulo: "Pós Adquirente", link: "/posadquirente" },
+      { img: "", titulo: "Tributo", link: "/tributo" },
+      { img: "", titulo: "Banco", link: "/banco" },
+      { img: "", titulo: "Lista de Controlado", link: "/listaControlado" },
+      { img: "", titulo: "Natureza de Operação", link: "/naturezaDeOperacao" },
+      { img: "", titulo: "Transportador", link: "/transportador" },
+      { img: "", titulo: "Contabilista", link: "/contabilista" },
     ],
   }
 ];
