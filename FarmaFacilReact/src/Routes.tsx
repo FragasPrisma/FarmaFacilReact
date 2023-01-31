@@ -180,6 +180,8 @@ import { BannerEdit } from "./Pages/Banner/BannerEdit";
 import { BannerDetails } from "./Pages/Banner/BannerDetails";
 import { Unidade } from "./Pages/Unidade";
 import { UnidadeCreate } from "./Pages/Unidade/UnidadeCreate";
+import { UnidadeEdit } from "./Pages/Unidade/UnidadeEdit";
+import { UnidadeDetails } from "./Pages/Unidade/UnidadeDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1487,6 +1489,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <UnidadeCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/unidade/edit/:id"
+              element={
+                <Private>
+                  <UnidadeEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/unidade/details/:id"
+              element={
+                <Private>
+                  <UnidadeDetails />
                 </Private>
               }
             />

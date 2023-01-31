@@ -10,11 +10,19 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
-import { Console } from "console";
+
+interface IUnidadeConversao {
+    id: 0,
+    sigla: "",
+    descricao: "",
+    fator: Number,
+    unidadeId: 0
+}
 
 export function UnidadeCreate() {
 
     const navigate = useNavigate();
+
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -25,10 +33,14 @@ export function UnidadeCreate() {
     const [sigla, setSigla] = useState("");
     const [descricao, setDescricao] = useState("");
     const [tipo, setTipo] = useState(0);
-    const [fator, setFator] = useState(0);
+    const [fator, setFator] = useState(Number);
 
-    const [unidadesConversao, setUnidadesConversao] = useState([{id:0,sigla:"",descricao:"",fator:0,unidadeId:0}]);
+    const [unidadesConversaoModel, setUnidadesConversaoModel] = useState([] as IUnidadeConversao[]);
     const [unidades, setUnidades] = useState([]);
+
+    const [unidadeId, setUnidadeId] = useState(0);
+
+    const [erroFatorArray, setErroFatorArray] = useState("");
 
     useEffect(() => {
         const loadDataUnidade = async () => {
@@ -39,29 +51,45 @@ export function UnidadeCreate() {
         loadDataUnidade()
     }, []);
 
-    let unidadeConversaoModel = {
-        id: 0,
-        sigla: "",
-        descricao:"",
-        fator: 0,
-        unidadeId: 0
-    }
-
     const data = {
         id: 0,
-        sigla: "st",
-        descricao: "string",
-        tipo: 0,
-        fator: 0,
-        unidadesConversao: [{id:0,sigla:"",descricao:"",fator:0,unidadeId:0}]
+        sigla: sigla,
+        descricao: descricao,
+        tipo: tipo,
+        fator: fator,
+        unidadesConversao: unidadesConversaoModel
     };
 
     async function submit() {
 
         setErroSigla("");
         setErroDescricao("");
+        setErroFatorArray("");
         setIsLoading(true);
 
+        if (!sigla) {
+            setErroSigla("Campo sigla é obrigatório !")
+            setIsLoading(false);
+            return;
+        }
+
+        if (!descricao) {
+            setErroDescricao("Campo descrição é obrigatório !")
+            setIsLoading(false);
+            return;
+        }
+
+        if (fator > 0) {
+            data.unidadesConversao = [];
+        }
+
+        let dataFilter = data.unidadesConversao.filter((item) => item.fator <= 0);
+
+        if (dataFilter.length > 0) {
+            setIsLoading(false);
+            setErroFatorArray("Fator de conversão não pode ser igual a zero !")
+            return;
+        }
 
         const response = await postFormAll("AdicionarUnidade", data);
 
@@ -79,26 +107,44 @@ export function UnidadeCreate() {
         }
     }
 
-    function AdicionarUnidadeConversao(idUnidade: number) {
+    useEffect(() => {
 
-        
+        if (unidadeId > 0) {
 
-        unidades.map((x: { id: Number, sigla: "", descricao: "", fator: 0 }) => {
+            async function Init() {
 
-            if (x.id == idUnidade) {
+                unidades.map((item: IUnidadeConversao) => {
 
-                unidadeConversaoModel.sigla = x.sigla;
-                unidadeConversaoModel.descricao = x.descricao;
-                unidadeConversaoModel.fator = x.fator
-                unidadeConversaoModel.unidadeId = idUnidade;
+                    if (item.id == unidadeId) {
 
-                data.unidadesConversao.push(unidadeConversaoModel)
-                console.log(unidadeConversaoModel)
+                        var unidadesFiltrarExistente = unidadesConversaoModel.filter((x) => x.unidadeId == unidadeId);
+
+                        if (unidadesFiltrarExistente.length == 0) {
+
+                            unidadesConversaoModel.push({ id: 0, sigla: item.sigla, descricao: item.descricao, fator: 0, unidadeId: item.id });
+                            setUnidadesConversaoModel([...unidadesConversaoModel]);
+
+                        }
+                    }
+
+                })
             }
+            Init();
+        }
 
-        });
+    }, [unidadeId])
 
+    function AdicionarFatorConversao(fator: any, index: any) {
 
+        unidadesConversaoModel[index].fator = fator
+
+        setUnidadesConversaoModel([...unidadesConversaoModel])
+
+    }
+
+    function ExcluirUnidadeConversao(index: any) {
+        unidadesConversaoModel.splice(index, 1)
+        setUnidadesConversaoModel([...unidadesConversaoModel])
     }
 
     return (
@@ -111,7 +157,7 @@ export function UnidadeCreate() {
             <div className="form-group">
                 <Container>
                     <div className="row">
-                        <div className="col-2">
+                        <div className="col-3">
                             <CustomInput
                                 label="Sigla"
                                 type="text"
@@ -127,7 +173,7 @@ export function UnidadeCreate() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-8">
+                        <div className="col-7">
                             <CustomInput
                                 label="Descrição"
                                 type="text"
@@ -144,7 +190,7 @@ export function UnidadeCreate() {
                     </div>
 
                     <div className="row">
-                        <div className="col-3">
+                        <div className="col-4">
                             <RadioCustom
                                 titleComponet="Tipo"
                                 options={[
@@ -170,23 +216,28 @@ export function UnidadeCreate() {
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col-6">
-                            <CustomDropDown
-                                data={unidades}
-                                title="Selecione a Unidade de Conversão"
-                                filter="descricao"
-                                label="Unidade de Conversão"
-                                Select={(planoDeContaId) => AdicionarUnidadeConversao(planoDeContaId)}
-                            />
+                    {fator <= 0 &&
+                        <div className="row">
+                            <div className="col-7">
+                                <CustomDropDown
+                                    data={unidades}
+                                    title="Selecione a Unidade de Conversão"
+                                    filter="descricao"
+                                    label="Unidade de Conversão"
+                                    Select={(unidadeId) => setUnidadeId(unidadeId)}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    }
 
-                    {
-                        data.unidadesConversao.map((item) => (
-                            
-                            <div key={item.id} className="row">
-                                <div className="col-2">
+
+
+                    {unidadesConversaoModel.length > 0 && fator <= 0 &&
+
+                        unidadesConversaoModel.map((item, index) => (
+
+                            <div key={item.unidadeId} className="row mt-2">
+                                <div className="col-1">
                                     <CustomInput
                                         label="Sigla"
                                         type="text"
@@ -194,7 +245,7 @@ export function UnidadeCreate() {
                                         readonly={true}
                                     />
                                 </div>
-                                <div className="col-4">
+                                <div className="col-3">
                                     <CustomInput
                                         label="Descrição"
                                         type="text"
@@ -202,21 +253,29 @@ export function UnidadeCreate() {
                                         readonly={true}
                                     />
                                 </div>
-                                <div className="col-4">
+                                <div className="col-2">
                                     <CustomInput
                                         label="Fator de Conversão"
                                         type="number"
                                         value={item.fator}
                                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                            item.fator = parseFloat(e.target.value)
+                                            AdicionarFatorConversao(e.target.value, index)
                                         }
+
                                     />
+                                </div>
+                                <div className="col-2 mt-3">
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => ExcluirUnidadeConversao(index)}
+                                    >
+                                        Excluir
+                                    </button>
                                 </div>
                             </div>
                         ))
                     }
-
-
+                    <p className="text-danger">{erroFatorArray}</p>
                     <div className="row">
                         <div className="col-6 mt-2">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -226,7 +285,7 @@ export function UnidadeCreate() {
                 </Container>
                 <SuccessModal show={isOpenSuccess} textCustom="Unidade adicionada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
-            </div>
+            </div >
         </>
     );
 }
