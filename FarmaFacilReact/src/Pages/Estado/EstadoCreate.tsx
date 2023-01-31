@@ -4,7 +4,7 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { Container } from "./styles";
 import { ChangeEvent, useEffect, useState } from "react";
-import { getAll, postFormAll } from "../../Services/Api";
+import { getAll, GetId, postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
@@ -47,9 +47,25 @@ export function EstadoCreate() {
         aliquotaEstado.estadoDestino = estadoDestinoNome;
         aliquotaEstado.porcentagemIcms = porcentagemIcms;
 
+        if (aliquotaEstado.estadoOrigem == "" || aliquotaEstado.estadoDestino == "") 
+        {
+            return 
+        }
+
         datas.push(aliquotaEstado)
         console.log(datas)
     }
+
+    useEffect(() => {
+        async function Init() {
+            let idEstadoDestino = estadoDestinoId.toString();
+            const response = await GetId("RetornaEstadoPorId", idEstadoDestino);
+            if (response.status == 200) {
+                setEstadoDestinoNome(response.data.nome)
+            }
+        }
+        Init()
+    }, [estadoDestinoId])
 
     const data = {
         id: 0,
@@ -233,7 +249,7 @@ export function EstadoCreate() {
                                             }
                                         />
                                     </div>
-                                    <div className="col-2">
+                                    <div className="col-2 mt-3">
                                         <ButtonConfirm onCLick={submitAliquota} />
                                     </div>
                                 </div>
