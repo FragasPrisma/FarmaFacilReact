@@ -124,7 +124,7 @@ export function DciEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="DCI editado com"/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

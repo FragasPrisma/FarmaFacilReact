@@ -121,7 +121,7 @@ export function EspecificacaoEdit() {
                         <ButtonCancel to="especificacaocapsula" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Especificação Cápsula editada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

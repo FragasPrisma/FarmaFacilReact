@@ -205,7 +205,7 @@ export function EtapaEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Cadastro editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="Etapa editada com"/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

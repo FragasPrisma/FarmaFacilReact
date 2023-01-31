@@ -657,7 +657,7 @@ export function FornecedorCreate() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} />
+            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor adicionado com "/>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

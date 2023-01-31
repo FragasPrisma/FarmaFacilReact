@@ -95,7 +95,7 @@ export function TipoContatoEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="Tipo de Contato editado com"/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

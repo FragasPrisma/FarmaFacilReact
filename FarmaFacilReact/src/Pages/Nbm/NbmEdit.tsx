@@ -193,7 +193,7 @@ export function NbmEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="NBM editado com"/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>
