@@ -96,7 +96,7 @@ export function FarmacopeiaCreate() {
                         <ButtonCancel to="farmacopeia" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Farmacopéia adicionada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

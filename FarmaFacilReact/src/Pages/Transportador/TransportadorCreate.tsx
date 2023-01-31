@@ -306,7 +306,7 @@ export function TransportadorCreate() {
                         <ButtonCancel to="transportador" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Transportador adicionado com "/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

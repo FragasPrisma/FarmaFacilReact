@@ -112,7 +112,7 @@ export function BulaCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Bula adicionada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

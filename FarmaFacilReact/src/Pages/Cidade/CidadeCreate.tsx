@@ -136,7 +136,7 @@ export function CidadeCreate() {
                     </div>
                 </div>
 
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Cidade adicionada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

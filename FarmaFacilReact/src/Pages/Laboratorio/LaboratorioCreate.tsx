@@ -80,7 +80,7 @@ export function LaboratorioCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Laboratório adicionado com "/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -96,7 +96,7 @@ export function PbmCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} />
+        <SuccessModal show={isOpenSuccess} textCustom="PBM adicionado com "/>
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

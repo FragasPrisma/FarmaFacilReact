@@ -263,7 +263,7 @@ export function AdministradoraCartaoEdit() {
                         <ButtonCancel to="administradoradecartao" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Administradora de Cartão editada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -112,7 +112,7 @@ export function FuncionarioLaboratorioEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Funcionário Laboratório editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

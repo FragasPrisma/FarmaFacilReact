@@ -123,7 +123,7 @@ export function EnsaioEdit() {
                         <ButtonCancel to="ensaio" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Ensaio editado com "/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

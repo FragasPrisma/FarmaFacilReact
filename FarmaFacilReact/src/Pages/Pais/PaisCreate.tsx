@@ -118,7 +118,7 @@ export function PaisCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} />
+        <SuccessModal show={isOpenSuccess} textCustom="País adicionado com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

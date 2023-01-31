@@ -104,7 +104,7 @@ export function PosAdquirenteCreate() {
                         <ButtonCancel to="posadquirente" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Pós Adquirente adicionado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -27,7 +27,7 @@ export function Sidebar() {
       <div className="container_menu" onClick={openMenu}>
         <div className="cadastro_menu">
           <ListPlus size={20} color="#fff" />
-          <h3 className="title_menu_options">Cadastros</h3>
+          <h3 className="title_menu_options">Arquivo</h3>
 
           {stateArrow ? (
             <div className="caret">
@@ -48,7 +48,7 @@ export function Sidebar() {
               <li key={item.titulo} className="li_itens">
                 {item.hasSubMenu && (
                   <div className="container_itens_menu" onClick={() => handleSubMenuClick(item.titulo)}>
-                    <img className="img_options" src={item.img}  />
+                    {/* <img className="img_options" src={item.img}  /> */}
                     {item.titulo}
                     {activeSubMenu === item.titulo ? (
                       <CaretUp />

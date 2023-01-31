@@ -156,7 +156,7 @@ export function MaquinaPosEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} />
+        <SuccessModal show={isOpenSuccess} textCustom="Máquina Pós editada com "/>
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

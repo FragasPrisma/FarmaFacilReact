@@ -119,7 +119,7 @@ export function ContaCorrenteCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} />
+        <SuccessModal show={isOpenSuccess} textCustom="Conta Corrente adicionada com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

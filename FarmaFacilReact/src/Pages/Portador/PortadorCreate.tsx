@@ -90,7 +90,7 @@ export function PortadorCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} />
+        <SuccessModal show={isOpenSuccess} textCustom="Protador adicionado com "/>
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

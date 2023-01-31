@@ -162,7 +162,7 @@ export function CidadeEdit() {
                     </div>
                 </div>
 
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Cidade editada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

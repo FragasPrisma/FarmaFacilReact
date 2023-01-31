@@ -150,7 +150,7 @@ export function TributoEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com" />
+        <SuccessModal show={isOpenSuccess} textCustom="Tributo editado com" />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

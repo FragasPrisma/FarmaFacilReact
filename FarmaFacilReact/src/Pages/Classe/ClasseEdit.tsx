@@ -99,7 +99,7 @@ export function ClasseEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+        <SuccessModal show={isOpenSuccess} textCustom="Classe editada com"/>
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

@@ -97,7 +97,7 @@ export function EnsaioCreate() {
                         <ButtonCancel to="ensaio" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Ensaio adicionado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

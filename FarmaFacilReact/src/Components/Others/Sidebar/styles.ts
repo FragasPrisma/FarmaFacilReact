@@ -32,7 +32,7 @@ export const MenuSidebar = styled.aside`
     width: 80%;
     height: 3rem;
     margin-top: 1.5rem;
-
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -87,6 +87,7 @@ export const MenuSidebar = styled.aside`
   .container_items_menu {
     width: 80%;
     padding: 0.3rem 0;
+    cursor: pointer;
   }
 
   .img_options {
@@ -99,7 +100,9 @@ export const MenuSidebar = styled.aside`
     list-style-type: none;
     color: #fff;
   }
-
+  ul{
+    padding-left: 1rem;
+  }
 
 .container_itens_menu{
   display: flex;
@@ -126,7 +129,9 @@ export const MenuSidebar = styled.aside`
     text-decoration: none;
 
     line-height: 1.5rem;
-    padding-left: 3.2rem;
+    //padding-left: 3.2rem;
+    display: flex;
+    justify-content: flex-start;
   
   `
 

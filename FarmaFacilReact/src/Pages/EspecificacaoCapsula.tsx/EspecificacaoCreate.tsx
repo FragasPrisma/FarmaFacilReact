@@ -103,7 +103,7 @@ export function EspecificacaoCreate() {
                         <ButtonCancel to="especificacaocapsula" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Especificação Cápsula adicionada com "/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

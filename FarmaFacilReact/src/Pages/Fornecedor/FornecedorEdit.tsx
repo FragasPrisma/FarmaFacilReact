@@ -748,7 +748,7 @@ export function FornecedorEdit() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} />
+            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor editado com "/>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

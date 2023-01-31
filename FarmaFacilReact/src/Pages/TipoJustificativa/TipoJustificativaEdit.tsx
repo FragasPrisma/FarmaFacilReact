@@ -98,7 +98,7 @@ export function TipoJustificativaEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="Tipo de Justificativa editada com"/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

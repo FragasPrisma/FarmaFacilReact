@@ -179,7 +179,7 @@ export function FormaPagamentoEdit() {
                         <ButtonCancel to="formadepagamento" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} />
+                <SuccessModal show={isOpenSuccess} textCustom="Forma de Pagamento editada com "/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>
