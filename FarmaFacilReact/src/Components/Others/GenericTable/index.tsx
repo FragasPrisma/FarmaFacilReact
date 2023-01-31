@@ -1,11 +1,20 @@
-import { TableCustom, TrCustom } from "./styles";
+import { DeleteButton, TableCustom, TrCustom } from "./styles";
+import { Trash } from "phosphor-react";
 
 interface Props {
     data: any[];
     header: string[];
+    onDelete?: (index: number) => void;
+    deleteButton: boolean;
 }
 
-export function GenericTable({ data = [], header }: Props) {
+export function GenericTable({ data = [], header, onDelete, deleteButton = true}: Props) {
+    function OnClickDelete(index: number) {
+        if (onDelete) {
+            onDelete(index);
+        }
+    }
+
     return (
         <TableCustom>
             <thead>
@@ -21,6 +30,11 @@ export function GenericTable({ data = [], header }: Props) {
                         {header.map((header, index) => (
                             <td key={index}>{data[header]}</td>
                         ))}
+                        { deleteButton &&
+                            <td>
+                                <DeleteButton onClick={() => OnClickDelete(index)}><Trash size={20} color="#cf0209" /></DeleteButton>
+                            </td>
+                         }
                     </TrCustom>
                 ))}
             </tbody>

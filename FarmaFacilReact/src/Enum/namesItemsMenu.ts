@@ -100,6 +100,7 @@ export const namesItemsMenu = [
     subMenu: [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
+      { img: "", titulo: "Estado", link: "/estado" },
       //{ img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },

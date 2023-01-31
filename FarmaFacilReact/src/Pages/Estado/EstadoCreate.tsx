@@ -10,8 +10,6 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
-import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { GenericTable } from "../../Components/Others/GenericTable";
 
 export function EstadoCreate() {
     const navigate = useNavigate();
@@ -28,28 +26,6 @@ export function EstadoCreate() {
     const [paisId, setPaisId] = useState();
     const [erroNome, setErroNome] = useState("");
     const [paises, setPaises] = useState([]);
-    const [estados, setEstados] = useState([]);
-    const [estadoOrigemId, setEstadoOrigemId] = useState(0);
-    const [estadoOrigemNome, setEstadoOrigemNome] = useState("");
-    const [estadoDestinoId, setEstadoDestinoId] = useState(0);
-    const [estadoDestinoNome, setEstadoDestinoNome] = useState("");
-    const [porcentagemIcms, setPorcentagemIcms] = useState(0);
-    const [datas, setDatas] = useState<any>([]);
-
-    const aliquotaEstado = {
-        estadoOrigem: "",
-        estadoDestino: "",
-        porcentagemIcms: 0
-    }
-
-    function submitAliquota() {
-        aliquotaEstado.estadoOrigem = estadoOrigemNome;
-        aliquotaEstado.estadoDestino = estadoDestinoNome;
-        aliquotaEstado.porcentagemIcms = porcentagemIcms;
-
-        datas.push(aliquotaEstado)
-        console.log(datas)
-    }
 
     const data = {
         id: 0,
@@ -70,15 +46,6 @@ export function EstadoCreate() {
         }
 
         loadDataPaises()
-    }, []);
-
-    useEffect(() => {
-        const loadDataEstados = async () => {
-            const response = await getAll("ListaEstado");
-            setEstados(response.data);
-        }
-
-        loadDataEstados()
     }, []);
 
     async function submit() {
@@ -197,55 +164,6 @@ export function EstadoCreate() {
                                 check={difalComCalculoDeIsento}
                                 onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setDicalComcalculoDeIsento(e.target.checked)}
                             />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 mt-4">
-                            <FieldsetCustom legend="Aliquotas por Estado">
-                                <div className="row">
-                                    <div className="col-3">
-                                        <CustomDropDown
-                                            data={estados}
-                                            title="Selecione o estado de origem"
-                                            filter="nome"
-                                            label="Estado origem"
-                                            Select={(estadoOrigemId) =>
-                                                setEstadoOrigemId(estadoOrigemId)}
-                                        />
-                                    </div>
-                                    <div className="col-3">
-                                        <CustomDropDown
-                                            data={estados}
-                                            title="Selecione o estado de destino"
-                                            filter="nome"
-                                            label="Estado destino"
-                                            Select={(estadoDestinoId) =>
-                                                setEstadoDestinoId(estadoDestinoId)}
-                                        />
-                                    </div>
-                                    <div className="col-1">
-                                        <CustomInput
-                                            label="% Icms"
-                                            type="number"
-                                            value={porcentagemIcms}
-                                            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                                setPorcentagemIcms(parseFloat(e.target.value))
-                                            }
-                                        />
-                                    </div>
-                                    <div className="col-2">
-                                        <ButtonConfirm onCLick={submitAliquota} />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-6">
-                                        <GenericTable
-                                            data={datas} 
-                                            header={["Estado de Origem", "Estado de Destino", "% Icms"]}
-                                        />
-                                    </div>
-                                </div>
-                            </FieldsetCustom>
                         </div>
                     </div>
                     <div className="row">

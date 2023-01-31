@@ -45,3 +45,12 @@ export const TrCustom = styled.tr`
     color: #cf0209;
   }
 `;
+
+const Button = styled.button`
+    background-color: transparent;
+    border:none;
+`;
+
+export const DeleteButton = styled(Button)`
+    margin-left: 0px;
+`;
