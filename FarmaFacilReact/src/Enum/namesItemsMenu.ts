@@ -44,6 +44,7 @@ export const namesItemsMenu = [
     titulo: "Venda",
     hasSubMenu: true,
     subMenu: [
+      { img: "", titulo: "Prescritor", link: "/prescritor" },
       { img: "", titulo: "Administradora de Cartão", link: "/administradoradecartao" },
       { img: "", titulo: "Forma de Pagamento", link: "/formadepagamento" },
       { img: "", titulo: "Especialidade", link: "/especialidade" },
@@ -100,6 +101,7 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
       //{ img: "", titulo: "Parametro", link: "/parametro" },
+      { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
       { img: "", titulo: "Portador", link: "/portador" },
