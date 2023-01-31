@@ -89,6 +89,7 @@ export const namesItemsMenu = [
     hasSubMenu: true,
     subMenu: [
       { img: "", titulo: "Categoria", link: "/categoria" },
+      { img: "", titulo: "Banner", link: "/banner" },
     ],
   },
   {
