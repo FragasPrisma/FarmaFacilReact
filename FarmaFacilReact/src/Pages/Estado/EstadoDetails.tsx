@@ -56,14 +56,6 @@ export function EstadoDetails() {
     useEffect(() => {
         function teste() {
             let dataTable: any[] = [];
-
-            const modelData = {
-                SiglaEstadoOrigem: "",
-                EstadoOrigem: "",
-                SiglaEstadoDestino: "",
-                EstadoDestino: "",
-                PorcentagemIcms: 0
-            }
     
             datas.map((x: {estadoDestino: any, estadoOrigem: any, aliquotaIcms: number}) => {
                 const modelData = {
@@ -73,11 +65,6 @@ export function EstadoDetails() {
                     EstadoDestino: x.estadoDestino.nome,
                     PorcentagemIcms: x.aliquotaIcms
                 }
-                // modelData.EstadoDestino = x.estadoDestino.nome;
-                // modelData.EstadoOrigem = ;
-                // modelData.SiglaEstadoDestino =;
-                // modelData.SiglaEstadoOrigem = ;
-                // modelData.PorcentagemIcms = ;
     
                 dataTable.push(modelData);
             })

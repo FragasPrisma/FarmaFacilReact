@@ -5,7 +5,7 @@ interface Props {
     data: any[];
     header: string[];
     onDelete?: (index: number) => void;
-    deleteButton: boolean;
+    deleteButton?: boolean;
 }
 
 export function GenericTable({ data = [], header, onDelete, deleteButton = true}: Props) {

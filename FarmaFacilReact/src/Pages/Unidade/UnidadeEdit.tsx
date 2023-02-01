@@ -145,7 +145,7 @@ export function UnidadeEdit() {
 
         if (unidadeId > 0) {
 
-            async function Init() {
+            function Init() {
 
                 unidades.map((item: IUnidadeConversao) => {
 
