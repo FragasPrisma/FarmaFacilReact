@@ -21,7 +21,7 @@ export function EstadoCreate() {
     const [aliquotaIcmsEstado, setAliquotaIcmsEstado] = useState(0);
     const [aliquotaFcpEstado, setAliquotaFcpEstado] = useState(0)
     const [difalComCalculoPorDentro, setDifalComCalculoPorDentro] = useState(false);
-    const [difalComCalculoDeIsento, setDicalComcalculoDeIsento] = useState(false);
+    const [difalComCalculoDeIsento, setDifalComcalculoDeIsento] = useState(false);
     const [checagemContribuinteIsento, setChecagemContribuinteIsento] = useState(false);
     const [paisId, setPaisId] = useState();
     const [erroNome, setErroNome] = useState("");
@@ -162,7 +162,7 @@ export function EstadoCreate() {
                             <CheckboxCustom
                                 options={["Difal com Calculo Isento"]}
                                 check={difalComCalculoDeIsento}
-                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setDicalComcalculoDeIsento(e.target.checked)}
+                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setDifalComcalculoDeIsento(e.target.checked)}
                             />
                         </div>
                     </div>

@@ -103,6 +103,7 @@ export function PbmEdit() {
                 value={observacao}
                 maxLength={150}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                
                   setObservacao(e.target.value)
                 }
                 required={false}
