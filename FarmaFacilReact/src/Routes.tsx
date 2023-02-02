@@ -186,6 +186,10 @@ import { Prescritor } from "./Pages/Prescritor";
 import { PrescritorCreate } from "./Pages/Prescritor/PrescritorCreate/PrescritorCreate";
 import { PrescritorEdit } from "./Pages/Prescritor/PrescritorEdit/PrescritorEdit";
 import { PrescritorDetails } from "./Pages/Prescritor/PrescritorDetails/PrescritorDetails";
+import { TabelaFloral } from "./Pages/TabelaFloral";
+import { TabelaFloralCreate } from "./Pages/TabelaFloral/TabelaFloralCreate";
+import { TabelaFloralEdit } from "./Pages/TabelaFloral/TabelaFloralEdit";
+import { TabelaFloralDetails } from "./Pages/TabelaFloral/TabelaFloralDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1613,6 +1617,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Prescritor />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral"
+              element={
+                <Private>
+                  <TabelaFloral />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral/create"
+              element={
+                <Private>
+                  <TabelaFloralCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral/edit/:id"
+              element={
+                <Private>
+                  <TabelaFloralEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral/details/:id"
+              element={
+                <Private>
+                  <TabelaFloralDetails />
                 </Private>
               }
             />
