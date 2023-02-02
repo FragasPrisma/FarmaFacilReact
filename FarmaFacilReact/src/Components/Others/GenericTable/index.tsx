@@ -22,6 +22,9 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true}
                     {header.map((head, index) => (
                         <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
                     ))}
+                    {deleteButton &&
+                        <th>Excluir</th>
+                    }
                 </TrCustom>
             </thead>
             <tbody>

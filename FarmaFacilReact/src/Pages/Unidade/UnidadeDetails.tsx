@@ -24,7 +24,7 @@ export function UnidadeDetails() {
         async function Init() {
             const response = await GetId("RetornaUnidadePorId", idParams);
             if (response.status == 200) {
-                
+
                 setId(response.data.id);
                 setSigla(response.data.sigla);
                 setDescricao(response.data.descricao);
@@ -103,13 +103,15 @@ export function UnidadeDetails() {
                                 />
                             </div>
                         </div>
+                        <div>
+                            <p className="paragrafo">Unidades de Conversão</p>
+                        </div>
 
                         {unidadesConversaoModel.length > 0 && fator <= 0 &&
-                            
+
                             unidadesConversaoModel.map((item) => (
 
                                 <div key={item.id} className="row">
-                                    <p className="paragrafo">Unidades de Conversão</p>        
                                     <div className="col-1">
                                         <CustomInput
                                             label="Sigla"

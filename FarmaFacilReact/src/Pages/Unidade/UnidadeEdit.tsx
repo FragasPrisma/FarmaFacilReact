@@ -10,6 +10,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 
 interface IUnidadeConversao {
     id: 0,
@@ -68,8 +69,8 @@ export function UnidadeEdit() {
     useEffect(() => {
         const loadDataUnidade = async () => {
             const response = await getAll("ListaUnidade");
-            if(response.data){
-                setUnidades(response.data.filter((item : any) => item.id != idParams ));
+            if (response.data) {
+                setUnidades(response.data.filter((item: any) => item.id != idParams));
             }
         }
 
@@ -109,7 +110,7 @@ export function UnidadeEdit() {
 
         let dataFilter = data.unidadesConversao.filter((item) => item.fator <= 0);
 
-        if(dataFilter.length > 0){
+        if (dataFilter.length > 0) {
             setIsLoading(false);
             setErroFatorArray("Fator de conversão não pode ser igual a zero !")
             return;
@@ -119,9 +120,9 @@ export function UnidadeEdit() {
 
         if (response.status === 200) {
 
-            if(unidadesConversaoModelExcluir.length > 0){
+            if (unidadesConversaoModelExcluir.length > 0) {
                 unidadesConversaoModelExcluir.map(async (item) => {
-                    const resp = await postFormAll("ExcluirUnidadeConversao",item);
+                    const resp = await postFormAll("ExcluirUnidadeConversao", item);
                 })
             }
 
@@ -168,18 +169,18 @@ export function UnidadeEdit() {
 
     }, [unidadeId])
 
-    function AdicionarFatorConversao(fator: any, index: any) {
+    function AdicionarFatorConversao(fator: number, index: number) {
 
         unidadesConversaoModel[index].fator = fator
         setUnidadesConversaoModel([...unidadesConversaoModel])
 
     }
 
-    function ExcluirUnidadeConversao(index: any, item: any) {
+    function ExcluirUnidadeConversao(index: number, item: any) {
         unidadesConversaoModel.splice(index, 1)
         setUnidadesConversaoModel([...unidadesConversaoModel])
         unidadesConversaoModelExcluir.push(item);
-        setUnidadesConversaoModelExcluir(unidadesConversaoModelExcluir)
+        setUnidadesConversaoModelExcluir([...unidadesConversaoModelExcluir])
     }
 
     return (
@@ -253,16 +254,18 @@ export function UnidadeEdit() {
                         </div>
 
                         {fator <= 0 &&
-                            <div className="row">
-                                <div className="col-7">
-                                    <CustomDropDown
-                                        data={unidades}
-                                        title="Selecione a Unidade de Conversão"
-                                        filter="descricao"
-                                        label="Unidade de Conversão"
-                                        Select={(unidadeId) => setUnidadeId(unidadeId)}
-                                    />
-                                </div>
+                            <div className="row mt-3">
+                                <FieldsetCustom legend="Selecione as Unidades de Conversão" numberCols={7}>
+                                    <div className="col-8 mt-3">
+                                        <CustomDropDown
+                                            data={unidades}
+                                            title="Selecione a Unidade de Conversão"
+                                            filter="descricao"
+                                            label="Unidade de Conversão"
+                                            Select={(unidadeId) => setUnidadeId(unidadeId)}
+                                        />
+                                    </div>
+                                </FieldsetCustom>
                             </div>
                         }
 
@@ -295,7 +298,7 @@ export function UnidadeEdit() {
                                             type="number"
                                             value={item.fator}
                                             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                                AdicionarFatorConversao(e.target.value, index)
+                                                AdicionarFatorConversao(parseFloat(e.target.value), index)
                                             }
 
                                         />

@@ -12,10 +12,12 @@ interface IInput {
     value?: any;
     maxLength?: number|undefined;
     erro?:string;
+    index?:number;
+    erros?: {erro: Boolean, index: number, erroNome:string}
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void
  }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index}: IInput) {
     return (
         <ContainerInput >
             <div className="containerAbc">
@@ -36,6 +38,11 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                     onChange={OnChange}
                 />
             </div>
+            {erros?.erro && erros.index == index &&
+                <div className="row divError">
+                    <label className="text-danger">{erros?.erroNome}</label>
+                </div>
+            }
             {erro &&
                 <div className="row divError">
                     <label className="text-danger">{erro}</label>

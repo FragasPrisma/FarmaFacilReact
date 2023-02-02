@@ -6,88 +6,93 @@ import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
 import { GenericTable } from "../../../Components/Others/GenericTable";
 import { getAll } from "../../../Services/Api";
-import { PrescritorGeral } from "../PrescritorGeral";
+import { IPrescritorGeral } from "../PrescritorGeral";
 import { Container } from "../styles";
 
-interface Error {
-    error: { erro: boolean, index: number, erroNome: string }
+interface Data {
+    error: { erro: boolean, index: number, erroNome: string };
+    PrescritorGeralModel: IPrescritorGeral;
+    nomes: { nomeEstado: string, nomeCidade: string, nomeBairro: string }
 }
 
-export function PrescritorCreateGeral({ error }: Error) {
+export let EspecialidadesExcluir = [] as any[];
+export let EspecialidadesAdd = [] as any[];
 
-    const [nome, setNome] = useState("");
-    const [cep, setCep] = useState("");
-    const [data_Nascimento, setData_Nascimento] = useState(null as any);
-    const [endereco, setEndereco] = useState("");
-    const [numero, setNumero] = useState("");
-    const [complemento, setComplemento] = useState("");
-    const [cpfCnpj, setCpfCnpj] = useState("");
-    const [ddd, setDdd] = useState("");
-    const [dddCelular, setDddCelular] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [celular, setCelular] = useState("");
-    const [ativo, setAtivo] = useState(true);
+export function PrescritorEditGeral({ error, PrescritorGeralModel, nomes }: Data) {
+
+    const [nome, setNome] = useState(PrescritorGeralModel.nome);
+    const [cep, setCep] = useState(PrescritorGeralModel.cep);
+    const [data_Nascimento, setData_Nascimento] = useState(PrescritorGeralModel.data_Nascimento);
+    const [endereco, setEndereco] = useState(PrescritorGeralModel.endereco);
+    const [numero, setNumero] = useState(PrescritorGeralModel.numero);
+    const [complemento, setComplemento] = useState(PrescritorGeralModel.complemento);
+    const [cpfCnpj, setCpfCnpj] = useState(PrescritorGeralModel.cpfCnpj);
+    const [ddd, setDdd] = useState(PrescritorGeralModel.ddd);
+    const [dddCelular, setDddCelular] = useState(PrescritorGeralModel.dddCelular);
+    const [telefone, setTelefone] = useState(PrescritorGeralModel.telefone);
+    const [celular, setCelular] = useState(PrescritorGeralModel.celular);
+    const [ativo, setAtivo] = useState(PrescritorGeralModel.ativo);
     const [erroEstadoCrm, setErroEstadoCrm] = useState("");
-    const [genero, setGenero] = useState(-1);
-    const [tipoCr, setTipoCr] = useState(-1);
-    const [crmNumero, setCrmNumero] = useState("");
-    const [crmEstado, setCrmEstado] = useState("");
-    const [crmTipo, setCrmTipo] = useState("");
-    const [estadoId, setEstadoId] = useState(null);
-    const [cidadeId, setCidadeId] = useState(null);
-    const [bairroId, setBairroId] = useState(null);
+    const [genero, setGenero] = useState(PrescritorGeralModel.genero);
+    const [tipoCr, setTipoCr] = useState(PrescritorGeralModel.tipoCr);
+    const [crmNumero, setCrmNumero] = useState(PrescritorGeralModel.crmNumero);
+    const [crmEstado, setCrmEstado] = useState(PrescritorGeralModel.crmEstado);
+    const [crmTipo, setCrmTipo] = useState(PrescritorGeralModel.crmTipo);
+    const [estadoId, setEstadoId] = useState(PrescritorGeralModel.estadoId);
+    const [cidadeId, setCidadeId] = useState(PrescritorGeralModel.cidadeId);
+    const [bairroId, setBairroId] = useState(PrescritorGeralModel.bairroId);
     const [estados, setEstados] = useState([] as any[]);
     const [cidades, setCidades] = useState([]);
     const [bairros, setBairros] = useState([]);
     const [especialidades, setEspecialidades] = useState([] as any[]);
-    const [especialidadesSelecionadas, setEspecialidadesSelecionadas] = useState([] as any[]);
+    const [especialidadesSelecionadas, setEspecialidadesSelecionadas] = useState(PrescritorGeralModel.especialidadePrescritores);
     const [especialidadeId, setEspecialidadeId] = useState();
     const [especialidadesSelecionadasView, setEspecialidadesSelecionadasView] = useState([] as any[]);
 
-    PrescritorGeral.nome = nome;
-    PrescritorGeral.cep = cep;
-    PrescritorGeral.data_Nascimento = data_Nascimento;
-    PrescritorGeral.endereco = endereco;
-    PrescritorGeral.numero = numero;
-    PrescritorGeral.complemento = complemento;
-    PrescritorGeral.cpfCnpj = cpfCnpj;
-    PrescritorGeral.ddd = ddd;
-    PrescritorGeral.dddCelular = dddCelular;
-    PrescritorGeral.telefone = telefone;
-    PrescritorGeral.celular = celular;
-    PrescritorGeral.ativo = ativo;
-    PrescritorGeral.genero = genero;
-    PrescritorGeral.tipoCr = tipoCr;
-    PrescritorGeral.crmNumero = crmNumero;
-    PrescritorGeral.crmEstado = crmEstado;
-    PrescritorGeral.crmTipo = crmTipo;
-    PrescritorGeral.estadoId = estadoId;
-    PrescritorGeral.cidadeId = cidadeId;
-    PrescritorGeral.bairroId = bairroId;
-    PrescritorGeral.especialidadePrescritores = especialidadesSelecionadas;
+    PrescritorGeralModel.nome = nome;
+    PrescritorGeralModel.cep = cep;
+    PrescritorGeralModel.data_Nascimento = data_Nascimento;
+    PrescritorGeralModel.endereco = endereco;
+    PrescritorGeralModel.numero = numero;
+    PrescritorGeralModel.complemento = complemento;
+    PrescritorGeralModel.cpfCnpj = cpfCnpj;
+    PrescritorGeralModel.ddd = ddd;
+    PrescritorGeralModel.dddCelular = dddCelular;
+    PrescritorGeralModel.telefone = telefone;
+    PrescritorGeralModel.celular = celular;
+    PrescritorGeralModel.ativo = ativo;
+    PrescritorGeralModel.estadoId = estadoId;
+    PrescritorGeralModel.bairroId = bairroId;
+    PrescritorGeralModel.cidadeId = cidadeId;
+    PrescritorGeralModel.tipoCr = tipoCr;
+    PrescritorGeralModel.crmEstado = crmEstado;
+    PrescritorGeralModel.crmNumero = crmNumero;
+    PrescritorGeralModel.crmTipo = crmTipo;
+    PrescritorGeralModel.genero = genero;
+    PrescritorGeralModel.especialidadePrescritores = especialidadesSelecionadas
 
     useEffect(() => {
-        const loadDataBairro = async () => {
-            const response = await getAll("ListaBairro");
-            setBairros(response.data);
+        const loadDataEstado = async () => {
+            const response = await getAll("ListaEstado");
+            setEstados(response.data);
         }
         const loadDataEspecialidade = async () => {
             const response = await getAll("ListaEspecialidade");
             setEspecialidades(response.data);
         }
-        const loadDataEstado = async () => {
-            const response = await getAll("ListaEstado");
-            setEstados(response.data);
-        }
         const loadDataCidade = async () => {
             const response = await getAll("ListaCidade");
             setCidades(response.data);
         }
+        const loadDataBairro = async () => {
+            const response = await getAll("ListaBairro");
+            setBairros(response.data);
+        }
 
-        loadDataCidade()
-        loadDataEstado()
-        loadDataEspecialidade()
         loadDataBairro()
+        loadDataCidade()
+        loadDataEspecialidade()
+        loadDataEstado()
     }, []);
 
     function ProcurarSiglaEstado(sigla: string) {
@@ -118,8 +123,7 @@ export function PrescritorCreateGeral({ error }: Error) {
                     if (especialiodadesFilter.length == 0) {
                         especialidadesSelecionadasView.push({ id: item.id, descricao: item.descricao });
                         setEspecialidadesSelecionadasView([...especialidadesSelecionadasView])
-                        especialidadesSelecionadas.push({ id: 0, PrescritorId: 0, EspecialidadeId: item.id });
-                        setEspecialidadesSelecionadas([...especialidadesSelecionadas])
+                        EspecialidadesAdd.push({ id: 0, PrescritorId: PrescritorGeralModel.id, EspecialidadeId: item.id });
                     }
                 }
             })
@@ -128,7 +132,36 @@ export function PrescritorCreateGeral({ error }: Error) {
 
     }, [especialidadeId])
 
-    function ExcluirEspecialidade(index: any) {
+    useEffect(() => {
+
+        if (especialidades) {
+
+            const especialidadesSelecionadas = especialidades.filter(item =>
+                PrescritorGeralModel.especialidadePrescritores.some(
+                    especialidadePrescritor =>
+                        especialidadePrescritor.especialidadeId === item.id
+                )
+            );
+
+            const especialidadesSelecionadasView = especialidadesSelecionadas.map(
+                item => ({ id: item.id, descricao: item.descricao })
+            );
+
+            setEspecialidadesSelecionadasView(especialidadesSelecionadasView);
+        }
+
+    }, [especialidades]);
+
+    function ExcluirEspecialidade(index: number) {
+
+        especialidadesSelecionadas.map((item, i) => {
+            if (i == index) {
+                EspecialidadesExcluir.push(item)
+            }
+        })
+
+        EspecialidadesAdd.splice(index, 1)
+
         especialidadesSelecionadas.splice(index, 1)
         setEspecialidadesSelecionadas([...especialidadesSelecionadas])
 
@@ -301,7 +334,7 @@ export function PrescritorCreateGeral({ error }: Error) {
                 <div className="col-2">
                     <CustomDropDown
                         data={estados}
-                        title="Selecione o Estado"
+                        title={nomes.nomeEstado ? nomes.nomeEstado : "Selecione o Estado"}
                         filter="sigla"
                         label="Estado"
                         Select={(estadoId) => setEstadoId(estadoId)} />
@@ -309,7 +342,7 @@ export function PrescritorCreateGeral({ error }: Error) {
                 <div className="col-4">
                     <CustomDropDown
                         data={cidades}
-                        title="Selecione a Cidade"
+                        title={nomes.nomeCidade ? nomes.nomeCidade : "Selecione a Cidade"}
                         filter="nome"
                         label="Cidade"
                         Select={(cidadeId) => setCidadeId(cidadeId)} />
@@ -317,7 +350,7 @@ export function PrescritorCreateGeral({ error }: Error) {
                 <div className="col-2">
                     <CustomDropDown
                         data={bairros}
-                        title="Selecione o Bairro"
+                        title={nomes.nomeBairro ? nomes.nomeBairro : "Selecione o Bairro"}
                         filter="nome"
                         label="Bairro"
                         Select={(bairroId) => setBairroId(bairroId)} />
@@ -379,6 +412,7 @@ export function PrescritorCreateGeral({ error }: Error) {
                     />
                 </div>
             </div>
+
             <div className="row">
                 <div className="col-2">
                     <RadioCustom

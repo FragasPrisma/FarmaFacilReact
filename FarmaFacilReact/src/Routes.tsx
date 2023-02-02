@@ -184,6 +184,8 @@ import { UnidadeEdit } from "./Pages/Unidade/UnidadeEdit";
 import { UnidadeDetails } from "./Pages/Unidade/UnidadeDetails";
 import { Prescritor } from "./Pages/Prescritor";
 import { PrescritorCreate } from "./Pages/Prescritor/PrescritorCreate/PrescritorCreate";
+import { PrescritorEdit } from "./Pages/Prescritor/PrescritorEdit/PrescritorEdit";
+import { PrescritorDetails } from "./Pages/Prescritor/PrescritorDetails/PrescritorDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1619,6 +1621,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <PrescritorCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/prescritor/edit/:id"
+              element={
+                <Private>
+                  <PrescritorEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/prescritor/details/:id"
+              element={
+                <Private>
+                  <PrescritorDetails />
                 </Private>
               }
             />
