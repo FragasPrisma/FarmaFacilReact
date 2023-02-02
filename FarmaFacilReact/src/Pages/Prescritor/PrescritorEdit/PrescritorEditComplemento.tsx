@@ -4,24 +4,29 @@ import { Container } from "../styles";
 import { useState, ChangeEvent, useEffect } from 'react'
 import { getAll } from "../../../Services/Api";
 import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
-import { PrescritorComplemento } from "../PrescritorComplemento";
+import { IPrescritorComplemento } from "../PrescritorComplemento";
 
-export function PrescritorCreateComplemento() {
+interface Data {
+    PrescritorComplemento: IPrescritorComplemento;
+    NomeVisitador:string
+}
 
-    const [email, setEmail] = useState("");
-    const [aniversario, setAniversario] = useState("");
-    const [enderecoRes, setEnderecoRes] = useState("");
-    const [numeroRes, setNumeroRes] = useState("");
-    const [cepRes, setCepRes] = useState("");
-    const [dddRes, setDddRes] = useState("");
-    const [telefoneRes, setTelefoneRes] = useState("");
-    const [proximidade, setProximidade] = useState("");
-    const [secretaria, setSecretaria] = useState("");
-    const [nomeRotulo, setNomeRotulo] = useState("");
-    const [visitadorId, setVisitadorId] = useState(null)
-    const [observacaoVenda, setObservacaoVenda] = useState("");
-    const [cedh, setCedh] = useState(false);
-    const [registroMapa, setRegistroMapa] = useState("");
+export function PrescritorEditComplemento({ PrescritorComplemento ,NomeVisitador}: Data) {
+
+    const [email, setEmail] = useState(PrescritorComplemento.email);
+    const [aniversario, setAniversario] = useState(PrescritorComplemento.aniversario);
+    const [enderecoRes, setEnderecoRes] = useState(PrescritorComplemento.enderecoRes);
+    const [numeroRes, setNumeroRes] = useState(PrescritorComplemento.numeroRes);
+    const [cepRes, setCepRes] = useState(PrescritorComplemento.cepRes);
+    const [dddRes, setDddRes] = useState(PrescritorComplemento.dddRes);
+    const [telefoneRes, setTelefoneRes] = useState(PrescritorComplemento.telefoneRes);
+    const [proximidade, setProximidade] = useState(PrescritorComplemento.proximidade);
+    const [visitadorId, setVisitadorId] = useState(PrescritorComplemento.visitadorId)
+    const [observacaoVenda, setObservacaoVenda] = useState(PrescritorComplemento.observacaoVenda);
+    const [cedh, setCedh] = useState(PrescritorComplemento.cedh);
+    const [registroMapa, setRegistroMapa] = useState(PrescritorComplemento.registroMapa);
+    const [secretaria, setSecretaria] = useState(PrescritorComplemento.secretaria);
+    const [nomeRotulo, setNomeRotulo] = useState(PrescritorComplemento.nomeRotulo);
 
     const [visitadores, setVisitadores] = useState([]);
 
@@ -196,8 +201,9 @@ export function PrescritorCreateComplemento() {
                 <div className="col-7">
                     <CustomDropDown
                         data={visitadores}
-                        title="Selecione o Visitador"
-                        filter="nome" label="Visitador"
+                        title={NomeVisitador ? NomeVisitador : "Selecione o Visitador"}
+                        filter="nome" 
+                        label="Visitador"
                         Select={(visitadorId) => setVisitadorId(visitadorId)} />
                 </div>
             </div>

@@ -145,7 +145,7 @@ export function UnidadeEdit() {
 
         if (unidadeId > 0) {
 
-            async function Init() {
+            function Init() {
 
                 unidades.map((item: IUnidadeConversao) => {
 
@@ -179,7 +179,7 @@ export function UnidadeEdit() {
         unidadesConversaoModel.splice(index, 1)
         setUnidadesConversaoModel([...unidadesConversaoModel])
         unidadesConversaoModelExcluir.push(item);
-        setUnidadesConversaoModelExcluir(unidadesConversaoModelExcluir)
+        setUnidadesConversaoModelExcluir([...unidadesConversaoModelExcluir])
     }
 
     return (

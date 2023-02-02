@@ -85,7 +85,7 @@ export function UnidadeCreate() {
 
         let dataFilter = data.unidadesConversao.filter((item) => item.fator <= 0);
 
-        if (dataFilter.length > 0) {
+        if(dataFilter.length > 0){
             setIsLoading(false);
             setErroFatorArray("Fator de conversão não pode ser igual a zero !")
             return;
@@ -236,7 +236,7 @@ export function UnidadeCreate() {
 
                         unidadesConversaoModel.map((item, index) => (
 
-                            <div key={item.unidadeId} className="row mt-2">
+                            <div key={item.unidadeId} className="row mt-4">
                                 <div className="col-1">
                                     <CustomInput
                                         label="Sigla"

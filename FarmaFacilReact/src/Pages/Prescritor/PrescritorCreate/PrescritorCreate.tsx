@@ -1,112 +1,95 @@
 import { ButtonCancel } from "../../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
-import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState, useEffect } from "react";
-import { postFormAll, getAll } from "../../../Services/Api";
+import { useState } from "react";
+import { postFormAll } from "../../../Services/Api";
 import { useNavigate } from "react-router-dom";
-import { Container } from "../styles";
 import TabsPage from "../../../Components/Tabs";
-import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
-import { PrescritorCreateGeral, PrescritorGeral } from "./PrescritorCreateGeral";
-import { PrescritorComplemento, PrescritorCreateComplemento } from "./PrescritorCreateComplemento";
+import { PrescritorCreateGeral } from "./PrescritorCreateGeral";
+import { PrescritorCreateComplemento } from "./PrescritorCreateComplemento";
+import { PrescritorGeral } from "../PrescritorGeral";
+import { prescritor } from "../Prescritor";
+import { PrescritorComplemento } from "../PrescritorComplemento";
 
 export function PrescritorCreate() {
-
-    var geral = PrescritorGeral;
-    var complemento = PrescritorComplemento;
 
     const navigate = useNavigate();
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-
-    const [frete, setFrete] = useState("");
-    const [observacoes, setObservacoes] = useState("");
-    const [bancoId, setBancoId] = useState();
-    const [planoDeContaId, setPlanoDeContaId] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
-    const [homePage, setHomePage] = useState("");
-    const [bancos, setBancos] = useState([]);
-    const [contas, setContas] = useState([]);
-
-    const [errorRequest, setErrorRequest] = useState("");
-
-    useEffect(() => {
-        const loadDataBancos = async () => {
-            const response = await getAll("ListaBanco");
-            setBancos(response.data);
-        }
-
-        loadDataBancos()
-    }, []);
-
-    useEffect(() => {
-        const loadDataContas = async () => {
-            const response = await getAll("ListaPlanoDeContas");
-            setContas(response.data);
-        }
-
-        loadDataContas()
-    }, []);
-
-    let data = {
-        id: 0,
-        bairroId: 0,
-        cidadeId: 0,
-        estadoId: 0,
-        nome: "",
-        cep: "",
-        data_Nascimento: "",
-        endereco: "",
-        numero: "",
-        complemento: "",
-        cpfCnpj: "",
-        ddd: "",
-        dddCelular: "",
-        telefone: "",
-        celular: "",
-        secretaria: "",
-        nomeRotulo: "",
-        ativo: true,
-        genero: 0,
-        tipoCr: 0,
-        crmNumero: "",
-        crmEstado: "",
-        crmTipo: "",
-        email: "",
-        aniversario: "",
-        enderecoRes: "",
-        numeroRes: "",
-        cepRes: "",
-        dddRes: "",
-        telefoneRes: "",
-        proximidade: "",
-        visitadorId: 0,
-        observacaoVenda: "",
-        cedh: true,
-        registroMapa: "",
-        especialidadePrescritores: []
-    };
+    const [error,setErros] = useState({erro: true, index: 0, erroNome:""})
 
     let arrayTab: any = [];
     const titles = itemsHandlesFornecedor;
 
     arrayTab.unshift(
-        PrescritorCreateGeral()
+        <PrescritorCreateGeral
+            error={error}
+        />
     );
     arrayTab.push(
-
-        PrescritorCreateComplemento()
-
+        <PrescritorCreateComplemento/>
     );
 
     async function submit() {
 
-        const resp = await postFormAll("AdicionarPrescritor", data);
+        if (!PrescritorGeral.data_Nascimento) { PrescritorGeral.data_Nascimento = null }
+
+        if(!ValidString(PrescritorGeral.nome,1)
+        || (PrescritorGeral.tipoCr == 3 && !ValidString(PrescritorGeral.crmTipo,3) 
+        || !ValidString(PrescritorGeral.crmEstado,4) 
+        || !ValidString(PrescritorGeral.crmNumero,5))
+        ){
+            setIsLoading(false);
+            return;
+        }
+
+        if(!ValidNumber(PrescritorGeral.tipoCr,1)){
+            setIsLoading(false);
+            return;
+        }
+
+        prescritor.bairroId= PrescritorGeral.bairroId,
+        prescritor.cidadeId= PrescritorGeral.cidadeId,
+        prescritor.estadoId= PrescritorGeral.estadoId,
+        prescritor.nome= PrescritorGeral.nome,
+        prescritor.cep= PrescritorGeral.cep,
+        prescritor.data_Nascimento= PrescritorGeral.data_Nascimento,
+        prescritor.endereco= PrescritorGeral.endereco,
+        prescritor.numero= PrescritorGeral.numero,
+        prescritor.complemento= PrescritorGeral.complemento,
+        prescritor.cpfCnpj= PrescritorGeral.cpfCnpj,
+        prescritor.ddd= PrescritorGeral.ddd,
+        prescritor.dddCelular= PrescritorGeral.dddCelular,
+        prescritor.telefone= PrescritorGeral.telefone,
+        prescritor.celular= PrescritorGeral.celular,
+        prescritor.ativo= PrescritorGeral.ativo,
+        prescritor.genero= PrescritorGeral.genero,
+        prescritor.tipoCr= PrescritorGeral.tipoCr,
+        prescritor.crmNumero= PrescritorGeral.crmNumero,
+        prescritor.crmEstado= PrescritorGeral.crmEstado,
+        prescritor.crmTipo= PrescritorGeral.crmTipo,
+        prescritor.email= PrescritorComplemento.email,
+        prescritor.secretaria= PrescritorComplemento.secretaria,
+        prescritor.nomeRotulo= PrescritorComplemento.nomeRotulo,
+        prescritor.aniversario= PrescritorComplemento.aniversario,
+        prescritor.enderecoRes= PrescritorComplemento.enderecoRes,
+        prescritor.numeroRes= PrescritorComplemento.numeroRes,
+        prescritor.cepRes= PrescritorComplemento.cepRes,
+        prescritor.dddRes= PrescritorComplemento.dddRes,
+        prescritor.telefoneRes= PrescritorComplemento.telefoneRes,
+        prescritor.proximidade= PrescritorComplemento.proximidade,
+        prescritor.visitadorId= PrescritorComplemento.visitadorId,
+        prescritor.observacaoVenda= PrescritorComplemento.observacaoVenda,
+        prescritor.cedh= PrescritorComplemento.cedh,
+        prescritor.registroMapa= PrescritorComplemento.registroMapa,
+        prescritor.especialidadePrescritores= PrescritorGeral.especialidadePrescritores
+
+        const resp = await postFormAll("AdicionarPrescritor", prescritor);
 
         if (resp.status == 200) {
             setIsOpenSuccess(true);
@@ -118,8 +101,25 @@ export function PrescritorCreate() {
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErrorRequest(resp.request.response)
             }, 2000)
+        }
+    }
+
+    function ValidString(texto : string, index : number){
+        if(!texto.trim()){
+            setErros({erro:true,index:index,erroNome:"Campo obrigatório !",})
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function ValidNumber(numero : number, index : number){
+        if(numero < 0){
+            setErros({erro:true,index:index,erroNome:"Campo Tipo CR obrigatório !",})
+            return false;
+        }else{
+            return true;
         }
     }
 
@@ -130,7 +130,6 @@ export function PrescritorCreate() {
 
                 <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
 
-                {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -138,7 +137,7 @@ export function PrescritorCreate() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Médico adicionado com " />
+            <SuccessModal show={isOpenSuccess} textCustom="Prescritor adicionado com " />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

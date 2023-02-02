@@ -1,0 +1,33 @@
+export interface IPrescritorComplemento {
+    email: string,
+    aniversario: string,
+    enderecoRes: string,
+    numeroRes: string,
+    cepRes: string,
+    dddRes: string,
+    telefoneRes: string,
+    proximidade: string,
+    secretaria: string,
+    nomeRotulo: string,
+    visitadorId: null,
+    observacaoVenda: string,
+    cedh: boolean,
+    registroMapa: string,
+}
+
+export let PrescritorComplemento : IPrescritorComplemento =  {
+    email: "",
+    aniversario: "",
+    enderecoRes: "",
+    numeroRes: "",
+    cepRes: "",
+    dddRes: "",
+    telefoneRes: "",
+    proximidade: "",
+    secretaria: "",
+    nomeRotulo: "",
+    visitadorId: null,
+    observacaoVenda: "",
+    cedh: true,
+    registroMapa: "",
+}
