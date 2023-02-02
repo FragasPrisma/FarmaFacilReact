@@ -10,6 +10,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 
 interface IUnidadeConversao {
     id: 0,
@@ -85,7 +86,7 @@ export function UnidadeCreate() {
 
         let dataFilter = data.unidadesConversao.filter((item) => item.fator <= 0);
 
-        if(dataFilter.length > 0){
+        if (dataFilter.length > 0) {
             setIsLoading(false);
             setErroFatorArray("Fator de conversão não pode ser igual a zero !")
             return;
@@ -111,7 +112,7 @@ export function UnidadeCreate() {
 
         if (unidadeId > 0) {
 
-            async function Init() {
+            function Init() {
 
                 unidades.map((item: IUnidadeConversao) => {
 
@@ -134,7 +135,7 @@ export function UnidadeCreate() {
 
     }, [unidadeId])
 
-    function AdicionarFatorConversao(fator: any, index: any) {
+    function AdicionarFatorConversao(fator: number, index: number) {
 
         unidadesConversaoModel[index].fator = fator
 
@@ -142,7 +143,7 @@ export function UnidadeCreate() {
 
     }
 
-    function ExcluirUnidadeConversao(index: any) {
+    function ExcluirUnidadeConversao(index: number) {
         unidadesConversaoModel.splice(index, 1)
         setUnidadesConversaoModel([...unidadesConversaoModel])
     }
@@ -217,16 +218,18 @@ export function UnidadeCreate() {
                     </div>
 
                     {fator <= 0 &&
-                        <div className="row">
-                            <div className="col-7">
-                                <CustomDropDown
-                                    data={unidades}
-                                    title="Selecione a Unidade de Conversão"
-                                    filter="descricao"
-                                    label="Unidade de Conversão"
-                                    Select={(unidadeId) => setUnidadeId(unidadeId)}
-                                />
-                            </div>
+                        <div className="row mt-3">
+                            <FieldsetCustom legend="Selecione as Unidades de Conversão" numberCols={7}>
+                                <div className="col-8 mt-3">
+                                    <CustomDropDown
+                                        data={unidades}
+                                        title="Selecione a Unidade de Conversão"
+                                        filter="descricao"
+                                        label="Unidade de Conversão"
+                                        Select={(unidadeId) => setUnidadeId(unidadeId)}
+                                    />
+                                </div>
+                            </FieldsetCustom>
                         </div>
                     }
 
@@ -235,8 +238,7 @@ export function UnidadeCreate() {
                     {unidadesConversaoModel.length > 0 && fator <= 0 &&
 
                         unidadesConversaoModel.map((item, index) => (
-
-                            <div key={item.unidadeId} className="row mt-4">
+                            <div className="row">
                                 <div className="col-1">
                                     <CustomInput
                                         label="Sigla"
@@ -259,7 +261,7 @@ export function UnidadeCreate() {
                                         type="number"
                                         value={item.fator}
                                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                            AdicionarFatorConversao(e.target.value, index)
+                                            AdicionarFatorConversao(parseFloat(e.target.value), index)
                                         }
 
                                     />
@@ -273,6 +275,7 @@ export function UnidadeCreate() {
                                     </button>
                                 </div>
                             </div>
+
                         ))
                     }
                     <p className="text-danger">{erroFatorArray}</p>
