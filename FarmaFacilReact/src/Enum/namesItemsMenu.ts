@@ -35,7 +35,7 @@ export const namesItemsMenu = [
       { titulo: "Laboratorio", link: "laboratorio" },
       //{ titulo: "Produto", link: "produto" },
       { titulo: "Dcb", link: "dcb" },
-      //{ titulo: "Grupo", link: "grupo" },
+      { titulo: "Grupo", link: "grupo" },
     ],
   },
 

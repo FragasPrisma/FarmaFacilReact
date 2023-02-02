@@ -190,6 +190,9 @@ import { TabelaFloral } from "./Pages/TabelaFloral";
 import { TabelaFloralCreate } from "./Pages/TabelaFloral/TabelaFloralCreate";
 import { TabelaFloralEdit } from "./Pages/TabelaFloral/TabelaFloralEdit";
 import { TabelaFloralDetails } from "./Pages/TabelaFloral/TabelaFloralDetails";
+import { GrupoCreate } from "./Pages/Grupo/GrupoCreate/GrupoCreate";
+import { GrupoEdit } from "./Pages/Grupo/GrupoEdit/GrupoEdit";
+import { GrupoDetails } from "./Pages/Grupo/GrupoDetails/GrupoDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -629,6 +632,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Grupo />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/create"
+              element={
+                <Private>
+                  <GrupoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/edit/:id"
+              element={
+                <Private>
+                  <GrupoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/details/:id"
+              element={
+                <Private>
+                  <GrupoDetails />
                 </Private>
               }
             />
