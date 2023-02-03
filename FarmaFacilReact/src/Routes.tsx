@@ -193,6 +193,10 @@ import { TabelaFloralDetails } from "./Pages/TabelaFloral/TabelaFloralDetails";
 import { GrupoCreate } from "./Pages/Grupo/GrupoCreate/GrupoCreate";
 import { GrupoEdit } from "./Pages/Grupo/GrupoEdit/GrupoEdit";
 import { GrupoDetails } from "./Pages/Grupo/GrupoDetails/GrupoDetails";
+import { Convenio } from "./Pages/Convenio";
+import { ConvenioCreate } from "./Pages/Convenio/ConvenioCreate/ConvenioCreate";
+import { ConvenioEdit } from "./Pages/Convenio/ConvenioEdit/ConvenioEdit";
+import { ConvenioDetails } from "./Pages/Convenio/ConvenioDetails/ConvenioDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -487,6 +491,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ContabilistaDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio"
+              element={
+                <Private>
+                  <Convenio />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/create"
+              element={
+                <Private>
+                  <ConvenioCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/edit/:id"
+              element={
+                <Private>
+                  <ConvenioEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/details/:id"
+              element={
+                <Private>
+                  <ConvenioDetails />
                 </Private>
               }
             />

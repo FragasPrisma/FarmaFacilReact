@@ -1,0 +1,23 @@
+export interface IConvenioGeral {
+    id: number,
+    nome: string,
+    desconto: number,
+    acrescimo: number,
+    manifesto: number,
+    diaRecebimento: number,
+    endereco: string,
+    cep: string,
+    complemento: string,
+    numeroEndereco: string,
+    bairroId: number | null,
+    cidadeId: number | null,
+    estadoId: number | null,
+    identificadorConvenio: number,
+    ddd: string,
+    telefone: string,
+    cadastroFarmacia: string,
+    codigoPerdigao: string,
+    cnpj: string,
+    diasPrimeiroVencimento: number,
+    ie: string
+}

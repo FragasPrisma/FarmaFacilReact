@@ -1,0 +1,40 @@
+export interface IConvenio {
+    id: number,
+    nome: string,
+    desconto: number,
+    acrescimo: number,
+    manifesto: number,
+    diaRecebimento: number,
+    endereco: string,
+    cep: string,
+    complemento: string,
+    numeroEndereco: string,
+    bairroId: number | null,
+    cidadeId: number | null,
+    estadoId: number | null,
+    identificadorConvenio: number,
+    ddd: string,
+    telefone: string,
+    cadastroFarmacia: string,
+    codigoPerdigao: string,
+    cnpj: string,
+    diasPrimeiroVencimento: number,
+    ie: string,
+    bloqueado: boolean,
+    permitirParcelamento: boolean,
+    enviarEcommerce: boolean,
+    permitirRateio: boolean,
+    visitadorId: number | null,
+    etiquetaId: number | null,
+    enderecoComprovanteVenda: boolean,
+    convenioGrupos: IConvenioGrupos[]
+}
+
+export interface IConvenioGrupos {
+    id: number,
+    grupoId: number,
+    desconto: number,
+    aplicaDescontoProduto: boolean,
+    aplicaCustoReferencia: boolean,
+    convenioId: number
+}

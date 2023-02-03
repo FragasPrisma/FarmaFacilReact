@@ -56,6 +56,7 @@ export const namesItemsMenu = [
       { img: "", titulo: "Posologia",link: "/posologia"  },
       { img: "", titulo: "Visitador", link: "/visitador" },
       { img: "", titulo: "Turno", link: "/turno" },
+      { img: "", titulo: "Convênio", link: "/convenio" },
     ],
   },
 
