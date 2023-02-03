@@ -1,5 +1,4 @@
-import { CustomInput } from "../../../Components/Inputs/CustomInput";
-import { ChangeEvent, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "../styles";
 import { IGrupoEnsaios } from "../IGrupo";
 import { getAll } from "../../../Services/Api";

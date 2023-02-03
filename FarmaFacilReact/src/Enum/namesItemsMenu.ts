@@ -68,6 +68,7 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bula", link: "/bula" },
       { img: "", titulo: "Funcionário Laboratório", link: "/funcionariolaboratorio" },
       { img: "", titulo: "Especificação Cápsula", link: "/especificacaocapsula" },
+      { img: "", titulo: "Forma Farmacêutica", link: "/formafarmaceutica" },
     ],
   },
   {

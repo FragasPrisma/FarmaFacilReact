@@ -17,9 +17,9 @@ export function TableDefault({ data = [], header, path }: Props) {
       <thead>
         <TrCustom>
           {header.map((head, index) => (
-            <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
+            <th style={{width:"calc(2rem - 100%)"}} key={index}>{head}</th>
           ))}
-          <th>
+          <th className="col-3">
             <label>Visualizar</label>
             <label>Editar</label>
             <label className="labelExcluir">Excluir</label>
@@ -30,9 +30,9 @@ export function TableDefault({ data = [], header, path }: Props) {
         {data.map((data, index) => (
           <TrCustom key={index}>
             {header.map((header, index) => (
-              <td key={index}>{data[header]}</td>
+                <td key={index}>{data[header]}</td>
             ))}
-            <td>
+            <td className="col-3">
               <ActionsButtonsDefault id={data.id.toString()} pathParameters={path} urlText={path}></ActionsButtonsDefault>
             </td>
           </TrCustom>

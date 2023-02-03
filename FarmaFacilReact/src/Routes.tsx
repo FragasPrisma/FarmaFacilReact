@@ -197,6 +197,8 @@ import { Convenio } from "./Pages/Convenio";
 import { ConvenioCreate } from "./Pages/Convenio/ConvenioCreate/ConvenioCreate";
 import { ConvenioEdit } from "./Pages/Convenio/ConvenioEdit/ConvenioEdit";
 import { ConvenioDetails } from "./Pages/Convenio/ConvenioDetails/ConvenioDetails";
+import { FormaFarmaceutica } from "./Pages/FormaFarmaceutica";
+import { FormaFarmaceuticaCreate } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaCreate/FormaFarmaceuticaCreate";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -491,6 +493,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ContabilistaDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica"
+              element={
+                <Private>
+                  <FormaFarmaceutica />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/create"
+              element={
+                <Private>
+                  <FormaFarmaceuticaCreate />
                 </Private>
               }
             />

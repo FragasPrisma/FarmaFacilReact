@@ -110,12 +110,10 @@ export function ConvenioEditComplemento({ convenioModel, nomeVisitador }: IData)
     function AdicionarBoll(checked: boolean, index: number, opcao: number) {
         if (opcao == 1) {
             conveniosGrupos[index].aplicaDescontoProduto = checked;
-            setConveniosGrupos([...conveniosGrupos])
         } else {
             conveniosGrupos[index].aplicaCustoReferencia = checked;
-            setConveniosGrupos([...conveniosGrupos])
         }
-
+        setConveniosGrupos([...conveniosGrupos])
         ValidErroCustoReferencia(index);
     }
 
