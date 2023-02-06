@@ -21,7 +21,7 @@ export function CustomDropDown({data,title,filter,label,error,required,readonly,
 
     const filterData = useMemo(() => {
         if(data){
-            return data.filter(y => y[filter].toLowerCase().toString().includes(value));
+            return data.filter(y => y[filter].toLowerCase().toString().includes(value)).slice(0,10);
         }
     }, [data, value, filter]);
 
