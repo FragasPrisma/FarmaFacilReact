@@ -123,7 +123,8 @@ export function FormaFarmaceuticaCreate() {
         data.aliquotaIva = FormaFarmaceuticaGeralModel.aliquotaIva;
         data.imagem = FormaFarmaceuticaImagemModel.imagem;
         data.imagemByte = "";
-        data.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0 && x.valorInicial > 0);
+        data.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 
+            && x.valorFinal > 0 && x.valorInicial > 0 && x.valorFinal >= x.valorInicial);
         data.formaFarmaceuticaEnsaios = FormaFarmaceuticaEnsaiosModel.filter(x => x.descricao.trim().length > 0)
 
         const resp = await postFormAll("AdicionarFormaFarmaceutica", data);

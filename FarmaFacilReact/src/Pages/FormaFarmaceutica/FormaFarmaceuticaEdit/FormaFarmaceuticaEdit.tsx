@@ -110,7 +110,8 @@ export function FormaFarmaceuticaEdit() {
         formaFarmaceuticaModel.aliquotaIva = FormaFarmaceuticaGeralModel.aliquotaIva;
         formaFarmaceuticaModel.imagem = "";
         formaFarmaceuticaModel.imagemByte = "";
-        formaFarmaceuticaModel.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0 && x.valorInicial > 0);
+        formaFarmaceuticaModel.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0 
+            && x.valorInicial > 0 && x.valorFinal >= x.valorInicial);
         formaFarmaceuticaModel.formaFarmaceuticaEnsaios = FormaFarmaceuticaEnsaiosModel.filter(x => x.descricao.trim().length > 0)
         if (typeof FormaFarmaceuticaImagemModel.imagem == "string") {
             let index = FormaFarmaceuticaImagemModel.imagem.indexOf(',') + 1;
