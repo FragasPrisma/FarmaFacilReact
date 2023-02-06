@@ -13,8 +13,12 @@ export function FormaFarmaceuticaCreateEnsaios() {
     FormaFarmaceuticaEnsaiosModel = formasFarmaceuticasEnsaios
 
     function AdicionarEnsaio() {
-        formasFarmaceuticasEnsaios.push({id:0,descricao:"",formaFarmaceuticaId:0})
-        setFormasFarmaceuticasEnsaios([...formasFarmaceuticasEnsaios])
+        let arrayFilter = formasFarmaceuticasEnsaios.filter(x => x.descricao.length == 0)
+
+        if (arrayFilter.length == 0) {
+            formasFarmaceuticasEnsaios.push({ id: 0, descricao: "", formaFarmaceuticaId: 0 })
+            setFormasFarmaceuticasEnsaios([...formasFarmaceuticasEnsaios])
+        }
     }
 
     function ExcluirEnsaio(index : number){

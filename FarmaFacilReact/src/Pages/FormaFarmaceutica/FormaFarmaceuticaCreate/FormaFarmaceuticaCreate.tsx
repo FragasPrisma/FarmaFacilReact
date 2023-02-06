@@ -14,14 +14,14 @@ import { postFormAll } from "../../../Services/Api";
 import { FormaFarmaceuticaCreateGeral, FormaFarmaceuticaGeralModel } from "./FormaFarmaceuticaCreateGeral";
 import { FormaFarmaceuticaCreateEnsaios, FormaFarmaceuticaEnsaiosModel } from "./FormaFarmaceuticaCreateEnsaios";
 import { FormaFarmaceuticaCreateValores, FormaFarmaceuticaValoresModel } from "./FormaFarmaceuticaCreateValores";
-import { FormaFarmaceuticaCreateImagem } from "./FormaFarmaceuticaCreateImagem";
+import { FormaFarmaceuticaCreateImagem, FormaFarmaceuticaImagemModel } from "./FormaFarmaceuticaCreateImagem";
 
 export function FormaFarmaceuticaCreate() {
 
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [erros, setErros] = useState({ erro: true, index: 0, erroNome: "" })
+    const [erroNome, setErroNome] = useState("")
     const navigate = useNavigate();
 
     let data: IFormaFarmaceutica = {
@@ -69,55 +69,62 @@ export function FormaFarmaceuticaCreate() {
 
     let arrayTab: any = [];
 
-    arrayTab.push(<FormaFarmaceuticaCreateGeral erros={erros}/>)
-    arrayTab.push(<FormaFarmaceuticaCreateEnsaios/>)
-    arrayTab.push(<FormaFarmaceuticaCreateValores/>)
-    arrayTab.push(<FormaFarmaceuticaCreateImagem/>)
+    arrayTab.push(<FormaFarmaceuticaCreateGeral erros={erroNome} />)
+    arrayTab.push(<FormaFarmaceuticaCreateEnsaios />)
+    arrayTab.push(<FormaFarmaceuticaCreateValores />)
+    arrayTab.push(<FormaFarmaceuticaCreateImagem />)
 
     async function submit() {
 
-        data.id= FormaFarmaceuticaGeralModel.id;
-        data.descricao= FormaFarmaceuticaGeralModel.descricao.trim();
-        data.inativo= FormaFarmaceuticaGeralModel.inativo;
-        data.tipo= FormaFarmaceuticaGeralModel.tipo;
-        data.selecionaQuantidadeSugerida= FormaFarmaceuticaGeralModel.selecionaQuantidadeSugerida;
-        data.multiplicaComposicao= FormaFarmaceuticaGeralModel.multiplicaComposicao;
-        data.homeopatiaLiquida= FormaFarmaceuticaGeralModel.homeopatiaLiquida;
-        data.deduzirQuantidadeVeiculo= FormaFarmaceuticaGeralModel.deduzirQuantidadeVeiculo;
-        data.calculoEmbalagemForma= FormaFarmaceuticaGeralModel.calculoEmbalagemForma;
-        data.converteVolumeEmbalagem= FormaFarmaceuticaGeralModel.converteVolumeEmbalagem;
-        data.uso= FormaFarmaceuticaGeralModel.uso.trim();
-        data.tipoUso= FormaFarmaceuticaGeralModel.tipoUso;
-        data.popForma= FormaFarmaceuticaGeralModel.popForma.trim();
-        data.imprimirCamposAnalise= FormaFarmaceuticaGeralModel.imprimirCamposAnalise;
-        data.selecionarVolumeAutomatico= FormaFarmaceuticaGeralModel.selecionarVolumeAutomatico;
-        data.validade= FormaFarmaceuticaGeralModel.validade;
-        data.mlGotas= FormaFarmaceuticaGeralModel.mlGotas;
-        data.imprimirUnidadeMedidaNoRotulo= FormaFarmaceuticaGeralModel.imprimirUnidadeMedidaNoRotulo;
-        data.fatorPerdaProduto= FormaFarmaceuticaGeralModel.fatorPerdaProduto;
-        data.ativaFatorPerdaQsp= FormaFarmaceuticaGeralModel.ativaFatorPerdaQsp;
-        data.manipuladorId= FormaFarmaceuticaGeralModel.manipuladorId;
-        data.quantidadeFormulasHora= FormaFarmaceuticaGeralModel.quantidadeFormulasHora;
-        data.descricaoRotulo= FormaFarmaceuticaGeralModel.descricaoRotulo.trim();
-        data.quantidadeQspMinimo= FormaFarmaceuticaGeralModel.quantidadeQspMinimo;
-        data.produtoVeiculoId= FormaFarmaceuticaGeralModel.produtoVeiculoId;
-        data.grupoVeiculoId= FormaFarmaceuticaGeralModel.grupoVeiculoId;
-        data.ativaPesagemMonitorada= FormaFarmaceuticaGeralModel.ativaPesagemMonitorada;
-        data.calcularDensidade= FormaFarmaceuticaGeralModel.calcularDensidade;
-        data.valorMinimo= FormaFarmaceuticaValoresModel.valorMinimo;
-        data.custoAdicional= FormaFarmaceuticaValoresModel.custoAdicional;
-        data.ncmId= FormaFarmaceuticaValoresModel.ncmId;
-        data.codigoLaboratorioLp= FormaFarmaceuticaGeralModel.codigoLaboratorioLp.trim();
-        data.codigoFuncionarioManipulacao= FormaFarmaceuticaGeralModel.codigoFuncionarioManipulacao;
-        data.codigoFormaReceituario= FormaFarmaceuticaGeralModel.codigoFormaReceituario;
-        data.codigoFilialProducao= FormaFarmaceuticaGeralModel.codigoFilialProducao;
-        data.aliquotaIva= FormaFarmaceuticaGeralModel.aliquotaIva;
-        data.imagem= "";
-        data.imagemByte= "";
-        data.formaFarmaceuticaMargens= FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0 && x.valorInicial > 0);
-        data.formaFarmaceuticaEnsaios= FormaFarmaceuticaEnsaiosModel.filter(x => x.descricao.trim().length > 0)
-
         setIsLoading(true);
+        setErroNome("");
+
+        if (!FormaFarmaceuticaGeralModel.descricao.trim()) {
+            setIsLoading(false);
+            setErroNome("Campo descrição é obrigatório !");
+            return
+        }
+
+        data.id = FormaFarmaceuticaGeralModel.id;
+        data.descricao = FormaFarmaceuticaGeralModel.descricao.trim();
+        data.inativo = FormaFarmaceuticaGeralModel.inativo;
+        data.tipo = FormaFarmaceuticaGeralModel.tipo;
+        data.selecionaQuantidadeSugerida = FormaFarmaceuticaGeralModel.selecionaQuantidadeSugerida;
+        data.multiplicaComposicao = FormaFarmaceuticaGeralModel.multiplicaComposicao;
+        data.homeopatiaLiquida = FormaFarmaceuticaGeralModel.homeopatiaLiquida;
+        data.deduzirQuantidadeVeiculo = FormaFarmaceuticaGeralModel.deduzirQuantidadeVeiculo;
+        data.calculoEmbalagemForma = FormaFarmaceuticaGeralModel.calculoEmbalagemForma;
+        data.converteVolumeEmbalagem = FormaFarmaceuticaGeralModel.converteVolumeEmbalagem;
+        data.uso = FormaFarmaceuticaGeralModel.uso.trim();
+        data.tipoUso = FormaFarmaceuticaGeralModel.tipoUso;
+        data.popForma = FormaFarmaceuticaGeralModel.popForma.trim();
+        data.imprimirCamposAnalise = FormaFarmaceuticaGeralModel.imprimirCamposAnalise;
+        data.selecionarVolumeAutomatico = FormaFarmaceuticaGeralModel.selecionarVolumeAutomatico;
+        data.validade = FormaFarmaceuticaGeralModel.validade;
+        data.mlGotas = FormaFarmaceuticaGeralModel.mlGotas;
+        data.imprimirUnidadeMedidaNoRotulo = FormaFarmaceuticaGeralModel.imprimirUnidadeMedidaNoRotulo;
+        data.fatorPerdaProduto = FormaFarmaceuticaGeralModel.fatorPerdaProduto;
+        data.ativaFatorPerdaQsp = FormaFarmaceuticaGeralModel.ativaFatorPerdaQsp;
+        data.manipuladorId = FormaFarmaceuticaGeralModel.manipuladorId;
+        data.quantidadeFormulasHora = FormaFarmaceuticaGeralModel.quantidadeFormulasHora;
+        data.descricaoRotulo = FormaFarmaceuticaGeralModel.descricaoRotulo.trim();
+        data.quantidadeQspMinimo = FormaFarmaceuticaGeralModel.quantidadeQspMinimo;
+        data.produtoVeiculoId = FormaFarmaceuticaGeralModel.produtoVeiculoId;
+        data.grupoVeiculoId = FormaFarmaceuticaGeralModel.grupoVeiculoId;
+        data.ativaPesagemMonitorada = FormaFarmaceuticaGeralModel.ativaPesagemMonitorada;
+        data.calcularDensidade = FormaFarmaceuticaGeralModel.calcularDensidade;
+        data.valorMinimo = FormaFarmaceuticaValoresModel.valorMinimo;
+        data.custoAdicional = FormaFarmaceuticaValoresModel.custoAdicional;
+        data.ncmId = FormaFarmaceuticaValoresModel.ncmId;
+        data.codigoLaboratorioLp = FormaFarmaceuticaGeralModel.codigoLaboratorioLp.trim();
+        data.codigoFuncionarioManipulacao = FormaFarmaceuticaGeralModel.codigoFuncionarioManipulacao;
+        data.codigoFormaReceituario = FormaFarmaceuticaGeralModel.codigoFormaReceituario;
+        data.codigoFilialProducao = FormaFarmaceuticaGeralModel.codigoFilialProducao;
+        data.aliquotaIva = FormaFarmaceuticaGeralModel.aliquotaIva;
+        data.imagem = FormaFarmaceuticaImagemModel.imagem;
+        data.imagemByte = "";
+        data.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0 && x.valorInicial > 0);
+        data.formaFarmaceuticaEnsaios = FormaFarmaceuticaEnsaiosModel.filter(x => x.descricao.trim().length > 0)
 
         const resp = await postFormAll("AdicionarFormaFarmaceutica", data);
 

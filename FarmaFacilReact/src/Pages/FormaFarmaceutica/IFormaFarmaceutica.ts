@@ -38,7 +38,7 @@ export interface IFormaFarmaceutica {
     codigoFormaReceituario: number,
     codigoFilialProducao: number,
     aliquotaIva: number,
-    imagem: string,
+    imagem: string | ArrayBuffer | null,
     imagemByte: string,
     formaFarmaceuticaMargens: IFormaFarmaceuticaMargens[],
     formaFarmaceuticaEnsaios: IFormaFarmaceuticaEnsaios[]

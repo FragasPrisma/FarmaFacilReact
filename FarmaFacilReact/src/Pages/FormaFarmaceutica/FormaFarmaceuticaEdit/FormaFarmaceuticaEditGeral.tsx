@@ -6,6 +6,7 @@ import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 import { getAll } from "../../../Services/Api";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
+import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
 
 export let FormaFarmaceuticaGeralModel: IFormaFarmaceuticaGeral = {
     id: 0,
@@ -44,47 +45,49 @@ export let FormaFarmaceuticaGeralModel: IFormaFarmaceuticaGeral = {
 };
 
 interface IData {
-    erros: string
+    erros: string;
+    model:IFormaFarmaceutica;
+    nomeFuncionario:string;
 }
 
-export function FormaFarmaceuticaCreateGeral({ erros }: IData) {
+export function FormaFarmaceuticaEditGeral({ erros , model , nomeFuncionario}: IData) {
 
-    const [descricao, setDescricao] = useState("");
-    const [selecionarVolumeAutomatico, setSelecionarVolumeAutomatico] = useState(false);
-    const [aliquotaIva, setAliquotaIva] = useState(0);
-    const [codigoFuncionarioManipulacao, setCodigoFuncionarioManipulacao] = useState(0);
-    const [codigoFilialProducao, setCodigoFilialProducao] = useState(0);
-    const [codigoFormaReceituario, setCodigoFormaReceituario] = useState(0);
-    const [produtoVeiculoId, setProdutoVeiculoId] = useState(null);
-    const [codigoLaboratorioLp, setCodigoLaboratorioLp] = useState('');
-    const [ativaPesagemMonitorada, setAtivaPesagemMonitorada] = useState(false);
-    const [calcularDensidade, setCalcularDensidade] = useState(false);
-    const [grupoVeiculoId, setGrupoVeiculoId] = useState(null);
-    const [quantidadeQspMinimo, setQuantidadeQspMinimo] = useState(0);
-    const [descricaoRotulo, setDescricaoRotulo] = useState('');
-    const [fatorPerdaProduto, setFatorPerdaProduto] = useState(0);
-    const [manipuladorId, setManipuladorId] = useState(null);
-    const [quantidadeFormulasHora, setQuantidadeFormulasHora] = useState(0)
-    const [ativaFatorPerdaQsp, setAtivaFatorPerdaQsp] = useState(false);
-    const [imprimirUnidadeMedidaNoRotulo, setImprimirUnidadeMedidaNoRotulo] = useState(false);
-    const [validade, setValidade] = useState(0);
-    const [mlGotas, setMlGotas] = useState(0);
-    const [inativo, setInativo] = useState(false);
-    const [tipo, setTipo] = useState(0);
-    const [selecionaQuantidadeSugerida, setSelecionaQuantidadeSugerida] = useState(false);
-    const [multiplicaComposicao, setMultiplicaComposicao] = useState(false);
-    const [homeopatiaLiquida, setHomeopatiaLiquida] = useState(false);
-    const [deduzirQuantidadeVeiculo, setDeduzirQuantidadeVeiculo] = useState(false);
-    const [calculoEmbalagemForma, setCalculoEmbalagemForma] = useState(-1);
-    const [converteVolumeEmbalagem, setConverteVolumeEmbalagem] = useState(false);
-    const [uso, setUso] = useState("");
-    const [tipoUso, setTipoUso] = useState(0);
-    const [popForma, setPopForma] = useState("");
-    const [imprimirCamposAnalise, setImprimirCamposAnalise] = useState(false);
+    const [descricao, setDescricao] = useState(model.descricao);
+    const [selecionarVolumeAutomatico, setSelecionarVolumeAutomatico] = useState(model.selecionarVolumeAutomatico);
+    const [aliquotaIva, setAliquotaIva] = useState(model.aliquotaIva);
+    const [codigoFuncionarioManipulacao, setCodigoFuncionarioManipulacao] = useState(model.codigoFuncionarioManipulacao);
+    const [codigoFilialProducao, setCodigoFilialProducao] = useState(model.codigoFilialProducao);
+    const [codigoFormaReceituario, setCodigoFormaReceituario] = useState(model.codigoFormaReceituario);
+    const [produtoVeiculoId, setProdutoVeiculoId] = useState(model.produtoVeiculoId);
+    const [codigoLaboratorioLp, setCodigoLaboratorioLp] = useState(model.codigoLaboratorioLp);
+    const [ativaPesagemMonitorada, setAtivaPesagemMonitorada] = useState(model.ativaPesagemMonitorada);
+    const [calcularDensidade, setCalcularDensidade] = useState(model.calcularDensidade);
+    const [grupoVeiculoId, setGrupoVeiculoId] = useState(model.grupoVeiculoId);
+    const [quantidadeQspMinimo, setQuantidadeQspMinimo] = useState(model.quantidadeQspMinimo);
+    const [descricaoRotulo, setDescricaoRotulo] = useState(model.descricaoRotulo);
+    const [fatorPerdaProduto, setFatorPerdaProduto] = useState(model.fatorPerdaProduto);
+    const [manipuladorId, setManipuladorId] = useState(model.manipuladorId);
+    const [quantidadeFormulasHora, setQuantidadeFormulasHora] = useState(model.quantidadeFormulasHora)
+    const [ativaFatorPerdaQsp, setAtivaFatorPerdaQsp] = useState(model.ativaFatorPerdaQsp);
+    const [imprimirUnidadeMedidaNoRotulo, setImprimirUnidadeMedidaNoRotulo] = useState(model.imprimirUnidadeMedidaNoRotulo);
+    const [validade, setValidade] = useState(model.validade);
+    const [mlGotas, setMlGotas] = useState(model.mlGotas);
+    const [inativo, setInativo] = useState(model.inativo);
+    const [tipo, setTipo] = useState(model.tipo);
+    const [selecionaQuantidadeSugerida, setSelecionaQuantidadeSugerida] = useState(model.selecionaQuantidadeSugerida);
+    const [multiplicaComposicao, setMultiplicaComposicao] = useState(model.multiplicaComposicao);
+    const [homeopatiaLiquida, setHomeopatiaLiquida] = useState(model.homeopatiaLiquida);
+    const [deduzirQuantidadeVeiculo, setDeduzirQuantidadeVeiculo] = useState(model.deduzirQuantidadeVeiculo);
+    const [calculoEmbalagemForma, setCalculoEmbalagemForma] = useState(model.calculoEmbalagemForma);
+    const [converteVolumeEmbalagem, setConverteVolumeEmbalagem] = useState(model.converteVolumeEmbalagem);
+    const [uso, setUso] = useState(model.uso);
+    const [tipoUso, setTipoUso] = useState(model.tipoUso);
+    const [popForma, setPopForma] = useState(model.popForma);
+    const [imprimirCamposAnalise, setImprimirCamposAnalise] = useState(model.imprimirCamposAnalise);
 
     const [funcionariosLaboratorios, setFuncionariosLaboratorios] = useState([]);
 
-    //FormaFarmaceuticaGeralModel.id= 0;
+    FormaFarmaceuticaGeralModel.id= model.id;
     FormaFarmaceuticaGeralModel.descricao= descricao;
     FormaFarmaceuticaGeralModel.inativo= inativo;
     FormaFarmaceuticaGeralModel.tipo= tipo;
@@ -210,7 +213,7 @@ export function FormaFarmaceuticaCreateGeral({ erros }: IData) {
                                 options={["Volume unitário",
                                     "Volume Total"]}
                                 titleComponet="Cálculo embalagem"
-                                value={calculoEmbalagemForma}
+                                value={calculoEmbalagemForma ? calculoEmbalagemForma : 0}
                                 onClickOptions={(check) => setCalculoEmbalagemForma(check)}
                             />
                         }
@@ -255,8 +258,8 @@ export function FormaFarmaceuticaCreateGeral({ erros }: IData) {
                         <CustomDropDown
                             data={funcionariosLaboratorios}
                             filter="nome"
-                            label="Selecione o manipulador"
-                            title="Manipulador"
+                            label="Manipulador"
+                            title={nomeFuncionario ? nomeFuncionario : "Selecione o manipulador"}
                             Select={(idManipulador) => setManipuladorId(idManipulador)}
                         />
                     </div>

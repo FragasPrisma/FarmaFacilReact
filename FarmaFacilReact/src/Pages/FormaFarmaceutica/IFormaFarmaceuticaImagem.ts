@@ -1,4 +1,4 @@
 export interface IFormaFarmaceuticaImagem {
-    imagem: string,
+    imagem: string | null | ArrayBuffer,
     imagemByte: null
 }

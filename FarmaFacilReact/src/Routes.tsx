@@ -199,6 +199,8 @@ import { ConvenioEdit } from "./Pages/Convenio/ConvenioEdit/ConvenioEdit";
 import { ConvenioDetails } from "./Pages/Convenio/ConvenioDetails/ConvenioDetails";
 import { FormaFarmaceutica } from "./Pages/FormaFarmaceutica";
 import { FormaFarmaceuticaCreate } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaCreate/FormaFarmaceuticaCreate";
+import { FormaFarmaceuticaEdit } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaEdit/FormaFarmaceuticaEdit";
+import { FormaFarmaceuticaDetails } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaDetails/FormaFarmaceuticaDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -509,6 +511,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <FormaFarmaceuticaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/edit/:id"
+              element={
+                <Private>
+                  <FormaFarmaceuticaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/details/:id"
+              element={
+                <Private>
+                  <FormaFarmaceuticaDetails />
                 </Private>
               }
             />
