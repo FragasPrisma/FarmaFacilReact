@@ -11,6 +11,22 @@ interface IData {
 export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
 
     const [imagemModel, setImagemModel] = useState(img);
+    const [widthImg, setWidth] = useState(0);
+    const [heightImg, setHeight] = useState(0);
+
+    useEffect(() => {
+        if (img) {
+            const image = new Image();
+            image.src = img?.toString();
+
+            image.onload = () => {
+                setWidth(image.width)
+                setHeight(image.height)
+            };
+        }
+    }, [])
+
+
 
     const openFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -21,23 +37,28 @@ export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
             const input = event.target.files[0];
             const reader = new FileReader();
 
-            console.log(input)
-
             reader.onload = () => {
                 if (typeof (reader.result) == "string") {
                     var index = reader.result.indexOf(',') + 1;
-                    
+
                     var base64 = reader.result.slice(index);
                     setImagemModel(reader.result)
+
+                    const image = new Image();
+                    image.src = reader.result;
+
+                    image.onload = () => {
+                        setWidth(image.width)
+                        setHeight(image.height)
+                    };
 
                     if (onUpdate) {
                         onUpdate(base64);
                     }
                 }
             };
+            reader.readAsDataURL(input);
 
-            var teste = reader.readAsDataURL(input);
-            console.log(teste)
         }
     }
 
@@ -64,8 +85,18 @@ export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
                         </div>
                     }
                 </div>
-                <div className="row container-img border mt-2 mb-2">
-                    <img src={typeof imagemModel == "string" ? imagemModel : ""}/>
+
+                <div style={{ padding: ".3rem" }}>
+                    <img src={typeof imagemModel == "string" ? imagemModel : ""} style={{
+                        width: widthImg,
+                        height: heightImg,
+                        maxWidth: "450px",
+                        maxHeight: "450px",
+                        border: "solid .5px",
+                        borderRadius: "5px"
+                    }}
+
+                    />
                 </div>
             </Container>
         </>

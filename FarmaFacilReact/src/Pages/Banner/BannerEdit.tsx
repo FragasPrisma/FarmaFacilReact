@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
 
 export function BannerEdit() {
 
@@ -24,7 +25,7 @@ export function BannerEdit() {
     const [dataInicio, setDataInicio] = useState(Date)
     const [dataFim, setDataFim] = useState(Date)
     const [imagemBanner, setImagemBanner] = useState("");
-    const [imagem, setImagem] = useState("");
+    const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
 
     const [erroDescricao, setErroDescricao] = useState("");
     const [erroLink, setErroLink] = useState("");
@@ -94,13 +95,13 @@ export function BannerEdit() {
             return;
         }
 
-        if(!dataInicio){
+        if (!dataInicio) {
             setErroDataInicial("Campo data inicial é obrigatório !")
             setIsLoading(false);
             return;
         }
 
-        if(!dataFim){
+        if (!dataFim) {
             setErroDataFim("Campo data final é obrigatório !")
             setIsLoading(false);
             return;
@@ -151,6 +152,10 @@ export function BannerEdit() {
             reader.readAsDataURL(input);
         }
     }
+
+    const updateImgModel = (value: string | ArrayBuffer | null) => {
+        setImagem(value);
+    };
 
     return (
         <>
@@ -242,25 +247,10 @@ export function BannerEdit() {
                             </div>
                         </div>
 
-                        <div className="row mt-3">
-                            <div className="col-auto">
-                                <span>Imagem do Banner</span>
-                                <span className="text-danger">*</span>
-                            </div>
-                            <div className="col-3">
-                                <label htmlFor="arquivo" className="imgLabel">Clique Aqui!</label>
-                                <input
-                                    type='file'
-                                    className="imgInput"
-                                    accept='image/*'
-                                    id="arquivo"
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => openFile(e)} />
-                            </div>
-                        </div>
-                        <div className="row container-img border mt-2">
-                            <img src={imagem && "data:image/png;base64," + imagem} />
-                            <span className="text-danger">{erroImagem}</span>
-                        </div>
+                        <UploadImagem onUpdate={updateImgModel} text="Seleciona a Imagem" img={"data:image/png;base64," +imagem?.toString()}/>
+                        {erroImagem &&
+                            <p className="text-danger">{erroImagem}</p>
+                        }
                         <div className="row mt-3">
                             <div className="col-6">
                                 <ButtonConfirm onCLick={submit} isLoading={isLoading} />

@@ -5,6 +5,7 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
 
 export function BannerDetails() {
 
@@ -107,9 +108,7 @@ export function BannerDetails() {
                                     />
                                 </div>
                         </div>
-                        <div className="row container-img border mt-2">
-                            <img src={imagem && "data:image/png;base64," + imagem} />
-                        </div>
+                        <UploadImagem img={"data:image/png;base64," + imagem} onButton={false} text="Imagem do Banner"/>
                     </Container>
                 }
             </div>
