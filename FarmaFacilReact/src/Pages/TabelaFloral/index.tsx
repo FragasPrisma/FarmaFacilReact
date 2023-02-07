@@ -5,7 +5,7 @@ import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
 
-export function Grupo() {
+export function TabelaFloral() {
 
     const [data, setData] = useState([]);
     const [pagina, setPagina] = useState(1);
@@ -13,7 +13,7 @@ export function Grupo() {
 
     useEffect(() => {
         const loadDataTable = async () => {
-            const response = await getAll(`ListaPaginacaoGrupo/${pagina}`);
+            const response = await getAll(`ListaPaginacaoVolumeTabelaFloral/${pagina}`);
 
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
@@ -24,8 +24,8 @@ export function Grupo() {
 
     return (
         <>
-            <HeaderMainContent title="GRUPO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Grupo" data={data} filter={"descricao"} headerTable={["id", "descricao"]} />
+            <HeaderMainContent title="TABELA FLORAL" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Tabela Floral" data={data} filter={"volume"} headerTable={["id", "volume"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

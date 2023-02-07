@@ -50,11 +50,13 @@ export const namesItemsMenu = [
       { img: "", titulo: "Especialidade", link: "/especialidade" },
       { img: "", titulo: "Mensagens Padrão", link: "/mensagenspadrao" },
       { img: "", titulo: "Método", link: "/metodo" },
+      { img: "", titulo: "Tabela Floral", link: "/tabelafloral" },
       { img: "", titulo: "Tipo Contato", link: "/tipocontato" },
       { img: "", titulo: "Tipo Justificativa", link: "/tipojustificativa" },
       { img: "", titulo: "Posologia",link: "/posologia"  },
       { img: "", titulo: "Visitador", link: "/visitador" },
       { img: "", titulo: "Turno", link: "/turno" },
+      { img: "", titulo: "Convênio", link: "/convenio" },
     ],
   },
 
@@ -66,6 +68,7 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bula", link: "/bula" },
       { img: "", titulo: "Funcionário Laboratório", link: "/funcionariolaboratorio" },
       { img: "", titulo: "Especificação Cápsula", link: "/especificacaocapsula" },
+      { img: "", titulo: "Forma Farmacêutica", link: "/formafarmaceutica" },
     ],
   },
   {

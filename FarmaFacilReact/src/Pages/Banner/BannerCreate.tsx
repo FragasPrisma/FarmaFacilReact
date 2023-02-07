@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
 
 export function BannerCreate() {
 
@@ -23,7 +24,7 @@ export function BannerCreate() {
     const [dataInicio, setDataInicio] = useState(Date)
     const [dataFim, setDataFim] = useState(Date)
     const [imagemBanner, setImagemBanner] = useState("");
-    const [imagem, setImagem] = useState("");
+    const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
 
     const [erroDescricao, setErroDescricao] = useState("");
     const [erroLink, setErroLink] = useState("");
@@ -33,8 +34,6 @@ export function BannerCreate() {
     const [erroDataFim, setErroDataFim] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const [imagemModel, setImagemModel] = useState("");
 
     const data = {
         id: 0, //id 0 é default
@@ -80,7 +79,7 @@ export function BannerCreate() {
             setIsLoading(false);
             return;
         }
-        console.log(dataFim)
+
         if(!dataFim){
             setErroDataFim("Campo data final é obrigatório !")
             setIsLoading(false);
@@ -109,30 +108,10 @@ export function BannerCreate() {
         }
     }
 
-    function openFile(e: ChangeEvent<HTMLInputElement>) {
+    const updateImgModel = (value: string | ArrayBuffer | null) => {
 
-        e.preventDefault();
-
-        if (e.target.files) {
-
-            var input = e.target.files[0];
-            var reader = new FileReader();
-
-            reader.onload = function () {
-
-                var dataURL = reader.result;
-
-                if (typeof (dataURL) === "string") {
-                    var index = dataURL.indexOf(',') + 1;
-                    var base64 = dataURL.slice(index);
-                    setImagemModel(dataURL)
-                    setImagem(base64)
-                }
-            };
-
-            reader.readAsDataURL(input);
-        }
-    }
+        setImagem(value);
+    };
 
     return (
         <>
@@ -223,25 +202,10 @@ export function BannerCreate() {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
-                        <div className="col-auto">
-                            <span>Imagem do Banner</span>
-                            <span className="text-danger">*</span>
-                        </div>
-                        <div className="col-3">
-                            <label htmlFor="arquivo" className="imgLabel">Clique Aqui!</label>
-                            <input
-                                type='file'
-                                className="imgInput"
-                                accept='image/*'
-                                id="arquivo"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => openFile(e)} />
-                        </div>
-                    </div>
-                    <div className="row container-img border mt-2">
-                        <img src={imagemModel} />
-                        <span className="text-danger">{erroImagem}</span>
-                    </div>
+                    <UploadImagem onUpdate={updateImgModel} text="Seleciona a Imagem"/>
+                    {erroImagem &&
+                        <p className="text-danger">{erroImagem}</p>
+                    }
                     <div className="row mt-3">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />

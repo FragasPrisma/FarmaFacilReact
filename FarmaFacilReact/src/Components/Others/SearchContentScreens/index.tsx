@@ -27,7 +27,7 @@ export function SearchContentScreens({ text ,data, filter,headerTable}: IDataSea
     if(data){
       
       const filterArray = () => {  
-        setSearch(data.filter(y => y[filter].toLowerCase().toString().includes(value)));
+        setSearch(data.filter(y => y[filter].toString().toLowerCase().includes(value)));
       };
   
       filterArray();

@@ -189,6 +189,21 @@ import { Prescritor } from "./Pages/Prescritor";
 import { PrescritorCreate } from "./Pages/Prescritor/PrescritorCreate/PrescritorCreate";
 import { PrescritorEdit } from "./Pages/Prescritor/PrescritorEdit/PrescritorEdit";
 import { PrescritorDetails } from "./Pages/Prescritor/PrescritorDetails/PrescritorDetails";
+import { TabelaFloral } from "./Pages/TabelaFloral";
+import { TabelaFloralCreate } from "./Pages/TabelaFloral/TabelaFloralCreate";
+import { TabelaFloralEdit } from "./Pages/TabelaFloral/TabelaFloralEdit";
+import { TabelaFloralDetails } from "./Pages/TabelaFloral/TabelaFloralDetails";
+import { GrupoCreate } from "./Pages/Grupo/GrupoCreate/GrupoCreate";
+import { GrupoEdit } from "./Pages/Grupo/GrupoEdit/GrupoEdit";
+import { GrupoDetails } from "./Pages/Grupo/GrupoDetails/GrupoDetails";
+import { Convenio } from "./Pages/Convenio";
+import { ConvenioCreate } from "./Pages/Convenio/ConvenioCreate/ConvenioCreate";
+import { ConvenioEdit } from "./Pages/Convenio/ConvenioEdit/ConvenioEdit";
+import { ConvenioDetails } from "./Pages/Convenio/ConvenioDetails/ConvenioDetails";
+import { FormaFarmaceutica } from "./Pages/FormaFarmaceutica";
+import { FormaFarmaceuticaCreate } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaCreate/FormaFarmaceuticaCreate";
+import { FormaFarmaceuticaEdit } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaEdit/FormaFarmaceuticaEdit";
+import { FormaFarmaceuticaDetails } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaDetails/FormaFarmaceuticaDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -487,6 +502,70 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/formafarmaceutica"
+              element={
+                <Private>
+                  <FormaFarmaceutica />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/create"
+              element={
+                <Private>
+                  <FormaFarmaceuticaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/edit/:id"
+              element={
+                <Private>
+                  <FormaFarmaceuticaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/details/:id"
+              element={
+                <Private>
+                  <FormaFarmaceuticaDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio"
+              element={
+                <Private>
+                  <Convenio />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/create"
+              element={
+                <Private>
+                  <ConvenioCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/edit/:id"
+              element={
+                <Private>
+                  <ConvenioEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/details/:id"
+              element={
+                <Private>
+                  <ConvenioDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/contacorrente"
               element={
                 <Private>
@@ -628,6 +707,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Grupo />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/create"
+              element={
+                <Private>
+                  <GrupoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/edit/:id"
+              element={
+                <Private>
+                  <GrupoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/details/:id"
+              element={
+                <Private>
+                  <GrupoDetails />
                 </Private>
               }
             />
@@ -1644,6 +1747,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Prescritor />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral"
+              element={
+                <Private>
+                  <TabelaFloral />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral/create"
+              element={
+                <Private>
+                  <TabelaFloralCreate />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral/edit/:id"
+              element={
+                <Private>
+                  <TabelaFloralEdit />
+                </Private>
+              }
+            />
+            <Route 
+              path="/tabelafloral/details/:id"
+              element={
+                <Private>
+                  <TabelaFloralDetails />
                 </Private>
               }
             />
