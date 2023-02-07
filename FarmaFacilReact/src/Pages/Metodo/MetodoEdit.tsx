@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IMetodo } from "../../Interfaces/Metodo/IMetodo";
 
 export function MetodoEdit() {
 
@@ -37,7 +38,7 @@ export function MetodoEdit() {
         Init();
     }, []);
 
-    const data = {
+    const data : IMetodo = {
         id: idMetodo,
         descricao: descricao.trim(),
         quantidadeGotas: quantidadeGotas,

@@ -2,12 +2,13 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState , useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IPosAdquirente } from "../../Interfaces/PosAdquirente/IPosAdquirente";
 
 export function PosAdquirenteEdit() {
 
@@ -15,11 +16,11 @@ export function PosAdquirenteEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
     const [descricao, setDescricao] = useState("");
-    const [chaveRequisicao,setChaveRequisicao] = useState("");
+    const [chaveRequisicao, setChaveRequisicao] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
-    const [erroChaveRequisicao,setErroChaveRequisicao] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
-    const [idPosAdquirente,setId] = useState(0);
+    const [erroChaveRequisicao, setErroChaveRequisicao] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [idPosAdquirente, setId] = useState(0);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -36,7 +37,7 @@ export function PosAdquirenteEdit() {
         Init()
     }, [])
 
-    const data = {
+    const data: IPosAdquirente = {
         id: idPosAdquirente,
         descricao: descricao,
         chaveRequisicao: chaveRequisicao
@@ -54,7 +55,7 @@ export function PosAdquirenteEdit() {
             return;
         }
 
-        if(!chaveRequisicao){
+        if (!chaveRequisicao) {
             setErroChaveRequisicao("Campo chave reuisição é obrigatório !")
             setIsLoading(false);
             return;
@@ -120,7 +121,7 @@ export function PosAdquirenteEdit() {
                         <ButtonCancel to="posadquirente" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} textCustom="Pós Adquirente editado com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Pós Adquirente editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

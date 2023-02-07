@@ -9,6 +9,10 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IVisitador } from "../../Interfaces/Visitador/IVisitador";
+import { IEstado } from "../../Interfaces/Estado/IEstado";
+import { ICidade } from "../../Interfaces/Cidade/ICidade";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
 
 export function VisitadorCreate() {
     const navigate = useNavigate();
@@ -20,19 +24,19 @@ export function VisitadorCreate() {
     const [endereco, setEndereco] = useState("");
     const [numero, setNumero] = useState("");
     const [complemento, setComplemento] = useState("");
-    const [bairroId, setBairroId] = useState(0);
-    const [cidadeId, setCidadeId] = useState(0);
-    const [estadoId, setEstadoId] = useState(0);
+    const [bairroId, setBairroId] = useState(null);
+    const [cidadeId, setCidadeId] = useState(null);
+    const [estadoId, setEstadoId] = useState(null);
     const [ddd, setDdd] = useState("");
     const [telefone, setTelefone] = useState("");
     const [celular, setCelular] = useState("");
     const [comissao, setComissao] = useState(0);
     const [erroNome, setErroNome] = useState("");
-    const [estados, setEstados] = useState([]);
-    const [cidades, setCidades] = useState([]);
-    const [bairros, setBairros] = useState([]);
+    const [estados, setEstados] = useState([] as IEstado []);
+    const [cidades, setCidades] = useState([] as ICidade []);
+    const [bairros, setBairros] = useState([] as IBairro []);
 
-    const data = {
+    const data : IVisitador = {
         id: 0,
         nome: nome.trim(),
         cep: cep.trim(),
@@ -45,34 +49,26 @@ export function VisitadorCreate() {
         ddd: ddd.trim(),
         telefone: telefone.trim(),
         celular: celular.trim(),
-        comisso: comissao
+        comissao: comissao
     }
-
-    useEffect(() => {
-        const loadDataBairro = async () => {
-            const response = await getAll("ListaBairro");
-            setBairros(response.data);
-        }
-
-        loadDataBairro()
-    }, []);
 
     useEffect(() => {
         const loadDataCidade = async () => {
             const response = await getAll("ListaCidade");
             setCidades(response.data);
         }
-
-        loadDataCidade()
-    }, []);
-
-    useEffect(() => {
         const loadDataEstado = async () => {
             const response = await getAll("ListaEstado");
             setEstados(response.data);
         }
+        const loadDataBairro = async () => {
+            const response = await getAll("ListaBairro");
+            setBairros(response.data);
+        }
 
+        loadDataBairro()
         loadDataEstado()
+        loadDataCidade()
     }, []);
 
     async function submit() {

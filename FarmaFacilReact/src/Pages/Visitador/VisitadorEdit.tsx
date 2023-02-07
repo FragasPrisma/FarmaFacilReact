@@ -9,6 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IVisitador } from "../../Interfaces/Visitador/IVisitador";
 
 export function VisitadorEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -21,9 +22,9 @@ export function VisitadorEdit() {
     const [endereco, setEndereco] = useState("");
     const [numero, setNumero] = useState("");
     const [complemento, setComplemento] = useState("");
-    const [bairroId, setBairroId] = useState();
-    const [cidadeId, setCidadeId] = useState();
-    const [estadoId, setEstadoId] = useState();
+    const [bairroId, setBairroId] = useState(null);
+    const [cidadeId, setCidadeId] = useState(null);
+    const [estadoId, setEstadoId] = useState(null);
     const [nomeBairro, setNomeBairro] = useState("");
     const [nomeCidade, setNomeCidade] = useState("");
     const [nomeEstado, setNomeEstado] = useState("");
@@ -79,29 +80,21 @@ export function VisitadorEdit() {
             const response = await getAll("ListaBairro");
             setBairros(response.data);
         }
-
-        loadDataBairro()
-    }, []);
-
-    useEffect(() => {
         const loadDataCidade = async () => {
             const response = await getAll("ListaCidade");
             setCidades(response.data);
         }
-
-        loadDataCidade()
-    }, []);
-
-    useEffect(() => {
         const loadDataEstado = async () => {
             const response = await getAll("ListaEstado");
             setEstados(response.data);
         }
 
         loadDataEstado()
+        loadDataCidade()
+        loadDataBairro()
     }, []);
 
-    const data = {
+    const data : IVisitador = {
         id: visitadorId,
         nome: nome,
         cep: cep,
@@ -114,7 +107,7 @@ export function VisitadorEdit() {
         ddd: ddd,
         telefone: telefone,
         celular: celular,
-        comisso: comissao
+        comissao: comissao
     }
 
     async function submit() {

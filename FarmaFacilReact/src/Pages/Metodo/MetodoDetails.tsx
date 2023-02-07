@@ -4,12 +4,11 @@ import { useState ,useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IMetodo } from "../../Interfaces/Metodo/IMetodo";
 
 export function MetodoDetails() {
 
-    const [descricao, setDescricao] = useState("");
-    const [quantidadeGotas, setQuantidadeGotas] = useState(Number);
-    const [percentual, setPercentual] = useState(Number);
+    const [metodoModel, setMetodoModel] = useState({} as IMetodo);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -17,9 +16,7 @@ export function MetodoDetails() {
     useEffect(() => {
         async function Init() {
             const response = await GetId("RetornaMetodoPorId", idParams);
-            setDescricao(response.data.descricao);
-            setQuantidadeGotas(response.data.quantidadeGotas);
-            setPercentual(response.data.percentual);
+            setMetodoModel(response.data.descricao);
         }
 
         Init();
@@ -36,7 +33,7 @@ export function MetodoDetails() {
                                 label="Descrição"
                                 type="text"
                                 readonly={true}
-                                value={descricao}
+                                value={metodoModel.descricao}
                                 required={true}
                             />
                         </div>
@@ -47,7 +44,7 @@ export function MetodoDetails() {
                                 label="Qtd de Gotas"
                                 type="number"
                                 readonly={true}
-                                value={quantidadeGotas}
+                                value={metodoModel.quantidadeGotas}
                             />
                         </div>
                         <div className="col-1 mt-4">
@@ -57,7 +54,7 @@ export function MetodoDetails() {
                             <CustomInput
                                 label="Percentual"
                                 type="number"
-                                value={percentual}
+                                value={metodoModel.percentual}
                                 readonly={true}
                             />
                         </div>

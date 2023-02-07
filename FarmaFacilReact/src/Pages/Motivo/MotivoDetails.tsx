@@ -4,17 +4,18 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IMotivo } from "../../Interfaces/Motivo/IMotivo";
 
 export function MotivoDetails() {
 
-    const [descricao, setDescricao] = useState("");
+    const [motivoModel, setMotivoModel] = useState({} as IMotivo);
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
         async function Init() {
             const response = await GetId("RetornaMotivoPorId", idParams);
-            setDescricao(response.data.descricao);
+            setMotivoModel(response.data.descricao);
         }
 
         Init();
@@ -31,7 +32,7 @@ export function MotivoDetails() {
                                 label="Descrição"
                                 type="text"
                                 placeholder="Digite a descrição"
-                                value={descricao}
+                                value={motivoModel.descricao}
                                 readonly={true}
                                 required={true}
                             />

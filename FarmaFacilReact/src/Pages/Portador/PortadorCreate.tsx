@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IPortador } from "../../Interfaces/Portador/IPortador";
 
 export function PortadorCreate() {
 
@@ -20,7 +21,7 @@ export function PortadorCreate() {
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
-  const data = {
+  const data : IPortador= {
     id: 0,
     nome: nome.trim(),
     portadorInativo: portadorInativo

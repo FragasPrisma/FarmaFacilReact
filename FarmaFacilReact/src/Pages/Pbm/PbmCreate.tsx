@@ -8,6 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
+import { IPbm } from "../../Interfaces/Pbm/IPbm";
 
 export function PbmCreate() {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ export function PbmCreate() {
   const [erroNome, setErroNome] = useState("");
   
 
-  const data = {
-    id: 0, //id 0 é default
+  const data : IPbm = {
+    id: 0,
     nome: nome.trim(),
     observacao: observacao.trim(),
   };

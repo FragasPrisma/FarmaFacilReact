@@ -5,28 +5,21 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
 
 export function TributoDetails() {
-  const [descricao, setDescricao] = useState("");
-  const [codigo, setCodigo] = useState("");
-  const [tipoTributo, setTipoTributo] = useState(0);
-  const [tipoTributoLabel, setTipoTributoLabel] = useState("");
+
+  const [tributoModel, setTributoModel] = useState({} as ITributo);
+
   const { id } = useParams();
 
   let idParams = !id ? "0" : id.toString();
-
-  function setOptions(value: number, label: string) {
-    setTipoTributo(value);
-    setTipoTributoLabel(label);
-  }
 
   useEffect(() => {
     async function Init() {
       const response = await GetId("RetornaTributoPorId", idParams);
       if (response.status == 200) {
-        setCodigo(response.data.codigo);
-        setDescricao(response.data.descricao);
-        setTipoTributo(response.data.tipoTributo);
+        setTributoModel(response.data);
       }
     }
 
@@ -48,7 +41,7 @@ export function TributoDetails() {
               <CustomInput
                 label="Código"
                 type="text"
-                value={codigo}
+                value={tributoModel.codigo}
                 maxLength={10}
                 required={false}
                 readonly={true}
@@ -60,7 +53,7 @@ export function TributoDetails() {
               <CustomInput
                 label="Descrição"
                 type="textarea"
-                value={descricao}
+                value={tributoModel.descricao}
                 required={false}
                 readonly={true}
               />
@@ -83,7 +76,8 @@ export function TributoDetails() {
                   "CodigoBeneficioFiscal",
                   "CstIpi",
                 ]}
-                value={tipoTributo}
+                value={tributoModel.tipoTributo}
+                readonly={true}
               />
             </div>
           </div>

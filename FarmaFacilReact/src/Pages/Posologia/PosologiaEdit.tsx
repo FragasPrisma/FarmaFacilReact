@@ -5,15 +5,16 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { IPosologia } from "../../Interfaces/Posologia/IPosologia";
 
-export function PosologiaEdit(){
+export function PosologiaEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
     const [descricao, setDescricao] = useState("");
@@ -23,12 +24,12 @@ export function PosologiaEdit(){
     const [periodoLabel, setPeriodoLabel] = useState("");
     const [posologiaId, setPosologiaId] = useState(0);
 
-    const [data] = useState({
-        id: 0,
-        descricao: "",
-        quantidadeCapsulasOuDoses: 0,
-        periodo: 0
-    });
+    let data: IPosologia = {
+        id: posologiaId,
+        descricao: descricao,
+        quantidadeCapsulasOuDoses: quantidade,
+        periodo: periodo
+    }
 
     let idParams = !id ? "0" : id.toString();
 
@@ -92,55 +93,55 @@ export function PosologiaEdit(){
             {
                 posologiaId > 0 &&
                 <div className="form-group">
-                <Container>
-                    <div className="row">
-                        <div className="col-5">
-                            <CustomInput
-                                label="Descrição"
-                                type="text"
-                                placeholder="Digite a descrição para a posologia"
-                                value={descricao}
-                                maxLength={100}
-                                erro={erroDescricao}
-                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setDescricao(e.target.value)
-                                }
-                                required={true}
-                            />
+                    <Container>
+                        <div className="row">
+                            <div className="col-5">
+                                <CustomInput
+                                    label="Descrição"
+                                    type="text"
+                                    placeholder="Digite a descrição para a posologia"
+                                    value={descricao}
+                                    maxLength={100}
+                                    erro={erroDescricao}
+                                    OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                        setDescricao(e.target.value)
+                                    }
+                                    required={true}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-2 mt-5">
-                            <CustomInput
-                                label={`Capsulas/Doses por ${periodoLabel}`}
-                                type="number"
-                                value={quantidade}
-                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setQuantidade(parseInt(e.target.value))
-                                }
-                            />
+                        <div className="row">
+                            <div className="col-2 mt-5">
+                                <CustomInput
+                                    label={`Capsulas/Doses por ${periodoLabel}`}
+                                    type="number"
+                                    value={quantidade}
+                                    OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                        setQuantidade(parseInt(e.target.value))
+                                    }
+                                />
+                            </div>
+                            <div className="col-2 mt-2">
+                                <RadioCustom
+                                    options={["Dia", "Semana", "Mes"]}
+                                    name="periodo"
+                                    onClickOptions={(value, label) => setOptions(value, label)}
+                                    titleComponet="Periodo"
+                                    value={periodo}
+                                />
+                            </div>
                         </div>
-                        <div className="col-2 mt-2">
-                            <RadioCustom 
-                                options={["Dia", "Semana", "Mes"]}
-                                name="periodo"
-                                onClickOptions={(value, label) => setOptions(value,label)}
-                                titleComponet="Periodo" 
-                                value={periodo}                          
-                            />
+                        <div className="row">
+                            <div className="col-6 mt-2">
+                                <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                                <ButtonCancel to="posologia" />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} isLoading={isLoading} />
-                            <ButtonCancel to="posologia" />
-                        </div>
-                    </div>
-                </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Posologia editada com "/>
-                <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
-            </div>
+                    </Container>
+                    <SuccessModal show={isOpenSuccess} textCustom="Posologia editada com " />
+                    <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
+                </div>
             }
-        </>  
+        </>
     );
 }

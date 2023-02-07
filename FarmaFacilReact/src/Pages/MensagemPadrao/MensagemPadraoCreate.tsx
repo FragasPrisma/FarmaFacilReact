@@ -11,8 +11,8 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
-import { Table } from "react-bootstrap";
 import { TableHelp } from "./TableHelp";
+import { IMensagemPadrao } from "../../Interfaces/MensagemPadrao/IMensagemPadrao";
 
 export function MensagemPadraoCreate() {
 
@@ -31,7 +31,7 @@ export function MensagemPadraoCreate() {
 
 
 
-    const data = {
+    const data : IMensagemPadrao = {
         id: 0,
         statusDescricao: statusDescricao.trim(),
         mensagem: mensagem.trim(),

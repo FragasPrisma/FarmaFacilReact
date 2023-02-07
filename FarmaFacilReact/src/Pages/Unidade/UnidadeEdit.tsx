@@ -11,14 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-
-interface IUnidadeConversao {
-    id: 0,
-    sigla: "",
-    descricao: "",
-    fator: Number,
-    unidadeId: 0
-}
+import { IUnidadeConversao } from "../../Interfaces/Unidade/IUnidadeConversao";
+import { IUnidade } from "../../Interfaces/Unidade/IUnidade";
 
 export function UnidadeEdit() {
 
@@ -61,7 +55,7 @@ export function UnidadeEdit() {
 
     const [unidadesConversaoModel, setUnidadesConversaoModel] = useState([] as IUnidadeConversao[]);
     const [unidadesConversaoModelExcluir, setUnidadesConversaoModelExcluir] = useState([] as IUnidadeConversao[]);
-    const [unidades, setUnidades] = useState([]);
+    const [unidades, setUnidades] = useState([] as IUnidadeConversao []);
 
     const [unidadeId, setUnidadeId] = useState(0);
     const [erroFatorArray, setErroFatorArray] = useState("");
@@ -77,7 +71,7 @@ export function UnidadeEdit() {
         loadDataUnidade()
     }, []);
 
-    const data = {
+    const data: IUnidade = {
         id: idUnidade,
         sigla: sigla,
         descricao: descricao,
@@ -148,7 +142,7 @@ export function UnidadeEdit() {
 
             function Init() {
 
-                unidades.map((item: IUnidadeConversao) => {
+                unidades.map((item) => {
 
                     if (item.id == unidadeId) {
 

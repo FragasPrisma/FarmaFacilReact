@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IPosologia } from "../../Interfaces/Posologia/IPosologia";
 
 export function PosologiaDetails() {
-    const [descricao, setDescricao] = useState("");
-    const [quantidade, setQuantidade] = useState(0);
-    const [periodo, setPeriodo] = useState(0);
-    const [periodoLabel, setPeriodoLabel] = useState("");
+
+    const [posologiaModel, setPosologiaModel] = useState({} as IPosologia);
+    const [periodoLabel, setPeriodoLabel] = useState("")
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString()
@@ -19,9 +19,7 @@ export function PosologiaDetails() {
         async function Init() {
             const response = await GetId("RetornaPosologiaPorId", idParams);
             if (response.status == 200) {
-                setDescricao(response.data.descricao);
-                setQuantidade(response.data.quantidade);
-                setPeriodo(response.data.periodo);
+                setPosologiaModel(response.data);
             }
         }
 
@@ -29,14 +27,14 @@ export function PosologiaDetails() {
     }, [])
 
     useEffect(() => {
-        if (periodo == 0) {
+        if (posologiaModel.periodo == 0) {
             setPeriodoLabel("Dia");
-        } else if (periodo == 1) {
+        } else if (posologiaModel.periodo == 1) {
             setPeriodoLabel("Semana");
         } else {
             setPeriodoLabel("Mês");
         }
-    }, [periodo])
+    }, [posologiaModel.periodo])
 
     return (
         <>
@@ -48,7 +46,7 @@ export function PosologiaDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={posologiaModel.descricao}
                                 maxLength={100}
                                 required={true}
                             />
@@ -59,7 +57,7 @@ export function PosologiaDetails() {
                             <CustomInput
                                 label={`Capsulas/Doses por ${periodoLabel}`}
                                 type="number"
-                                value={quantidade}
+                                value={posologiaModel.quantidadeCapsulasOuDoses}
                                 readonly={true}
                             />
                         </div>

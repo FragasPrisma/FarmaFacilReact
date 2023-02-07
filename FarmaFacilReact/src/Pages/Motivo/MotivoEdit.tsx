@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IMotivo } from "../../Interfaces/Motivo/IMotivo";
 
 export function MotivoEdit() {
 
@@ -31,7 +32,7 @@ export function MotivoEdit() {
     Init();
   }, []);
 
-  const data = {
+  const data : IMotivo = {
     id: idMotivo, 
     descricao: descricao.trim(),
   };

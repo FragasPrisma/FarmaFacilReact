@@ -1,0 +1,18 @@
+export interface INaturezaOperacao {
+    id: number,
+    codigo: number,
+    descricao: string,
+    tipo: number,
+    exportarSintegra: boolean,
+    observacao: string,
+    exibeDocumentoReferenciado: boolean,
+    considerarCfopCreditoIcms: boolean,
+    naoInsidePis: boolean,
+    naoInsideCofins: boolean,
+    naoInsideIcms: boolean,
+    cfopDevolucao: boolean,
+    cfopSubstituicaoTributaria: boolean,
+    planoDeContaId: number,
+    cstId: number,
+    csosnId: number,
+}

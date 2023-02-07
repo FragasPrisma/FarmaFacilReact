@@ -8,8 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { time, timeStamp } from "console";
-import { NumberEight } from "phosphor-react";
+import { IPais } from "../../Interfaces/Pais/IPais";
 
 export function PaisCreate() {
 
@@ -23,7 +22,7 @@ export function PaisCreate() {
   const [erroIbge, setErroIbge] = useState("");
   const navigate = useNavigate();
 
-  const data = {
+  const data : IPais = {
     id: 0, 
     nome: nome.trim(),
     codigoIbge:codigoIbge,

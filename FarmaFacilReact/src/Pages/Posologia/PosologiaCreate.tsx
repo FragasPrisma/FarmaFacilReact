@@ -9,6 +9,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { IPosologia } from "../../Interfaces/Posologia/IPosologia";
 
 export function PosologiaCreate() {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ export function PosologiaCreate() {
     const [periodo, setPeriodo] = useState(0);
     const [periodoLabel, setPeriodoLabel] = useState("");
 
-    const data = {
+    const data: IPosologia = {
         id: 0,
         descricao: descricao.trim(),
         quantidadeCapsulasOuDoses: quantidade,
@@ -94,12 +95,12 @@ export function PosologiaCreate() {
                             />
                         </div>
                         <div className="col-2 mt-2">
-                            <RadioCustom 
+                            <RadioCustom
                                 options={["Dia", "Semana", "Mes"]}
                                 name="periodo"
-                                onClickOptions={(value, label) => setOptions(value,label)}
+                                onClickOptions={(value, label) => setOptions(value, label)}
                                 titleComponet="Periodo"
-                                value={periodo}                           
+                                value={periodo}
                             />
                         </div>
                     </div>

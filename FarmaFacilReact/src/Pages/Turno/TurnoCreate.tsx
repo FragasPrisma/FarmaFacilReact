@@ -8,6 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
+import { ITurno } from "../../Interfaces/Turno/ITurno";
 
 export function TurnoCreate() {
     const navigate = useNavigate();
@@ -21,10 +22,11 @@ export function TurnoCreate() {
     const [horaInicialDateTime, setHoraInicialDateTime] = useState<Date>();
     const [horaFinalDateTime, setHoraFinalDateTime] = useState<Date>();
 
-    const data = {
-        id: 0, //id 0 é default
+    const data: ITurno = {
+        id: 0,
         horaInicial: horaInicialDateTime,
         horaFinal: horaFinalDateTime,
+        filialId: null
     };
 
     useEffect(() => {
@@ -94,7 +96,7 @@ export function TurnoCreate() {
                 <Container>
                     <div className="row">
                         <div className="col-2">
-                            <CustomInput 
+                            <CustomInput
                                 label="Hora Inicial"
                                 type="time"
                                 placeholder="00:00"
@@ -109,7 +111,7 @@ export function TurnoCreate() {
                     </div>
                     <div className="row">
                         <div className="col-2">
-                        <CustomInput 
+                            <CustomInput
                                 label="Hora Final"
                                 type="time"
                                 placeholder="00:00"

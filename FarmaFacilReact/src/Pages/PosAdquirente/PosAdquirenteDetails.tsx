@@ -4,11 +4,11 @@ import { useState , useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IPosAdquirente } from "../../Interfaces/PosAdquirente/IPosAdquirente";
 
 export function PosAdquirenteDetails() {
 
-    const [descricao, setDescricao] = useState("");
-    const [chaveRequisicao,setChaveRequisicao] = useState("");
+    const [posAdquirenteModel, setPosAdquirenteModel] = useState({} as IPosAdquirente);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -17,8 +17,7 @@ export function PosAdquirenteDetails() {
 
         async function Init() {
             const response = await GetId("RetornaPosAdquirentePorId", idParams);
-            setDescricao(response.data.descricao);
-            setChaveRequisicao(response.data.chaveRequisicao)
+            setPosAdquirenteModel(response.data);
         }
 
         Init()
@@ -35,7 +34,7 @@ export function PosAdquirenteDetails() {
                                 label="Descrição"
                                 type="text"
                                 placeholder=""
-                                value={descricao}
+                                value={posAdquirenteModel.descricao}
                                 required={true}
                                 readonly={true}
                             />
@@ -47,7 +46,7 @@ export function PosAdquirenteDetails() {
                                 label="Chave Requisição"
                                 type="text"
                                 placeholder=""
-                                value={chaveRequisicao}
+                                value={posAdquirenteModel.chaveRequisicao}
                                 required={true}
                                 readonly={true}
                             />

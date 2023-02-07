@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IPbm } from "../../Interfaces/Pbm/IPbm";
 
 export function PbmEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -18,8 +19,13 @@ export function PbmEdit() {
   const [observacao, setObservacao] = useState("");
   const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({ id: 0, nome: "", observacao: "" });
   const [isLoading, setIsLoading] = useState(false);
+
+  let data: IPbm = {
+    id: pbmId,
+    nome: nome.trim(),
+    observacao: observacao
+  }
 
   let idParams = !id ? "0" : id.toString();
 
@@ -103,7 +109,7 @@ export function PbmEdit() {
                 value={observacao}
                 maxLength={150}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                
+
                   setObservacao(e.target.value)
                 }
                 required={false}

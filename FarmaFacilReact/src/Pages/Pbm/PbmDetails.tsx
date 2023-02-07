@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IPbm } from "../../Interfaces/Pbm/IPbm";
 
 export function PbmDetails() {
-  const [nome, setNome] = useState("");
-  const [observacao, setObservacao] = useState("");
+
+  const [pbmModel, setPbmModel] = useState({} as IPbm);
   const { id } = useParams();
 
   let idParams = !id ? "0" : id.toString()
@@ -17,8 +18,7 @@ export function PbmDetails() {
     async function Init() {
       const response = await GetId("RetornaPbmPorId", idParams);
       if(response.status == 200){
-        setNome(response.data.nome);
-        setObservacao(response.data.observacao)
+        setPbmModel(response.data);
       }
     }
 
@@ -35,7 +35,7 @@ export function PbmDetails() {
               <CustomInput
                 label="Nome"
                 type="text"
-                value={nome}
+                value={pbmModel.nome}
                 required={true}
                 readonly={true}
               />
@@ -46,7 +46,7 @@ export function PbmDetails() {
                 <CustomInput
                   label="Observação"
                   type="textarea"
-                  value={observacao}
+                  value={pbmModel.observacao}
                   required={false}
                   readonly={true}
                 />

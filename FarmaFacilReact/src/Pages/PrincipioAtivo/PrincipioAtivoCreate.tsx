@@ -8,6 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
+import { IPrincipioAtivo } from "../../Interfaces/PrincipioAtivo/IPrincipioAtivo";
 
 export function PrincipioAtivoCreate() {
     const navigate = useNavigate();
@@ -15,9 +16,9 @@ export function PrincipioAtivoCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [descricao, setDescricao] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const data = {
+    const data: IPrincipioAtivo = {
         id: 0,
         descricao: descricao.trim()
     }
@@ -74,12 +75,12 @@ export function PrincipioAtivoCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                             <ButtonCancel to="principioAtivo" />
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Princípio Ativo adicionado com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Princípio Ativo adicionado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>
