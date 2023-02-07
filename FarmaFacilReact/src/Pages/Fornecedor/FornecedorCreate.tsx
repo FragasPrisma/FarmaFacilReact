@@ -6,7 +6,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { postFormAll, getAll } from "../../Services/Api";
 import { useNavigate } from "react-router-dom";
 import { Container } from "./styles";
-import TabsPage from "../../Components/Tabs";
+import TabsPage from "../../Components/Others/Tabs";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
@@ -17,7 +17,7 @@ export function FornecedorCreate() {
     const navigate = useNavigate();
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-    const [idFornecedor,setId] = useState(0);
+    const [idFornecedor, setId] = useState(0);
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [erroNomeFornecedor, setErroNomeFornecedor] = useState("");
     const [nomeFantasia, setNomeFantasia] = useState("");
@@ -56,14 +56,14 @@ export function FornecedorCreate() {
     const [bairroId, setBairroId] = useState();
     const [bancoId, setBancoId] = useState();
     const [planoDeContaId, setPlanoDeContaId] = useState();
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [estados, setEstados] = useState([]);
     const [cidades, setCidades] = useState([]);
     const [bairros, setBairros] = useState([]);
     const [bancos, setBancos] = useState([]);
     const [contas, setContas] = useState([]);
-    
+
     const [errorRequest, setErrorRequest] = useState("");
 
     useEffect(() => {
@@ -112,7 +112,7 @@ export function FornecedorCreate() {
     }, []);
 
     let data = {
-        id: 0, 
+        id: 0,
         nomeFornecedor: nomeFornecedor,
         NomeFantasia: nomeFantasia,
         Cnpj: cnpj,
@@ -278,13 +278,13 @@ export function FornecedorCreate() {
 
             <div className="row">
                 <div className="col-2">
-                    <CustomDropDown data={estados} title="Selecione o Estado" filter="sigla" label="Estado" error={erroEstadoId} required={true} Select={(estadoId) => setEstadoId(estadoId)}/> 
+                    <CustomDropDown data={estados} title="Selecione o Estado" filter="sigla" label="Estado" error={erroEstadoId} required={true} Select={(estadoId) => setEstadoId(estadoId)} />
                 </div>
                 <div className="col-4">
-                    <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                    <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)} />
                 </div>
-                <div className="col-2"> 
-                    <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                <div className="col-2">
+                    <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)} />
                 </div>
             </div>
 
@@ -361,7 +361,7 @@ export function FornecedorCreate() {
                     />
                 </div>
             </div>
-            
+
         </Container>
 
     );
@@ -370,10 +370,10 @@ export function FornecedorCreate() {
         <Container>
             <div className="row">
                 <div className="col-4">
-                    <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                    <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)} />
                 </div>
                 <div className="col-4">
-                    <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                    <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)} />
                 </div>
             </div>
             <div className="row">
@@ -422,7 +422,7 @@ export function FornecedorCreate() {
                 </div>
             </div>
             <div className="row">
-                
+
                 <div className="col-3">
                     <CustomInput
                         label="Autorização de funcionamento"
@@ -467,7 +467,7 @@ export function FornecedorCreate() {
             </div>
             <div className="row">
 
-                
+
                 <div className="col-2">
                     <CustomInput
                         label="Cadastro Farmácia"
@@ -521,8 +521,8 @@ export function FornecedorCreate() {
                         required={false}
                     />
                 </div>
-                
-                
+
+
             </div>
             <div className="row">
                 <div className="col-2">
@@ -620,26 +620,26 @@ export function FornecedorCreate() {
             return;
         }
 
-        if(estadoId <= 0){
+        if (estadoId <= 0) {
             setErroEstadoId("Campo Estado é obrigatório !");
             return;
         }
 
         const resp = await postFormAll("AdicionarFornecedor", data);
 
-        if(resp.status == 200){
+        if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-              navigate("/fornecedor");
+                navigate("/fornecedor");
             }, 2000)
-          }else{
+        } else {
             setIsOpenFail(true);
             setIsLoading(false);
             setTimeout(() => {
-              setIsOpenFail(false);
-              setErrorRequest(resp.request.response)
+                setIsOpenFail(false);
+                setErrorRequest(resp.request.response)
             }, 2000)
-          }
+        }
     }
 
     return (
@@ -647,8 +647,8 @@ export function FornecedorCreate() {
             <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
 
-                <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
-                
+                <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
+
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
@@ -657,7 +657,7 @@ export function FornecedorCreate() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor adicionado com "/>
+            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor adicionado com " />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

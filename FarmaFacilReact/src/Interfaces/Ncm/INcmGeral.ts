@@ -1,4 +1,4 @@
-import { ITributo } from "./Tributo";
+import { ITributo } from "../Tributo/ITributo";
 
 export interface INcmGeral {
     id: 0,
@@ -23,7 +23,7 @@ export interface INcmGeral {
     ncmEstados: any[],
 }
 
-export let NcmGeral : INcmGeral = {
+export let NcmGeral: INcmGeral = {
     id: 0,
     produtoServico: true,
     descricao: "",
@@ -43,5 +43,5 @@ export let NcmGeral : INcmGeral = {
     tributoCstPisEntrada: null,
     tributoCstPisSaidaId: null,
     tributoCstPisSaida: null,
-    ncmEstados: [] as any [],
+    ncmEstados: [] as any[],
 }

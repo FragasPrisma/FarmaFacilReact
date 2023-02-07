@@ -1,11 +1,11 @@
-import { IConvenioComplemento } from "../IConvenioComplemento"
+import { IConvenioComplemento } from "../../../Interfaces/Convenio/IConvenioComplemento"
 import { Container } from "../styles"
 import { useState, useEffect, ChangeEvent } from "react"
 import { getAll } from "../../../Services/Api"
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown"
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom"
-import { IGrupo } from "../../Grupo/IGrupo"
-import { IConvenioGrupos } from "../IConvenio"
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom"
+import { IGrupo } from "../../../Interfaces/Grupo/IGrupo"
+import { IConvenioGrupos } from "../../../Interfaces/Convenio/IConvenio"
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom"
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 
@@ -81,7 +81,7 @@ export function ConvenioCreateComplemento() {
 
     }
 
-    function ValidErroCustoReferencia(index : number){
+    function ValidErroCustoReferencia(index: number) {
         if (conveniosGrupos[index].desconto > 0 && conveniosGrupos[index].aplicaCustoReferencia == true) {
             conveniosGrupos[index].desconto = 0
             setErroCustoReferencia("Custo Referência como Preço de Venda, desconto não é permitido !")
@@ -93,7 +93,7 @@ export function ConvenioCreateComplemento() {
     function AdicionarBoll(checked: boolean, index: number, opcao: number) {
         if (opcao == 1) {
             conveniosGrupos[index].aplicaDescontoProduto = checked;
-            
+
         } else {
             conveniosGrupos[index].aplicaCustoReferencia = checked;
         }
@@ -174,7 +174,7 @@ export function ConvenioCreateComplemento() {
                     </div>
                 </FieldsetCustom>
             </div>
-            <p className="text-danger">{ erroCustoReferencia }</p>
+            <p className="text-danger">{erroCustoReferencia}</p>
             {conveniosGrupos.map((item, index) => (
 
                 <div key={item.id} className="row mt-2">

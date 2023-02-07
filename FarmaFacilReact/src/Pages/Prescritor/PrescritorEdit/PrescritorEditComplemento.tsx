@@ -3,15 +3,15 @@ import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { Container } from "../styles";
 import { useState, ChangeEvent, useEffect } from 'react'
 import { getAll } from "../../../Services/Api";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
-import { IPrescritorComplemento } from "../PrescritorComplemento";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
+import { IPrescritorComplemento } from "../../../Interfaces/Prescritor/IPrescritorComplemento";
 
 interface Data {
     PrescritorComplemento: IPrescritorComplemento;
-    NomeVisitador:string
+    NomeVisitador: string
 }
 
-export function PrescritorEditComplemento({ PrescritorComplemento ,NomeVisitador}: Data) {
+export function PrescritorEditComplemento({ PrescritorComplemento, NomeVisitador }: Data) {
 
     const [email, setEmail] = useState(PrescritorComplemento.email);
     const [aniversario, setAniversario] = useState(PrescritorComplemento.aniversario);
@@ -202,7 +202,7 @@ export function PrescritorEditComplemento({ PrescritorComplemento ,NomeVisitador
                     <CustomDropDown
                         data={visitadores}
                         title={NomeVisitador ? NomeVisitador : "Selecione o Visitador"}
-                        filter="nome" 
+                        filter="nome"
                         label="Visitador"
                         Select={(visitadorId) => setVisitadorId(visitadorId)} />
                 </div>

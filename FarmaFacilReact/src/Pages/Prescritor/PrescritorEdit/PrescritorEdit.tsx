@@ -4,15 +4,15 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../../Services/Api";
 import { useNavigate, useParams } from "react-router-dom";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
-import { PrescritorEditGeral , EspecialidadesExcluir, EspecialidadesAdd } from "./PrescritorEditGeral";
+import { PrescritorEditGeral, EspecialidadesExcluir, EspecialidadesAdd } from "./PrescritorEditGeral";
 import { PrescritorEditComplemento } from "./PrescritorEditComplemento";
-import { PrescritorGeral } from "../PrescritorGeral";
-import { prescritor } from "../Prescritor";
-import { PrescritorComplemento } from "../PrescritorComplemento";
+import { PrescritorGeral } from "../../../Interfaces/Prescritor/IPrescritorGeral";
+import { prescritor } from "../../../Interfaces/Prescritor/IPrescritor";
+import { PrescritorComplemento } from "../../../Interfaces/Prescritor/IPrescritorComplemento";
 
 export function PrescritorEdit() {
 
@@ -105,13 +105,13 @@ export function PrescritorEdit() {
     {
         idPrescritor > 0 &&
 
-        arrayTab.unshift(
-            <PrescritorEditGeral
-                error={error}
-                PrescritorGeralModel={PrescritorGeral}
-                nomes={{ nomeBairro: nomeBairro, nomeCidade: nomeCidade, nomeEstado: nomeEstado }}
-            />
-        );
+            arrayTab.unshift(
+                <PrescritorEditGeral
+                    error={error}
+                    PrescritorGeralModel={PrescritorGeral}
+                    nomes={{ nomeBairro: nomeBairro, nomeCidade: nomeCidade, nomeEstado: nomeEstado }}
+                />
+            );
 
         arrayTab.push(
             <PrescritorEditComplemento
@@ -193,7 +193,7 @@ export function PrescritorEdit() {
             setTimeout(() => {
                 navigate("/prescritor");
             }, 2000)
-            
+
         } else {
             setIsOpenFail(true);
             setIsLoading(false);

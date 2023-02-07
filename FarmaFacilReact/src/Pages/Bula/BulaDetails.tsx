@@ -1,9 +1,9 @@
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 
@@ -20,7 +20,8 @@ export function BulaDetails() {
             const response = await GetId("RetornaBulaPorId", idParams);
             setDescricao(response.data.descricao);
             setLimitacaoVisual(response.data.limitacaoVisual)
-            setTipo(response.data.tipo)}
+            setTipo(response.data.tipo)
+        }
 
         Init();
     }, []);
@@ -34,7 +35,7 @@ export function BulaDetails() {
                         <div className="col-3">
                             <RadioCustom
                                 name="tipo"
-                                options={["Alopática","Homeopática"]}
+                                options={["Alopática", "Homeopática"]}
                                 value={tipo}
                                 readonly={true}
                                 titleComponet="Tipo de Bula"

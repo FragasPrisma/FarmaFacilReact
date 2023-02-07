@@ -1,14 +1,14 @@
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { Container } from "../styles";
-import { IGrupo } from "../IGrupo";
+import { IGrupo } from "../../../Interfaces/Grupo/IGrupo";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 
 interface IData {
-    GrupoModel:IGrupo
+    GrupoModel: IGrupo
 }
 
-export function GrupoDetailsGeral({GrupoModel} : IData) {
+export function GrupoDetailsGeral({ GrupoModel }: IData) {
 
     return (
         <>

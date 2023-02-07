@@ -9,7 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { GenericTable } from "../../Components/Others/GenericTable";
 
@@ -127,7 +127,7 @@ export function EstadoEdit() {
 
         if (response.status === 200) {
 
-            if(aliquotasEstadoModel.length > 0) {
+            if (aliquotasEstadoModel.length > 0) {
                 aliquotasEstadoModel.map(async (item) => {
                     if (item.id == 0) {
                         const data = {
@@ -149,7 +149,7 @@ export function EstadoEdit() {
                 })
             }
 
-            if(aliquotasEstadoModelExcluir.length > 0){
+            if (aliquotasEstadoModelExcluir.length > 0) {
                 aliquotasEstadoModelExcluir.map(async (item) => {
                     const resp = await postFormAll("ExcluirAliquotaEstado", item);
                 })

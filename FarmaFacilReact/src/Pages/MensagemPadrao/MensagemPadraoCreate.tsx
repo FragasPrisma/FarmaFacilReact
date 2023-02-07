@@ -8,7 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
 import { Table } from "react-bootstrap";
@@ -134,7 +134,7 @@ export function MensagemPadraoCreate() {
 
                         {help &&
                             <div className="col-5 containerHelp">
-                                <TableHelp/>
+                                <TableHelp />
                             </div>
                         }
                     </div>

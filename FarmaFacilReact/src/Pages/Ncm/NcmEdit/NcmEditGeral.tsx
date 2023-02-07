@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 import { getAll } from "../../../Services/Api";
-import { INcmGeral, NcmGeral } from "../NcmGeral";
+import { INcmGeral, NcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
 import { Container } from "../styles";
 
 interface Data {
@@ -14,7 +14,7 @@ interface Error {
     error: { erro: boolean, index: number, erroNome: string }
 }
 
-export function NcmEditGeral({NcmGeralModel}: Data, {error}: Error) {
+export function NcmEditGeral({ NcmGeralModel }: Data, { error }: Error) {
     const [tributosPisCofins, setTributosPisCofins] = useState([]);
 
     const [produtoServico, setProdutoServico] = useState(true);
@@ -55,7 +55,7 @@ export function NcmEditGeral({NcmGeralModel}: Data, {error}: Error) {
         loadDataTributos();
 
     }, [])
-    
+
     return (
         <>
             <Container>

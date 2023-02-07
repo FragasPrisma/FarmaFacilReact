@@ -2,11 +2,11 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
 import { GenericTable } from "../../../Components/Others/GenericTable";
 import { getAll } from "../../../Services/Api";
-import { IPrescritorGeral } from "../PrescritorGeral";
+import { IPrescritorGeral } from "../../../Interfaces/Prescritor/IPrescritorGeral";
 import { Container } from "../styles";
 
 interface Data {

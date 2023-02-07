@@ -3,8 +3,8 @@ import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { Container } from "../styles";
 import { useState, ChangeEvent, useEffect } from 'react'
 import { getAll } from "../../../Services/Api";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
-import { PrescritorComplemento } from "../PrescritorComplemento";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
+import { PrescritorComplemento } from "../../../Interfaces/Prescritor/IPrescritorComplemento";
 
 export function PrescritorCreateComplemento() {
 

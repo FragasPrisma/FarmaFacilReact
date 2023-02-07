@@ -2,15 +2,15 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { useState, useEffect } from "react";
 import { GetId } from "../../../Services/Api";
 import { useParams } from "react-router-dom";
-import { IGrupo } from "../IGrupo";
+import { IGrupo } from "../../../Interfaces/Grupo/IGrupo";
 import { GrupoDetailsEnsaio } from "./GrupoDetailsEnsaio";
 import { itemsHandlesGrupo } from "../../../Enum/itensGrupo"
 import { GrupoDetailsGeral } from "./GrupoDetailsGeral"
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 
 export function GrupoDetails() {
 
-    const [grupoModel,setGrupoModel] = useState({} as IGrupo)
+    const [grupoModel, setGrupoModel] = useState({} as IGrupo)
 
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
@@ -28,8 +28,8 @@ export function GrupoDetails() {
     let arrayTab: any = [];
     {
         grupoModel.id > 0 &&
-            arrayTab.push(<GrupoDetailsGeral GrupoModel={grupoModel}/>)
-            arrayTab.push(<GrupoDetailsEnsaio EnsaiosGrupo={grupoModel.grupoEnsaios} />)
+            arrayTab.push(<GrupoDetailsGeral GrupoModel={grupoModel} />)
+        arrayTab.push(<GrupoDetailsEnsaio EnsaiosGrupo={grupoModel.grupoEnsaios} />)
     }
 
     return (

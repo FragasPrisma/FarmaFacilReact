@@ -1,6 +1,6 @@
 import { UploadImagem } from "../../../Components/Others/UploadImagem/UploadImagem";
-import { IFormaFarmaceuticaImagem } from "../IFormaFarmaceuticaImagem";
-import { useEffect , useState} from "react";
+import { IFormaFarmaceuticaImagem } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaImagem";
+import { useEffect, useState } from "react";
 
 export let FormaFarmaceuticaImagemModel: IFormaFarmaceuticaImagem = {
     imagem: "",
@@ -8,7 +8,7 @@ export let FormaFarmaceuticaImagemModel: IFormaFarmaceuticaImagem = {
 }
 
 export function FormaFarmaceuticaCreateImagem() {
-    
+
     const [imgModel, setImgModel] = useState<string | ArrayBuffer | null>(null);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export function FormaFarmaceuticaCreateImagem() {
     };
 
     return (
-        <UploadImagem onUpdate={updateImgModel} text="Selecione a Imagem"/>
+        <UploadImagem onUpdate={updateImgModel} text="Selecione a Imagem" />
     )
 
 }

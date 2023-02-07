@@ -1,9 +1,9 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 import { getAll } from "../../../Services/Api";
-import { NcmGeral } from "../NcmGeral";
+import { NcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
 import { Container } from "../styles";
 
 interface Error {

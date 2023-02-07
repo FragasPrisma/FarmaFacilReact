@@ -6,11 +6,11 @@ import { GetId, postFormAll } from "../../../Services/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
-import { IGrupo } from "../IGrupo";
-import { GrupoEditEnsaio, gruposEnsaios , gruposEnsaiosDelete } from "./GrupoEditEnsaio";
+import { IGrupo } from "../../../Interfaces/Grupo/IGrupo";
+import { GrupoEditEnsaio, gruposEnsaios, gruposEnsaiosDelete } from "./GrupoEditEnsaio";
 import { itemsHandlesGrupo } from "../../../Enum/itensGrupo"
 import { GrupoEditGeral, GrupoGeral } from "./GrupoEditGeral"
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 
 export function GrupoEdit() {
 
@@ -19,7 +19,7 @@ export function GrupoEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [erros, setErros] = useState({ erro: true, index: 0, erroNome: "" })
-    const [grupoModel,setGrupoModel] = useState({} as IGrupo)
+    const [grupoModel, setGrupoModel] = useState({} as IGrupo)
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -40,8 +40,8 @@ export function GrupoEdit() {
     let arrayTab: any = [];
     {
         grupoModel.id > 0 &&
-            arrayTab.push(<GrupoEditGeral erros={erros} GrupoModel={grupoModel}/>)
-            arrayTab.push(<GrupoEditEnsaio EnsaiosGrupo={grupoModel.grupoEnsaios} />)
+            arrayTab.push(<GrupoEditGeral erros={erros} GrupoModel={grupoModel} />)
+        arrayTab.push(<GrupoEditEnsaio EnsaiosGrupo={grupoModel.grupoEnsaios} />)
     }
 
     async function submit() {
@@ -74,7 +74,7 @@ export function GrupoEdit() {
 
         if (resp.status == 200) {
 
-            if(gruposEnsaiosDelete.length > 0){
+            if (gruposEnsaiosDelete.length > 0) {
                 const response = await postFormAll("ExcluirListaGrupoEnsaio", gruposEnsaiosDelete);
             }
 

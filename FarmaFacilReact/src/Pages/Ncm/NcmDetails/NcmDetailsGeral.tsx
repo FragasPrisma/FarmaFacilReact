@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
-import { INcmGeral } from "../NcmGeral";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
+import { INcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
 import { Container } from "../styles";
 
 interface Data {
@@ -30,12 +30,12 @@ export function NcmDetailsGeral({ NcmGeralModel }: Data) {
         if (NcmGeralModel.tributoCstPisSaida) {
             setDescricaoPisSaida(NcmGeralModel.tributoCstPisSaida.descricao)
         }
-        
+
     }, [])
 
     return (
         <>
-             <Container>
+            <Container>
                 <div className="row">
                     <div className="col-4">
                         <CustomInput

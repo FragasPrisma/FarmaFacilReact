@@ -5,7 +5,7 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { ITabelaFloral } from "./ITabelaFloral";
+import { ITabelaFloral } from "../../Interfaces/TabelaFloral/ITabelaFloral";
 
 export function TabelaFloralDetails() {
 

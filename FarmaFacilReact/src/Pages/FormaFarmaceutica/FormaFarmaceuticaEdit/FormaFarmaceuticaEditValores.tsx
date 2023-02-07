@@ -1,12 +1,12 @@
 import { Container } from "../styles";
 import { useState, useEffect } from "react";
-import { IFormaFarmaceuticaValores } from "../IFormaFarmaceuticaValores";
-import { IFormaFarmaceuticaMargens } from "../IFormaFarmaceuticaMargens";
+import { IFormaFarmaceuticaValores } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaValores";
+import { IFormaFarmaceuticaMargens } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaMargens";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { getAll } from "../../../Services/Api";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 
 export let FormaFarmaceuticaValoresModel: IFormaFarmaceuticaValores = {
     formaFarmaceuticaMargens: [] as IFormaFarmaceuticaMargens[],
@@ -17,10 +17,10 @@ export let FormaFarmaceuticaValoresModel: IFormaFarmaceuticaValores = {
 
 interface IData {
     model: IFormaFarmaceutica;
-    nomeNcm:string;
+    nomeNcm: string;
 }
 
-export function FormaFarmaceuticaEditValores({ model , nomeNcm }: IData) {
+export function FormaFarmaceuticaEditValores({ model, nomeNcm }: IData) {
 
     const [custoAdicional, setCustoAdicional] = useState(model.custoAdicional);
     const [valorMinimo, setValorMinimo] = useState(model.valorMinimo);

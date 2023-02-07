@@ -4,8 +4,8 @@ import { useState, ChangeEvent, useEffect } from "react"
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown"
 import { getAll } from "../../../Services/Api"
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom"
-import { IConvenioGeral } from '../IConvenioGeral'
-import { IConvenio } from "../IConvenio"
+import { IConvenioGeral } from '../../../Interfaces/Convenio/IConvenioGeral'
+import { IConvenio } from "../../../Interfaces/Convenio/IConvenio"
 
 interface IData {
     erroNome: string,

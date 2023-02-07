@@ -1,5 +1,5 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 
 export const TabCartoes = () => {

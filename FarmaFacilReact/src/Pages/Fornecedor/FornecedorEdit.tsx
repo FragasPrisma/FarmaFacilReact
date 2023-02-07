@@ -6,7 +6,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { postFormAll, getAll, GetId } from "../../Services/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./styles";
-import TabsPage from "../../Components/Tabs";
+import TabsPage from "../../Components/Others/Tabs";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
@@ -18,7 +18,7 @@ export function FornecedorEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
-    const [idFornecedor,setId] = useState(0);
+    const [idFornecedor, setId] = useState(0);
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [erroNomeFornecedor, setErroNomeFornecedor] = useState("");
     const [nomeFantasia, setNomeFantasia] = useState("");
@@ -63,13 +63,13 @@ export function FornecedorEdit() {
     const [bairros, setBairros] = useState([]);
     const [bancos, setBancos] = useState([]);
     const [contas, setContas] = useState([]);
-    
+
     const [dataEstado, setDataEstado] = useState("");
     const [dataCidade, setDataCidade] = useState("");
     const [dataBairro, setDataBairro] = useState("");
     const [dataPlanoConta, setDataPlanoConta] = useState("");
     const [dataBanco, setDataBanco] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [errorRequest, setErrorRequest] = useState("");
 
@@ -115,21 +115,21 @@ export function FornecedorEdit() {
             setTelefone(resp.telefone)
             setValorMinimoPedido(resp.valorMinimoPedido)
             setDataEstado(resp.estado.sigla)
-            if(resp.cidade != null){
+            if (resp.cidade != null) {
                 setDataCidade(resp.cidade.nome)
             }
-            if(resp.bairro != null){
+            if (resp.bairro != null) {
                 setDataBairro(resp.bairro.nome)
             }
-            if(resp.planoDeConta != null){
+            if (resp.planoDeConta != null) {
                 setDataPlanoConta(resp.planoDeConta.descricao)
             }
-            if(resp.banco != null){
+            if (resp.banco != null) {
                 setDataBanco(resp.banco.nome)
             }
-            
+
         }
-        
+
         loadData()
     }, []);
 
@@ -179,7 +179,7 @@ export function FornecedorEdit() {
     }, []);
 
     let data = {
-        id: idFornecedor, 
+        id: idFornecedor,
         nomeFornecedor: nomeFornecedor,
         NomeFantasia: nomeFantasia,
         Cnpj: cnpj,
@@ -345,28 +345,28 @@ export function FornecedorEdit() {
 
             <div className="row">
                 <div className="col-2">
-                {dataEstado ?
-                    <CustomDropDown data={estados} error={erroEstadoId} title={dataEstado} filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)}/>
+                    {dataEstado ?
+                        <CustomDropDown data={estados} error={erroEstadoId} title={dataEstado} filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)} />
                         :
-                    <CustomDropDown data={estados} error={erroEstadoId} title="Selecione o Estado" filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)}/> 
-                }
-                    
+                        <CustomDropDown data={estados} error={erroEstadoId} title="Selecione o Estado" filter="sigla" label="Estado" required={true} Select={(estadoId) => setEstadoId(estadoId)} />
+                    }
+
                 </div>
                 <div className="col-4">
                     {dataCidade ?
-                        <CustomDropDown data={cidades} title={dataCidade} filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
-                            :
-                        <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)}/>
+                        <CustomDropDown data={cidades} title={dataCidade} filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)} />
+                        :
+                        <CustomDropDown data={cidades} title="Selecione a Cidade" filter="nome" label="Cidade" Select={(cidadeId) => setCidadeId(cidadeId)} />
                     }
-                    
+
                 </div>
                 <div className="col-2">
-                    {dataBairro ? 
-                        <CustomDropDown data={bairros} title={dataBairro} filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
-                            :
-                        <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)}/>
+                    {dataBairro ?
+                        <CustomDropDown data={bairros} title={dataBairro} filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)} />
+                        :
+                        <CustomDropDown data={bairros} title="Selecione o Bairro" filter="nome" label="Bairro" Select={(bairroId) => setBairroId(bairroId)} />
                     }
-                    
+
                 </div>
             </div>
 
@@ -443,7 +443,7 @@ export function FornecedorEdit() {
                     />
                 </div>
             </div>
-            
+
         </Container>
 
     );
@@ -452,18 +452,18 @@ export function FornecedorEdit() {
         <Container>
             <div className="row">
                 <div className="col-4">
-                    {dataBanco ? 
-                        <CustomDropDown data={bancos} title={dataBanco} filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
-                            :
-                        <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)}/>
+                    {dataBanco ?
+                        <CustomDropDown data={bancos} title={dataBanco} filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)} />
+                        :
+                        <CustomDropDown data={bancos} title="Selecione o Banco" filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)} />
                     }
-                    
+
                 </div>
                 <div className="col-4">
                     {dataPlanoConta ?
-                        <CustomDropDown data={contas} title={dataPlanoConta} filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
-                            :
-                        <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)}/>
+                        <CustomDropDown data={contas} title={dataPlanoConta} filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)} />
+                        :
+                        <CustomDropDown data={contas} title="Selecione o Plano de Contas" filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)} />
                     }
                 </div>
             </div>
@@ -513,7 +513,7 @@ export function FornecedorEdit() {
                 </div>
             </div>
             <div className="row">
-                
+
                 <div className="col-3">
                     <CustomInput
                         label="Autorização de funcionamento"
@@ -558,7 +558,7 @@ export function FornecedorEdit() {
             </div>
             <div className="row">
 
-                
+
                 <div className="col-2">
                     <CustomInput
                         label="Cadastro Farmácia"
@@ -612,8 +612,8 @@ export function FornecedorEdit() {
                         required={false}
                     />
                 </div>
-                
-                
+
+
             </div>
             <div className="row">
                 <div className="col-2">
@@ -711,26 +711,26 @@ export function FornecedorEdit() {
             return;
         }
 
-        if(estadoId <= 0){
+        if (estadoId <= 0) {
             setErroEstadoId("Campo Estado é obrigatório !");
             return;
         }
 
         const resp = await postFormAll("EditarFornecedor", data);
 
-        if(resp.status == 200){
+        if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-              navigate("/fornecedor");
+                navigate("/fornecedor");
             }, 2000)
-          }else{
+        } else {
             setIsOpenFail(true);
             setIsLoading(false);
             setTimeout(() => {
-              setIsOpenFail(false);
-              setErrorRequest(resp.request.response)
+                setIsOpenFail(false);
+                setErrorRequest(resp.request.response)
             }, 2000)
-          }
+        }
     }
 
     return (
@@ -738,7 +738,7 @@ export function FornecedorEdit() {
             <HeaderMainContent title="EDITAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {data.id > 0 &&
-                    <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
+                    <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
                 }
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
@@ -748,7 +748,7 @@ export function FornecedorEdit() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor editado com "/>
+            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor editado com " />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

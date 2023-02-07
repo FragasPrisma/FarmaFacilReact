@@ -1,7 +1,7 @@
 import { UploadImagem } from "../../../Components/Others/UploadImagem/UploadImagem";
-import { IFormaFarmaceuticaImagem } from "../IFormaFarmaceuticaImagem";
+import { IFormaFarmaceuticaImagem } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaImagem";
 import { useEffect, useState } from "react";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 
 export let FormaFarmaceuticaImagemModel: IFormaFarmaceuticaImagem = {
     imagem: "",
@@ -25,7 +25,7 @@ export function FormaFarmaceuticaDetailsImagem({ model }: IData) {
     };
 
     return (
-        <UploadImagem onUpdate={updateImgModel} img={imgModel ? imgModel : ""} onButton={false} text="Imagem da Forma Farmacêutica"/>
+        <UploadImagem onUpdate={updateImgModel} img={imgModel ? imgModel : ""} onButton={false} text="Imagem da Forma Farmacêutica" />
     )
 
 }

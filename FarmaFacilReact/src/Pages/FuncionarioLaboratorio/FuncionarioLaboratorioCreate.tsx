@@ -8,7 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 
 export function FuncionarioLaboratorioCreate() {
     const navigate = useNavigate();
@@ -76,7 +76,7 @@ export function FuncionarioLaboratorioCreate() {
                     </div>
                     <div className="row">
                         <div className="col-1">
-                            <CheckboxCustom 
+                            <CheckboxCustom
                                 options={["Ativo"]}
                                 check={ativo}
                                 onClickOptions={(e: ChangeEvent<HTMLInputElement>) =>

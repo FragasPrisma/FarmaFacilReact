@@ -3,10 +3,10 @@ import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown"
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 import { FailModal } from "../../../Components/Modals/FailModal"
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom"
-import { IEstado } from "../IEstado"
-import { INcmPorEstado, NcmPorEstado } from "../NcmPorEstado"
+import { IEstado } from "../../../Interfaces/Estado/IEstado"
+import { INcmPorEstado, NcmPorEstado } from "../../../Interfaces/Ncm/INcmPorEstado"
 import { Container } from "../styles"
-import { ITributo } from "../Tributo"
+import { ITributo } from "../../../Interfaces/Tributo/ITributo"
 
 interface Data {
     NcmPorEstado: INcmPorEstado[]
@@ -19,9 +19,9 @@ interface IFields {
     [field: string]: keyof INcmPorEstado;
 }
 
-export let ncmPorEstado = [] as INcmPorEstado[]; 
+export let ncmPorEstado = [] as INcmPorEstado[];
 
-export function NcmEditPorEstado({NcmPorEstado, ListaTributosCst, ListaTributosCsosn, ListaEstados}: Data) {
+export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributosCsosn, ListaEstados }: Data) {
     const [ncmPorEstadoModel, setNcmPorEstadoModel] = useState([] as INcmPorEstado[]);
 
     const [exibirErro, setExibirErro] = useState(false);
@@ -38,7 +38,7 @@ export function NcmEditPorEstado({NcmPorEstado, ListaTributosCst, ListaTributosC
     const [percentualMva, setPercentualMva] = useState(0);
     const [percentualFcp, setPercentualFcp] = useState(0);
 
-    
+
     // NcmPorEstado.estadoOrigemId = estadoOrigemId;
     // NcmPorEstado.estadoDestinoId = estadoDestinoId;
     // NcmPorEstado.tributoCstId = tributoCstId;
@@ -88,7 +88,7 @@ export function NcmEditPorEstado({NcmPorEstado, ListaTributosCst, ListaTributosC
             ncmPorEstadoModel[index].percentualMva >= 0 &&
             ncmPorEstadoModel[index].percentualFcp >= 0 &&
             ncmPorEstadoModelFilter.length == 0
-        ) ? true : false; 
+        ) ? true : false;
     }
 
     function adicionaNovaAliquota(index: number) {
@@ -246,7 +246,7 @@ export function NcmEditPorEstado({NcmPorEstado, ListaTributosCst, ListaTributosC
                             {exibirErro &&
                                 <p className="text-danger">{erroJaInseridoMensagem}</p>
                             }
-                            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={erroJaInserido}/>
+                            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={erroJaInserido} />
                         </FieldsetCustom>
 
                     </div>

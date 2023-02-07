@@ -1,5 +1,5 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 
 export const TabImpressao = () => {
@@ -7,29 +7,29 @@ export const TabImpressao = () => {
     <>
       <div className="row mt-4">
 
-      <FieldsetCustom legend="Tipo" numberCols={2}>
-        <div className="col-11 mt-3">
-          <CheckboxCustom
-            options={[
-              "Imprimir sempre",
-              "Perguntar se deseja imprimir",
-              "Não imprimir",
-            ]}
-          />
-        </div>
+        <FieldsetCustom legend="Tipo" numberCols={2}>
+          <div className="col-11 mt-3">
+            <CheckboxCustom
+              options={[
+                "Imprimir sempre",
+                "Perguntar se deseja imprimir",
+                "Não imprimir",
+              ]}
+            />
+          </div>
         </FieldsetCustom>
 
         <FieldsetCustom legend="Impressora Recibo Fidelidade" numberCols={3}>
-        <div className="col-11 mt-3">
-          <CheckboxCustom
-            options={[
-              "Matricial",
-              "Relátorio Gerencial ECF",
-              "40 Colunas",
-              "60 Colunas",
-            ]}
-          />
-        </div>
+          <div className="col-11 mt-3">
+            <CheckboxCustom
+              options={[
+                "Matricial",
+                "Relátorio Gerencial ECF",
+                "40 Colunas",
+                "60 Colunas",
+              ]}
+            />
+          </div>
         </FieldsetCustom>
 
       </div>

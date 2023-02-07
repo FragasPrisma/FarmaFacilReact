@@ -2,8 +2,8 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { useState, useEffect } from "react";
 import { GetId } from "../../../Services/Api";
 import { useParams } from "react-router-dom";
-import TabsPage from "../../../Components/Tabs";
-import { IConvenio } from "../IConvenio";
+import TabsPage from "../../../Components/Others/Tabs";
+import { IConvenio } from "../../../Interfaces/Convenio/IConvenio";
 import { itemsHandlesConvenio } from "../../../Enum/itensConvenio";
 import { ConvenioDetailsGeral } from "./ConvenioDetailsGeral";
 import { ConvenioDetailsComplemento } from "./ConvenioDetailsComplemento";
@@ -51,11 +51,11 @@ export function ConvenioDetails() {
 
     {
         convenio.id > 0 &&
-            
-        arrayTab.push(<ConvenioDetailsGeral
-            convenioModel={convenio}
-            nomeEndereco={{ nomeEstado: nomeEstado, nomeCidade: nomeCidade, nomeBairro: nomeBairro }}
-        />)
+
+            arrayTab.push(<ConvenioDetailsGeral
+                convenioModel={convenio}
+                nomeEndereco={{ nomeEstado: nomeEstado, nomeCidade: nomeCidade, nomeBairro: nomeBairro }}
+            />)
 
         arrayTab.push(<ConvenioDetailsComplemento
             convenioModel={convenio}

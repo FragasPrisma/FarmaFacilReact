@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
-import { IFormaFarmaceuticaEnsaios } from "../IFormaFarmaceuticaEnsaios"
+import { IFormaFarmaceuticaEnsaios } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaEnsaios"
 import { Container } from "../styles";
 
 export let FormaFarmaceuticaEnsaiosModel = [] as IFormaFarmaceuticaEnsaios[]
@@ -21,12 +21,12 @@ export function FormaFarmaceuticaCreateEnsaios() {
         }
     }
 
-    function ExcluirEnsaio(index : number){
-        formasFarmaceuticasEnsaios.splice(index,1)
+    function ExcluirEnsaio(index: number) {
+        formasFarmaceuticasEnsaios.splice(index, 1)
         setFormasFarmaceuticasEnsaios([...formasFarmaceuticasEnsaios])
     }
 
-    function AdicionarDescricao(value : string,index : number){
+    function AdicionarDescricao(value: string, index: number) {
         formasFarmaceuticasEnsaios[index].descricao = value.trim();
         setFormasFarmaceuticasEnsaios([...formasFarmaceuticasEnsaios])
     }
@@ -36,7 +36,7 @@ export function FormaFarmaceuticaCreateEnsaios() {
             <Container>
                 <div className="row mt-4">
                     <FieldsetCustom legend="Adicione os Ensaios" numberCols={8}>
-                        <button 
+                        <button
                             className="btn btn-success mt-4"
                             onClick={() => AdicionarEnsaio()}
                         >Clique Aqui !
@@ -44,14 +44,14 @@ export function FormaFarmaceuticaCreateEnsaios() {
                     </FieldsetCustom>
                 </div>
 
-                {formasFarmaceuticasEnsaios.map((item,index) => (
+                {formasFarmaceuticasEnsaios.map((item, index) => (
                     <div key={index} className="row mb-3">
                         <div className="col-5">
                             <CustomInput
                                 label="Descrição"
                                 type="text"
                                 value={item.descricao}
-                                OnChange={(e) => AdicionarDescricao(e.target.value,index)}
+                                OnChange={(e) => AdicionarDescricao(e.target.value, index)}
                                 required={true}
                                 maxLength={50}
                             />

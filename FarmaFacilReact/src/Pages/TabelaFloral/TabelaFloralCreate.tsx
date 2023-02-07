@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { ITabelaFloralVolume , ITabelaFloral} from "./ITabelaFloral";
+import { ITabelaFloralVolume, ITabelaFloral } from "../../Interfaces/TabelaFloral/ITabelaFloral";
 
 export function TabelaFloralCreate() {
 
@@ -55,7 +55,7 @@ export function TabelaFloralCreate() {
             return;
         }
 
-        if(data.tabelasFlorais.length == 0){
+        if (data.tabelasFlorais.length == 0) {
             setErroQtds("Intervalo de gotas não informado !")
             setIsLoading(false);
             return;

@@ -6,8 +6,8 @@ import { postFormAll } from "../../../Services/Api";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
-import TabsPage from "../../../Components/Tabs";
-import { IConvenio } from "../IConvenio";
+import TabsPage from "../../../Components/Others/Tabs";
+import { IConvenio } from "../../../Interfaces/Convenio/IConvenio";
 import { itemsHandlesConvenio } from "../../../Enum/itensConvenio";
 import { ConvenioCreateGeral, ConvenioGeralModel } from "./ConvenioCreateGeral";
 import { ConvenioComplementoModel, ConvenioCreateComplemento } from "./ConvenioCreateComplemento";
@@ -60,7 +60,7 @@ export function ConvenioCreate() {
         convenio.enderecoComprovanteVenda = ConvenioComplementoModel.enderecoComprovanteVenda;
         convenio.convenioGrupos = ConvenioComplementoModel.convenioGrupos;
 
-        if(!convenio.nome){
+        if (!convenio.nome) {
             setErro("Campo nome é obrigatório !")
             setIsLoading(false);
             return;

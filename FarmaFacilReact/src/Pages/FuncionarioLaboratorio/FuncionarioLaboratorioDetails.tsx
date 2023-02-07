@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 
 export function FuncionarioLaboratorioDetails() {
     const [nome, setNome] = useState("");
@@ -13,22 +13,22 @@ export function FuncionarioLaboratorioDetails() {
 
     let idParams = !id ? "0" : id.toString()
 
-    useEffect(() =>{
-    
+    useEffect(() => {
+
         async function Init() {
-          const response = await GetId("RetornaFuncionarioLaboratorioPorId", idParams);
-          if(response.status == 200){
-            setNome(response.data.nome);
-            setAtivo(response.data.ativo)
-          }
+            const response = await GetId("RetornaFuncionarioLaboratorioPorId", idParams);
+            if (response.status == 200) {
+                setNome(response.data.nome);
+                setAtivo(response.data.ativo)
+            }
         }
-    
+
         Init()
-    },[])
+    }, [])
 
     return (
         <>
-            <HeaderMainContent title="DETALHES FUNCIONÁRIO LABORATÓRIO" IncludeButton={false} ReturnButton={true} to="funcionarioLaboratorio"/>
+            <HeaderMainContent title="DETALHES FUNCIONÁRIO LABORATÓRIO" IncludeButton={false} ReturnButton={true} to="funcionarioLaboratorio" />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -44,7 +44,7 @@ export function FuncionarioLaboratorioDetails() {
                     </div>
                     <div className="row">
                         <div className="col-1">
-                            <CheckboxCustom 
+                            <CheckboxCustom
                                 options={["Ativo"]}
                                 check={ativo}
                                 readOnly={true}

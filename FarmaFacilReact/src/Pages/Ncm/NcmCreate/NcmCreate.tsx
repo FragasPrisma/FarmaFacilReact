@@ -6,21 +6,21 @@ import { postFormAll } from "../../../Services/Api";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesNcm } from "../../../Enum/ItemsNcm";
 import { NcmCreateGeral } from "./NcmCreateGeral";
 import { NcmCreatePorEstado } from "./NcmCreatePorEstado";
-import { NcmGeral } from "../NcmGeral";
-import { Ncm } from "../Ncm";
+import { NcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
+import { Ncm } from "../../../Interfaces/Ncm/INcm";
 import { ncmPorEstado } from "./NcmCreatePorEstado";
 
-export function NcmCreate(){
+export function NcmCreate() {
     const navigate = useNavigate();
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [error,setErros] = useState({erro: true, index: 0, erroNome:""})
+    const [error, setErros] = useState({ erro: true, index: 0, erroNome: "" })
 
     let arrayTab: any = [];
     const titles = itemsHandlesNcm;
@@ -31,16 +31,16 @@ export function NcmCreate(){
         />
     );
     arrayTab.push(
-        <NcmCreatePorEstado/>
+        <NcmCreatePorEstado />
     );
 
     async function submit() {
-        if(!ValidString(NcmGeral.descricao, 1) || (!ValidString(NcmGeral.codigoNcm, 2))) {
+        if (!ValidString(NcmGeral.descricao, 1) || (!ValidString(NcmGeral.codigoNcm, 2))) {
             setIsLoading(false);
             return;
         }
 
-        if(!ValidNumber(NcmGeral.percentualMva, 3) || (!ValidNumber(NcmGeral.aliquotaNacional, 4) ||
+        if (!ValidNumber(NcmGeral.percentualMva, 3) || (!ValidNumber(NcmGeral.aliquotaNacional, 4) ||
             !ValidNumber(NcmGeral.aliquotaImportacao, 5) || !ValidNumber(NcmGeral.aliquotaPis, 6) ||
             !ValidNumber(NcmGeral.aliquotaCofins, 7)
         )) {
@@ -80,20 +80,20 @@ export function NcmCreate(){
         }
     }
 
-    function ValidString(texto : string, index : number){
-        if(!texto.trim()){
-            setErros({erro:true,index:index,erroNome:"Campo obrigatório !",})
+    function ValidString(texto: string, index: number) {
+        if (!texto.trim()) {
+            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    function ValidNumber(numero : number, index : number){
-        if(numero < 0){
-            setErros({erro:true,index:index,erroNome:"Campo não pode ser menor que 0 !",})
+    function ValidNumber(numero: number, index: number) {
+        if (numero < 0) {
+            setErros({ erro: true, index: index, erroNome: "Campo não pode ser menor que 0 !", })
             return false;
-        }else{
+        } else {
             return true;
         }
     }

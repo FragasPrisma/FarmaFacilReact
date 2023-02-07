@@ -8,7 +8,7 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 
 export function CategoriaEdit() {
@@ -28,7 +28,7 @@ export function CategoriaEdit() {
     const [nomeCategoria, setNomeCategoria] = useState("");
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
-    
+
     useEffect(() => {
 
         const loadData = async () => {

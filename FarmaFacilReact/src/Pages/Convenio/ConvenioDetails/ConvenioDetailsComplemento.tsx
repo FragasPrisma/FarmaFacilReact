@@ -1,6 +1,6 @@
 import { Container } from "../styles"
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom"
-import { IConvenio } from "../IConvenio"
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom"
+import { IConvenio } from "../../../Interfaces/Convenio/IConvenio"
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom"
 

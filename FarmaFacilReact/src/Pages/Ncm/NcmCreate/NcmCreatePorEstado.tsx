@@ -4,14 +4,14 @@ import { CustomInput } from '../../../Components/Inputs/CustomInput';
 import { FailModal } from '../../../Components/Modals/FailModal';
 import { FieldsetCustom } from '../../../Components/Others/FieldsetCustom';
 import { getAll } from '../../../Services/Api';
-import { INcmPorEstado, NcmPorEstado } from '../NcmPorEstado';
+import { INcmPorEstado, NcmPorEstado } from '../../../Interfaces/Ncm/INcmPorEstado';
 import { Container } from '../styles';
 
 interface IFields {
     [field: string]: keyof INcmPorEstado;
 }
 
-export let ncmPorEstado = [] as INcmPorEstado[]; 
+export let ncmPorEstado = [] as INcmPorEstado[];
 
 export function NcmCreatePorEstado() {
     const [estados, setEstados] = useState([]);
@@ -100,7 +100,7 @@ export function NcmCreatePorEstado() {
             ncmPorEstadoModel[index].percentualMva >= 0 &&
             ncmPorEstadoModel[index].percentualFcp >= 0 &&
             ncmPorEstadoModelFilter.length == 0
-        ) ? true : false; 
+        ) ? true : false;
     }
 
     function adicionaNovaAliquota(index: number) {
@@ -251,7 +251,7 @@ export function NcmCreatePorEstado() {
                             {exibirErro &&
                                 <p className="text-danger">{erroJaInseridoMensagem}</p>
                             }
-                            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={erroJaInserido}/>
+                            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={erroJaInserido} />
                         </FieldsetCustom>
 
                     </div>

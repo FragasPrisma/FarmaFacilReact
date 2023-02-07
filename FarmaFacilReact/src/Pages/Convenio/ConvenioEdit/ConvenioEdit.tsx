@@ -6,8 +6,8 @@ import { GetId, postFormAll } from "../../../Services/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
-import TabsPage from "../../../Components/Tabs";
-import { IConvenio } from "../IConvenio";
+import TabsPage from "../../../Components/Others/Tabs";
+import { IConvenio } from "../../../Interfaces/Convenio/IConvenio";
 import { itemsHandlesConvenio } from "../../../Enum/itensConvenio";
 import { ConvenioEditGeral, ConvenioGeralModel } from "./ConvenioEditGeral";
 import { ConvenioComplementoModel, ConvenioEditComplemento, conveniosGruposModelExcluir } from "./ConvenioEditComplemento";
@@ -61,12 +61,12 @@ export function ConvenioEdit() {
 
     {
         convenio.id > 0 &&
-            
-        arrayTab.push(<ConvenioEditGeral
-            erroNome={erro}
-            convenioModel={convenio}
-            nomeEndereco={{ nomeEstado: nomeEstado, nomeCidade: nomeCidade, nomeBairro: nomeBairro }}
-        />)
+
+            arrayTab.push(<ConvenioEditGeral
+                erroNome={erro}
+                convenioModel={convenio}
+                nomeEndereco={{ nomeEstado: nomeEstado, nomeCidade: nomeCidade, nomeBairro: nomeBairro }}
+            />)
 
         arrayTab.push(<ConvenioEditComplemento
             convenioModel={convenio}
@@ -89,7 +89,7 @@ export function ConvenioEdit() {
         convenio.cep = ConvenioGeralModel.cep;
         convenio.complemento = ConvenioGeralModel.complemento;
         convenio.numeroEndereco = ConvenioGeralModel.numeroEndereco;
-        convenio.bairroId = ConvenioGeralModel.bairroId == 0 ? null :  ConvenioGeralModel.bairroId;
+        convenio.bairroId = ConvenioGeralModel.bairroId == 0 ? null : ConvenioGeralModel.bairroId;
         convenio.cidadeId = ConvenioGeralModel.cidadeId;
         convenio.estadoId = ConvenioGeralModel.estadoId;
         convenio.identificadorConvenio = ConvenioGeralModel.identificadorConvenio;
@@ -114,12 +114,12 @@ export function ConvenioEdit() {
             setIsLoading(false);
             return;
         }
-        
+
         const resp = await postFormAll("EditarConvenio", convenio);
 
         if (resp.status == 200) {
 
-            if(conveniosGruposModelExcluir.length > 0){
+            if (conveniosGruposModelExcluir.length > 0) {
                 const response = await postFormAll("ExcluirListaConvenioGrupo", conveniosGruposModelExcluir);
             }
 

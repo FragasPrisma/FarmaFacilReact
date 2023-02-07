@@ -1,13 +1,13 @@
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState , ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 
@@ -75,7 +75,7 @@ export function BulaCreate() {
                         <div className="col-3">
                             <RadioCustom
                                 name="tipo"
-                                options={["Alopática","Homeopática"]}
+                                options={["Alopática", "Homeopática"]}
                                 value={tipo}
                                 titleComponet="Tipo de Bula"
                                 onClickOptions={(select) => setTipo(select)}

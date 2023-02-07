@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { GenericTable } from "../../Components/Others/GenericTable";
 
@@ -56,19 +56,19 @@ export function EstadoDetails() {
     useEffect(() => {
         function teste() {
             let dataTable: any[] = [];
-    
-            datas.map((x: {estadoDestino: any, estadoOrigem: any, aliquotaIcms: number}) => {
+
+            datas.map((x: { estadoDestino: any, estadoOrigem: any, aliquotaIcms: number }) => {
                 const modelData = {
                     SiglaEstadoOrigem: x.estadoOrigem.sigla,
                     EstadoOrigem: x.estadoOrigem.nome,
-                    SiglaEstadoDestino:  x.estadoDestino.sigla,
+                    SiglaEstadoDestino: x.estadoDestino.sigla,
                     EstadoDestino: x.estadoDestino.nome,
                     PorcentagemIcms: x.aliquotaIcms
                 }
-    
+
                 dataTable.push(modelData);
             })
-    
+
             setDatasTable(dataTable);
         }
 

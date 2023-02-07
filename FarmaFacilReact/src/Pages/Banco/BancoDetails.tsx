@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 
 export function BancoDetails() {
@@ -43,7 +43,7 @@ export function BancoDetails() {
         if (formaCobranca == "B") {
             setFormaCobranca("B - Boleto")
         } else if (formaCobranca == "D") {
-            setFormaCobranca("D - Desconto Escritural") 
+            setFormaCobranca("D - Desconto Escritural")
         }
     }, [formaCobranca])
 
@@ -88,7 +88,7 @@ export function BancoDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES BANCO" IncludeButton={false} ReturnButton={true} to="banco"/>
+            <HeaderMainContent title="DETALHES BANCO" IncludeButton={false} ReturnButton={true} to="banco" />
             <div className="form-group">
                 <Container>
                     <div className="row">

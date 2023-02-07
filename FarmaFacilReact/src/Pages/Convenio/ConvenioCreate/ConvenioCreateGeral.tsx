@@ -4,13 +4,13 @@ import { useState, ChangeEvent, useEffect } from "react"
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown"
 import { getAll } from "../../../Services/Api"
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom"
-import { IConvenioGeral } from '../IConvenioGeral'
+import { IConvenioGeral } from '../../../Interfaces/Convenio/IConvenioGeral'
 
 interface IData {
-    erroNome:string
+    erroNome: string
 }
 
-export let ConvenioGeralModel : IConvenioGeral = {
+export let ConvenioGeralModel: IConvenioGeral = {
     id: 0,
     nome: "",
     desconto: 0,
@@ -60,27 +60,27 @@ export function ConvenioCreateGeral({ erroNome }: IData) {
     const [cnpj, setCnpj] = useState("");
     const [ie, setIe] = useState("");
 
-    ConvenioGeralModel.id= 0;
-    ConvenioGeralModel.nome= nome;
-    ConvenioGeralModel.desconto= desconto;
-    ConvenioGeralModel.acrescimo= acrescimo;
-    ConvenioGeralModel.manifesto= manifesto;
-    ConvenioGeralModel.diaRecebimento= diaRecebimento;
-    ConvenioGeralModel.endereco= endereco;
-    ConvenioGeralModel.cep= cep;
-    ConvenioGeralModel.complemento= complemento;
-    ConvenioGeralModel.numeroEndereco= numeroEndereco;
-    ConvenioGeralModel.bairroId= bairroId;
-    ConvenioGeralModel.cidadeId= cidadeId;
-    ConvenioGeralModel.estadoId= estadoId;
-    ConvenioGeralModel.identificadorConvenio= identificadorConvenio;
-    ConvenioGeralModel.ddd= ddd;
-    ConvenioGeralModel.telefone= telefone;
-    ConvenioGeralModel.cadastroFarmacia= cadastroFarmacia;
-    ConvenioGeralModel.codigoPerdigao= codigoPerdigao;
-    ConvenioGeralModel.cnpj= cnpj;
-    ConvenioGeralModel.diasPrimeiroVencimento= diaRecebimento;
-    ConvenioGeralModel.ie= ie;
+    ConvenioGeralModel.id = 0;
+    ConvenioGeralModel.nome = nome;
+    ConvenioGeralModel.desconto = desconto;
+    ConvenioGeralModel.acrescimo = acrescimo;
+    ConvenioGeralModel.manifesto = manifesto;
+    ConvenioGeralModel.diaRecebimento = diaRecebimento;
+    ConvenioGeralModel.endereco = endereco;
+    ConvenioGeralModel.cep = cep;
+    ConvenioGeralModel.complemento = complemento;
+    ConvenioGeralModel.numeroEndereco = numeroEndereco;
+    ConvenioGeralModel.bairroId = bairroId;
+    ConvenioGeralModel.cidadeId = cidadeId;
+    ConvenioGeralModel.estadoId = estadoId;
+    ConvenioGeralModel.identificadorConvenio = identificadorConvenio;
+    ConvenioGeralModel.ddd = ddd;
+    ConvenioGeralModel.telefone = telefone;
+    ConvenioGeralModel.cadastroFarmacia = cadastroFarmacia;
+    ConvenioGeralModel.codigoPerdigao = codigoPerdigao;
+    ConvenioGeralModel.cnpj = cnpj;
+    ConvenioGeralModel.diasPrimeiroVencimento = diaRecebimento;
+    ConvenioGeralModel.ie = ie;
 
     useEffect(() => {
         const loadDataBairro = async () => {

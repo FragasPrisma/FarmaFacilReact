@@ -1,17 +1,17 @@
 import { Container } from "../styles";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 
 
 interface IData {
     model: IFormaFarmaceutica;
-    nomeFuncionario:string
+    nomeFuncionario: string
 }
 
-export function FormaFarmaceuticaDetailsGeral({ model , nomeFuncionario}: IData) {
+export function FormaFarmaceuticaDetailsGeral({ model, nomeFuncionario }: IData) {
 
     return (
         <>

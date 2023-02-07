@@ -8,7 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { CustomDropDown } from "./../../Components/Inputs/CustomDropDown/index";
 import { RadioCustom } from "./../../Components/Inputs/RadioCustom/index";
 

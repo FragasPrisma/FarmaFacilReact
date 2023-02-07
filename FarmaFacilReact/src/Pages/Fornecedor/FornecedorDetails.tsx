@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { getAll, GetId } from "../../Services/Api";
 import { useParams } from "react-router-dom";
 import { Container } from "./styles";
-import TabsPage from "../../Components/Tabs";
+import TabsPage from "../../Components/Others/Tabs";
 import { itemsHandlesFornecedor } from "../../Enum/itensFornecedor";
 
 export function FornecedorDetails() {
 
     const { id } = useParams();
-    const [idFornecedor,setId] = useState();
+    const [idFornecedor, setId] = useState();
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [nomeFantasia, setNomeFantasia] = useState("");
     const [cnpj, setCnpj] = useState("");
@@ -43,7 +43,7 @@ export function FornecedorDetails() {
     const [bairroId, setBairroId] = useState();
     const [bancoId, setBancoId] = useState();
     const [planoDeContaId, setPlanoDeContaId] = useState();
-    
+
     const [dataEstado, setDataEstado] = useState("");
     const [dataCidade, setDataCidade] = useState("");
     const [dataBairro, setDataBairro] = useState("");
@@ -90,22 +90,22 @@ export function FornecedorDetails() {
             setPrevisaoEntrega(resp.previsaoEntrega)
             setResponsavelTecnico(resp.responsavelTecnico)
             setTelefone(resp.telefone)
-            setValorMinimoPedido(resp.valorMinimoPedido)            
+            setValorMinimoPedido(resp.valorMinimoPedido)
             setDataEstado(resp.estado.sigla)
-            if(resp.cidade != null){
+            if (resp.cidade != null) {
                 setDataCidade(resp.cidade.nome)
             }
-            if(resp.bairro != null){
+            if (resp.bairro != null) {
                 setDataBairro(resp.bairro.nome)
             }
-            if(resp.planoDeConta != null){
+            if (resp.planoDeConta != null) {
                 setDataPlanoConta(resp.planoDeConta.descricao)
             }
-            if(resp.banco != null){
+            if (resp.banco != null) {
                 setDataBanco(resp.banco.nome)
             }
         }
-        
+
         loadData()
     }, []);
 
@@ -199,64 +199,64 @@ export function FornecedorDetails() {
 
             <div className="row">
                 <div className="col-2">
-                {dataEstado ?
+                    {dataEstado ?
                         <CustomInput
-                        label="Estado"
-                        type="text"
-                        value={dataEstado}
-                        readonly={true}
-                        required={false}
+                            label="Estado"
+                            type="text"
+                            value={dataEstado}
+                            readonly={true}
+                            required={false}
                         />
-                    :
+                        :
                         <CustomInput
-                        label="Estado"
-                        type="text"
-                        value={""}
-                        readonly={true}
-                        required={false}
+                            label="Estado"
+                            type="text"
+                            value={""}
+                            readonly={true}
+                            required={false}
                         />
-                }
-                    
+                    }
+
                 </div>
                 <div className="col-4">
                     {dataCidade ?
-                       <CustomInput
-                       label="Cidade"
-                       type="text"
-                       value={dataCidade}
-                       readonly={true}
-                       required={false}
-                       />
-                   :
-                       <CustomInput
-                       label="Cidade"
-                       type="text"
-                       value={""}
-                       readonly={true}
-                       required={false}
-                       />
+                        <CustomInput
+                            label="Cidade"
+                            type="text"
+                            value={dataCidade}
+                            readonly={true}
+                            required={false}
+                        />
+                        :
+                        <CustomInput
+                            label="Cidade"
+                            type="text"
+                            value={""}
+                            readonly={true}
+                            required={false}
+                        />
                     }
-                    
+
                 </div>
                 <div className="col-2">
-                    {dataBairro ? 
+                    {dataBairro ?
                         <CustomInput
-                        label="Bairro"
-                        type="text"
-                        value={dataBairro}
-                        readonly={true}
-                        required={false}
+                            label="Bairro"
+                            type="text"
+                            value={dataBairro}
+                            readonly={true}
+                            required={false}
                         />
-                    :
+                        :
                         <CustomInput
-                        label="Bairro"
-                        type="text"
-                        value={""}
-                        readonly={true}
-                        required={false}
+                            label="Bairro"
+                            type="text"
+                            value={""}
+                            readonly={true}
+                            required={false}
                         />
                     }
-                    
+
                 </div>
             </div>
 
@@ -313,51 +313,51 @@ export function FornecedorDetails() {
                     />
                 </div>
             </div>
-            
+
         </Container>
 
     );
     arrayTab.push(
 
         <Container>
-            
+
             <div className="row">
                 <div className="col-4">
-                    {dataBanco ? 
+                    {dataBanco ?
                         <CustomInput
-                        label="Banco"
-                        type="text"
-                        value={dataBanco}
-                        readonly={true}
-                        required={false}
+                            label="Banco"
+                            type="text"
+                            value={dataBanco}
+                            readonly={true}
+                            required={false}
                         />
-                    :
+                        :
                         <CustomInput
-                        label="Banco"
-                        type="text"
-                        value={""}
-                        readonly={true}
-                        required={false}
+                            label="Banco"
+                            type="text"
+                            value={""}
+                            readonly={true}
+                            required={false}
                         />
                     }
-                    
+
                 </div>
                 <div className="col-4">
                     {dataPlanoConta ?
                         <CustomInput
-                        label="Plano de Contas"
-                        type="text"
-                        value={dataPlanoConta}
-                        readonly={true}
-                        required={false}
+                            label="Plano de Contas"
+                            type="text"
+                            value={dataPlanoConta}
+                            readonly={true}
+                            required={false}
                         />
-                    :
+                        :
                         <CustomInput
-                        label="Plano de Contas"
-                        type="text"
-                        value={""}
-                        readonly={true}
-                        required={false}
+                            label="Plano de Contas"
+                            type="text"
+                            value={""}
+                            readonly={true}
+                            required={false}
                         />
                     }
                 </div>
@@ -396,7 +396,7 @@ export function FornecedorDetails() {
                 </div>
             </div>
             <div className="row">
-                
+
                 <div className="col-3">
                     <CustomInput
                         label="Autorização de funcionamento"
@@ -430,7 +430,7 @@ export function FornecedorDetails() {
             </div>
             <div className="row">
 
-                
+
                 <div className="col-2">
                     <CustomInput
                         label="Cadastro Farmácia"
@@ -467,8 +467,8 @@ export function FornecedorDetails() {
                         required={false}
                     />
                 </div>
-                
-                
+
+
             </div>
             <div className="row">
                 <div className="col-2">
@@ -518,10 +518,10 @@ export function FornecedorDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES DO FORNECEDOR" IncludeButton={false} ReturnButton={true} to={"fornecedor"}/>
+            <HeaderMainContent title="DETALHES DO FORNECEDOR" IncludeButton={false} ReturnButton={true} to={"fornecedor"} />
             <div className="form-group">
                 {nomeFornecedor &&
-                    <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />    
+                    <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
                 }
             </div>
         </>

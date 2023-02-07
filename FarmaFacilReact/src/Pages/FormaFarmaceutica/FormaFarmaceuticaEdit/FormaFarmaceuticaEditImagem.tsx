@@ -1,7 +1,7 @@
 import { UploadImagem } from "../../../Components/Others/UploadImagem/UploadImagem";
-import { IFormaFarmaceuticaImagem } from "../IFormaFarmaceuticaImagem";
+import { IFormaFarmaceuticaImagem } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaImagem";
 import { useEffect, useState } from "react";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 
 export let FormaFarmaceuticaImagemModel: IFormaFarmaceuticaImagem = {
     imagem: "",
@@ -14,7 +14,7 @@ interface IData {
 
 export function FormaFarmaceuticaEditImagem({ model }: IData) {
 
-    const [imgModel, setImgModel] = useState<string | ArrayBuffer | null>(model.imagem ? "data:image/png;base64," + model.imagem :  "");
+    const [imgModel, setImgModel] = useState<string | ArrayBuffer | null>(model.imagem ? "data:image/png;base64," + model.imagem : "");
 
     useEffect(() => {
         FormaFarmaceuticaImagemModel.imagem = imgModel;
@@ -25,7 +25,7 @@ export function FormaFarmaceuticaEditImagem({ model }: IData) {
     };
 
     return (
-        <UploadImagem onUpdate={updateImgModel} img={imgModel ? imgModel : ""} text="Seleciona a Imagem"/>
+        <UploadImagem onUpdate={updateImgModel} img={imgModel ? imgModel : ""} text="Seleciona a Imagem" />
     )
 
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container } from "../styles";
-import { IGrupoEnsaios } from "../IGrupo";
+import { IGrupoEnsaios } from "../../../Interfaces/Grupo/IGrupo";
 import { getAll } from "../../../Services/Api";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
@@ -48,7 +48,7 @@ export function GrupoEditEnsaio({ EnsaiosGrupo }: IData) {
 
     function ExcluirEnsaio(index: number) {
 
-        grupoEnsaiosSelecionados.map((item,i) => {
+        grupoEnsaiosSelecionados.map((item, i) => {
             if (i == index) {
                 ensaiosDelete.push(item)
             }

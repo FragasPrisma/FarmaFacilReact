@@ -1,7 +1,7 @@
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 import { Container } from "../styles"
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom"
-import { IConvenio } from "../IConvenio"
+import { IConvenio } from "../../../Interfaces/Convenio/IConvenio"
 
 interface IData {
     convenioModel: IConvenio,

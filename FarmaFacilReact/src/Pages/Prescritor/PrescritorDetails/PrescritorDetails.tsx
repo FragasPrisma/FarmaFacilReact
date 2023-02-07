@@ -2,12 +2,12 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { useState, useEffect } from "react";
 import { GetId } from "../../../Services/Api";
 import { useParams } from "react-router-dom";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
 import { PrescritorDetailsGeral } from "./PrescritorDetailsGeral";
 import { PrescritorDetailsComplemento } from "./PrescritorDetailsComplemento";
-import { PrescritorGeral } from "../PrescritorGeral";
-import { PrescritorComplemento } from "../PrescritorComplemento";
+import { PrescritorGeral } from "../../../Interfaces/Prescritor/IPrescritorGeral";
+import { PrescritorComplemento } from "../../../Interfaces/Prescritor/IPrescritorComplemento";
 
 export function PrescritorDetails() {
 
@@ -90,12 +90,12 @@ export function PrescritorDetails() {
     {
         idPrescritor > 0 &&
 
-        arrayTab.unshift(
-            <PrescritorDetailsGeral
-                PrescritorGeralModel={PrescritorGeral}
-                nomes={{ nomeBairro: nomeBairro, nomeCidade: nomeCidade, nomeEstado: nomeEstado }}
-            />
-        );
+            arrayTab.unshift(
+                <PrescritorDetailsGeral
+                    PrescritorGeralModel={PrescritorGeral}
+                    nomes={{ nomeBairro: nomeBairro, nomeCidade: nomeCidade, nomeEstado: nomeEstado }}
+                />
+            );
 
         arrayTab.push(
             <PrescritorDetailsComplemento

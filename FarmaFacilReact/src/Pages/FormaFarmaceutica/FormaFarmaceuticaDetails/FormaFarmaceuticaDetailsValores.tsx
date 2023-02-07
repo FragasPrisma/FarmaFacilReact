@@ -1,9 +1,9 @@
 import { Container } from "../styles";
-import { IFormaFarmaceuticaValores } from "../IFormaFarmaceuticaValores";
-import { IFormaFarmaceuticaMargens } from "../IFormaFarmaceuticaMargens";
+import { IFormaFarmaceuticaValores } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaValores";
+import { IFormaFarmaceuticaMargens } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaMargens";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 
 export let FormaFarmaceuticaValoresModel: IFormaFarmaceuticaValores = {
     formaFarmaceuticaMargens: [] as IFormaFarmaceuticaMargens[],

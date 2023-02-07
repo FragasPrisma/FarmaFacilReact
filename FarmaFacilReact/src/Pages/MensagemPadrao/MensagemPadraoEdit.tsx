@@ -2,13 +2,13 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState ,useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
 import { Table } from "react-bootstrap";
@@ -27,7 +27,7 @@ export function MensagemPadraoEdit() {
     const [erroMensagem, setErroMensagem] = useState("");
     const [help, setHelp] = useState(false);
     const [colunas, setColunas] = useState(112)
-    const [idMensagem,setId] = useState(0);
+    const [idMensagem, setId] = useState(0);
     const navigate = useNavigate();
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();

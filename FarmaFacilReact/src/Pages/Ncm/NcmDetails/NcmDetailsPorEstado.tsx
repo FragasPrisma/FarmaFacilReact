@@ -2,11 +2,11 @@ import { X } from "phosphor-react"
 import { useEffect, useState } from "react"
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom"
-import { IEstado } from "../IEstado"
+import { IEstado } from "../../../Interfaces/Estado/IEstado"
 import { ncmPorEstado } from "../NcmCreate/NcmCreatePorEstado"
-import { INcmPorEstado } from "../NcmPorEstado"
+import { INcmPorEstado } from "../../../Interfaces/Ncm/INcmPorEstado"
 import { Container } from "../styles"
-import { ITributo } from "../Tributo"
+import { ITributo } from "../../../Interfaces/Tributo/ITributo"
 
 interface Data {
     NcmPorEstado: INcmPorEstado[]

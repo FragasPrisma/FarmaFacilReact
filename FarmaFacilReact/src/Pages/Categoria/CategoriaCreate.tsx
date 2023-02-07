@@ -2,13 +2,13 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState , useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 
 export function CategoriaCreate() {
@@ -22,7 +22,7 @@ export function CategoriaCreate() {
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [categorias,setCategorias] = useState([]);
+    const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -99,12 +99,12 @@ export function CategoriaCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <CustomDropDown 
-                            data={categorias} 
-                            title="Selecione a Categoria Pai" 
-                            filter="nome" 
-                            label="Categoria Pai" 
-                            Select={(categoriaPaiId) => setCategoriaPaiId(categoriaPaiId)} />
+                            <CustomDropDown
+                                data={categorias}
+                                title="Selecione a Categoria Pai"
+                                filter="nome"
+                                label="Categoria Pai"
+                                Select={(categoriaPaiId) => setCategoriaPaiId(categoriaPaiId)} />
                         </div>
                     </div>
                     <div className="row">

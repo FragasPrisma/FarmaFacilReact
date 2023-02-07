@@ -1,7 +1,7 @@
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
-import { IFormaFarmaceuticaEnsaios } from "../IFormaFarmaceuticaEnsaios"
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
+import { IFormaFarmaceuticaEnsaios } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaEnsaios"
 import { Container } from "../styles";
 
 export let FormaFarmaceuticaEnsaiosModel = [] as IFormaFarmaceuticaEnsaios[]

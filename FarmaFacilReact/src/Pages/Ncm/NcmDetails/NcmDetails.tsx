@@ -2,20 +2,20 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { useState, useEffect } from "react";
 import { getAll, GetId } from "../../../Services/Api";
 import { useParams } from "react-router-dom";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesNcm } from "../../../Enum/ItemsNcm";
 import { NcmDetailsGeral } from "./NcmDetailsGeral";
 import { NcmDetailsPorEstado } from "./NcmDetailsPorEstado";
-import { INcmGeral, NcmGeral } from "../NcmGeral";
-import { INcmPorEstado, NcmPorEstado } from "../NcmPorEstado";
-import { ITributo } from "../Tributo";
-import { IEstado } from "../IEstado";
+import { INcmGeral, NcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
+import { INcmPorEstado, NcmPorEstado } from "../../../Interfaces/Ncm/INcmPorEstado";
+import { ITributo } from "../../../Interfaces/Tributo/ITributo";
+import { IEstado } from "../../../Interfaces/Estado/IEstado";
 
-export function NcmDetails(){
-    const [listaNcmPorEstado, setListaNcmPorEstado] = useState([] as INcmPorEstado []);
-    const [listaEstados, setListaEstados] = useState([] as IEstado []);
-    const [listaTributosCst, setListaTributosCst] = useState([] as ITributo []);
-    const [listaTributosCsosn, setListaTributosCsosn] = useState([] as ITributo []);
+export function NcmDetails() {
+    const [listaNcmPorEstado, setListaNcmPorEstado] = useState([] as INcmPorEstado[]);
+    const [listaEstados, setListaEstados] = useState([] as IEstado[]);
+    const [listaTributosCst, setListaTributosCst] = useState([] as ITributo[]);
+    const [listaTributosCsosn, setListaTributosCsosn] = useState([] as ITributo[]);
     const [dataNcm, setDataNcm] = useState({} as INcmGeral);
 
     const { id } = useParams();
@@ -51,13 +51,13 @@ export function NcmDetails(){
     const titles = itemsHandlesNcm;
 
     {
-        dataNcm.id > 0 && 
-        
-        arrayTab.unshift(
-            <NcmDetailsGeral
-                NcmGeralModel={dataNcm}
-            />
-        );
+        dataNcm.id > 0 &&
+
+            arrayTab.unshift(
+                <NcmDetailsGeral
+                    NcmGeralModel={dataNcm}
+                />
+            );
 
         arrayTab.push(
             <NcmDetailsPorEstado

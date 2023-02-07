@@ -5,9 +5,9 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { useState, useEffect } from "react"
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesFormaFarmaceutica } from "../../../Enum/itensFormaFarmaceutica";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 import { GetId, postFormAll } from "../../../Services/Api";
 import { FormaFarmaceuticaEditGeral, FormaFarmaceuticaGeralModel } from "./FormaFarmaceuticaEditGeral";
 import { FormaFarmaceuticaEditEnsaios, FormaFarmaceuticaEnsaiosModel, FormaFarmaceuticaEnsaiosModelExcluir } from "./FormaFarmaceuticaEditEnsaios";
@@ -34,14 +34,14 @@ export function FormaFarmaceuticaEdit() {
         async function Init() {
 
             const response = await GetId("RetornaFormaFarmaceuticaPorId", idParams);
-            
-            if (response.data.manipulador){
+
+            if (response.data.manipulador) {
                 setNomeFuncionario(response.data.manipulador.nome)
                 response.data.manipulador = null;
             }
-            
-            if(response.data.ncm){
-                setNomeNcm(response.data.ncm.descricao) 
+
+            if (response.data.ncm) {
+                setNomeNcm(response.data.ncm.descricao)
                 response.data.ncm = null;
             }
 
@@ -55,9 +55,9 @@ export function FormaFarmaceuticaEdit() {
 
     {
         formaFarmaceuticaModel.id > 0 &&
-        arrayTab.push(<FormaFarmaceuticaEditGeral model={formaFarmaceuticaModel} nomeFuncionario={nomeFuncionario} erros={erroNome} />);
+            arrayTab.push(<FormaFarmaceuticaEditGeral model={formaFarmaceuticaModel} nomeFuncionario={nomeFuncionario} erros={erroNome} />);
         arrayTab.push(<FormaFarmaceuticaEditEnsaios model={formaFarmaceuticaModel} />);
-        arrayTab.push(<FormaFarmaceuticaEditValores model={formaFarmaceuticaModel} nomeNcm={nomeNcm}/>);
+        arrayTab.push(<FormaFarmaceuticaEditValores model={formaFarmaceuticaModel} nomeNcm={nomeNcm} />);
         arrayTab.push(<FormaFarmaceuticaEditImagem model={formaFarmaceuticaModel} />);
     }
 
@@ -110,7 +110,7 @@ export function FormaFarmaceuticaEdit() {
         formaFarmaceuticaModel.aliquotaIva = FormaFarmaceuticaGeralModel.aliquotaIva;
         formaFarmaceuticaModel.imagem = "";
         formaFarmaceuticaModel.imagemByte = "";
-        formaFarmaceuticaModel.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0 
+        formaFarmaceuticaModel.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 && x.valorFinal > 0
             && x.valorInicial > 0 && x.valorFinal >= x.valorInicial);
         formaFarmaceuticaModel.formaFarmaceuticaEnsaios = FormaFarmaceuticaEnsaiosModel.filter(x => x.descricao.trim().length > 0)
         if (typeof FormaFarmaceuticaImagemModel.imagem == "string") {
@@ -121,7 +121,7 @@ export function FormaFarmaceuticaEdit() {
 
         if (resp.status == 200) {
 
-            if(FormaFarmaceuticaEnsaiosModelExcluir.length > 0){
+            if (FormaFarmaceuticaEnsaiosModelExcluir.length > 0) {
                 const response = await postFormAll("ExcluirListaFormaFarmaceuticaEnsaio", FormaFarmaceuticaEnsaiosModelExcluir);
             }
 

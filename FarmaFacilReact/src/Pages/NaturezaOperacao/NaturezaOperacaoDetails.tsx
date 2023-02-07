@@ -4,7 +4,7 @@ import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import { GetId } from "../../Services/Api";
 import { useParams } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 
 export function NaturezaOperacaoDetails() {

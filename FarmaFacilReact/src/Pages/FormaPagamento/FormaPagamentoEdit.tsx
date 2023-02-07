@@ -10,7 +10,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 
 export function FormaPagamentoEdit() {
 
@@ -179,7 +179,7 @@ export function FormaPagamentoEdit() {
                         <ButtonCancel to="formadepagamento" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} textCustom="Forma de Pagamento editada com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Forma de Pagamento editada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

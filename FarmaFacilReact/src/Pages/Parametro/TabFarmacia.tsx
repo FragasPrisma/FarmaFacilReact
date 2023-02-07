@@ -1,5 +1,5 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { Container } from "./styles";
 
 export const TabFarmacia = () => {

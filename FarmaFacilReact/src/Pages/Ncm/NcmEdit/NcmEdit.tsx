@@ -5,23 +5,23 @@ import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesNcm } from "../../../Enum/ItemsNcm";
 import { getAll, GetId, postFormAll } from "../../../Services/Api";
-import { IEstado } from "../IEstado";
-import { INcmGeral, NcmGeral } from "../NcmGeral";
-import { INcmPorEstado } from "../NcmPorEstado";
-import { ITributo } from "../Tributo";
+import { IEstado } from "../../../Interfaces/Estado/IEstado";
+import { INcmGeral, NcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
+import { INcmPorEstado } from "../../../Interfaces/Ncm/INcmPorEstado";
+import { ITributo } from "../../../Interfaces/Tributo/ITributo";
 import { NcmEditGeral } from "./NcmEditGeral";
 import { NcmEditPorEstado } from "./NcmEditPorEstado";
-import { Ncm } from "../Ncm";
+import { Ncm } from "../../../Interfaces/Ncm/INcm";
 import { ncmPorEstado } from "../NcmCreate/NcmCreatePorEstado";
 
 export function NcmEdit() {
     const navigate = useNavigate();
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setErros] = useState({ erro: true, index: 0, erroNome: "" })
     const [listaNcmPorEstado, setListaNcmPorEstado] = useState([] as INcmPorEstado[]);
     const [listaEstados, setListaEstados] = useState([] as IEstado[]);

@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
 import { useState, useEffect } from "react"
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesFormaFarmaceutica } from "../../../Enum/itensFormaFarmaceutica";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
 import { GetId } from "../../../Services/Api";
 import { FormaFarmaceuticaDetailsGeral } from "./FormaFarmaceuticaDetailsGeral";
 import { FormaFarmaceuticaDetailsEnsaios } from "./FormaFarmaceuticaDetailsEnsaios";
@@ -26,7 +26,7 @@ export function FormaFarmaceuticaDetails() {
             const response = await GetId("RetornaFormaFarmaceuticaPorId", idParams);
             setFormaFarmaceuticaModel(response.data)
             if (response.data.manipulador) { setNomeFuncionario(response.data.manipulador.nome) }
-            if(response.data.ncm) { setNomeNcm(response.data.ncm.descricao) }
+            if (response.data.ncm) { setNomeNcm(response.data.ncm.descricao) }
         }
 
         Init()
@@ -38,7 +38,7 @@ export function FormaFarmaceuticaDetails() {
         formaFarmaceuticaModel.id > 0 &&
             arrayTab.push(<FormaFarmaceuticaDetailsGeral model={formaFarmaceuticaModel} nomeFuncionario={nomeFuncionario} />);
         arrayTab.push(<FormaFarmaceuticaDetailsEnsaios model={formaFarmaceuticaModel} />);
-        arrayTab.push(<FormaFarmaceuticaDetailsValores model={formaFarmaceuticaModel} nomeNcm={nomeNcm}/>);
+        arrayTab.push(<FormaFarmaceuticaDetailsValores model={formaFarmaceuticaModel} nomeNcm={nomeNcm} />);
         arrayTab.push(<FormaFarmaceuticaDetailsImagem model={formaFarmaceuticaModel} />);
     }
 

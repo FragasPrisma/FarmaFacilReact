@@ -5,11 +5,11 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { useState } from "react"
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesFormaFarmaceutica } from "../../../Enum/itensFormaFarmaceutica";
-import { IFormaFarmaceutica } from "../IFormaFarmaceutica";
-import { IFormaFarmaceuticaMargens } from "../IFormaFarmaceuticaMargens";
-import { IFormaFarmaceuticaEnsaios } from "../IFormaFarmaceuticaEnsaios";
+import { IFormaFarmaceutica } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceutica";
+import { IFormaFarmaceuticaMargens } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaMargens";
+import { IFormaFarmaceuticaEnsaios } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaEnsaios";
 import { postFormAll } from "../../../Services/Api";
 import { FormaFarmaceuticaCreateGeral, FormaFarmaceuticaGeralModel } from "./FormaFarmaceuticaCreateGeral";
 import { FormaFarmaceuticaCreateEnsaios, FormaFarmaceuticaEnsaiosModel } from "./FormaFarmaceuticaCreateEnsaios";
@@ -123,7 +123,7 @@ export function FormaFarmaceuticaCreate() {
         data.aliquotaIva = FormaFarmaceuticaGeralModel.aliquotaIva;
         data.imagem = FormaFarmaceuticaImagemModel.imagem;
         data.imagemByte = "";
-        data.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0 
+        data.formaFarmaceuticaMargens = FormaFarmaceuticaValoresModel.formaFarmaceuticaMargens.filter(x => x.margem > 0
             && x.valorFinal > 0 && x.valorInicial > 0 && x.valorFinal >= x.valorInicial);
         data.formaFarmaceuticaEnsaios = FormaFarmaceuticaEnsaiosModel.filter(x => x.descricao.trim().length > 0)
 

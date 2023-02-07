@@ -1,8 +1,8 @@
-import { IFormaFarmaceuticaGeral } from "../IFormaFarmaceuticaGeral";
+import { IFormaFarmaceuticaGeral } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaGeral";
 import { useState, useEffect, ChangeEvent } from "react"
 import { Container } from "../styles";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 import { getAll } from "../../../Services/Api";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
@@ -85,38 +85,38 @@ export function FormaFarmaceuticaCreateGeral({ erros }: IData) {
     const [funcionariosLaboratorios, setFuncionariosLaboratorios] = useState([]);
 
     //FormaFarmaceuticaGeralModel.id= 0;
-    FormaFarmaceuticaGeralModel.descricao= descricao;
-    FormaFarmaceuticaGeralModel.inativo= inativo;
-    FormaFarmaceuticaGeralModel.tipo= tipo;
-    FormaFarmaceuticaGeralModel.selecionaQuantidadeSugerida= selecionaQuantidadeSugerida;
-    FormaFarmaceuticaGeralModel.multiplicaComposicao= multiplicaComposicao;
-    FormaFarmaceuticaGeralModel.homeopatiaLiquida= homeopatiaLiquida;
-    FormaFarmaceuticaGeralModel.deduzirQuantidadeVeiculo= deduzirQuantidadeVeiculo;
-    FormaFarmaceuticaGeralModel.calculoEmbalagemForma= calculoEmbalagemForma;
-    FormaFarmaceuticaGeralModel.converteVolumeEmbalagem= converteVolumeEmbalagem;
-    FormaFarmaceuticaGeralModel.uso= uso;
-    FormaFarmaceuticaGeralModel.tipoUso= tipoUso;
-    FormaFarmaceuticaGeralModel.popForma= popForma;
-    FormaFarmaceuticaGeralModel.imprimirCamposAnalise= imprimirCamposAnalise;
-    FormaFarmaceuticaGeralModel.selecionarVolumeAutomatico= selecionarVolumeAutomatico;
-    FormaFarmaceuticaGeralModel.validade= validade;
-    FormaFarmaceuticaGeralModel.mlGotas= mlGotas;
-    FormaFarmaceuticaGeralModel.imprimirUnidadeMedidaNoRotulo= imprimirUnidadeMedidaNoRotulo;
-    FormaFarmaceuticaGeralModel.fatorPerdaProduto= fatorPerdaProduto;
-    FormaFarmaceuticaGeralModel.ativaFatorPerdaQsp= ativaFatorPerdaQsp;
-    FormaFarmaceuticaGeralModel.manipuladorId= manipuladorId;
-    FormaFarmaceuticaGeralModel.quantidadeFormulasHora= quantidadeFormulasHora;
-    FormaFarmaceuticaGeralModel.descricaoRotulo= descricaoRotulo;
-    FormaFarmaceuticaGeralModel.quantidadeQspMinimo= quantidadeQspMinimo;
-    FormaFarmaceuticaGeralModel.produtoVeiculoId= produtoVeiculoId;
-    FormaFarmaceuticaGeralModel.grupoVeiculoId= grupoVeiculoId;
-    FormaFarmaceuticaGeralModel.ativaPesagemMonitorada= ativaPesagemMonitorada;
-    FormaFarmaceuticaGeralModel.calcularDensidade= calcularDensidade;
-    FormaFarmaceuticaGeralModel.codigoLaboratorioLp= codigoLaboratorioLp;
-    FormaFarmaceuticaGeralModel.codigoFuncionarioManipulacao= codigoFuncionarioManipulacao;
-    FormaFarmaceuticaGeralModel.codigoFormaReceituario= codigoFormaReceituario;
-    FormaFarmaceuticaGeralModel.codigoFilialProducao= codigoFilialProducao;
-    FormaFarmaceuticaGeralModel.aliquotaIva= aliquotaIva;
+    FormaFarmaceuticaGeralModel.descricao = descricao;
+    FormaFarmaceuticaGeralModel.inativo = inativo;
+    FormaFarmaceuticaGeralModel.tipo = tipo;
+    FormaFarmaceuticaGeralModel.selecionaQuantidadeSugerida = selecionaQuantidadeSugerida;
+    FormaFarmaceuticaGeralModel.multiplicaComposicao = multiplicaComposicao;
+    FormaFarmaceuticaGeralModel.homeopatiaLiquida = homeopatiaLiquida;
+    FormaFarmaceuticaGeralModel.deduzirQuantidadeVeiculo = deduzirQuantidadeVeiculo;
+    FormaFarmaceuticaGeralModel.calculoEmbalagemForma = calculoEmbalagemForma;
+    FormaFarmaceuticaGeralModel.converteVolumeEmbalagem = converteVolumeEmbalagem;
+    FormaFarmaceuticaGeralModel.uso = uso;
+    FormaFarmaceuticaGeralModel.tipoUso = tipoUso;
+    FormaFarmaceuticaGeralModel.popForma = popForma;
+    FormaFarmaceuticaGeralModel.imprimirCamposAnalise = imprimirCamposAnalise;
+    FormaFarmaceuticaGeralModel.selecionarVolumeAutomatico = selecionarVolumeAutomatico;
+    FormaFarmaceuticaGeralModel.validade = validade;
+    FormaFarmaceuticaGeralModel.mlGotas = mlGotas;
+    FormaFarmaceuticaGeralModel.imprimirUnidadeMedidaNoRotulo = imprimirUnidadeMedidaNoRotulo;
+    FormaFarmaceuticaGeralModel.fatorPerdaProduto = fatorPerdaProduto;
+    FormaFarmaceuticaGeralModel.ativaFatorPerdaQsp = ativaFatorPerdaQsp;
+    FormaFarmaceuticaGeralModel.manipuladorId = manipuladorId;
+    FormaFarmaceuticaGeralModel.quantidadeFormulasHora = quantidadeFormulasHora;
+    FormaFarmaceuticaGeralModel.descricaoRotulo = descricaoRotulo;
+    FormaFarmaceuticaGeralModel.quantidadeQspMinimo = quantidadeQspMinimo;
+    FormaFarmaceuticaGeralModel.produtoVeiculoId = produtoVeiculoId;
+    FormaFarmaceuticaGeralModel.grupoVeiculoId = grupoVeiculoId;
+    FormaFarmaceuticaGeralModel.ativaPesagemMonitorada = ativaPesagemMonitorada;
+    FormaFarmaceuticaGeralModel.calcularDensidade = calcularDensidade;
+    FormaFarmaceuticaGeralModel.codigoLaboratorioLp = codigoLaboratorioLp;
+    FormaFarmaceuticaGeralModel.codigoFuncionarioManipulacao = codigoFuncionarioManipulacao;
+    FormaFarmaceuticaGeralModel.codigoFormaReceituario = codigoFormaReceituario;
+    FormaFarmaceuticaGeralModel.codigoFilialProducao = codigoFilialProducao;
+    FormaFarmaceuticaGeralModel.aliquotaIva = aliquotaIva;
 
     useEffect(() => {
         const loadDataFuncionario = async () => {
@@ -379,7 +379,7 @@ export function FormaFarmaceuticaCreateGeral({ erros }: IData) {
                             check={calcularDensidade}
                             onClickOptions={(e) => setCalcularDensidade(e.target.checked)}
                         />
-                    </div>  
+                    </div>
                     <div className="col-4">
                         {tipo != 0 && tipo != 1 && tipo != 5 && tipo != 6 && tipo != 9 && tipo != 8 &&
                             <CustomDropDown

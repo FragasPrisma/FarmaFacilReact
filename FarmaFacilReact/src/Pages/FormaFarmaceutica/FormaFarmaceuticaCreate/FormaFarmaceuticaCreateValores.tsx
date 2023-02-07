@@ -1,7 +1,7 @@
 import { Container } from "../styles";
 import { useState, useEffect } from "react";
-import { IFormaFarmaceuticaValores } from "../IFormaFarmaceuticaValores";
-import { IFormaFarmaceuticaMargens } from "../IFormaFarmaceuticaMargens";
+import { IFormaFarmaceuticaValores } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaValores";
+import { IFormaFarmaceuticaMargens } from "../../../Interfaces/FormaFarmaceutica/IFormaFarmaceuticaMargens";
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { getAll } from "../../../Services/Api";

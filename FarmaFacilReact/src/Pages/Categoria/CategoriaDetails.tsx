@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 
 export function CategoriaDetails() {
-    
+
     const [idCategoria, setId] = useState(0);
     const [nome, setNome] = useState("");
     const [categoriaAtivo, setCategoriaAtivo] = useState(false);
-    
+
     const [nomeCategoria, setNomeCategoria] = useState("");
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();

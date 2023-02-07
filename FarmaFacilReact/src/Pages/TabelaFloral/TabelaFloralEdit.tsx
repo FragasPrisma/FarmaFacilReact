@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { ITabelaFloralVolume , ITabelaFloral } from "./ITabelaFloral";
+import { ITabelaFloralVolume, ITabelaFloral } from "../../Interfaces/TabelaFloral/ITabelaFloral";
 
 export function TabelaFloralEdit() {
 
@@ -146,7 +146,7 @@ export function TabelaFloralEdit() {
     function ExcluirTabelaFloral(index: number, item: ITabelaFloral) {
 
         tabelasFlorais.splice(index, 1);
-        if(item.id > 0){ tabelasFloraisExcluir.push(item)}
+        if (item.id > 0) { tabelasFloraisExcluir.push(item) }
 
         if (tabelasFlorais.length == 0) {
             tabelasFlorais.push({ id: 0, quantidadeFinal: 0, quantidadeInicial: 0, valorVenda: 0, VolumeTabelaFloralId: 0 });

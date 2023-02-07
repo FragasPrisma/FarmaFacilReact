@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 
 export let drogariaAcabado = {
@@ -56,7 +56,7 @@ export const TabAcabado = () => {
                 </FieldsetCustom>
                 <FieldsetCustom legend="Alteração valor venda" numberCols={3}>
                     <div className="mt-3 col-12">
-                    <RadioCustom
+                        <RadioCustom
                             options={[
                                 "Permitir",
                                 "Não permitir",
@@ -71,9 +71,9 @@ export const TabAcabado = () => {
                 <div className="col-3 mt-3">
                     <CheckboxCustom options={[
                         "Avisar estoque mínimo na venda"
-                    ]} 
-                    check={estoqueMinimoAvisarEstoqueMinimoNaVenda}
-                    onClickOptions={(e)=> setEstoqueMinimoAvisarEstoqueMinimoNaVenda(e.target.checked)}
+                    ]}
+                        check={estoqueMinimoAvisarEstoqueMinimoNaVenda}
+                        onClickOptions={(e) => setEstoqueMinimoAvisarEstoqueMinimoNaVenda(e.target.checked)}
                     />
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container } from "../styles";
-import { IGrupoEnsaios } from "../IGrupo";
+import { IGrupoEnsaios } from "../../../Interfaces/Grupo/IGrupo";
 import { getAll } from "../../../Services/Api";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
@@ -41,9 +41,9 @@ export function GrupoCreateEnsaio() {
     }
 
     function ExcluirEnsaio(index: number) {
-        ensaiosView.splice(index,1)
+        ensaiosView.splice(index, 1)
         setEnsaiosView([...ensaiosView])
-        grupoEnsaios.splice(index,1)
+        grupoEnsaios.splice(index, 1)
         setGrupoEnsaios([...grupoEnsaios]);
     }
 

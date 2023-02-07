@@ -1,9 +1,9 @@
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { ChangeEvent, useState } from "react";
 import { Container } from "../styles";
-import { IGrupo, IGrupoEnsaios } from "../IGrupo";
+import { IGrupo, IGrupoEnsaios } from "../../../Interfaces/Grupo/IGrupo";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
 
 export let GrupoGeral: IGrupo = {
     id: 0,
@@ -28,7 +28,7 @@ interface Erros {
     }
 }
 
-export function GrupoCreateGeral({erros} : Erros) {
+export function GrupoCreateGeral({ erros }: Erros) {
 
     const [descricao, setDescricao] = useState("");
     const [comissao, setComissao] = useState(0);

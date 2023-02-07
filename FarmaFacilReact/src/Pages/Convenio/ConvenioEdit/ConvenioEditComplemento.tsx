@@ -1,11 +1,11 @@
-import { IConvenioComplemento } from "../IConvenioComplemento"
+import { IConvenioComplemento } from "../../../Interfaces/Convenio/IConvenioComplemento"
 import { Container } from "../styles"
 import { useState, useEffect, ChangeEvent } from "react"
 import { getAll } from "../../../Services/Api"
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown"
-import { CheckboxCustom } from "../../../Components/Others/CheckboxCustom"
-import { IGrupo } from "../../Grupo/IGrupo"
-import { IConvenio, IConvenioGrupos } from "../IConvenio"
+import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom"
+import { IGrupo } from "../../../Interfaces/Grupo/IGrupo"
+import { IConvenio, IConvenioGrupos } from "../../../Interfaces/Convenio/IConvenio"
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom"
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 
@@ -25,7 +25,7 @@ export let ConvenioComplementoModel: IConvenioComplemento = {
     convenioGrupos: [] as IConvenioGrupos[]
 }
 
-export let conveniosGruposModelExcluir  = [] as IConvenioGrupos []; 
+export let conveniosGruposModelExcluir = [] as IConvenioGrupos[];
 
 export function ConvenioEditComplemento({ convenioModel, nomeVisitador }: IData) {
 
@@ -38,7 +38,7 @@ export function ConvenioEditComplemento({ convenioModel, nomeVisitador }: IData)
     const [enderecoComprovanteVenda, setEnderecoComprovanteVenda] = useState(convenioModel.enderecoComprovanteVenda);
     const [visitadores, setVisitadores] = useState([])
     const [conveniosGrupos, setConveniosGrupos] = useState(convenioModel.convenioGrupos)
-    const [conveniosGruposExcluir, setConveniosGruposExcluir] = useState([] as IConvenioGrupos [])
+    const [conveniosGruposExcluir, setConveniosGruposExcluir] = useState([] as IConvenioGrupos[])
     const [grupos, setGrupos] = useState([] as IGrupo[]);
     const [erroCustoReferencia, setErroCustoReferencia] = useState("")
 
@@ -80,8 +80,8 @@ export function ConvenioEditComplemento({ convenioModel, nomeVisitador }: IData)
 
     function ExcluirGrupo(index: number) {
 
-        conveniosGrupos.map((item,i) => {
-            if(i == index){
+        conveniosGrupos.map((item, i) => {
+            if (i == index) {
                 conveniosGruposExcluir.push(item);
             }
         })

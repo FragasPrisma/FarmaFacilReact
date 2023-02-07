@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container } from "../styles";
-import { IGrupoEnsaios } from "../IGrupo";
+import { IGrupoEnsaios } from "../../../Interfaces/Grupo/IGrupo";
 import { getAll } from "../../../Services/Api";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
 import { IEnsaio } from "../../Ensaio/IEnsaio";
