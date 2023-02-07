@@ -5,10 +5,11 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IfuncionarioLaboratorio } from "../../Interfaces/FuncionarioLaboratorio/IFuncionarioLaboratorio";
 
 export function FuncionarioLaboratorioDetails() {
-    const [nome, setNome] = useState("");
-    const [ativo, setAtivo] = useState(Boolean);
+
+    const [funcionarioModel, setfuncionarioModel] = useState({} as IfuncionarioLaboratorio);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString()
@@ -18,8 +19,7 @@ export function FuncionarioLaboratorioDetails() {
         async function Init() {
             const response = await GetId("RetornaFuncionarioLaboratorioPorId", idParams);
             if (response.status == 200) {
-                setNome(response.data.nome);
-                setAtivo(response.data.ativo)
+                setfuncionarioModel(response.data);
             }
         }
 
@@ -36,7 +36,7 @@ export function FuncionarioLaboratorioDetails() {
                             <CustomInput
                                 label="Nome"
                                 type="text"
-                                value={nome}
+                                value={funcionarioModel.nome}
                                 required={true}
                                 readonly={true}
                             />
@@ -46,7 +46,7 @@ export function FuncionarioLaboratorioDetails() {
                         <div className="col-1">
                             <CheckboxCustom
                                 options={["Ativo"]}
-                                check={ativo}
+                                check={funcionarioModel.ativo}
                                 readOnly={true}
                             />
                         </div>

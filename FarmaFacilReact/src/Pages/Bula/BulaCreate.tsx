@@ -10,6 +10,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { IBula } from "../../Interfaces/Bula/IBula";
 
 export function BulaCreate() {
 
@@ -25,7 +26,7 @@ export function BulaCreate() {
 
     const navigate = useNavigate();
 
-    const data = {
+    const data : IBula = {
         id: 0,
         descricao: descricao.trim(),
         limitacaoVisual: limitacaoVisual,

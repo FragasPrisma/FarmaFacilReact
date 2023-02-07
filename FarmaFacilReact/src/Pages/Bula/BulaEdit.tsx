@@ -10,6 +10,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { IBula } from "../../Interfaces/Bula/IBula";
 
 export function BulaEdit() {
 
@@ -39,7 +40,7 @@ export function BulaEdit() {
         Init();
     }, []);
 
-    const data = {
+    const data : IBula = {
         id: idBula,
         descricao: descricao.trim(),
         limitacaoVisual: limitacaoVisual,

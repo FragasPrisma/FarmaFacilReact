@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
 
 export function BairroEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -17,7 +18,6 @@ export function BairroEdit() {
   const [nome, setNome] = useState("");
   const [bairroId, setBairroId] = useState(0);
   const { id } = useParams();
-  const[data] = useState({id:0,nome:""});
   const [isLoading,setIsLoading] = useState(false);
 
   let idParams = !id ? "0" : id.toString();
@@ -32,6 +32,11 @@ export function BairroEdit() {
 
     Init()
   },[])
+
+  let data : IBairro = {
+    id : bairroId,
+    nome : nome
+  }
     
   async function submit() {
 
@@ -48,8 +53,6 @@ export function BairroEdit() {
       return;
     }
 
-    data.id = bairroId;
-    data.nome = nome;
     const resp = await postFormAll("EditarBairro", data);
 
     if(resp.status == 200){

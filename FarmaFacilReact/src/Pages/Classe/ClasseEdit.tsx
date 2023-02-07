@@ -9,8 +9,10 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IClasse } from "../../Interfaces/Classe/IClasse";
 
 export function ClasseEdit() {
+
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
@@ -18,10 +20,14 @@ export function ClasseEdit() {
   const [descricao, setDescricao] = useState("");
   const [classeId, setClasseId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({ id: 0, descricao: "" });
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   let idParams = !id ? "0" : id.toString();
+
+  let data: IClasse = {
+    id: classeId,
+    descricao: descricao
+  }
 
   useEffect(() => {
     async function Init() {
@@ -36,9 +42,6 @@ export function ClasseEdit() {
   async function submit() {
 
     setIsLoading(true);
-
-    data.id = classeId;
-    data.descricao = descricao.trim();
 
     if (!descricao.trim()) {
       setIsOpenFail(true);
@@ -94,12 +97,12 @@ export function ClasseEdit() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading} />
               <ButtonCancel to="classe" />
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Classe editada com"/>
+        <SuccessModal show={isOpenSuccess} textCustom="Classe editada com" />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

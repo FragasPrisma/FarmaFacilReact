@@ -10,6 +10,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
+import { IBanner } from "../../Interfaces/Banner/IBanner";
 
 export function BannerEdit() {
 
@@ -22,18 +23,14 @@ export function BannerEdit() {
     const [link, setLink] = useState("");
     const [acaoLink, setAcaoLink] = useState(0);
     const [posicao, setPosicao] = useState(0);
-    const [dataInicio, setDataInicio] = useState(Date)
-    const [dataFim, setDataFim] = useState(Date)
+    const [dataInicio, setDataInicio] = useState("")
+    const [dataFim, setDataFim] = useState("")
     const [imagemBanner, setImagemBanner] = useState("");
     const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
-
-    const [erroDescricao, setErroDescricao] = useState("");
-    const [erroLink, setErroLink] = useState("");
     const [erroPosicao, setErroPosicao] = useState("");
     const [erroImagem, setErroImagem] = useState("");
-    const [erroDataInicial, setErroDataInicial] = useState("");
-    const [erroDataFim, setErroDataFim] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
 
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
@@ -50,13 +47,13 @@ export function BannerEdit() {
             setPosicao(response.data.posicao);
             setDataInicio(response.data.dataInicio.slice(0, 10));
             setDataFim(response.data.dataFim.slice(0, 10));
-            setImagem(response.data.imagem);
+            setImagem("data:image/png;base64," + response.data.imagem);
         }
 
         Init()
     }, [])
 
-    const data = {
+    const data: IBanner = {
         id: idBanner,
         descricao: descricao,
         link: link,
@@ -72,37 +69,32 @@ export function BannerEdit() {
         bannerMagentoId: 0
     };
 
+    function ValidString(texto: string, index: number) {
+        if (!texto.trim()) {
+            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     async function submit() {
 
-        setErroDescricao("");
+        setErros({ erro: false, index: 0, erroNome: "" });
         setIsLoading(true);
+        console.log(dataInicio.length)
 
-        if (!descricao.trim()) {
-            setErroDescricao("Campo descrição é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!link.trim()) {
-            setErroLink("Campo link é obrigatório !")
+        if (!ValidString(descricao.trim(), 1)
+            || !ValidString(link.trim(), 2)
+            || !ValidString(dataInicio, 3)
+            || !ValidString(dataFim, 4)
+        ) {
             setIsLoading(false);
             return;
         }
 
         if (posicao <= 0) {
             setErroPosicao("Campo posição inválido !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!dataInicio) {
-            setErroDataInicial("Campo data inicial é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!dataFim) {
-            setErroDataFim("Campo data final é obrigatório !")
             setIsLoading(false);
             return;
         }
@@ -171,7 +163,8 @@ export function BannerEdit() {
                                     placeholder="Digite a descrição"
                                     value={descricao}
                                     maxLength={100}
-                                    erro={erroDescricao}
+                                    erros={erros}
+                                    index={1}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDescricao(e.target.value)
                                     }
@@ -188,7 +181,8 @@ export function BannerEdit() {
                                     placeholder="Digite o link"
                                     value={link}
                                     maxLength={100}
-                                    erro={erroLink}
+                                    erros={erros}
+                                    index={2}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setLink(e.target.value)
                                     }
@@ -225,8 +219,9 @@ export function BannerEdit() {
                                 <CustomInput
                                     label="Data inicial"
                                     type="date"
+                                    erros={erros}
+                                    index={3}
                                     value={dataInicio}
-                                    erro={erroDataInicial}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDataInicio(e.target.value)
                                     }
@@ -238,7 +233,8 @@ export function BannerEdit() {
                                     label="Data final"
                                     type="date"
                                     value={dataFim}
-                                    erro={erroDataFim}
+                                    erros={erros}
+                                    index={4}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDataFim(e.target.value)
                                     }
@@ -247,7 +243,7 @@ export function BannerEdit() {
                             </div>
                         </div>
 
-                        <UploadImagem onUpdate={updateImgModel} text="Seleciona a Imagem" img={"data:image/png;base64," +imagem?.toString()}/>
+                        <UploadImagem onUpdate={updateImgModel} text="Seleciona a Imagem" img={imagem ? imagem : ""} />
                         {erroImagem &&
                             <p className="text-danger">{erroImagem}</p>
                         }

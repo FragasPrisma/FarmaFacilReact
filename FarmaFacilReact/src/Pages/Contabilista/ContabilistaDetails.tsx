@@ -4,21 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IContabilista } from "../../Interfaces/Contabilista/IContabilista";
 
 export function ContabilistaDetails() {
 
-    const [idContabilista, setId] = useState(0);
-    const [nome, setNome] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [cnpj, setCnpj] = useState("");
-    const [crc, setCrc] = useState("");
-    const [cep, setCep] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [numero, setNumero] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [fax, setFax] = useState("");
-    const [email, setEmail] = useState("");
-    const [complemento, setComplemento] = useState("");
+    const [contabilistaModel, setContabilistaModel] = useState({} as IContabilista);
 
     const [nomeEstado, setNomeEstado] = useState("");
     const [nomeCidade, setNomeCidade] = useState("");
@@ -33,18 +23,7 @@ export function ContabilistaDetails() {
         async function Init() {
             const response = await GetId("RetornaContabilistaPorId", idParams);
             if (response.status == 200) {
-                setId(response.data.id);
-                setNome(response.data.nome);
-                setCnpj(response.data.cnpj);
-                setCpf(response.data.cpf);
-                setCrc(response.data.crc);
-                setFax(response.data.fax);
-                setEmail(response.data.email);
-                setCep(response.data.cep)
-                setEndereco(response.data.endereco)
-                setNumero(response.data.numero)
-                setTelefone(response.data.telefone)
-                setComplemento(response.data.complemento)
+                setContabilistaModel(response.data);
 
                 if (response.data.bairro) {
                     setNomeBairro(response.data.bairro.nome)
@@ -65,14 +44,14 @@ export function ContabilistaDetails() {
         <>
             <HeaderMainContent title="DETALHES CONTABILISTA" IncludeButton={false} ReturnButton={true} to="contabilista" />
             <div className="form-group">
-                {idContabilista > 0 &&
+                {contabilistaModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-9">
                                 <CustomInput
                                     label="Nome"
                                     type="text"
-                                    value={nome}
+                                    value={contabilistaModel.nome}
                                     required={true}
                                     readonly={true}
                                 />
@@ -83,7 +62,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="CNPJ"
                                     type="text"
-                                    value={cnpj}
+                                    value={contabilistaModel.cnpj}
                                     required={true}
                                     readonly={true}
                                 />
@@ -92,7 +71,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="CPF"
                                     type="text"
-                                    value={cpf}
+                                    value={contabilistaModel.cpf}
                                     required={true}
                                     readonly={true}
                                 />
@@ -101,7 +80,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="CRC"
                                     type="text"
-                                    value={crc}
+                                    value={contabilistaModel.crc}
                                     required={true}
                                     readonly={true}
                                 />
@@ -113,7 +92,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="CEP"
                                     type="text"
-                                    value={cep}
+                                    value={contabilistaModel.cep}
                                     readonly={true}
                                 />
                             </div>
@@ -121,7 +100,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="Endereço"
                                     type="text"
-                                    value={endereco}
+                                    value={contabilistaModel.endereco}
                                     readonly={true}
                                 />
                             </div>
@@ -132,7 +111,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="Número"
                                     type="text"
-                                    value={numero}
+                                    value={contabilistaModel.numero}
                                     readonly={true}
                                 />
                             </div>
@@ -141,7 +120,7 @@ export function ContabilistaDetails() {
                                     label="Complemento"
                                     type="text"
                                     readonly={true}
-                                    value={complemento}
+                                    value={contabilistaModel.complemento}
                                 />
                             </div>
                         </div>
@@ -178,7 +157,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="E-mail"
                                     type="email"
-                                    value={email}
+                                    value={contabilistaModel.email}
                                     readonly={true}
                                 />
                             </div>
@@ -189,7 +168,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="Fax"
                                     type="text"
-                                    value={fax}
+                                    value={contabilistaModel.fax}
                                     readonly={true}
                                 />
                             </div>
@@ -197,7 +176,7 @@ export function ContabilistaDetails() {
                                 <CustomInput
                                     label="Telefone"
                                     type="text"
-                                    value={telefone}
+                                    value={contabilistaModel.telefone}
                                     readonly={true}
                                 />
                             </div>

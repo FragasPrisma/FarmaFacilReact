@@ -5,9 +5,10 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IDci } from "../../Interfaces/Dci/IDci";
 
 export function DciEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -19,24 +20,29 @@ export function DciEdit() {
     const [erroCodigoDci, setErroCodigoDci] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
     const [dciId, setDciId] = useState(0);
-    const [data] = useState({id:0, codigoDci:"", descricao:""});
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     let idParams = !id ? "0" : id.toString();
 
-    useEffect(() =>{
-    
+    let data: IDci = {
+        id: dciId,
+        codigoDci: codigoDci,
+        descricao: descricao
+    }
+
+    useEffect(() => {
+
         async function Init() {
-          const response = await GetId("RetornaDciPorId", idParams);
-          if(response.status == 200){
-            setDciId(response.data.id);
-            setCodigoDci(response.data.codigoDci);
-            setDescricao(response.data.descricao);
-          }
+            const response = await GetId("RetornaDciPorId", idParams);
+            if (response.status == 200) {
+                setDciId(response.data.id);
+                setCodigoDci(response.data.codigoDci);
+                setDescricao(response.data.descricao);
+            }
         }
-    
+
         Init()
-    },[])
+    }, [])
 
     async function submit() {
         setErroCodigoDci("")
@@ -119,12 +125,12 @@ export function DciEdit() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                             <ButtonCancel to="dci" />
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="DCI editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="DCI editado com" />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

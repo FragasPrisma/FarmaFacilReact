@@ -9,29 +9,31 @@ import { useParams, useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IMaquinaPos } from "../../Interfaces/MaquinaPos/IMaquinaPos";
+import { IPosAdquirente } from "../../Interfaces/PosAdquirente/IPosAdquirente";
 
 export function MaquinaPosEdit() {
   const navigate = useNavigate();
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [erroNome, setErroNome] = useState("");
-
-
+  const [erroDescricao, setErroDescricao] = useState("");
+  const [erroSerialPos, setErroSerialPos] = useState("");
 
   const [adquirentePosDescricao, setAdquirentePosDescricao] = useState("");
   const { id } = useParams();
-
-  const [data] = useState({
-    id: 0,
-    descricao: "",
-    serialPos: "",
-    adquirentePosId: 0,
-  });
+  const [idMaquina, setId] = useState(0);
   const [serialPos, setSerialPos] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [adquirenteId, setAdquirenteId] = useState(0);
-  const [adquirente, setAdquirente] = useState([]);
+  const [adquirenteId, setAdquirenteId] = useState(null);
+  const [adquirente, setAdquirente] = useState([] as IPosAdquirente []);
+
+  let data: IMaquinaPos = {
+    id: idMaquina,
+    descricao: descricao.trim(),
+    serialPos: serialPos.trim(),
+    adquirentePosId: adquirenteId
+  }
 
   let idParams = !id ? "0" : id.toString();
 
@@ -39,6 +41,7 @@ export function MaquinaPosEdit() {
     async function Init() {
       const response = await GetId("RetornaMaquinaPosPorId", idParams);
       if (response.status == 200) {
+        setId(response.data.id)
         setDescricao(response.data.descricao);
         setSerialPos(response.data.serialPos);
         setAdquirentePosDescricao(response.data.adquirentePos.descricao);
@@ -55,23 +58,23 @@ export function MaquinaPosEdit() {
   }, []);
 
   async function submit() {
-    setErroNome("");
-    setIsLoading(true);
+    
+    setErroSerialPos("");
+    setErroDescricao("");
+    setIsLoading(false);
 
-    if (!serialPos.trim()) {
-      setIsOpenFail(true);
+    if (!descricao.trim()) {
+      setErroDescricao("Campo descrição obrigatório !")
       setIsLoading(false);
-      setTimeout(() => {
-        setIsOpenFail(false);
-        setErroNome("Campo Serial é obrigatório !");
-      }, 2000);
       return;
     }
 
-    //data.id = adquirenteId;
-    data.descricao = descricao.trim();
-    data.serialPos = serialPos.trim();
-    data.adquirentePosId = adquirenteId;
+    setIsLoading(true);
+    if (!serialPos.trim()) {
+      setErroSerialPos("Campo serial pós obrigatório !")
+      setIsLoading(false);
+      return;
+    }
 
     const resp = await postFormAll("EditarMaquinaPos", data);
 
@@ -85,7 +88,6 @@ export function MaquinaPosEdit() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome(resp.request.response);
       }, 2000);
     }
   }
@@ -107,7 +109,7 @@ export function MaquinaPosEdit() {
                 placeholder="Digite uma descrição do máquina pós"
                 value={descricao}
                 maxLength={10}
-                erro={erroNome}
+                erro={erroDescricao}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setDescricao(e.target.value)
                 }
@@ -123,6 +125,7 @@ export function MaquinaPosEdit() {
                 placeholder="Digite um Serial para máquina pós"
                 value={serialPos}
                 maxLength={150}
+                erro={erroSerialPos}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setSerialPos(e.target.value)
                 }
@@ -156,7 +159,7 @@ export function MaquinaPosEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Máquina Pós editada com "/>
+        <SuccessModal show={isOpenSuccess} textCustom="Máquina Pós editada com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

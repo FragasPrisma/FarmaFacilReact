@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 
 export function LaboratorioDetails() {
-    const [descricao, setDescricao] = useState("");
-    const [laboratorioId, setLaboratorioId] = useState(0);
+
+    const [laboratorioModel, setLaboratorioModel] = useState({} as ILaboratorio);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -17,8 +18,7 @@ export function LaboratorioDetails() {
         async function Init() {
             const response = await GetId("RetornaLaboratorioPorId", idParams);
             if (response.status == 200) {
-                setLaboratorioId(response.data.id);
-                setDescricao(response.data.descricao)
+                setLaboratorioModel(response.data);
             }
         }
 
@@ -35,7 +35,7 @@ export function LaboratorioDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={laboratorioModel.descricao}
                                 required={true}
                                 readonly={true}
                             />

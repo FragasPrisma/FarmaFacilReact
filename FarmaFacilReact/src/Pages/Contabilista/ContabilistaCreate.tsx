@@ -9,6 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IContabilista } from "../../Interfaces/Contabilista/IContabilista";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
+import { ICidade } from "../../Interfaces/Cidade/ICidade";
+import { IEstado } from "../../Interfaces/Estado/IEstado";
 
 export function ContabilistaCreate() {
 
@@ -16,9 +20,9 @@ export function ContabilistaCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
 
-    const [bairroId, setBairroId] = useState();
-    const [cidadeId, setCidadeId] = useState();
-    const [estadoId, setEstadoId] = useState();
+    const [bairroId, setBairroId] = useState(null);
+    const [cidadeId, setCidadeId] = useState(null);
+    const [estadoId, setEstadoId] = useState(null);
 
     const [nome, setNome] = useState("");
     const [cpf, setCpf] = useState("");
@@ -27,51 +31,48 @@ export function ContabilistaCreate() {
     const [cep, setCep] = useState("");
     const [endereco, setEndereco] = useState("");
     const [numero, setNumero] = useState("");
-    const [ddd, setDdd] = useState("");
     const [telefone, setTelefone] = useState("");
     const [fax, setFax] = useState("");
     const [email, setEmail] = useState("");
     const [complemento, setComplemento] = useState("");
 
-    const [erroNome, setErroNome] = useState("");
-    const [erroCnpj, setErroCnpj] = useState("");
-    const [erroCpf, setErroCpf] = useState("");
-    const [erroCrc, setErroCrc] = useState("");
+    const [error, setErros] = useState({ erro: true, index: 0, erroNome: "" })
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [estados, setEstados] = useState([]);
-    const [cidades, setCidades] = useState([]);
-    const [bairros, setBairros] = useState([]);
+    const [estados, setEstados] = useState([] as IEstado[]);
+    const [cidades, setCidades] = useState([] as ICidade[]);
+    const [bairros, setBairros] = useState([] as IBairro[]);
 
     useEffect(() => {
         const loadDataBairro = async () => {
             const response = await getAll("ListaBairro");
             setBairros(response.data);
         }
-
-        loadDataBairro()
-    }, []);
-
-    useEffect(() => {
         const loadDataCidade = async () => {
             const response = await getAll("ListaCidade");
             setCidades(response.data);
         }
-
-        loadDataCidade()
-    }, []);
-
-    useEffect(() => {
         const loadDataEstado = async () => {
             const response = await getAll("ListaEstado");
             setEstados(response.data);
         }
 
         loadDataEstado()
+        loadDataCidade()
+        loadDataBairro()
     }, []);
 
-    const data = {
+    function ValidString(texto: string, index: number) {
+        if (!texto.trim()) {
+            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    const data: IContabilista = {
         id: 0,
         bairroId: bairroId,
         cidadeId: cidadeId,
@@ -91,32 +92,14 @@ export function ContabilistaCreate() {
 
     async function submit() {
 
-        setErroNome("");
-        setErroCnpj("");
-        setErroCpf("");
-        setErroCrc("");
+        setErros({ erro: false, erroNome: "", index: 0 })
         setIsLoading(true);
 
-        if (!nome.trim()) {
-            setErroNome("Campo nome é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!cnpj.trim()) {
-            setErroCnpj("Campo CNPJ é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!cpf.trim()) {
-            setErroCpf("Campo CPF é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!crc.trim()) {
-            setErroCrc("Campo CRC é obrigatório !")
+        if(!ValidString(nome,1)
+            || !ValidString(cnpj,2)
+            || !ValidString(cpf,3)
+            || !ValidString(crc,4)
+        ){
             setIsLoading(false);
             return;
         }
@@ -133,7 +116,6 @@ export function ContabilistaCreate() {
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroNome(resp.request.response)
             }, 2000)
         }
     }
@@ -151,7 +133,8 @@ export function ContabilistaCreate() {
                                 placeholder="Digite o nome"
                                 value={nome}
                                 maxLength={100}
-                                erro={erroNome}
+                                erros={error}
+                                index={1}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setNome(e.target.value)
                                 }
@@ -166,7 +149,8 @@ export function ContabilistaCreate() {
                                 type="text"
                                 placeholder="Digite o CNPJ"
                                 value={cnpj}
-                                erro={erroCnpj}
+                                erros={error}
+                                index={2}
                                 maxLength={14}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setCnpj(e.target.value)
@@ -180,7 +164,8 @@ export function ContabilistaCreate() {
                                 type="text"
                                 placeholder="Digite o CPF"
                                 value={cpf}
-                                erro={erroCpf}
+                                erros={error}
+                                index={3}
                                 maxLength={11}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setCpf(e.target.value)
@@ -194,7 +179,8 @@ export function ContabilistaCreate() {
                                 type="text"
                                 placeholder="Digite o CRC"
                                 value={crc}
-                                erro={erroCrc}
+                                erros={error}
+                                index={4}
                                 maxLength={15}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setCrc(e.target.value)
@@ -309,7 +295,7 @@ export function ContabilistaCreate() {
                                 label="Fax"
                                 type="text"
                                 placeholder="Digite o fax"
-                                value={ddd}
+                                value={fax}
                                 maxLength={10}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setFax(e.target.value)

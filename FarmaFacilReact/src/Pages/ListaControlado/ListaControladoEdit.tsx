@@ -10,6 +10,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IListaControlado } from "../../Interfaces/ListaControlado/IListaControlado";
 
 export function ListaControladoEdit() {
 
@@ -45,7 +46,7 @@ export function ListaControladoEdit() {
         Init()
     }, [])
 
-    const data = {
+    const data : IListaControlado = {
         id: idLista,
         codigo: codigo,
         descricao: descricao,

@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
 
 export function BairroCreate() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -17,9 +18,9 @@ export function BairroCreate() {
   const [erroNome, setErroNome] = useState("");
   const [isLoading,setIsLoading] = useState(false);
 
-  const data = {
-    id: 0, //id 0 é default
-    nome: nome,
+  const data : IBairro = {
+    id: 0,
+    nome: nome
   };
 
   async function submit() {

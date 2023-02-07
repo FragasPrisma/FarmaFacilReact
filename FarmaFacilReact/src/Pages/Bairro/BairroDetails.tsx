@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
 
 export function BairroDetails() {
-    const [nome, setNome] = useState("");
-    const [observacao, setObservacao] = useState("");
-    const [pbmId, setPbmId] = useState(0);
+  
+    const [bairroModel, setBairroModel] = useState({} as IBairro);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString()
@@ -18,9 +18,7 @@ export function BairroDetails() {
       async function Init() {
         const response = await GetId("RetornaBairroPorId", idParams);
         if(response.status == 200){
-          setPbmId(response.data.id);
-          setNome(response.data.nome);
-          setObservacao(response.data.observacao)
+          setBairroModel(response.data);
         }
       }
   
@@ -37,7 +35,7 @@ export function BairroDetails() {
               <CustomInput
                 label="Nome"
                 type="text"
-                value={nome}
+                value={bairroModel.nome}
                 required={true}
                 readonly={true}
               />

@@ -11,8 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { IBanco } from "../../Interfaces/Banco/IBanco";
 
 export function BancoCreate() {
+    
     const navigate = useNavigate();
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
@@ -47,7 +49,7 @@ export function BancoCreate() {
     const [erroNomeBanco, setErroNomeBanco] = useState("");
     const [erroCodigoBanco, setErroCodigoBanco] = useState("");
 
-    const data = {
+    const data : IBanco = {
         id: 0,
         nome: nomeBanco.trim(),
         codigoBanco: codigoBanco.trim(),

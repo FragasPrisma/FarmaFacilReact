@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IClasse } from "../../Interfaces/Classe/IClasse";
 
 export function ClasseCreate() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -17,8 +18,8 @@ export function ClasseCreate() {
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
-  const data = {
-    id: 0, //id 0 é default
+  const data : IClasse = {
+    id: 0, 
     descricao: descricao.trim(),
   };
 

@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IEnsaio } from "../../Interfaces/Ensaio/IEnsaio";
 
 export function EnsaioDetails() {
 
     const { id } = useParams();
-    const [nome, setNome] = useState("");
-    const [idEnsaio, setId] = useState(0);
+    const [ensaioModel, setEnsaioModel] = useState({} as IEnsaio);
     const [nomeFarmacopeia, setNomeFarmacopeia] = useState("");
 
     let idParams = !id ? "0" : id.toString();
@@ -18,8 +18,7 @@ export function EnsaioDetails() {
 
         async function Init() {
             const response = await GetId("RetornaEnsaioPorId", idParams);
-            setId(response.data.id);
-            setNome(response.data.nome);
+            setEnsaioModel(response.data);
             if (response.data.farmacopeia != null) {
                 setNomeFarmacopeia(response.data.farmacopeia.nome)
             }
@@ -32,7 +31,7 @@ export function EnsaioDetails() {
         <>
             <HeaderMainContent title="DETALHES DO ENSAIO" IncludeButton={false} ReturnButton={true} to="ensaio" />
             <div className="form-group">
-                {idEnsaio > 0 &&
+                {ensaioModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-5">
@@ -40,9 +39,8 @@ export function EnsaioDetails() {
                                     label="Nome"
                                     type="text"
                                     placeholder=""
-                                    value={nome}
-                                    maxLength={50}
-                                    required={false}
+                                    value={ensaioModel.nome}
+                                    required={true}
                                     readonly={true}
                                 />
                             </div>
@@ -54,8 +52,7 @@ export function EnsaioDetails() {
                                     type="text"
                                     placeholder=""
                                     value={nomeFarmacopeia}
-                                    maxLength={50}
-                                    required={false}
+                                    required={true}
                                     readonly={true}
                                 />
                             </div>

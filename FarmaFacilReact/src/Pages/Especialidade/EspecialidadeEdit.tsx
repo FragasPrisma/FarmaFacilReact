@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useParams,useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IEspecialidade } from "../../Interfaces/Especialidade/IEspecialidade";
 
 export function EspecialidadeEdit() {
     const navigate = useNavigate();
@@ -17,8 +18,12 @@ export function EspecialidadeEdit() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [especialidadeId, setEspecialidadeId] = useState(0);
     const { id } = useParams();
-    const [data] = useState({id:0,descricao:""});
     const [isLoading,setIsLoading] = useState(false);
+
+    let data : IEspecialidade = {
+        id: especialidadeId,
+        descricao: descricao
+    }
 
     let idParams = !id ? "0" : id.toString();
 
