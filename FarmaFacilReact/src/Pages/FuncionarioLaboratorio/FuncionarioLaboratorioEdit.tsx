@@ -9,6 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IfuncionarioLaboratorio } from "../../Interfaces/FuncionarioLaboratorio/IFuncionarioLaboratorio";
 
 export function FuncionarioLaboratorioEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -19,8 +20,13 @@ export function FuncionarioLaboratorioEdit() {
   const [erroNome, setErroNome] = useState("");
   const [nome, setNome] = useState("");
   const [ativo, setAtivo] = useState(Boolean);
-  const [data] = useState({ id: 0, nome: "", ativo: true });
   const [funcionarioLaboratorioId, setFuncionarioLaboratorioId] = useState(0);
+
+  let data: IfuncionarioLaboratorio = {
+    id: funcionarioLaboratorioId,
+    nome: nome.trim(),
+    ativo: ativo
+  }
 
   let idParams = !id ? "0" : id.toString();
 

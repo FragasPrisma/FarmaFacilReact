@@ -5,15 +5,16 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { ITurno } from "../../Interfaces/Turno/ITurno";
 
 export function TurnoEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [turnoId, setTurnoId] = useState(0);
     const { id } = useParams();
     const [horaInicial, setHoraInicial] = useState("");
@@ -25,19 +26,26 @@ export function TurnoEdit() {
 
     let idParams = !id ? "0" : id.toString();
 
-    useEffect(() =>{
-    
+    let data: ITurno = {
+        id: turnoId,
+        horaInicial: horaInicialDateTime,
+        horaFinal: horaFinalDateTime,
+        filialId: null
+    }
+
+    useEffect(() => {
+
         async function Init() {
-          const response = await GetId("RetornaTurnoPorId", idParams);
-          if(response.status == 200){
-            setTurnoId(response.data.id);
-            setHoraInicial(response.data.horaInicial.slice(11, 16));
-            setHoraFinal(response.data.horaFinal.slice(11, 16));
-          }
+            const response = await GetId("RetornaTurnoPorId", idParams);
+            if (response.status == 200) {
+                setTurnoId(response.data.id);
+                setHoraInicial(response.data.horaInicial.slice(11, 16));
+                setHoraFinal(response.data.horaFinal.slice(11, 16));
+            }
         }
-    
+
         Init()
-    },[])
+    }, [])
 
     useEffect(() => {
         const timeComponents = horaInicial.split(":");
@@ -83,12 +91,6 @@ export function TurnoEdit() {
             return;
         }
 
-        const data = {
-            id: turnoId,
-            horaInicial: horaInicialDateTime,
-            horaFinal: horaFinalDateTime
-        }   
-
         const response = await postFormAll("EditarTurno", data);
 
         if (response.status === 200) {
@@ -112,7 +114,7 @@ export function TurnoEdit() {
                 <Container>
                     <div className="row">
                         <div className="col-2">
-                            <CustomInput 
+                            <CustomInput
                                 label="Hora Inicial"
                                 type="time"
                                 placeholder="00:00"
@@ -127,7 +129,7 @@ export function TurnoEdit() {
                     </div>
                     <div className="row">
                         <div className="col-2">
-                        <CustomInput 
+                            <CustomInput
                                 label="Hora Final"
                                 type="time"
                                 placeholder="00:00"
@@ -147,7 +149,7 @@ export function TurnoEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Turno editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="Turno editado com" />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

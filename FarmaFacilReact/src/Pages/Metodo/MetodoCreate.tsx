@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IMetodo } from "../../Interfaces/Metodo/IMetodo";
 
 export function MetodoCreate() {
 
@@ -21,7 +22,7 @@ export function MetodoCreate() {
     const [erro, setErro] = useState("");
     const navigate = useNavigate();
 
-    const data = {
+    const data : IMetodo= {
         id: 0,
         descricao: descricao.trim(),
         quantidadeGotas: quantidadeGotas,

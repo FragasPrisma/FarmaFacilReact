@@ -11,6 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
+import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
 
 export function NaturezaOperacaoEdit() {
 
@@ -40,9 +42,9 @@ export function NaturezaOperacaoEdit() {
     const [cstId, setCstId] = useState(0);
     const [csosnId, setCsosnId] = useState(0);
 
-    const [tributosCsts, setTributosCsts] = useState([]);
-    const [tributosCsons, setTributosCsons] = useState([]);
-    const [planoDeContas, setPlanoDeContas] = useState([]);
+    const [tributosCsts, setTributosCsts] = useState([] as ITributo []);
+    const [tributosCsons, setTributosCsons] = useState([] as ITributo []);
+    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta []);
 
     const [nomeCst, setNomeCst] = useState("");
     const [nomeCsosn, setNomeCsosn] = useState("");
@@ -51,9 +53,9 @@ export function NaturezaOperacaoEdit() {
     useEffect(() => {
         const loadDataTributoCst = async () => {
             const response = await getAll("ListaTributo");
-            let TributoFilter = response.data;
-            setTributosCsts(TributoFilter.filter((x: { tipoTributo: number; }) => x.tipoTributo == 0));
-            setTributosCsons(TributoFilter.filter((x: { tipoTributo: number; }) => x.tipoTributo == 1));
+            let TributoFilter : ITributo [] = response.data;
+            setTributosCsts(TributoFilter.filter(x => x.tipoTributo == 0));
+            setTributosCsons(TributoFilter.filter(x => x.tipoTributo == 1));
         }
 
         loadDataTributoCst()
@@ -62,8 +64,8 @@ export function NaturezaOperacaoEdit() {
     useEffect(() => {
         const loadDataPlanoDeContas = async () => {
             const response = await getAll("ListaPlanoDeContas");
-            let planoDecontasFilter = response.data;
-            setPlanoDeContas(planoDecontasFilter.filter((x: { nivelConta: number; }) => x.nivelConta == 2));
+            let planoDecontasFilter : IPlanoDeconta [] = response.data;
+            setPlanoDeContas(planoDecontasFilter.filter(x => x.nivelConta == 2));
         }
 
         loadDataPlanoDeContas()

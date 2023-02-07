@@ -1,15 +1,14 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IPais } from "../../Interfaces/Pais/IPais";
 
 export function PaisDetails() {
 
-    const [nome, setNome] = useState("");
-  const [codigoIbge,setCodigoIbge] = useState(0);
-  const [codigoTelefonico,setCodigoTelefonico] = useState(Number);
+  const [paisModel, setPaisModel] = useState({} as IPais);
 
   const { id } = useParams();
   let idParams = !id ? "0" : id.toString();
@@ -17,9 +16,7 @@ export function PaisDetails() {
   useEffect(() => {
     async function Init() {
       const response = await GetId("RetornaPaisPorId", idParams);
-      setNome(response.data.nome);
-      setCodigoIbge(response.data.codigoIbge)
-      setCodigoTelefonico(response.data.codigoTelefonico)
+      setPaisModel(response.data);
     }
 
     Init();
@@ -36,7 +33,7 @@ export function PaisDetails() {
                 label="Nome"
                 type="text"
                 readonly={true}
-                value={nome}
+                value={paisModel.nome}
                 required={true}
               />
             </div>
@@ -46,7 +43,7 @@ export function PaisDetails() {
               <CustomInput
                 label="Código IBGE"
                 type="number"
-                value={codigoIbge}
+                value={paisModel.codigoIbge}
                 readonly={true}
                 required={true}
               />
@@ -55,7 +52,7 @@ export function PaisDetails() {
               <CustomInput
                 label="Código Telefonico"
                 type="number"
-                value={codigoTelefonico}
+                value={paisModel.codigoTelefonico}
                 readonly={true}
                 required={false}
               />

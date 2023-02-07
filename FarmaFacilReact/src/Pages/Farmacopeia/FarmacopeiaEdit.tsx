@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IFarmacopeia } from "../../Interfaces/Farmacopeia/IFarmacopeia";
 
 export function FarmacopeiaEdit() {
 
@@ -35,10 +36,10 @@ export function FarmacopeiaEdit() {
         Init()
     }, [])
 
-    const data = {
+    const data : IFarmacopeia = {
         id: idFarmacopeia,
-        nome: nome,
-        observacao: observacao
+        nome: nome.trim(),
+        observacao: observacao.trim()
     };
 
     async function submit() {

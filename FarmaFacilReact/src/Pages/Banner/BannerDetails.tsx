@@ -6,17 +6,11 @@ import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
+import { IBanner } from "../../Interfaces/Banner/IBanner";
 
 export function BannerDetails() {
 
-    const [idBanner, setId] = useState(0)
-    const [descricao, setDescricao] = useState("");
-    const [link, setLink] = useState("");
-    const [acaoLink, setAcaoLink] = useState(0);
-    const [posicao, setPosicao] = useState(0);
-    const [dataInicio, setDataInicio] = useState(Date)
-    const [dataFim, setDataFim] = useState(Date)
-    const [imagem, setImagem] = useState("");
+    const [bannerModel, setBannerModel] = useState({} as IBanner)
 
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
@@ -25,16 +19,8 @@ export function BannerDetails() {
 
         async function Init() {
             const response = await GetId("RetornaBannerPorId", idParams);
-
-            setId(response.data.id);
-            setDescricao(response.data.descricao);
-            setLink(response.data.link);
-            setAcaoLink(response.data.acaoLink);
-            setPosicao(response.data.posicao);
-            setDataInicio(response.data.dataInicio.slice(0, 10));
-            setDataFim(response.data.dataFim.slice(0, 10));
-            setImagem(response.data.imagem);
-        }
+                setBannerModel(response.data)
+            }
 
         Init()
     }, [])
@@ -43,14 +29,14 @@ export function BannerDetails() {
         <>
             <HeaderMainContent title="DETALHES BANNER" IncludeButton={false} ReturnButton={true} to="banner" />
             <div className="form-group">
-                {idBanner > 0 &&
+                {bannerModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-6">
                                 <CustomInput
                                     label="Descrição"
                                     type="text"
-                                    value={descricao}
+                                    value={bannerModel.descricao}
                                     required={true}
                                     readonly={true}
                                 />
@@ -62,7 +48,7 @@ export function BannerDetails() {
                                 <CustomInput
                                     label="Link"
                                     type="text"
-                                    value={link}
+                                    value={bannerModel.link}
                                     required={true}
                                     readonly={true}
                                 />
@@ -74,7 +60,7 @@ export function BannerDetails() {
                                     options={["Abrir link em nova aba", "Abrir link na mesma aba"]}
                                     name="acaoLink"
                                     titleComponet="Ação Link"
-                                    value={acaoLink}
+                                    value={bannerModel.acaoLink}
                                     readonly={true}
                                 />
                             </div>
@@ -84,7 +70,7 @@ export function BannerDetails() {
                                 <CustomInput
                                     label="Posição"
                                     type="number"
-                                    value={posicao}
+                                    value={bannerModel.posicao}
                                     required={true}
                                     readonly={true}
                                 />
@@ -93,7 +79,7 @@ export function BannerDetails() {
                                     <CustomInput
                                         label="Data inicial"
                                         type="date"
-                                        value={dataInicio}
+                                        value={bannerModel.dataInicio.slice(0, 10)}
                                         readonly={true}
                                         required={true}
                                     />
@@ -102,13 +88,13 @@ export function BannerDetails() {
                                     <CustomInput
                                         label="Data final"
                                         type="date"
-                                        value={dataFim}
+                                        value={bannerModel.dataFim.slice(0, 10)}
                                         readonly={true}
                                         required={true}
                                     />
                                 </div>
                         </div>
-                        <UploadImagem img={"data:image/png;base64," + imagem} onButton={false} text="Imagem do Banner"/>
+                        <UploadImagem img={"data:image/png;base64," + bannerModel.imagem} onButton={false} text="Imagem do Banner"/>
                     </Container>
                 }
             </div>

@@ -5,15 +5,11 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { INbm } from "../../Interfaces/Nbm/INbm";
 
 export function NbmDetails() {
-    const [codigoNbm, setCodigoNbm] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [valorAgregadoEstado, setValorAgregadoEstado] = useState(0);
-    const [valorAgregadoInterestadual, setValorAgregadoInterestadual] = useState(0);
-    const [valorComplementarEstado, setValorComplementarEstado] = useState(0);
-    const [valorComplementarInterestadual, setValorComplementarInterestadual] = useState(0);
-    const [nbmId, setNbmId] = useState(0);
+
+    const [nbmModel, setNbmModel] = useState({} as INbm);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -23,14 +19,8 @@ export function NbmDetails() {
         async function Init() {
           const response = await GetId("RetornaNbmPorId", idParams);
           if(response.status == 200){
-            setNbmId(response.data.id);
-            setCodigoNbm(response.data.codigoNbm);
-            setDescricao(response.data.descricao);
-            setValorAgregadoEstado(response.data.vlrAgregadoEst);
-            setValorAgregadoInterestadual(response.data.vlrAgregadoInt);
-            setValorComplementarEstado(response.data.vlrComplementarEst);
-            setValorComplementarInterestadual(response.data.vlrComplementarInt);
-          }
+            setNbmModel(response.data);
+           }
         }
     
         Init()
@@ -46,7 +36,7 @@ export function NbmDetails() {
                             <CustomInput
                                 label="Código Nbm"
                                 type="text"
-                                value={codigoNbm}
+                                value={nbmModel.codigoNbm}
                                 required={true}
                                 readonly={true}
                             />
@@ -57,7 +47,7 @@ export function NbmDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="textarea"
-                                value={descricao}
+                                value={nbmModel.descricao}
                                 required={true}
                                 readonly={true}
                             />
@@ -70,7 +60,7 @@ export function NbmDetails() {
                                     <CustomInput
                                         label="Valor Agregado Estadual"
                                         type="number"
-                                        value={valorAgregadoEstado}
+                                        value={nbmModel.vlrAgregadoEst}
                                         readonly={true}
                                     />
                                 </div>
@@ -78,7 +68,7 @@ export function NbmDetails() {
                                     <CustomInput
                                         label="Valor Agregado Interestadual"
                                         type="number"
-                                        value={valorAgregadoInterestadual}
+                                        value={nbmModel.vlrAgregadoInt}
                                         readonly={true}
                                     />
                                 </div>
@@ -88,7 +78,7 @@ export function NbmDetails() {
                                     <CustomInput
                                         label="Valor Complementar Estadual"
                                         type="number"
-                                        value={valorComplementarEstado}
+                                        value={nbmModel.vlrComplementarEst}
                                         readonly={true}
                                     />
                                 </div>
@@ -96,7 +86,7 @@ export function NbmDetails() {
                                     <CustomInput
                                         label="Valor Complementar Interestadual"
                                         type="number"
-                                        value={valorComplementarInterestadual}
+                                        value={nbmModel.vlrComplementarInt}
                                         readonly={true}
                                     />
                                 </div>

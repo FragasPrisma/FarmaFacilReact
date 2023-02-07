@@ -5,18 +5,15 @@ import { useEffect, useState } from "react";
 import { GetId } from "../../Services/Api";
 import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
-
-interface IUnidadeConversao {
-    id: 0,
-    sigla: "",
-    descricao: "",
-    fator: Number,
-    unidadeId: 0
-}
+import { IUnidadeConversao } from "../../Interfaces/Unidade/IUnidadeConversao";
+import { IUnidade } from "../../Interfaces/Unidade/IUnidade";
 
 export function UnidadeDetails() {
 
     const { id } = useParams();
+    
+    const [unidadeModel, setUnidadeModel] = useState({} as IUnidade);
+    const [unidadesConversaoModel, setUnidadesConversaoModel] = useState([] as IUnidadeConversao[]);
     let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
@@ -25,11 +22,7 @@ export function UnidadeDetails() {
             const response = await GetId("RetornaUnidadePorId", idParams);
             if (response.status == 200) {
 
-                setId(response.data.id);
-                setSigla(response.data.sigla);
-                setDescricao(response.data.descricao);
-                setTipo(response.data.tipo);
-                setFator(response.data.fator);
+                setUnidadeModel(response.data);
                 if (response.data.unidadesConversao) {
                     setUnidadesConversaoModel([...response.data.unidadesConversao])
                 }
@@ -38,14 +31,6 @@ export function UnidadeDetails() {
 
         Init()
     }, [])
-
-    const [idUnidade, setId] = useState(0);
-    const [sigla, setSigla] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [tipo, setTipo] = useState(0);
-    const [fator, setFator] = useState(Number);
-
-    const [unidadesConversaoModel, setUnidadesConversaoModel] = useState([] as IUnidadeConversao[]);
 
     return (
         <>
@@ -56,14 +41,14 @@ export function UnidadeDetails() {
                 to="unidade"
             />
             <div className="form-group">
-                {idUnidade > 0 &&
+                {unidadeModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-3">
                                 <CustomInput
                                     label="Sigla"
                                     type="text"
-                                    value={sigla}
+                                    value={unidadeModel.sigla}
                                     required={true}
                                     readonly={true}
                                 />
@@ -74,7 +59,7 @@ export function UnidadeDetails() {
                                 <CustomInput
                                     label="Descrição"
                                     type="text"
-                                    value={descricao}
+                                    value={unidadeModel.descricao}
                                     required={true}
                                     readonly={true}
                                 />
@@ -91,27 +76,25 @@ export function UnidadeDetails() {
                                     ]}
                                     name="tipo"
                                     readonly={true}
-                                    value={tipo}
+                                    value={unidadeModel.tipo}
                                 />
                             </div>
                             <div className="col-3 mt-4">
                                 <CustomInput
                                     label="Fator Lactobacilos"
                                     type="number"
-                                    value={fator}
+                                    value={unidadeModel.fator}
                                     readonly={true}
                                 />
                             </div>
                         </div>
-                        <div>
-                            <p className="paragrafo">Unidades de Conversão</p>
-                        </div>
 
-                        {unidadesConversaoModel.length > 0 && fator <= 0 &&
+                        {unidadesConversaoModel.length > 0 && unidadeModel.fator <= 0 &&
 
                             unidadesConversaoModel.map((item) => (
-
+                                
                                 <div key={item.id} className="row">
+                                    <p className="paragrafo">Unidades de Conversão</p>
                                     <div className="col-1">
                                         <CustomInput
                                             label="Sigla"

@@ -8,6 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
+import { IEspecialidade } from "../../Interfaces/Especialidade/IEspecialidade";
 
 export function EspecialidadeCreate() {
     const navigate = useNavigate();
@@ -17,8 +18,8 @@ export function EspecialidadeCreate() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
-        id: 0, //id 0 é default
+    const data : IEspecialidade = {
+        id: 0,
         descricao: descricao.trim(),
     };
 

@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IDcb } from "../../Interfaces/Dcb/IDcb";
 
 export function DcbDetails() {
-    const [codigoDcb, setCodigoDcb] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [dcbId, setDcbId] = useState(0);
+
+    const [dcbModel, setDcbModel] = useState({} as IDcb);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -18,9 +18,7 @@ export function DcbDetails() {
         async function Init() {
             const response = await GetId("RetornaDcbPorId", idParams);
             if (response.status == 200) {
-                setDcbId(response.data.id);
-                setCodigoDcb(response.data.codigoDcb);
-                setDescricao(response.data.descricao);
+                setDcbModel(response.data);
             }
         }
 
@@ -37,7 +35,7 @@ export function DcbDetails() {
                             <CustomInput
                                 label="Código Dcb"
                                 type="text"
-                                value={codigoDcb}
+                                value={dcbModel.codigoDcb}
                                 required={true}
                                 readonly={true}
                             />
@@ -48,7 +46,7 @@ export function DcbDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={dcbModel.descricao}
                                 required={true}
                                 readonly={true}
                             />

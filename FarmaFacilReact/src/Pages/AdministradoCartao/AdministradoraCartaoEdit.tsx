@@ -11,6 +11,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IAdministradoCartao } from "../../Interfaces/AdministradoCartao/IAdministradoCartao";
 
 export function AdministradoraCartaoEdit() {
 
@@ -26,15 +27,14 @@ export function AdministradoraCartaoEdit() {
     const [cieloPremia, setCieloPremia] = useState(-1);
     const [modalidade, setmodalidade] = useState(0);
     const [ativo, setAtivo] = useState(false);
-    const [fornecedorId, setFornecedorId] = useState();
-    const [planoDeContaId, setPlanoDeContaId] = useState();
+    const [fornecedorId, setFornecedorId] = useState(null);
+    const [planoDeContaId, setPlanoDeContaId] = useState(null);
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [erro, setErro] = useState("");
 
     const [fornecedores, setFornecedores] = useState([]);
     const [planoDeContas, setPlanoDeContas] = useState([]);
-
 
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [descricaoPLanoDeContas, setDescricaoPLanoDeContas] = useState("");
@@ -85,7 +85,7 @@ export function AdministradoraCartaoEdit() {
         loadDataPlanoDeContas()
     }, []);
 
-    const data = {
+    const data : IAdministradoCartao = {
         id: idAdministradora,
         nome: nome,
         prazoRecebimento: prazoDeRecebimento,

@@ -9,6 +9,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
+import { IEtapa } from "../../Interfaces/Etapa/IEtapa";
 
 export function EtapaEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -34,7 +35,7 @@ export function EtapaEdit() {
         obrigatoria: "",
         tipo: "",
         tempoMaximo: "",
-    })
+    } as IEtapa)
 
     let idParams = !id ? "0" : id.toString();
 

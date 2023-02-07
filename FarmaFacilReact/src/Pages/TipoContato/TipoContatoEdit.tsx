@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useParams,useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { ITipoContato } from "../../Interfaces/TipoContato/ITipoContato";
 
 export function TipoContatoEdit() {
     const navigate = useNavigate();
@@ -17,8 +18,12 @@ export function TipoContatoEdit() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [tipoContatoId, setTipoContatoId] = useState(0);
     const { id } = useParams();
-    const [data] = useState({id:0,descricao:""});
     const [isLoading,setIsLoading] = useState(false);
+
+    let data : ITipoContato = {
+        id: tipoContatoId,
+        descricao: descricao
+    }
 
     let idParams = !id ? "0" : id.toString();
 

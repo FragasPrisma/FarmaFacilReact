@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IContaCorrente } from "../../Interfaces/ContaCorrente/IContaCorrente";
 
 export function ContaCorrenteEdit() {
 
@@ -39,11 +40,12 @@ export function ContaCorrenteEdit() {
     Init();
   }, []);
 
-  const data = {
-    id: idConta, 
+  const data : IContaCorrente= {
+    id: idConta,
     nome: nome.trim(),
-    numeroConta:numeroConta,
-    limite:limite
+    numeroConta: numeroConta,
+    limite: limite,
+    filialId: null
   };
 
   async function submit() {

@@ -4,15 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
-import { SelectInput } from "../../Components/Inputs/SelectInput";
+import { IEtapa } from "../../Interfaces/Etapa/IEtapa";
 
 export function EtapaDetails() {
-    const [descricao, setDescricao] = useState("");
-    const [sequencia, setSequencia] = useState(Number);
-    const [tipo, setTipo] = useState("");
-    const [processo, setProcesso] = useState("");
-    const [obrigatoria, setObrigatoria] = useState("");
-    const [tempoMaximo, setTempoMaximo] = useState("");
+    
+    const [etapaModel, setEtapaModel] = useState({} as IEtapa);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString()
@@ -22,12 +18,7 @@ export function EtapaDetails() {
         async function Init() {
           const response = await GetId("RetornaEtapaPorId", idParams);
           if(response.status == 200){
-            setDescricao(response.data.descricao);
-            setSequencia(response.data.sequencia);
-            setTipo(response.data.tipo);
-            setProcesso(response.data.processo);
-            setObrigatoria(response.data.obrigatoria);
-            setTempoMaximo(response.data.tempoMaximo);
+            setEtapaModel(response.data);
           }
         }
     
@@ -44,7 +35,7 @@ export function EtapaDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={etapaModel.descricao}
                                 required={true}
                                 readonly={true}
                             />
@@ -55,7 +46,7 @@ export function EtapaDetails() {
                             <CustomInput
                                 label="Sequência"
                                 type="number"
-                                value={sequencia}
+                                value={etapaModel.sequencia}
                                 required={true}
                                 readonly={true}
                             />
@@ -66,7 +57,7 @@ export function EtapaDetails() {
                             <CustomInput 
                                 type="text"
                                 label="Processo"
-                                value={processo}
+                                value={etapaModel.processo}
                                 readonly={true}
                             />
                         </div>
@@ -76,7 +67,7 @@ export function EtapaDetails() {
                             <CustomInput 
                                 type="text"
                                 label="Obrigatória"
-                                value={obrigatoria}
+                                value={etapaModel.obrigatoria}
                                 readonly={true}
                             />
                         </div>
@@ -86,7 +77,7 @@ export function EtapaDetails() {
                             <CustomInput
                                 type="text"
                                 label="Tipo"
-                                value={tipo}
+                                value={etapaModel.tipo}
                                 required={true}
                                 readonly={true}
                             />
@@ -98,7 +89,7 @@ export function EtapaDetails() {
                                 label="Tempo Máximo"
                                 type="time"
                                 step="1"
-                                value={tempoMaximo}
+                                value={etapaModel.tempoMaximo}
                                 readonly={true}
                             />
                         </div>

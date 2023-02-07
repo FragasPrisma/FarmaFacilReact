@@ -9,6 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ITransportador } from "../../Interfaces/Transportador/ITransportador";
+import { IEstado } from "../../Interfaces/Estado/IEstado";
+import { ICidade } from "../../Interfaces/Cidade/ICidade";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
 
 export function TransportadorCreate() {
 
@@ -16,10 +20,10 @@ export function TransportadorCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
 
-    const [bairroId, setBairroId] = useState();
-    const [cidadeId, setCidadeId] = useState();
-    const [estadoId, setEstadoId] = useState();
-    const [estadoPlacaId, setEstadoPlacaId] = useState();
+    const [bairroId, setBairroId] = useState(null);
+    const [cidadeId, setCidadeId] = useState(null);
+    const [estadoId, setEstadoId] = useState(null);
+    const [estadoPlacaId, setEstadoPlacaId] = useState(null);
     const [nome, setNome] = useState("");
     const [cpfCnpj, setCpfCnpj] = useState("");
     const [ie, setIe] = useState("");
@@ -36,38 +40,30 @@ export function TransportadorCreate() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [estados, setEstados] = useState([]);
-    const [cidades, setCidades] = useState([]);
-    const [bairros, setBairros] = useState([]);
+    const [estados, setEstados] = useState([] as IEstado []);
+    const [cidades, setCidades] = useState([] as ICidade []);
+    const [bairros, setBairros] = useState([] as IBairro []);
 
     useEffect(() => {
         const loadDataBairro = async () => {
             const response = await getAll("ListaBairro");
             setBairros(response.data);
         }
-
-        loadDataBairro()
-    }, []);
-
-    useEffect(() => {
+        const loadDataEstado = async () => {
+            const response = await getAll("ListaEstado");
+            setEstados(response.data);
+        }
         const loadDataCidade = async () => {
             const response = await getAll("ListaCidade");
             setCidades(response.data);
         }
 
         loadDataCidade()
-    }, []);
-
-    useEffect(() => {
-        const loadDataEstado = async () => {
-            const response = await getAll("ListaEstado");
-            setEstados(response.data);
-        }
-
         loadDataEstado()
+        loadDataBairro()
     }, []);
 
-    const data = {
+    const data: ITransportador = {
         id: 0,
         bairroId: bairroId,
         cidadeId: cidadeId,

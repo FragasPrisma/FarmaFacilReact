@@ -4,20 +4,15 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IVisitador } from "../../Interfaces/Visitador/IVisitador";
 
 export function VisitadorDetails() {
-    const [nome, setNome] = useState("");
-    const [cep, setCep] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [numero, setNumero] = useState("");
-    const [complemento, setComplemento] = useState("");
+    
+    const [visitadorModel, setVisitadorModel] = useState({} as IVisitador);
     const [nomeBairro, setNomeBairro] = useState("");
     const [nomeCidade, setNomeCidade] = useState("");
     const [nomeEstado, setNomeEstado] = useState("");
-    const [ddd, setDdd] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [celular, setCelular] = useState("");
-    const [comissao, setComissao] = useState(0);
+    
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString()
@@ -27,16 +22,8 @@ export function VisitadorDetails() {
         async function Init() {
             const response = await GetId("RetornaVisitadorPorId", idParams);
             if (response.status == 200) {
-                setNome(response.data.nome);
-                setCep(response.data.cep);
-                setEndereco(response.data.endereco);
-                setNumero(response.data.numero);
-                setComplemento(response.data.complemento);
-                setDdd(response.data.ddd);
-                setTelefone(response.data.telefone);
-                setCelular(response.data.celular);
-                setComissao(response.data.comissao);
-
+                setVisitadorModel(response.data);
+                
                 if (response.data.bairro) {
                     setNomeBairro(response.data.bairro.nome)
                 }
@@ -62,7 +49,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Nome"
                                 type="text"
-                                value={nome}
+                                value={visitadorModel.nome}
                                 readonly={true}
                                 required={true}
                             />
@@ -73,7 +60,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Cep"
                                 type="text"
-                                value={cep}
+                                value={visitadorModel.cep}
                                 readonly={true}
                             />
                         </div>
@@ -81,7 +68,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Número"
                                 type="text"
-                                value={numero}
+                                value={visitadorModel.numero}
                                 readonly={true}
                             />
                         </div>
@@ -91,7 +78,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Endereço"
                                 type="text"
-                                value={endereco}
+                                value={visitadorModel.endereco}
                                 readonly={true}
                             />
                         </div>
@@ -101,7 +88,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Complemento"
                                 type="text"
-                                value={complemento}
+                                value={visitadorModel.complemento}
                                 readonly={true}
                             />
                         </div>
@@ -141,7 +128,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Ddd"
                                 type="text"
-                                value={ddd}
+                                value={visitadorModel.ddd}
                                 readonly={true}
                             />
                         </div>
@@ -149,7 +136,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Telefone"
                                 type="text"
-                                value={telefone}
+                                value={visitadorModel.telefone}
                                 readonly={true}
                             />
                         </div>
@@ -157,7 +144,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Celular"
                                 type="text"
-                                value={celular}
+                                value={visitadorModel.celular}
                                 readonly={true}
                             />
                         </div>
@@ -167,7 +154,7 @@ export function VisitadorDetails() {
                             <CustomInput
                                 label="Comissão %"
                                 type="number"
-                                value={comissao}
+                                value={visitadorModel.comissao}
                                 readonly={true}
                             />
                         </div>

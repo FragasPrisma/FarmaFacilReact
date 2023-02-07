@@ -12,27 +12,27 @@ export function TurnoDetails() {
 
     let idParams = !id ? "0" : id.toString()
 
-    useEffect(() =>{
-    
+    useEffect(() => {
+
         async function Init() {
-          const response = await GetId("RetornaTurnoPorId", idParams);
-          if(response.status == 200){
-            setHoraFinal(response.data.horaFinal.slice(11, 16));
-            setHoraInicial(response.data.horaInicial.slice(11, 16));
-          }
+            const response = await GetId("RetornaTurnoPorId", idParams);
+            if (response.status == 200) {
+                setHoraFinal(response.data.horaFinal.slice(11, 16));
+                setHoraInicial(response.data.horaInicial.slice(11, 16));
+            }
         }
-    
+
         Init()
-    },[])
+    }, [])
 
     return (
         <>
-            <HeaderMainContent title="DETALHES TURNO" IncludeButton={false} ReturnButton={true} to="turno"/>
+            <HeaderMainContent title="DETALHES TURNO" IncludeButton={false} ReturnButton={true} to="turno" />
             <div className="form-group">
                 <Container>
                     <div className="row">
                         <div className="col-2">
-                            <CustomInput 
+                            <CustomInput
                                 label="Hora Inicial"
                                 type="time"
                                 value={horaInicial}
@@ -43,7 +43,7 @@ export function TurnoDetails() {
                     </div>
                     <div className="row">
                         <div className="col-2">
-                        <CustomInput 
+                            <CustomInput
                                 label="Hora Final"
                                 type="time"
                                 value={horaFinal}

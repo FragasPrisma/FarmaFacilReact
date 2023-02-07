@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IFarmacopeia } from "../../Interfaces/Farmacopeia/IFarmacopeia";
 
 export function FarmacopeiaDetails() {
 
-    const [idFarmacopeia, setId] = useState(0);
-    const [nome, setNome] = useState("");
-    const [observacao, setObservacao] = useState("");
+    const [farmacopeiaModel, setFarmacopeiaModel] = useState({} as IFarmacopeia);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -18,25 +17,17 @@ export function FarmacopeiaDetails() {
 
         async function Init() {
             const response = await GetId("RetornaFarmacopeiaPorId", idParams);
-            setId(response.data.id);
-            setNome(response.data.nome);
-            setObservacao(response.data.observacao)
+            setFarmacopeiaModel(response.data);
         }
 
         Init()
     }, [])
 
-    const data = {
-        id: idFarmacopeia,
-        nome: nome,
-        observacao: observacao
-    };
-
     return (
         <>
             <HeaderMainContent title="DETALHES DA FARMACOPÉIA" IncludeButton={false} ReturnButton={true} to={"farmacopeia"} />
             <div className="form-group">
-                {data.id > 0 &&
+                {farmacopeiaModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-5">
@@ -44,7 +35,7 @@ export function FarmacopeiaDetails() {
                                     label="Nome"
                                     type="text"
                                     placeholder=""
-                                    value={nome}
+                                    value={farmacopeiaModel.nome}
                                     readonly={true}
                                     required={true}
                                 />
@@ -55,7 +46,7 @@ export function FarmacopeiaDetails() {
                                 <CustomInput
                                     label="Observação"
                                     type="text"
-                                    value={observacao}
+                                    value={farmacopeiaModel.observacao}
                                     readonly={true}
                                     required={false}
                                 />

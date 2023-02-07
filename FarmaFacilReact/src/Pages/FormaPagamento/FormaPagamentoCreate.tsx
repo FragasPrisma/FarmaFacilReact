@@ -11,6 +11,8 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
+import { IFormaPagamento } from "../../Interfaces/FormaPagamento/IFormaPagamento";
 
 export function FormaPagamentoCreate() {
 
@@ -22,12 +24,12 @@ export function FormaPagamentoCreate() {
     const [tipoPagamento, setTipoPagamento] = useState(0);
     const [autorizarDescontos, setAutorizarDescontos] = useState(0);
     const [conciliacao, setConciliacao] = useState(false);
-    const [planoDeContaId, setPlanoDeContaId] = useState();
+    const [planoDeContaId, setPlanoDeContaId] = useState(null);
 
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [planoDeContas, setPlanoDeContas] = useState([]);
+    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta[]);
 
     useEffect(() => {
         const loadDataPlanoDeContas = async () => {
@@ -37,7 +39,7 @@ export function FormaPagamentoCreate() {
         loadDataPlanoDeContas()
     }, []);
 
-    const data = {
+    const data : IFormaPagamento = {
         id: 0,
         descricao: descricao,
         tipoPagamento: tipoPagamento,
@@ -136,7 +138,13 @@ export function FormaPagamentoCreate() {
                                     onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConciliacao(e.target.checked)}
                                 />
                                 <div className="col-12">
-                                    <CustomDropDown data={planoDeContas} title="Selecione o Plano de Conta" filter="descricao" label="PLano de Contas" Select={(Id) => setPlanoDeContaId(Id)} />
+                                    <CustomDropDown
+                                        data={planoDeContas.filter(x => x.nivelConta == 1 || x.nivelConta == 3)}
+                                        title="Selecione o Plano de Conta"
+                                        filter="descricao"
+                                        label="PLano de Contas"
+                                        Select={(Id) => setPlanoDeContaId(Id)}
+                                    />
                                 </div>
                             </div>
 

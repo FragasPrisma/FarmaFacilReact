@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IDcb } from "../../Interfaces/Dcb/IDcb";
 
 export function DcbEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -21,11 +22,11 @@ export function DcbEdit() {
     const { id } = useParams();
     const [isLoading,setIsLoading] = useState(false);
 
-    const [data] = useState({
-        id: 0,
-        codigoDcb: "",
-        descricao: ""
-    });
+    let data : IDcb = {
+        id: dcbId,
+        codigoDcb: codigoDcb,
+        descricao: descricao
+    }
 
     let idParams = !id ? "0" : id.toString();
 

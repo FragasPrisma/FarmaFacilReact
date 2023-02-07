@@ -8,6 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
+import { ITipoJustificativa } from "../../Interfaces/TipoJustificativa/ITipoJustificativa";
 
 export function TipoJustificativaCreate() {
     const navigate = useNavigate();
@@ -15,10 +16,10 @@ export function TipoJustificativaCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [descricao, setDescricao] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const data = {
-        id: 0, //id 0 é default
+    const data: ITipoJustificativa = {
+        id: 0,
         descricao: descricao.trim(),
     };
 
@@ -75,12 +76,12 @@ export function TipoJustificativaCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                             <ButtonCancel to="tipoJustificativa" />
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Tipo de Justificativa adicionada com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Tipo de Justificativa adicionada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

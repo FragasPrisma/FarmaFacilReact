@@ -1,31 +1,28 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
-import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
-import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
-import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
+import { IMaquinaPos } from "../../Interfaces/MaquinaPos/IMaquinaPos";
 
 export function MaquinaPosDetails() {
   const { id } = useParams();
 
-  const [serialPos, setSerialPos] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [adquirente, setAdquirente] = useState([]);
+  const [maquinaModel, setMaquinaModel] = useState({} as IMaquinaPos);
+  const [adquirente, setAdquirente] = useState("")
 
   let idParams = !id ? "0" : id.toString();
 
   useEffect(() => {
     async function Init() {
       const response = await GetId("RetornaMaquinaPosPorId", idParams);
-      console.log(response);
+      
       if (response.status == 200) {
-        setDescricao(response.data.descricao);
-        setSerialPos(response.data.serialPos);
-        setAdquirente(response.data.adquirentePos.descricao);
+        setMaquinaModel(response.data);
+        if (response.data.adquirentePos) {
+          setAdquirente(response.data.adquirentePos.descricao)
+        }
       }
     }
 
@@ -47,7 +44,7 @@ export function MaquinaPosDetails() {
               <CustomInput
                 label="Descrição"
                 type="text"
-                value={descricao}
+                value={maquinaModel.descricao}
                 readonly
               />
             </div>
@@ -57,7 +54,7 @@ export function MaquinaPosDetails() {
               <CustomInput
                 label="Serial"
                 type="textarea"
-                value={serialPos}
+                value={maquinaModel.serialPos}
                 readonly
               />
             </div>

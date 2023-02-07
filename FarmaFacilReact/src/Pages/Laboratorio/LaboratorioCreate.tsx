@@ -8,7 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { NOMEM } from "dns";
+import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 
 export function LaboratorioCreate() {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ export function LaboratorioCreate() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
+    const data : ILaboratorio = {
         id: 0,
         descricao: descricao.trim()
     };

@@ -6,79 +6,22 @@ import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { IBanco } from "../../Interfaces/Banco/IBanco";
 
 export function BancoDetails() {
-    const [nomeBanco, setNomeBanco] = useState("");
-    const [codigoBanco, setCodigoBanco] = useState("");
-    const [carteira, setCarteira] = useState("");
-    const [modalidade, setModalidade] = useState("");
-    const [formaCobranca, setFormaCobranca] = useState("");
-    const [layout, setLayout] = useState("");
-    const [sequenciaRemessa, setSequenciaRemessa] = useState(0);
-    const [nomeCedente, setNomeCedente] = useState("");
-    const [cnpjCedente, setCnpjCedente] = useState("");
-    const [codigoCedente, setCodigoCedente] = useState("");
-    const [codigoTransmissao, setCodigoTransmissao] = useState("");
-    const [complementoTransmissao, setComplementoTransmissao] = useState("");
-    const [agencia, setAgencia] = useState("");
-    const [agenciaDigito, setAgenciaDigito] = useState("");
-    const [diasProtesto, setDiasProtesto] = useState(0);
-    const [juros, setJuros] = useState(0);
-    const [multa, setMulta] = useState(0);
-    const [contaCorrente, setContaCorrente] = useState("");
-    const [contaCorrenteDigito, setContaCorrenteDigito] = useState("");
-    const [convenio, setConvenio] = useState("");
-    const [producao, setProducao] = useState(false);
-    const [localPagamento, setLocalPagamento] = useState("");
-    const [mensagemInstrucao1, setMensagemInstrucao1] = useState("");
-    const [mensagemInstrucao2, setMensagemInstrucao2] = useState("");
-    const [mensagemInstrucao3, setMensagemInstrucao3] = useState("");
-    const [mensagemInstrucao4, setMensagemInstrucao4] = useState("");
-    const [mensagemInstrucao5, setMensagemInstrucao5] = useState("");
+    
+    const [bancoModel, setBancoModel] = useState({} as IBanco);
+    
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString()
-
-    useEffect(() => {
-        if (formaCobranca == "B") {
-            setFormaCobranca("B - Boleto")
-        } else if (formaCobranca == "D") {
-            setFormaCobranca("D - Desconto Escritural")
-        }
-    }, [formaCobranca])
 
     useEffect(() => {
 
         async function Init() {
             const response = await GetId("RetornaBancoPorId", idParams);
             if (response.status == 200) {
-                setNomeBanco(response.data.nome);
-                setCodigoBanco(response.data.codigoBanco);
-                setCarteira(response.data.carteira);
-                setModalidade(response.data.modalidade);
-                setFormaCobranca(response.data.formaCobranca);
-                setLayout(response.data.layout);
-                setSequenciaRemessa(response.data.sequenciaRemessa);
-                setNomeCedente(response.data.nomeCedente);
-                setCnpjCedente(response.data.cnpjCedente);
-                setCodigoCedente(response.data.codigoCedente);
-                setCodigoTransmissao(response.data.codigoTransmissao);
-                setComplementoTransmissao(response.data.complementoTransmissao);
-                setAgencia(response.data.agencia);
-                setAgenciaDigito(response.data.agenciaDigito);
-                setDiasProtesto(response.data.diasProtesto);
-                setJuros(response.data.juros);
-                setMulta(response.data.multa);
-                setContaCorrente(response.data.contaCorrente);
-                setContaCorrenteDigito(response.data.contaCorrenteDigito);
-                setConvenio(response.data.convenio);
-                setProducao(response.data.producao);
-                setLocalPagamento(response.data.localPagamento);
-                setMensagemInstrucao1(response.data.mensagemInstrucao1);
-                setMensagemInstrucao2(response.data.mensagemInstrucao2);
-                setMensagemInstrucao3(response.data.mensagemInstrucao3);
-                setMensagemInstrucao4(response.data.mensagemInstrucao4);
-                setMensagemInstrucao5(response.data.mensagemInstrucao5);
+                setBancoModel(response.data);
             }
         }
 
@@ -96,7 +39,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Nome"
                                 type="text"
-                                value={nomeBanco}
+                                value={bancoModel.nome}
                                 required={true}
                                 readonly={true}
                             />
@@ -105,7 +48,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="CodigoBanco"
                                 type="text"
-                                value={codigoBanco}
+                                value={bancoModel.codigoBanco}
                                 required={true}
                                 readonly={true}
                             />
@@ -114,7 +57,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Carteira"
                                 type="text"
-                                value={carteira}
+                                value={bancoModel.carteira}
                                 readonly={true}
                             />
                         </div>
@@ -122,7 +65,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Modalidade"
                                 type="text"
-                                value={modalidade}
+                                value={bancoModel.modalidade}
                                 readonly={true}
                             />
                         </div>
@@ -132,7 +75,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Forma Cobrança"
                                 type="text"
-                                value={formaCobranca}
+                                value={bancoModel.formaCobranca == "B" ? "B - Boleto" : "D - Desconto Escritural"}
                                 readonly={true}
                             />
                         </div>
@@ -140,7 +83,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Layout"
                                 type="text"
-                                value={layout}
+                                value={bancoModel.layout}
                                 readonly={true}
                             />
                         </div>
@@ -148,7 +91,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Sequência de Remessa"
                                 type="number"
-                                value={sequenciaRemessa}
+                                value={bancoModel.sequenciaRemessa}
                                 readonly={true}
                             />
                         </div>
@@ -158,7 +101,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Nome Cedente"
                                 type="text"
-                                value={nomeCedente}
+                                value={bancoModel.nomeCedente}
                                 readonly={true}
                             />
                         </div>
@@ -166,7 +109,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Cnpj Cedente"
                                 type="text"
-                                value={cnpjCedente}
+                                value={bancoModel.cnpjCedente}
                                 readonly={true}
                             />
                         </div>
@@ -176,7 +119,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Código do Cedente"
                                 type="text"
-                                value={codigoCedente}
+                                value={bancoModel.codigoCedente}
                                 readonly={true}
                             />
                         </div>
@@ -184,7 +127,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Código Transmissão"
                                 type="text"
-                                value={codigoTransmissao}
+                                value={bancoModel.codigoTransmissao}
                                 readonly={true}
                             />
                         </div>
@@ -192,7 +135,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Complemento Transmissão"
                                 type="text"
-                                value={complementoTransmissao}
+                                value={bancoModel.complementoTransmissao}
                                 readonly={true}
                             />
                         </div>
@@ -202,7 +145,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Agência"
                                 type="text"
-                                value={agencia}
+                                value={bancoModel.agencia}
                                 readonly={true}
                             />
                         </div>
@@ -210,7 +153,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Digito da Agencia"
                                 type="text"
-                                value={agenciaDigito}
+                                value={bancoModel.agenciaDigito}
                                 readonly={true}
                             />
                         </div>
@@ -218,7 +161,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Dias Protesto"
                                 type="number"
-                                value={diasProtesto}
+                                value={bancoModel.diasProtesto}
                                 readonly={true}
                             />
                         </div>
@@ -226,7 +169,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Juros%"
                                 type="number"
-                                value={juros}
+                                value={bancoModel.juros}
                                 readonly={true}
                             />
                         </div>
@@ -234,7 +177,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Multa%"
                                 type="number"
-                                value={multa}
+                                value={bancoModel.multa}
                                 readonly={true}
                             />
                         </div>
@@ -244,7 +187,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Conta Corrente"
                                 type="text"
-                                value={contaCorrente}
+                                value={bancoModel.contaCorrente}
                                 readonly={true}
                             />
                         </div>
@@ -252,7 +195,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Digito Conta Corrente"
                                 type="text"
-                                value={contaCorrenteDigito}
+                                value={bancoModel.contaCorrenteDigito}
                                 readonly={true}
                             />
                         </div>
@@ -260,14 +203,14 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Convenio"
                                 type="text"
-                                value={convenio}
+                                value={bancoModel.convenio}
                                 readonly={true}
                             />
                         </div>
                         <div className="col-1 mt-3">
                             <CheckboxCustom
                                 options={["Produção"]}
-                                check={producao}
+                                check={bancoModel.producao}
                                 readOnly={true}
                             />
                         </div>
@@ -277,7 +220,7 @@ export function BancoDetails() {
                             <CustomInput
                                 label="Local Pagamento"
                                 type="text"
-                                value={localPagamento}
+                                value={bancoModel.localPagamento}
                                 readonly={true}
                             />
                         </div>
@@ -289,7 +232,7 @@ export function BancoDetails() {
                                     <CustomInput
                                         label="Mensagem de Instrucao 1"
                                         type="text"
-                                        value={mensagemInstrucao1}
+                                        value={bancoModel.mensagemInstrucao1}
                                         readonly={true}
                                     />
                                 </div>
@@ -299,7 +242,7 @@ export function BancoDetails() {
                                     <CustomInput
                                         label="Mensagem de Instrucao 2"
                                         type="text"
-                                        value={mensagemInstrucao2}
+                                        value={bancoModel.mensagemInstrucao2}
                                         readonly={true}
                                     />
                                 </div>
@@ -309,7 +252,7 @@ export function BancoDetails() {
                                     <CustomInput
                                         label="Mensagem de Instrucao 3"
                                         type="text"
-                                        value={mensagemInstrucao3}
+                                        value={bancoModel.mensagemInstrucao3}
                                         readonly={true}
                                     />
                                 </div>
@@ -319,7 +262,7 @@ export function BancoDetails() {
                                     <CustomInput
                                         label="Mensagem de Instrucao 4"
                                         type="text"
-                                        value={mensagemInstrucao4}
+                                        value={bancoModel.mensagemInstrucao4}
                                         readonly={true}
                                     />
                                 </div>
@@ -329,7 +272,7 @@ export function BancoDetails() {
                                     <CustomInput
                                         label="Mensagem de Instrucao 5"
                                         type="text"
-                                        value={mensagemInstrucao5}
+                                        value={bancoModel.mensagemInstrucao5}
                                         readonly={true}
                                     />
                                 </div>

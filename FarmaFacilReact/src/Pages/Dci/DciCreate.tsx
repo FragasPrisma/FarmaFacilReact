@@ -8,7 +8,7 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { NOMEM } from "dns";
+import { IDci } from "../../Interfaces/Dci/IDci";
 
 export function DciCreate() {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ export function DciCreate() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
+    const data : IDci = {
         id: 0,
         codigoDci: codigoDci.trim(),
         descricao: descricao.trim(),

@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
 
 export function CidadeEdit() {
 
@@ -23,8 +24,8 @@ export function CidadeEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [erro, setErro] = useState("");
     const [errorRequest, setErrorRequest] = useState("");
-    const [tributos,setTributos] = useState([]);
-    const [dataCfps,setDataCfps] = useState();
+    const [tributos,setTributos] = useState([] as ITributo []);
+    const [dataCfps,setDataCfps] = useState("");
     const navigate = useNavigate();
 
     let idParams = !id ? "0" : id.toString();
@@ -48,8 +49,8 @@ export function CidadeEdit() {
     useEffect(() => {
         const loadDataTributo = async () => {
             const response = await getAll("ListaTributo");
-            let TributoFilter = response.data;
-            setTributos(TributoFilter.filter((x: { tipoTributo: number; }) => x.tipoTributo == 6));
+            let TributoFilter : ITributo [] = response.data;
+            setTributos(TributoFilter.filter((x) => x.tipoTributo == 6));
         }
 
         loadDataTributo()
@@ -99,7 +100,7 @@ export function CidadeEdit() {
                 {cidade.Id &&
                     <Container>
                         <div className="row">
-                            <div className="col-4">
+                            <div className="col-6">
                                 <CustomInput
                                     label="Nome"
                                     type="text"
@@ -116,7 +117,7 @@ export function CidadeEdit() {
                         </div>
 
                         <div className="row">
-                            <div className="col-2">
+                            <div className="col-3">
                                 <CustomInput
                                     label="Código IBGE"
                                     type="number"
@@ -128,12 +129,12 @@ export function CidadeEdit() {
                                     required={false}
                                 />
                             </div>
-                            <div className="col-2">
+                            <div className="col-3">
                                 <CustomInput
                                     label="Código SIAFI"
                                     type="number"
                                     placeholder="Digite o código SIAFI"
-                                    value={codigoIbge}
+                                    value={codigoSiafi}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setCodigoSiafi(parseInt(e.target.value))
                                     }
@@ -142,12 +143,9 @@ export function CidadeEdit() {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-4">
-                                {dataCfps ? 
-                                <CustomDropDown data={tributos} title={dataCfps} filter="descricao" label="Código CFPS" Select={(cidadeId) => setCodigoCfpsId(cidadeId)}/>
-                                :
-                                <CustomDropDown data={tributos} title="Selecione o Código CFPS" filter="descricao" label="Código CFPS" Select={(cidadeId) => setCodigoCfpsId(cidadeId)}/>
-                                }
+                            <div className="col-6">
+                                <CustomDropDown data={tributos} title={dataCfps ? dataCfps : "Selecione o Código CFPS"} filter="descricao" label="Código CFPS" Select={(cidadeId) => setCodigoCfpsId(cidadeId)}/>
+                                
                             </div>
                         </div>
                         

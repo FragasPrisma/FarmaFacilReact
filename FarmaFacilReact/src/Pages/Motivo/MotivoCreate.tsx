@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IMotivo } from "../../Interfaces/Motivo/IMotivo";
 
 export function MotivoCreate() {
 
@@ -18,7 +19,7 @@ export function MotivoCreate() {
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
-  const data = {
+  const data : IMotivo = {
     id: 0, 
     descricao: descricao.trim(),
   };
