@@ -19,7 +19,7 @@ export function TableDefault({ data = [], header, path }: Props) {
           {header.map((head, index) => (
             <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
           ))}
-          <th>
+          <th style={{ textAlign: "end", paddingRight: "2rem" }}>
             <label>Visualizar</label>
             <label>Editar</label>
             <label className="labelExcluir">Excluir</label>
@@ -32,8 +32,18 @@ export function TableDefault({ data = [], header, path }: Props) {
             {header.map((header, index) => (
               <td key={index}>{data[header]}</td>
             ))}
-            <td>
-              <ActionsButtonsDefault id={data.id.toString()} pathParameters={path} urlText={path}></ActionsButtonsDefault>
+            <td
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                paddingRight: "2rem",
+              }}
+            >
+              <ActionsButtonsDefault
+                id={data.id.toString()}
+                pathParameters={path}
+                urlText={path}
+              ></ActionsButtonsDefault>
             </td>
           </TrCustom>
         ))}
