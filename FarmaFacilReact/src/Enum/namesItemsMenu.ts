@@ -27,7 +27,7 @@ export const namesItemsMenu = [
     subMenu: [
       { titulo: "Fornecedor", link: "/fornecedor" },
       { titulo: "Nbm", link: "/nbm" },
-      { titulo: "Ncm", link: "/ncm" },
+      //{ titulo: "Ncm", link: "/ncm" },
       { titulo: "Pbm", link: "/pbm" },
       { titulo: "Classe", link: "/classe" },
       { titulo: "Dci", link: "/dci" },
@@ -35,7 +35,7 @@ export const namesItemsMenu = [
       { titulo: "Laboratorio", link: "laboratorio" },
       //{ titulo: "Produto", link: "produto" },
       { titulo: "Dcb", link: "dcb" },
-      //{ titulo: "Grupo", link: "grupo" },
+      { titulo: "Grupo", link: "grupo" },
     ],
   },
 

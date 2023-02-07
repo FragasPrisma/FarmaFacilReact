@@ -31,6 +31,9 @@ import { NbmCreate } from "./Pages/Nbm/NbmCreate";
 import { NbmDetails } from "./Pages/Nbm/NbmDetails";
 import { NbmEdit } from "./Pages/Nbm/NbmEdit";
 import { Ncm } from "./Pages/Ncm";
+import { NcmCreate } from "./Pages/Ncm/NcmCreate/NcmCreate";
+import { NcmDetails } from "./Pages/Ncm/NcmDetails/NcmDetails"; 
+import { NcmEdit } from "./Pages/Ncm/NcmEdit/NcmEdit"; 
 import { Pbm } from "./Pages/Pbm/";
 import { PbmCreate } from "./Pages/Pbm/PbmCreate";
 import { PrincipioAtivo } from "./Pages/PrincipioAtivo";
@@ -834,6 +837,33 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            
+            <Route
+              path="/ncm/create"
+              element={
+                <Private>
+                  <NcmCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ncm/edit/:id"
+              element={
+                <Private>
+                  <NcmEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ncm/details/:id"
+              element={
+                <Private>
+                  <NcmDetails />
+                </Private>
+              }
+            />
 
             <Route
               path="/farmacopeia"
@@ -843,6 +873,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            
 
             <Route
               path="/farmacopeia/create"
