@@ -1,10 +1,8 @@
-import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
 import { useState, useEffect } from "react";
 import { GetId } from "../../../Services/Api";
 import { useParams } from "react-router-dom";
-import { Container } from "../styles";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { FornecedorDetailsGeral } from "./FornecedorDetailsGeral";

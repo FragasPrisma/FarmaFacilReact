@@ -4,7 +4,7 @@ import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent
 import { useState } from "react";
 import { postFormAll } from "../../../Services/Api";
 import { useNavigate } from "react-router-dom";
-import TabsPage from "../../../Components/Tabs";
+import TabsPage from "../../../Components/Others/Tabs";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
