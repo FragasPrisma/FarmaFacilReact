@@ -13,9 +13,9 @@ import { INcmGeral, NcmGeral } from "../../../Interfaces/Ncm/INcmGeral";
 import { INcmPorEstado } from "../../../Interfaces/Ncm/INcmPorEstado";
 import { ITributo } from "../../../Interfaces/Tributo/ITributo";
 import { NcmEditGeral } from "./NcmEditGeral";
-import { NcmEditPorEstado } from "./NcmEditPorEstado";
+import { NcmEditPorEstado, ncmPorEstadoExcluir } from "./NcmEditPorEstado";
 import { Ncm } from "../../../Interfaces/Ncm/INcm";
-import { ncmPorEstado } from "../NcmCreate/NcmCreatePorEstado";
+import { ncmPorEstado } from "../NcmEdit/NcmEditPorEstado";
 
 export function NcmEdit() {
     const navigate = useNavigate();
@@ -28,6 +28,7 @@ export function NcmEdit() {
     const [listaTributosCst, setListaTributosCst] = useState([] as ITributo[]);
     const [listaTributosCsosn, setListaTributosCsosn] = useState([] as ITributo[]);
     const [dataNcm, setDataNcm] = useState({} as INcmGeral);
+    const [ncmId, setNcmId] = useState(0);
 
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
@@ -48,6 +49,7 @@ export function NcmEdit() {
         async function Init() {
             const response = await GetId("RetornaNcmPorId", idParams);
             if (response.status == 200) {
+                setNcmId(response.data.id)
                 setDataNcm(response.data)
                 setListaNcmPorEstado(response.data.ncmEstados);
             }
@@ -99,6 +101,8 @@ export function NcmEdit() {
     }
 
     async function submit() {
+        console.log("Entrou")
+        console.log(NcmGeral)
         if (!ValidString(NcmGeral.descricao, 1) || (!ValidString(NcmGeral.codigoNcm, 2))) {
             setIsLoading(false);
             return;
@@ -112,6 +116,9 @@ export function NcmEdit() {
             return;
         }
 
+        console.log("Chegou")
+
+        Ncm.id = ncmId;
         Ncm.descricao = NcmGeral.descricao;
         Ncm.codigoNcm = NcmGeral.codigoNcm;
         Ncm.codigoNcmEx = NcmGeral.codigoNcmEx;
@@ -128,9 +135,15 @@ export function NcmEdit() {
         Ncm.tributoCstPisSaidaId = NcmGeral.tributoCstPisSaidaId;
         Ncm.ncmEstados = ncmPorEstado;
 
-        const resp = await postFormAll("AdicionarNcm", Ncm);
+        const resp = await postFormAll("EditarNcm", Ncm);
+
+        console.log(ncmPorEstadoExcluir)
 
         if (resp.status == 200) {
+            if (ncmPorEstadoExcluir.length > 0){
+                const respostaDelete = await postFormAll("ExcluirListaNcmEstado", ncmPorEstadoExcluir)
+            }
+            
             setIsOpenSuccess(true);
             setTimeout(() => {
                 navigate("/ncm");

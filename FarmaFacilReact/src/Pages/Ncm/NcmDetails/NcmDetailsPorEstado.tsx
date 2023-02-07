@@ -38,8 +38,6 @@ export function NcmDetailsPorEstado({ NcmPorEstado, ListaTributosCst, ListaTribu
 
     }, [NcmPorEstado, ListaEstados, ListaTributosCsosn, ListaTributosCst])
 
-    console.log(NcmPorEstado)
-
     return (
         <>
             <Container>

@@ -17,20 +17,20 @@ interface Error {
 export function NcmEditGeral({ NcmGeralModel }: Data, { error }: Error) {
     const [tributosPisCofins, setTributosPisCofins] = useState([]);
 
-    const [produtoServico, setProdutoServico] = useState(true);
-    const [descricao, setDescricao] = useState("");
-    const [codigoNcm, setCodigoNcm] = useState("");
-    const [codigoNcmEx, setCodigoNcmEx] = useState(0);
-    const [percentualMva, setPercentualMva] = useState(0);
-    const [aliquotaNacional, setAliquotaNacional] = useState(0);
-    const [aliquotaImportacao, setAliquotaImportacao] = useState(0);
-    const [aliquotaCofins, setAliquotaCofins] = useState(0);
-    const [aliquotaIcmsProduto, setAliquotaIcmsProduto] = useState(0);
-    const [aliquotaPis, setAliquotaPis] = useState(0);
-    const [tributoCstCofinsEntradaId, setTributoCstCofinsEntradaId] = useState(null);
-    const [tributoCstCofinsSaidaId, setTributoCstCofinsSaidaId] = useState(null);
-    const [tributoCstPisEntradaId, setTributoCstPisEntradaId] = useState(null);
-    const [tributoCstPisSaidaId, setTributoCstPisSaidaId] = useState(null);
+    const [produtoServico, setProdutoServico] = useState(NcmGeralModel.produtoServico);
+    const [descricao, setDescricao] = useState(NcmGeralModel.descricao);
+    const [codigoNcm, setCodigoNcm] = useState(NcmGeralModel.codigoNcm);
+    const [codigoNcmEx, setCodigoNcmEx] = useState(NcmGeralModel.codigoNcmEx);
+    const [percentualMva, setPercentualMva] = useState(NcmGeralModel.percentualMva);
+    const [aliquotaNacional, setAliquotaNacional] = useState(NcmGeralModel.aliquotaNacional);
+    const [aliquotaImportacao, setAliquotaImportacao] = useState(NcmGeralModel.aliquotaImportacao);
+    const [aliquotaCofins, setAliquotaCofins] = useState(NcmGeralModel.aliquotaCofins);
+    const [aliquotaIcmsProduto, setAliquotaIcmsProduto] = useState(NcmGeral.aliquotaIcmsProduto);
+    const [aliquotaPis, setAliquotaPis] = useState(NcmGeralModel.aliquotaPis);
+    const [tributoCstCofinsEntradaId, setTributoCstCofinsEntradaId] = useState(NcmGeralModel.tributoCstCofinsEntradaId);
+    const [tributoCstCofinsSaidaId, setTributoCstCofinsSaidaId] = useState(NcmGeralModel.tributoCstCofinsSaidaId);
+    const [tributoCstPisEntradaId, setTributoCstPisEntradaId] = useState(NcmGeralModel.tributoCstPisEntradaId);
+    const [tributoCstPisSaidaId, setTributoCstPisSaidaId] = useState(NcmGeralModel.tributoCstPisSaidaId);
 
     NcmGeral.produtoServico = produtoServico;
     NcmGeral.descricao = descricao;

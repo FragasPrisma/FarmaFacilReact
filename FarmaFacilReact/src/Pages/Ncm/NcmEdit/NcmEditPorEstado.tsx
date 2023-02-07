@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown"
 import { CustomInput } from "../../../Components/Inputs/CustomInput"
 import { FailModal } from "../../../Components/Modals/FailModal"
@@ -20,6 +20,7 @@ interface IFields {
 }
 
 export let ncmPorEstado = [] as INcmPorEstado[];
+export let ncmPorEstadoExcluir = [] as INcmPorEstado[];
 
 export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributosCsosn, ListaEstados }: Data) {
     const [ncmPorEstadoModel, setNcmPorEstadoModel] = useState([] as INcmPorEstado[]);
@@ -29,27 +30,27 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
     const [erroJaInseridoMensagem, setErroJaInseridoMensagem] = useState("");
     const [isOpenFail, setIsOpenFail] = useState(false);
 
-    const [estadoOrigemId, setEstadoOrigemId] = useState(0);
-    const [estadoDestinoId, setEstadoDestinoId] = useState(0);
-    const [tributoCstId, setTributoCstId] = useState(0);
-    const [tributoCsosnId, setTributoCsosnId] = useState(0);
-    const [aliquotaIcms, setAliquotaIcms] = useState(0);
-    const [aliquotaIcmsInterna, setAliquotaIcmsInterna] = useState(0);
-    const [percentualMva, setPercentualMva] = useState(0);
-    const [percentualFcp, setPercentualFcp] = useState(0);
-
-
-    // NcmPorEstado.estadoOrigemId = estadoOrigemId;
-    // NcmPorEstado.estadoDestinoId = estadoDestinoId;
-    // NcmPorEstado.tributoCstId = tributoCstId;
-    // NcmPorEstado.tributoCsosnId = tributoCsosnId;
-    // NcmPorEstado.aliquotaIcms = aliquotaIcms;
-    // NcmPorEstado.aliquotaIcmsInterna = aliquotaIcmsInterna;
-    // NcmPorEstado.percentualMva = percentualMva;
-    // NcmPorEstado.percentualFcp = percentualFcp;
-    // NcmPorEstado.ncmId = 0;
-
     ncmPorEstado = ncmPorEstadoModel;
+
+    useEffect(() => {
+        if (NcmPorEstado && ListaEstados && ListaTributosCsosn && ListaTributosCst) {
+            NcmPorEstado.forEach((ncm, index) => {
+                const estadoOrigem = ListaEstados.find(estado => estado.id === ncm.estadoOrigemId);
+                const estadoDestino = ListaEstados.find(estado => estado.id === ncm.estadoDestinoId);
+                const tributoCst = ListaTributosCst.find(tributo => tributo.id === ncm.tributoCstId);
+                const tributoCsosn = ListaTributosCsosn.find(tributo => tributo.id === ncm.tributoCsosnId);
+                if (estadoOrigem && estadoDestino && tributoCst && tributoCsosn) {
+                    ncm.nomeEstadoOrigem = estadoOrigem.nome;
+                    ncm.nomeEstadoDestino = estadoDestino.nome;
+                    ncm.descricaoTributoCst = tributoCst.descricao;
+                    ncm.descricaoTributoCsosn = tributoCsosn.descricao;
+                    ncmPorEstadoModel.push(ncm)
+                }
+                setNcmPorEstadoModel([...ncmPorEstadoModel])
+            });
+        }
+
+    }, [NcmPorEstado, ListaEstados, ListaTributosCsosn, ListaTributosCst])
 
     function insereNovoDado() {
         ncmPorEstadoModel.push({
@@ -104,6 +105,13 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
     }
 
     function ExcluirAliquotaEstado(index: number) {
+
+        ncmPorEstadoModel.map((item, i) => {
+            if (i === index) {
+                ncmPorEstadoExcluir.push(item)
+            }
+        })
+
         ncmPorEstadoModel.splice(index, 1);
         setNcmPorEstadoModel([...ncmPorEstadoModel]);
         setExibirErro(false);
@@ -120,19 +128,12 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
         percentualFcp: 'percentualFcp'
     };
 
-    function setDataItem(index: number, field: keyof IFields, value: boolean | number | string) {
-        // setNcmPorEstadoModel(prev => {
-        //     const newModel = [...prev];
-        //     const prop = newModel[index][fields[field]];
-        //     if (typeof prop === 'number') {
-        //         newModel[index][fields[field]] = Number(value);
-        //     } else if (typeof prop === 'string') {
-        //         newModel[index][fields[field]] = String(value);
-        //     } else {
-        //         newModel[index][fields[field]] = value;
-        //     }
-        //     return newModel;
-        // });
+    function setDataItem(index: number, field: keyof IFields, value: any) {
+        setNcmPorEstadoModel(prev => {
+            const newModel: any = [...prev];
+            newModel[index][fields[field]] = (value);
+            return newModel;
+        });
 
         if (field == 'percentualFcp') {
             adicionaNovaAliquota(index)
@@ -151,7 +152,7 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
                                         <div className="col-2">
                                             <CustomDropDown
                                                 data={ListaEstados}
-                                                title="Seleciona o estado de origem"
+                                                title={item.nomeEstadoOrigem ? item.nomeEstadoOrigem : ""}
                                                 filter="nome"
                                                 label="Estado Origem"
                                                 required={true}
@@ -161,7 +162,7 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
                                         <div className="col-2">
                                             <CustomDropDown
                                                 data={ListaEstados}
-                                                title="Seleciona o estado de destino"
+                                                title={item.nomeEstadoDestino ? item.nomeEstadoDestino : ""}
                                                 filter="nome"
                                                 label="Estado Destino"
                                                 required={true}
@@ -171,7 +172,7 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
                                         <div className="col-1">
                                             <CustomDropDown
                                                 data={ListaTributosCst}
-                                                title="Cst"
+                                                title={item.descricaoTributoCst ? item.descricaoTributoCst : ""}
                                                 filter="descricao"
                                                 label="Cst"
                                                 Select={(tributoCstId) => setDataItem(index, 'tributoCstId', tributoCstId)}
@@ -180,7 +181,7 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
                                         <div className="col-1">
                                             <CustomDropDown
                                                 data={ListaTributosCsosn}
-                                                title="Csosn"
+                                                title={item.descricaoTributoCsosn ? item.descricaoTributoCsosn : ""}
                                                 filter="descricao"
                                                 label="Csosn"
                                                 Select={(tributoCsosnId) => setDataItem(index, 'tributoCsosnId', tributoCsosnId)}
@@ -230,7 +231,7 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
                                                 }
                                             />
                                         </div>
-                                        {ncmPorEstadoModel.length != 1 &&
+                                        {ncmPorEstadoModel.length >= 0 &&
                                             <div className="col-1 mt-3">
                                                 <button
                                                     className="btn btn-danger"
