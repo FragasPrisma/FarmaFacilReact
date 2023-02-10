@@ -3,8 +3,8 @@ import { Container } from "../styles";
 import { IGrupoEnsaios } from "../../../Interfaces/Grupo/IGrupo";
 import { getAll } from "../../../Services/Api";
 import { FieldsetCustom } from "../../../Components/Others/FieldsetCustom";
-import { IEnsaio } from "../../Ensaio/IEnsaio";
 import { GenericTable } from "../../../Components/Others/GenericTable";
+import { IEnsaio } from "../../../Interfaces/Ensaio/IEnsaio";
 
 interface IData {
     EnsaiosGrupo: IGrupoEnsaios[]
