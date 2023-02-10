@@ -21,6 +21,14 @@ export const namesItemsMenu = [
 
   {
     img: "",
+    titulo: "Compras",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Manutenção de Compras", link: "/compras"}
+    ]
+  },
+  {
+    img: "",
     titulo: "Contas a Pagar",
     hasSubMenu: true,
     subMenu: [

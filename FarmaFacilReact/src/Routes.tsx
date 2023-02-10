@@ -212,6 +212,7 @@ import { ContasAPagarEdit } from "./Pages/ContasAPagar/ContasAPagarEdit";
 import { ContasAPagarDetails } from "./Pages/ContasAPagar/ContasAPagarDetails";
 import { ContasAPagarPagar } from "./Pages/ContasAPagar/ContasAPagarPagar";
 import { ContasAPagarCancelarPagamento } from "./Pages/ContasAPagar/ContasAPagarCancelarPagamento";
+import { ManutencaoCompras } from "./Pages/Compras";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1907,6 +1908,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <RelatorioContasAPagar />
+                </Private>
+              }
+            />
+            <Route 
+              path="/compras"
+              element={
+                <Private>
+                  <ManutencaoCompras />
                 </Private>
               }
             />
