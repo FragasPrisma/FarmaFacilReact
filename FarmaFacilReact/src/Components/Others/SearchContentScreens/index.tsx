@@ -3,15 +3,19 @@ import { ContainerSearch } from "./styles";
 import { X } from "phosphor-react";
 import { TableDefault } from "../TableDefault";
 import Lupa from "../../../assets/img/lupa.png";
+import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButtonExtra";
 
 interface IDataSearch {
   text: string;
   data:any[];
   filter:string;
   headerTable:string[];
+  iconOptions?:boolean;
+  itensExtraButton?: ItensButtonExtra[];
+  btnsEditExcluir?:boolean
 }
 
-export function SearchContentScreens({ text ,data, filter,headerTable}: IDataSearch) {
+export function SearchContentScreens({ text ,data, filter,headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false}: IDataSearch) {
 
   const [searchOptions, setSearchOptions] = useState(false);
   const [value, setValue] = useState("");
@@ -46,7 +50,7 @@ export function SearchContentScreens({ text ,data, filter,headerTable}: IDataSea
 
         {searchOptions && <X size={15} cursor="pointer" />}
       </div>
-      <TableDefault header={headerTable} data={search} path={text}/>
+      <TableDefault header={headerTable} data={search} path={text} iconOptions={iconOptions} itensExtraButton={itensExtraButton} btnsEditExcluir={btnsEditExcluir}/>
     </ContainerSearch>
     
   );

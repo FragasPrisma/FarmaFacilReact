@@ -15,8 +15,12 @@ export const TableCustom = styled(Table)`
 `;
 
 export const TrCustom = styled.tr`
-  .labelExcluir {
-    margin-left: 1.3rem;
+  .label-editar {
+    margin-right: .8rem;
+  }
+
+  .mr-4{
+    margin-right: .2rem;
   }
 
   label {

@@ -205,6 +205,11 @@ import { FormaFarmaceuticaCreate } from "./Pages/FormaFarmaceutica/FormaFarmaceu
 import { FormaFarmaceuticaEdit } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaEdit/FormaFarmaceuticaEdit";
 import { FormaFarmaceuticaDetails } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaDetails/FormaFarmaceuticaDetails";
 import { ContasAPagar } from "./Pages/ContasAPagar";
+import { ContasAPagarCreate } from "./Pages/ContasAPagar/ContasAPagarCreate";
+import { ContasAPagarEdit } from "./Pages/ContasAPagar/ContasAPagarEdit";
+import { ContasAPagarDetails } from "./Pages/ContasAPagar/ContasAPagarDetails";
+import { ContasAPagarPagar } from "./Pages/ContasAPagar/ContasAPagarPagar";
+import { ContasAPagarCancelarPagamento } from "./Pages/ContasAPagar/ContasAPagarCancelarPagamento";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -278,6 +283,46 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ContasAPagar />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/edit/:id"
+              element={
+                <Private>
+                  <ContasAPagarEdit />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/details/:id"
+              element={
+                <Private>
+                  <ContasAPagarDetails />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/pagar/:id"
+              element={
+                <Private>
+                  <ContasAPagarPagar />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/cancelarpagamento/:id"
+              element={
+                <Private>
+                  <ContasAPagarCancelarPagamento />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/contasapagar/create"
+              element={
+                <Private>
+                  <ContasAPagarCreate />{" "}
                 </Private>
               }
             />

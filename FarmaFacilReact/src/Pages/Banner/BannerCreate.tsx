@@ -62,7 +62,6 @@ export function BannerCreate() {
 
         setErros({ erro: false, index: 0, erroNome: "" });
         setIsLoading(true);
-        console.log(dataInicio.length)
 
         if (!ValidString(descricao.trim(), 1)
             || !ValidString(link.trim(), 2)

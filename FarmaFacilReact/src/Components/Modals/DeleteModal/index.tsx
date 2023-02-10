@@ -86,7 +86,7 @@ export function DeleteModal({
           </Container>
         </ModalBody>
       </Modal>
-      <SuccessModal show={stateModalSucces} textCustom="Dado Deletado" />
+      <SuccessModal show={stateModalSucces} textCustom="Cadastro deletado com" />
 
     </>
   );

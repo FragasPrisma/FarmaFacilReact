@@ -1,36 +1,45 @@
-import Table from "react-bootstrap/Table";
-import { useState } from "react";
 import { ActionsButtonsDefault } from "../../Buttons/ActionsButtonsDefault";
 import { TableCustom, TrCustom } from "./styles";
+import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButtonExtra";
 
 interface Props {
   data: any[];
   header: string[];
   path: string;
+  iconOptions?: boolean;
+  itensExtraButton?: ItensButtonExtra[];
+  btnsEditExcluir?: boolean
 }
 
-export function TableDefault({ data = [], header, path }: Props) {
-  const [bodyList, setbodyList] = useState([]);
+export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, btnsEditExcluir = false }: Props) {
 
   return (
     <TableCustom>
       <thead>
         <TrCustom>
           {header.map((head, index) => (
-            <th style={{width:"calc(2rem - 100%)"}} key={index}>{head}</th>
+            <th style={{ width: "calc(2rem - 100%)" }} key={index}>{head}</th>
           ))}
-          <th style={{ textAlign: "end", paddingRight: "2rem" }}>
-            <label>Visualizar</label>
-            <label>Editar</label>
-            <label className="labelExcluir">Excluir</label>
+          <th style={{ textAlign: "end", paddingRight: "1.6rem" ,width:"300px" }}>
+            {iconOptions &&
+              <label>Opções</label>
+            }
+
+            <label className="mr-4">Visualizar</label>
+            {!btnsEditExcluir &&
+              <>
+                <label className="label-editar">Editar</label>
+                <label>Excluir</label>
+              </>
+            }
           </th>
         </TrCustom>
       </thead>
       <tbody>
-        {data.map((data, index) => (
-          <TrCustom key={index}>
-            {header.map((header, index) => (
-                <td key={index}>{data[header]}</td>
+        {data.map((dataItem, indexItem) => (
+          <TrCustom key={indexItem}>
+            {header.map((item, index) => (
+              <td key={index}>{dataItem[item].toString().slice(0,30)}</td>
             ))}
             <td
               style={{
@@ -40,9 +49,12 @@ export function TableDefault({ data = [], header, path }: Props) {
               }}
             >
               <ActionsButtonsDefault
-                id={data.id.toString()}
+                id={dataItem.id.toString()}
                 pathParameters={path}
                 urlText={path}
+                iconOptions={iconOptions}
+                itensExtraButton={itensExtraButton}
+                btnsEditExcluir={btnsEditExcluir}
               ></ActionsButtonsDefault>
             </td>
           </TrCustom>
