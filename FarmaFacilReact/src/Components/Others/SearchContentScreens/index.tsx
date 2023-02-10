@@ -10,12 +10,13 @@ interface IDataSearch {
   data:any[];
   filter:string;
   headerTable:string[];
+  headerTableView?:string[];
   iconOptions?:boolean;
   itensExtraButton?: ItensButtonExtra[];
   btnsEditExcluir?:boolean
 }
 
-export function SearchContentScreens({ text ,data, filter,headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false}: IDataSearch) {
+export function SearchContentScreens({ text ,data, filter,headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView}: IDataSearch) {
 
   const [searchOptions, setSearchOptions] = useState(false);
   const [value, setValue] = useState("");
@@ -50,7 +51,7 @@ export function SearchContentScreens({ text ,data, filter,headerTable, iconOptio
 
         {searchOptions && <X size={15} cursor="pointer" />}
       </div>
-      <TableDefault header={headerTable} data={search} path={text} iconOptions={iconOptions} itensExtraButton={itensExtraButton} btnsEditExcluir={btnsEditExcluir}/>
+      <TableDefault header={headerTable} data={search} path={text} iconOptions={iconOptions} itensExtraButton={itensExtraButton} btnsEditExcluir={btnsEditExcluir} headerTableView={headerTableView}/>
     </ContainerSearch>
     
   );

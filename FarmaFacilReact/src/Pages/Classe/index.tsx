@@ -23,7 +23,7 @@ export function Classe(){
     return (
         <>
             <HeaderMainContent title="CLASSE" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Classe"  data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
+            <SearchContentScreens text="Classe"  data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

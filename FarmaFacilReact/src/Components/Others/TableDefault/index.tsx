@@ -5,20 +5,21 @@ import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButt
 interface Props {
   data: any[];
   header: string[];
+  headerTableView? : string[];
   path: string;
   iconOptions?: boolean;
   itensExtraButton?: ItensButtonExtra[];
   btnsEditExcluir?: boolean
 }
 
-export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, btnsEditExcluir = false }: Props) {
+export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView }: Props) {
 
   return (
     <TableCustom>
       <thead>
         <TrCustom>
           {header.map((head, index) => (
-            <th style={{ width: "calc(2rem - 100%)" }} key={index}>{head}</th>
+            <th style={{ width: "calc(2rem - 100%)" }} key={index}>{headerTableView ? headerTableView[index] : head[0].toUpperCase() + head.substring(1)}</th>
           ))}
           <th style={{ textAlign: "end", paddingRight: "1.6rem" ,width:"300px" }}>
             {iconOptions &&
