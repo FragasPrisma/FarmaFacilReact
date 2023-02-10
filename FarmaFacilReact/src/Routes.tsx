@@ -205,6 +205,8 @@ import { FormaFarmaceuticaCreate } from "./Pages/FormaFarmaceutica/FormaFarmaceu
 import { FormaFarmaceuticaEdit } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaEdit/FormaFarmaceuticaEdit";
 import { FormaFarmaceuticaDetails } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaDetails/FormaFarmaceuticaDetails";
 import { ContasAPagar } from "./Pages/ContasAPagar";
+import { RelatorioContasPagas } from "./Pages/RelatorioContasPagas";
+import { RelatorioContasAPagar } from "./Pages/RelatorioContasAPagar";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1844,6 +1846,22 @@ export function AppRoutes() {
               element={
                 <Private>
                   <EstadoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contaspagas"
+              element={
+                <Private>
+                  <RelatorioContasPagas />
+                </Private>
+              }
+            />
+            <Route
+              path="/contaspagar"
+              element={
+                <Private>
+                  <RelatorioContasAPagar />
                 </Private>
               }
             />

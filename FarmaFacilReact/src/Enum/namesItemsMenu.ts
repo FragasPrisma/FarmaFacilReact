@@ -17,8 +17,6 @@
         
 import Flat from "../assets/img/bench.png";
 
-
-
 export const namesItemsMenu = [
 
   {
@@ -27,6 +25,8 @@ export const namesItemsMenu = [
     hasSubMenu: true,
     subMenu: [
       { titulo: "Contas a Pagar", link: "/contasapagar" },
+      { titulo: "Pagas", link: "/contaspagas"},
+      { titulo: "Pagar", link: "/contaspagar"},
     ],
   },
   {
@@ -36,7 +36,7 @@ export const namesItemsMenu = [
     subMenu: [
       { titulo: "Fornecedor", link: "/fornecedor" },
       { titulo: "Nbm", link: "/nbm" },
-      //{ titulo: "Ncm", link: "/ncm" },
+      { titulo: "Ncm", link: "/ncm" },
       { titulo: "Pbm", link: "/pbm" },
       { titulo: "Classe", link: "/classe" },
       { titulo: "Dci", link: "/dci" },
