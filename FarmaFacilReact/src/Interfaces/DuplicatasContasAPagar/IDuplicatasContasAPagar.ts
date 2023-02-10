@@ -2,9 +2,10 @@ export interface IDuplicatasContasAPagar {
     id: number,
     observacao: string,
     dataVencimento: string,
-    dataPagamento: string,
+    dataPagamento: string | null,
     valor: number,
     valorPago: number,
-    numeroFatura: number,
-    numeroParcela: number
+    numeroFatura: string,
+    numeroParcela: number,
+    ContasAPagarId: number
 }

@@ -8,8 +8,8 @@ export interface IContasAPagar {
     numeroFatura: number,
     quantidadeParcela: number,
     fornecedorId: number,
-    planoDeContaId: number,
-    bancoId: number,
-    portadorId: number,
+    planoDeContasId: number | null,
+    bancoId: number | null,
+    portadorId: number | null,
     duplicatasContasAPagar: IDuplicatasContasAPagar[]
 }

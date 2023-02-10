@@ -79,7 +79,7 @@ export function PbmCreate() {
             <div className="col-6">
               <CustomInput
                 label="Observação"
-                type="textarea"
+                type="text"
                 placeholder="Digite uma descrição para o Pbm"
                 value={observacao}
                 maxLength={150}
