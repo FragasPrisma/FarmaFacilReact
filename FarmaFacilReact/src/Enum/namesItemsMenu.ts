@@ -19,14 +19,14 @@ import Flat from "../assets/img/bench.png";
 
 export const namesItemsMenu = [
 
-  {
-    img: "",
-    titulo: "Compras",
-    hasSubMenu: true,
-    subMenu: [
-      { titulo: "Manutenção de Compras", link: "/compras"}
-    ]
-  },
+  // {
+  //   img: "",
+  //   titulo: "Compras",
+  //   hasSubMenu: true,
+  //   subMenu: [
+  //     { titulo: "Manutenção de Compras", link: "/compras"}
+  //   ]
+  // },
   {
     img: "",
     titulo: "Contas a Pagar",
