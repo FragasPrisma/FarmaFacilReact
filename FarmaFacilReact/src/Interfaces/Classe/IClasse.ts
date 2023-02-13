@@ -1,4 +1,5 @@
 export interface IClasse {
     id: number,
-    descricao: string
+    descricao: string,
+    validadeDias: number
 }

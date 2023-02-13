@@ -25,7 +25,7 @@ export function Convenio() {
     return (
         <>
             <HeaderMainContent title="CONVÊNIO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Convênio" data={data} filter={"nome"} headerTable={["id", "nome"]} />
+            <SearchContentScreens text="Convênio" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

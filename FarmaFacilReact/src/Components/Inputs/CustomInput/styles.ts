@@ -19,6 +19,14 @@ export const ContainerInput = styled.div`
         background-color: #ECECEC;
     }
 
+    .text-danger-erro{
+        color: #cf0209;
+        font-size: .9rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
     .label_text{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 800;

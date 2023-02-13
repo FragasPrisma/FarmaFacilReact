@@ -4,8 +4,8 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function MensagemPadrao(){
-    const [pagina,setPagina] = useState(1);
+export function MensagemPadrao() {
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
@@ -21,9 +21,9 @@ export function MensagemPadrao(){
 
     return (
         <>
-            <HeaderMainContent title="MENSAGENS PADRÃO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Mensagens Padrão" data={data} filter={"statusDescricao"} headerTable={["id", "statusDescricao"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title="MENSAGENS PADRÃO" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Mensagens Padrão" data={data} filter={"statusDescricao"} headerTable={["id", "statusDescricao"]} headerTableView={["ID", "Status Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

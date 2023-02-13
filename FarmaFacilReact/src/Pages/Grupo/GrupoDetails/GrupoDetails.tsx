@@ -34,7 +34,7 @@ export function GrupoDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES GRUPO" IncludeButton={false} ReturnButton={true} to="grupo" />
+            <HeaderMainContent title="Visualizar Grupo" IncludeButton={false} ReturnButton={true} to="grupo" />
             <div className="form-group">
                 {grupoModel.id > 0 &&
                     <TabsPage Childrens={arrayTab} TabsQtd={itemsHandlesGrupo.length} titles={itemsHandlesGrupo} />

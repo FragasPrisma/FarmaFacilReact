@@ -24,8 +24,8 @@ export function FuncionarioLaboratorio() {
   return (
     <>
       <HeaderMainContent title="FUNCIONÁRIO LABORATÓRIO" IncludeButton={true} ReturnButton={false} />
-      <SearchContentScreens text="FuncionarioLaboratorio" data={data} filter={"nome"} headerTable={["id", "nome"]} />
-      <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+      <SearchContentScreens text="Funcionário Laboratório" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+      <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
     </>
   );
 }

@@ -4,11 +4,20 @@ import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButt
 import { DropdownCustom } from "./styles";
 
 interface IData {
-    itens:  ItensButtonExtra[]
-    id:string
+    itens: ItensButtonExtra[];
+    id: string;
+    openModal?: boolean;
+    openModalFunction?: (id:string) => void
 }
 
-export function CustomDropDownExtra({ itens, id }: IData) {
+export function CustomDropDownExtra({ itens, id, openModal = false, openModalFunction }: IData) {
+
+    function OpenModal(id : string) {
+        if(openModalFunction){
+            openModalFunction(id)
+        }
+    }
+
     return (
         <Dropdown>
             <DropdownCustom split variant="" id="">
@@ -16,9 +25,18 @@ export function CustomDropDownExtra({ itens, id }: IData) {
             </DropdownCustom>
             <Dropdown.Menu>
                 {itens.map((x, index) =>
-                    <Dropdown.Item key={index} href={x.path + id}>{x.title}</Dropdown.Item>
+                    <>
+                        {openModal ?
+                            <Dropdown.Item key={index}
+                                onClick={() => OpenModal(id)}>
+                                {x.title}
+                            </Dropdown.Item>
+                            :
+                            <Dropdown.Item key={index} href={x.path + id} > {x.title}</Dropdown.Item>
+                        }
+                    </>
                 )}
             </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown >
     );
 }

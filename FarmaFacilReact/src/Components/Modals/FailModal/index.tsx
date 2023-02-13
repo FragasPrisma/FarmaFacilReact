@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Modal, ModalBody } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { CloseButton, MensageDefault, Container } from "./styles";
 
 interface Props {
@@ -31,7 +29,7 @@ export function FailModal(props: Props) {
           </div>
           <div className="div_text">
             <MensageDefault>
-              {props.text == null ? "Dado não foi inserido!" : props.text}
+              {props.text == null ? "Campo (os) obrigatório (os) não preenchido (os) corretamente." : props.text}
             </MensageDefault>
           </div>
         </Container>

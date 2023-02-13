@@ -7,16 +7,18 @@ import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButt
 
 interface IDataSearch {
   text: string;
-  data:any[];
-  filter:string;
-  headerTable:string[];
-  headerTableView?:string[];
-  iconOptions?:boolean;
+  data: any[];
+  filter: string;
+  headerTable: string[];
+  headerTableView?: string[];
+  iconOptions?: boolean;
   itensExtraButton?: ItensButtonExtra[];
-  btnsEditExcluir?:boolean
+  btnsEditExcluir?: boolean;
+  openModal?: boolean;
+  openModalFunction?: (id:string) => void
 }
 
-export function SearchContentScreens({ text ,data, filter,headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView}: IDataSearch) {
+export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView, openModal = false , openModalFunction}: IDataSearch) {
 
   const [searchOptions, setSearchOptions] = useState(false);
   const [value, setValue] = useState("");
@@ -27,32 +29,42 @@ export function SearchContentScreens({ text ,data, filter,headerTable, iconOptio
     setSearchOptions(!searchOptions);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(data){
-      
-      const filterArray = () => {  
+    if (data) {
+
+      const filterArray = () => {
         setSearch(data.filter(y => y[filter].toString().toLowerCase().includes(value)));
       };
-  
+
       filterArray();
     }
 
-  },[ value, data ]);
-  
+  }, [value, data]);
+
   return (
     <ContainerSearch className="">
       <span className="title_search">Pesquisa de {text} </span>
       <div className="container_search" onClick={searchOptionsFechar}>
 
-        <img src={Lupa}/>
+        <img src={Lupa} />
 
         <input type="text" onChange={(e) => setValue(e.target.value.toLowerCase())} value={value} />
 
         {searchOptions && <X size={15} cursor="pointer" />}
       </div>
-      <TableDefault header={headerTable} data={search} path={text} iconOptions={iconOptions} itensExtraButton={itensExtraButton} btnsEditExcluir={btnsEditExcluir} headerTableView={headerTableView}/>
+      <TableDefault
+        header={headerTable}
+        data={search}
+        path={text}
+        iconOptions={iconOptions}
+        itensExtraButton={itensExtraButton}
+        btnsEditExcluir={btnsEditExcluir}
+        headerTableView={headerTableView}
+        openModal={openModal}
+        openModalFunction={openModalFunction}
+      />
     </ContainerSearch>
-    
+
   );
 }

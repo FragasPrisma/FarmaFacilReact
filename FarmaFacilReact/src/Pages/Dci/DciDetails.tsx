@@ -27,7 +27,7 @@ export function DciDetails() {
 
   return (
     <>
-      <HeaderMainContent title="DETALHES DCI" IncludeButton={false} ReturnButton={true} to={"dci"} />
+      <HeaderMainContent title="Visualizar DCI" IncludeButton={false} ReturnButton={true} to={"dci"} />
       <div className="form-group">
         <Container>
           <div className="row">

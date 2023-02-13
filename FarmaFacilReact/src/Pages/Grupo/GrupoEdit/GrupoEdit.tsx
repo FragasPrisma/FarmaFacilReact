@@ -11,6 +11,7 @@ import { GrupoEditEnsaio, gruposEnsaios, gruposEnsaiosDelete } from "./GrupoEdit
 import { itemsHandlesGrupo } from "../../../Enum/itensGrupo"
 import { GrupoEditGeral, GrupoGeral } from "./GrupoEditGeral"
 import TabsPage from "../../../Components/Others/Tabs";
+import { LabelObrigatorio } from "../../../Components/Others/LabelMensagemObrigatorio";
 
 export function GrupoEdit() {
 
@@ -92,8 +93,8 @@ export function GrupoEdit() {
     }
 
     function ValidNumber(numero: number, index: number) {
-        if (numero < 0) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !" })
+        if (numero <= 0) {
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório." })
             return false;
         } else {
             return true;
@@ -102,7 +103,7 @@ export function GrupoEdit() {
 
     function ValidString(texto: string, index: number) {
         if (!texto.trim()) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório.", })
             return false;
         } else {
             return true;
@@ -111,11 +112,12 @@ export function GrupoEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR GRUPO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Grupo" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {grupoModel.id > 0 &&
                     <TabsPage Childrens={arrayTab} TabsQtd={itemsHandlesGrupo.length} titles={itemsHandlesGrupo} />
                 }
+                <LabelObrigatorio/>
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -123,7 +125,7 @@ export function GrupoEdit() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Grupo editado com " />
+            <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

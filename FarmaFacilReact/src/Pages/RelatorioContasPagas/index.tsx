@@ -6,15 +6,19 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { InverterDate } from "../../helper/InverterDate";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IFiltroContasPagas } from "../../Interfaces/RelatorioContasPagas/IFiltroContasPagas";
+import { IReport } from "../../Interfaces/Report/IReport";
+import { ReportContasPagas } from "../../Reports/ReportContasPagas";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 
 export function RelatorioContasPagas() {
+
     const [isLoading, setIsLoading] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-
+    const [message, setMessage] = useState("")
     const [classificacao, setClassificacao] = useState(0);
     const [dataInicio, setDataInicio] = useState("");
     const [dataFim, setDataFim] = useState("");
@@ -24,6 +28,8 @@ export function RelatorioContasPagas() {
     const [erroDataFim, setErroDataFim] = useState("");
 
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
+
+    let dadosReport = [] as string[][]
 
     const filtroData: IFiltroContasPagas = {
         fornecedorId: 0,
@@ -37,7 +43,6 @@ export function RelatorioContasPagas() {
             const response = await getAll("ListaFornecedor");
             setFornecedores(response.data);
         }
-
         loadDataFornecedores()
     }, []);
 
@@ -48,7 +53,8 @@ export function RelatorioContasPagas() {
 
         if (dataInicio == "") {
             setIsOpenFail(true);
-            setIsLoading(false)
+            setIsLoading(false);
+            setMessage("Erro ao gerar o relatório, verifique os campos obrigatórios !");
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDataInicio("Data Inicio vazia!");
@@ -58,7 +64,8 @@ export function RelatorioContasPagas() {
 
         if (dataFim == "") {
             setIsOpenFail(true);
-            setIsLoading(false)
+            setIsLoading(false);
+            setMessage("Erro ao gerar o relatório, verifique os campos obrigatórios !");
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErroDataFim("Data Inicio vazia!");
@@ -74,20 +81,85 @@ export function RelatorioContasPagas() {
         if (filtroData.fornecedorId == 0) {
             const response = await postFormAll("RelatorioContasPagas", filtroData);
             if (response.status === 200) {
+                if (response.data.length > 0) {
+                    GerarPdf(response.data);
+                } else {
+                    setMessage("Nenhuma ocorrência para Duplicatas Pagas !")
+                    setIsOpenFail(true);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setIsOpenFail(false);
+                    }, 2000)
+                }
                 setIsLoading(false)
-                console.log(response.data)
             }
             setIsLoading(false)
         } else {
             const response = await postFormAll("RelatorioContasPagasPorFornecedor", filtroData);
+
             if (response.status === 200) {
+                if (response.data.length > 0) {
+                    GerarPdf(response.data);
+                } else {
+                    setMessage("Nenhuma ocorrência para Duplicatas Pagas !")
+                    setIsOpenFail(true);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setIsOpenFail(false);
+                    }, 2000)
+                }
                 setIsLoading(false)
-                console.log(response.data)
             }
             setIsLoading(false)
         }
     }
-    
+
+
+    function GerarPdf(data: any[]) {
+        data.map((item: { duplicatasContasAPagar: any[]; fornecedor: { nomeFornecedor: string } }) => {
+
+            item.duplicatasContasAPagar.map((x: { dataPagamento: string; dataVencimento: string; observacao: string; valor: number; valorPago: number }) => {
+
+                let nomeFornecedor = "";
+                let dataPagamento = "";
+
+                if (item.fornecedor) {
+                    nomeFornecedor = item.fornecedor.nomeFornecedor
+                }
+                if (x.dataPagamento) {
+                    dataPagamento = x.dataPagamento
+                }
+
+                let dataVcto = parseInt(x.dataVencimento.replaceAll("-", ""));
+                let dataPgto = parseInt(dataPagamento.replaceAll("-", ""));
+
+                dadosReport.push(
+                    [
+                        InverterDate(x.dataVencimento),
+                        nomeFornecedor.slice(0, 15),
+                        InverterDate(dataPagamento),
+                        x.observacao,
+                        x.valor.toString(),
+                        x.valorPago.toString(),
+                        (dataPgto - dataVcto).toString(),
+                        (x.valorPago - x.valor).toString()
+                    ]
+                )
+            })
+        })
+
+        let dataReport: IReport = {
+            title: classificacao == 1 ? "Duplicatas Pagas Por Vencimento" : "Duplicatas Pagas Por Pagamento",
+            nomeEmpresa: "Teste 2023",
+            perido: { dataInicial: dataInicio, dataFinal: dataFim },
+            cabecalho: ["Vcto", "Fornecedor", "Pgto", "Observação", "Valor", "Vlr Pago", "Dias", "Dif. Pgto"],
+            widths: ["11%", "15%", "11,5%", "23,5%", "8%", "12,5%", "6%", "12,5%"],
+            dados: dadosReport
+        }
+
+        ReportContasPagas(dataReport)
+    }
+
     return (
         <>
             <HeaderMainContent title="RELATÓRIO CONTAS PAGAS" IncludeButton={false} ReturnButton={false} />
@@ -104,7 +176,7 @@ export function RelatorioContasPagas() {
                     </FieldsetCustom>
                 </div>
                 <div className="row mt-2">
-                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={3}>
+                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={4}>
                         <div className="row">
                             <div className="col-12 mt-2 mb-2">
                                 <CustomDropDown
@@ -152,7 +224,7 @@ export function RelatorioContasPagas() {
                     </div>
                 </div>
             </Container>
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Erro ao gerar relatório confira os campos do filtro" />
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={message} />
         </>
     )
 }

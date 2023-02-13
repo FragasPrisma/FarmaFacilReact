@@ -22,7 +22,7 @@ export function Bula(){
     return (
         <>
             <HeaderMainContent title="BULA" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Bula" data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
+            <SearchContentScreens text="Bula" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

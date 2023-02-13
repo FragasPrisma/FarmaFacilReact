@@ -13,9 +13,11 @@ interface Path {
     iconOptions?: boolean;
     itensExtraButton?: ItensButtonExtra[];
     btnsEditExcluir?: boolean;
+    openModal?: boolean;
+    openModalFunction?: (id:string) => void
 }
 
-export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions, itensExtraButton, btnsEditExcluir = false }: Path) {
+export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions, itensExtraButton, btnsEditExcluir = false, openModal = false , openModalFunction}: Path) {
     const [stateModal, setStateModal] = useState(false)
 
     function openModalDelete() {
@@ -25,7 +27,7 @@ export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions
     return (
         <Container>
             {iconOptions && itensExtraButton &&
-                <ExtraButton><CustomDropDownExtra itens={itensExtraButton} id={id} /></ExtraButton>
+                <ExtraButton><CustomDropDownExtra itens={itensExtraButton} id={id} openModal={openModal} openModalFunction={openModalFunction}/></ExtraButton>
             }
             <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '')}/details/${id}`}>
                 <DetailsButton><Eye size={22} color="#cf0209" /></DetailsButton>
@@ -38,7 +40,7 @@ export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions
                     <DeleteButton onClick={openModalDelete}><Trash size={20} color="#cf0209" /> </DeleteButton>
                 </>
             }
-            <DeleteModal idItem={id} show={stateModal} onClose={openModalDelete} textInformationModal="Tem certeza que deseja excluir?" urlText={urlText} />
+            <DeleteModal idItem={id} show={stateModal} onClose={openModalDelete} textInformationModal="Deseja excluir o registro?" urlText={urlText} />
         </Container>
     );
 }

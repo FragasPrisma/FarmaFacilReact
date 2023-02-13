@@ -211,7 +211,6 @@ import { ContasAPagarCreate } from "./Pages/ContasAPagar/ContasAPagarCreate";
 import { ContasAPagarEdit } from "./Pages/ContasAPagar/ContasAPagarEdit";
 import { ContasAPagarDetails } from "./Pages/ContasAPagar/ContasAPagarDetails";
 import { ContasAPagarPagar } from "./Pages/ContasAPagar/ContasAPagarPagar";
-import { ContasAPagarCancelarPagamento } from "./Pages/ContasAPagar/ContasAPagarCancelarPagamento";
 import { ManutencaoCompras } from "./Pages/Compras";
 
 export function AppRoutes() {
@@ -310,14 +309,6 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ContasAPagarPagar />{" "}
-                </Private>
-              }
-            />
-            <Route
-              path="/duplicatascontasapagar/cancelarpagamento/:id"
-              element={
-                <Private>
-                  <ContasAPagarCancelarPagamento />{" "}
                 </Private>
               }
             />

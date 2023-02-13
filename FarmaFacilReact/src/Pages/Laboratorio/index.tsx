@@ -4,26 +4,26 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Laboratorio(){
-    const [data, setData] = useState([]);
-    const [pagina, setPagina] = useState(1);
-    const [qtdPagina, setQtdPagina] = useState(0);
+export function Laboratorio() {
+  const [data, setData] = useState([]);
+  const [pagina, setPagina] = useState(1);
+  const [qtdPagina, setQtdPagina] = useState(0);
 
-    useEffect(() => {
-        const loadDataTableLaboratorio = async () => {
-          const response = await getAll(`ListaPaginacaoLaboratorio/${pagina}`);
-          setQtdPagina(response.data.total);
-          setData(response.data.listGroup);
-        }
-    
-        loadDataTableLaboratorio()
-      }, [pagina]);
+  useEffect(() => {
+    const loadDataTableLaboratorio = async () => {
+      const response = await getAll(`ListaPaginacaoLaboratorio/${pagina}`);
+      setQtdPagina(response.data.total);
+      setData(response.data.listGroup);
+    }
 
-    return (
-        <>
-            <HeaderMainContent title="LABORATÓRIO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Laboratorio" data={data} filter={"descricao"} headerTable={["id", "descricao"]} />
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
-        </>
-    );
+    loadDataTableLaboratorio()
+  }, [pagina]);
+
+  return (
+    <>
+      <HeaderMainContent title="LABORATÓRIO" IncludeButton={true} ReturnButton={false} />
+      <SearchContentScreens text="Laboratório" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+      <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
+    </>
+  );
 }

@@ -14,8 +14,6 @@ interface IOptions {
     onClick?: (check: boolean) => void
 }
 
-// .Check 
-
 export function HeaderMainContent({ title, IncludeButton, ReturnButton, to, ButtonName, IncludeSwitch, TextSwitch, onClick }: IOptions) {
 
     function OnChecked(check: boolean) {
@@ -34,7 +32,7 @@ export function HeaderMainContent({ title, IncludeButton, ReturnButton, to, Butt
                         type="switch"
                         id="1"
                         onChange={(e: ChangeEvent<HTMLInputElement>) => OnChecked(e.target.checked)}
-
+                        label={TextSwitch}
                     />
                 </SwitchCustom>
             }

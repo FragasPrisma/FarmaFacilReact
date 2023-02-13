@@ -18,7 +18,10 @@ export const TitleMainHeader = styled.h3`
 export const SwitchCustom = styled(Form)`
 
     label{
-        color: red;
+        color: #5b6873;
+        font-family: Roboto, sans-serif;
+        font-weight: 400;
+        font-size: .8rem;
     }
     .form-check-input{
         box-shadow: none;

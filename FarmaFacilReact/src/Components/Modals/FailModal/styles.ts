@@ -12,6 +12,7 @@ export const CloseButton = styled.button`
 `
 export const MensageDefault = styled.h1`
     text-align: center;
+    font-size: 2rem;
 `
 
 export const Container = styled.div`

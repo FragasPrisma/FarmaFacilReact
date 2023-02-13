@@ -5,14 +5,16 @@ import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButt
 interface Props {
   data: any[];
   header: string[];
-  headerTableView? : string[];
+  headerTableView?: string[];
   path: string;
   iconOptions?: boolean;
   itensExtraButton?: ItensButtonExtra[];
-  btnsEditExcluir?: boolean
+  btnsEditExcluir?: boolean;
+  openModal?: boolean;
+  openModalFunction?: (id:string) => void
 }
 
-export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView }: Props) {
+export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView, openModal = false , openModalFunction}: Props) {
 
   return (
     <TableCustom>
@@ -21,7 +23,7 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
           {header.map((head, index) => (
             <th style={{ width: "calc(2rem - 100%)" }} key={index}>{headerTableView ? headerTableView[index] : head[0].toUpperCase() + head.substring(1)}</th>
           ))}
-          <th style={{ textAlign: "end", paddingRight: "1.6rem" ,width:"300px" }}>
+          <th style={{ textAlign: "end", paddingRight: "1.6rem", width: "300px" }}>
             {iconOptions &&
               <label>Opções</label>
             }
@@ -40,7 +42,7 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
         {data.map((dataItem, indexItem) => (
           <TrCustom key={indexItem}>
             {header.map((item, index) => (
-              <td key={index}>{dataItem[item].toString().slice(0,30)}</td>
+              <td key={index}>{dataItem[item].toString().slice(0, 30)}</td>
             ))}
             <td
               style={{
@@ -56,6 +58,8 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
                 iconOptions={iconOptions}
                 itensExtraButton={itensExtraButton}
                 btnsEditExcluir={btnsEditExcluir}
+                openModal={openModal}
+                openModalFunction={openModalFunction}
               ></ActionsButtonsDefault>
             </td>
           </TrCustom>

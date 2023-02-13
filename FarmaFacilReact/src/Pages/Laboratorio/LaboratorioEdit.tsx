@@ -9,6 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function LaboratorioEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -49,7 +50,7 @@ export function LaboratorioEdit() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroDescricao("Campo descrição é obrigatório !")
+        setErroDescricao("Campo de preenchimento obrigatório.")
       }, 2000)
       return;
     }
@@ -77,7 +78,7 @@ export function LaboratorioEdit() {
 
   return (
     <>
-      <HeaderMainContent title="EDITAR LABORATÓRIO" IncludeButton={false} ReturnButton={false} />
+      <HeaderMainContent title="Editar Laboratório" IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -96,6 +97,7 @@ export function LaboratorioEdit() {
               />
             </div>
           </div>
+          <LabelObrigatorio/>
           <div className="row">
             <div className="col-6 mt-2">
               <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -103,7 +105,7 @@ export function LaboratorioEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Laboratório editado com" />
+        <SuccessModal show={isOpenSuccess} textCustom="Registro editado com" />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

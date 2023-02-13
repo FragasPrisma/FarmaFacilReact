@@ -40,12 +40,12 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
             </div>
             {erros?.erro && erros.index == index &&
                 <div className="row divError">
-                    <label className="text-danger">{erros?.erroNome}</label>
+                    <label className="text-danger-erro">{erros?.erroNome}</label>
                 </div>
             }
             {erro &&
                 <div className="row divError">
-                    <label className="text-danger">{erro}</label>
+                    <label className="text-danger-erro">{erro}</label>
                 </div>
             }
         </ContainerInput>

@@ -12,6 +12,7 @@ import { gruposEnsaios } from "./GrupoCreateEnsaio";
 import { itemsHandlesGrupo } from "../../../Enum/itensGrupo"
 import { GrupoCreateGeral, GrupoGeral } from "./GrupoCreateGeral"
 import TabsPage from "../../../Components/Others/Tabs";
+import { LabelObrigatorio } from "../../../Components/Others/LabelMensagemObrigatorio";
 
 export function GrupoCreate() {
 
@@ -42,6 +43,8 @@ export function GrupoCreate() {
 
     async function submit() {
 
+        setErros({ erro: true, index: 0, erroNome: "" })
+
         data.descricao = GrupoGeral.descricao;
         data.comissao = GrupoGeral.comissao;
         data.percentualDesconto = GrupoGeral.percentualDesconto;
@@ -55,12 +58,20 @@ export function GrupoCreate() {
         data.grupoEnsaios = gruposEnsaios;
 
         if (!ValidString(data.descricao, 1)) {
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
         if (!ValidNumber(data.percentualDesconto, 2)) {
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
@@ -83,8 +94,8 @@ export function GrupoCreate() {
     }
 
     function ValidNumber(numero: number, index: number) {
-        if (numero < 0) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !" })
+        if (numero <= 0) {
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório." })
             return false;
         } else {
             return true;
@@ -93,7 +104,7 @@ export function GrupoCreate() {
 
     function ValidString(texto: string, index: number) {
         if (!texto.trim()) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório." })
             return false;
         } else {
             return true;
@@ -102,11 +113,11 @@ export function GrupoCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR GRUPO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Grupo" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
 
                 <TabsPage Childrens={arrayTab} TabsQtd={itemsHandlesGrupo.length} titles={itemsHandlesGrupo} />
-
+                <LabelObrigatorio/>
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -114,7 +125,7 @@ export function GrupoCreate() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Grupo adicionado com " />
+            <SuccessModal show={isOpenSuccess} />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

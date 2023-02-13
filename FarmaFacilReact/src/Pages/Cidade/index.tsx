@@ -4,9 +4,9 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Cidade(){
+export function Cidade() {
 
-    const [pagina,setPagina] = useState(1);
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
@@ -22,9 +22,9 @@ export function Cidade(){
 
     return (
         <>
-            <HeaderMainContent title="CIDADE" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Cidade"  data={data} filter={"nome"} headerTable={["id", "nome"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title="CIDADE" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Cidade" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

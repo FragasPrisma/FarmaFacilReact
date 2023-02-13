@@ -22,7 +22,7 @@ export function Banner(){
     return (
         <>
             <HeaderMainContent title="BANNER" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Banner" data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
+            <SearchContentScreens text="Banner" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );
