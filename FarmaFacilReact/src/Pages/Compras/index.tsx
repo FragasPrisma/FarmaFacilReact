@@ -3,14 +3,14 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
-//import { CustomDropDownMultiple } from "../../Components/Inputs/CustomDropDownMultiple";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
+import { MultiSelect } from "../../Components/Inputs/MultiSelect";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { GenericTable } from "../../Components/Others/GenericTable";
-import { IBairro } from "../../Interfaces/Bairro/IBairro";
+import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
 import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
@@ -53,8 +53,6 @@ export function ManutencaoCompras() {
     const [grupos, setGrupos] = useState([] as IGrupo[]);
     //const [produtos, setProdutos] = useState([] as IProduto[]);
 
-    const [bairros, setBairros] = useState([] as IBairro[]);
-
     const data : IManutencaoCompras = {
         tipo: "",
         tipoDemanda: null,
@@ -75,14 +73,10 @@ export function ManutencaoCompras() {
         produtosIds: [],
     }
 
-    console.log("Fornecedores:",fornecedores); // Para verificar os ids existentes
-    console.log("Grupos:",grupos); // Para verificar os ids existentes
-    //console.log("Produtos:",produtos); // Não temos cadastro ainda
-
     useEffect(() => {
         const loadDataFornecedores = async () => {
             const response = await getAll("ListaFornecedor");
-            setFornecedores(response.data);
+            setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
         }
 
         const loadDataLaboratorios = async () => {
@@ -92,7 +86,7 @@ export function ManutencaoCompras() {
 
         const loadDataGrupos = async () => {
             const response = await getAll("ListaGrupo");
-            setGrupos(response.data);
+            setGrupos(SetDataMultiSelect(response.data, "descricao"));
         }
 
         // const loadDataProdutos = async () => {
@@ -184,21 +178,13 @@ export function ManutencaoCompras() {
         data.aPartirDe = readonlyAPartirDe == false ? aPartirDe : "";
         data.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
         data.laboratorioId = laboratorioId;
-        data.fornecedoresIds = [], //Preencher com dados mocados, ainda não temos componente
-        data.gruposIds = [], //Preencher com dados mocados, ainda não temos componente
+        data.fornecedoresIds = fornecedoresIds;
+        data.gruposIds = gruposIds;
         data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
 
         console.log("Data:", data);
 
         //const response = await postFormAll("", data);
-
-        const response2 = await getAll("ListaBairro");
-
-        if (response2.status === 200) {
-            console.log(response2.data);
-            setBairros(response2.data);
-            setIsLoading(false);
-        }
 
         // if (response.status === 200) {
         //     setIsLoading(false);
@@ -342,13 +328,13 @@ export function ManutencaoCompras() {
                         />
                     </div>
                     <div className="col-2 mt-4">
-                        {/* <CustomDropDown
-                            data={fornecedores}
-                            title="Selecione o Fornecedor"
-                            filter="nomeFornecedor"
-                            label="Fornecedor"
-                            Select={(fornecedorId) => setFornecedorId(fornecedorId)}
-                        /> */}
+                        <CustomDropDown
+                            data={laboratorios}
+                            title="Selecione os Laboratorios"
+                            filter="descricao"
+                            label="Laboratório"
+                            Select={(laboratorioId) => setLaboratorioId(laboratorioId)}
+                        />
                     </div>
                     <div className="col-3 mt-4">
                         <CheckboxCustom
@@ -360,13 +346,14 @@ export function ManutencaoCompras() {
                 </div>
                 <div className="row">
                     <div className="col-4">
-                        {/* <CustomDropDown
-                            data={grupos}
-                            title="Selecione os grupos"
-                            filter="descricao"
+                        <MultiSelect
                             label="Grupos"
-                            Select={(grupoId) => setGrupoId(grupoId)}
-                        /> */}
+                            title="Grupos" 
+                            data={grupos}
+                            isMultiple={true}
+                            Select={(gruposIds) => setGruposIds(gruposIds)}
+                            placeholder="Selecione o(s) grupo(s)"
+                        />
                     </div>
                     <div className="col-4">
                         {/* <CustomDropDown
@@ -378,19 +365,13 @@ export function ManutencaoCompras() {
                         /> */}
                     </div>
                     <div className="col-4">
-                        {/* <CustomDropDownMultiple
-                            data={laboratorios}
-                            title=""
-                            filter="descricao"
-                            label="Laboratório"
-                            Select={(laboratorioIds) => setLaboratorioIds(laboratorioIds)}
-                        /> */}
-                        <CustomDropDown
-                            data={laboratorios}
-                            title="Selecione os Laboratorios"
-                            filter="descricao"
-                            label="Laboratório"
-                            Select={(laboratorioId) => setLaboratorioId(laboratorioId)}
+                        <MultiSelect 
+                            label="Fornecedores"
+                            title="Fornecedores" 
+                            data={fornecedores}
+                            isMultiple={true}
+                            Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
+                            placeholder="Selecione o(s) fornecedor(es)"
                         />
                     </div>
                 </div>
@@ -403,11 +384,11 @@ export function ManutencaoCompras() {
             <div className="row">
                 <div className="col-12 mt-4">
                     <FieldsetCustom legend="Itens Compra">
-                        <GenericTable
+                        {/* <GenericTable
                             deleteButton={false}
                             data={bairros}
                             header={["id", "nome"]}
-                        />
+                        /> */}
                     </FieldsetCustom>
                 </div>
             </div>
