@@ -38,7 +38,7 @@ export function CustomTextArea({ label, placeholder, name, readonly, required, v
             </div>
             {erro &&
                 <div className="row divError">
-                    <label className="text-danger">{erro}</label>
+                    <label className="text-danger-erro">{erro}</label>
                 </div>
             }
         </ContainerInput>

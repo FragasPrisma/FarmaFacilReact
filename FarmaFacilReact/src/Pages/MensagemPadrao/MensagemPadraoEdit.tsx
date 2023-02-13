@@ -14,6 +14,7 @@ import { Question } from "phosphor-react";
 import { Table } from "react-bootstrap";
 import { TableHelp } from "./TableHelp";
 import { IMensagemPadrao } from "../../Interfaces/MensagemPadrao/IMensagemPadrao";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function MensagemPadraoEdit() {
 
@@ -72,14 +73,22 @@ export function MensagemPadraoEdit() {
         setIsLoading(true);
 
         if (!statusDescricao.trim()) {
-            setErroStatus("Campo status é obrigatório !")
+            setErroStatus("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
         if (!mensagem.trim()) {
-            setErroMensagem("Campo mensagem é obrigatório !")
+            setErroMensagem("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
@@ -101,7 +110,7 @@ export function MensagemPadraoEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR MENSAGEM PADRÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Mensagens Padrão" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -160,6 +169,7 @@ export function MensagemPadraoEdit() {
                             <Question size={36} color="#cf0209" />
                         </div>
                     </div>
+                    <LabelObrigatorio/>
                     <div className="row">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -167,7 +177,7 @@ export function MensagemPadraoEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Mensagem Padrão editada com " />
+                <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

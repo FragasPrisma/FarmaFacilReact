@@ -4,6 +4,7 @@ import { Container } from "../styles";
 import { IGrupo, IGrupoEnsaios } from "../../../Interfaces/Grupo/IGrupo";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../../Components/Inputs/CheckboxCustom";
+import { MaxLengthNumber } from "../../../helper/MaxLengthNumber";
 
 export let GrupoGeral: IGrupo = {
     id: 0,
@@ -81,7 +82,7 @@ export function GrupoCreateGeral({ erros }: Erros) {
                             placeholder="Digite a comissão"
                             value={comissao}
                             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setComissao(parseFloat(e.target.value))
+                                setComissao(MaxLengthNumber(12,parseFloat(e.target.value)))
                             }
                         />
                     </div>
