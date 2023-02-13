@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { IClasse } from "../../Interfaces/Classe/IClasse";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function ClasseEdit() {
 
@@ -18,6 +19,7 @@ export function ClasseEdit() {
   const navigate = useNavigate();
   const [erro, setErro] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [validadeDias, setValidadeDias] = useState(0)
   const [classeId, setClasseId] = useState(0);
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +28,8 @@ export function ClasseEdit() {
 
   let data: IClasse = {
     id: classeId,
-    descricao: descricao
+    descricao: descricao,
+    validadeDias: validadeDias
   }
 
   useEffect(() => {
@@ -34,6 +37,7 @@ export function ClasseEdit() {
       const response = await GetId("RetornaClassePorId", idParams);
       setClasseId(response.data.id);
       setDescricao(response.data.descricao);
+      setValidadeDias(response.data.validadeDias);
     }
 
     Init();
@@ -48,7 +52,7 @@ export function ClasseEdit() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErro("Campo descrição é obrigatório !");
+        setErro("Campo de preenchimento obrigatório.");
       }, 2000)
       return;
     }
@@ -73,7 +77,7 @@ export function ClasseEdit() {
   return (
     <>
       <HeaderMainContent
-        title="EDITAR CLASSE"
+        title="Editar Classe"
         IncludeButton={false}
         ReturnButton={false}
       />
@@ -94,7 +98,19 @@ export function ClasseEdit() {
                 required={true}
               />
             </div>
+            <div className="col-3">
+              <CustomInput
+                label="Validade Fcia. Popular (dias)"
+                type="number"
+                placeholder="Digite a validade Fcia. popular"
+                value={validadeDias}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setValidadeDias(parseInt(e.target.value))
+                }
+              />
+            </div>
           </div>
+          <LabelObrigatorio />
           <div className="row">
             <div className="col-6">
               <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -102,7 +118,7 @@ export function ClasseEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Classe editada com" />
+        <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

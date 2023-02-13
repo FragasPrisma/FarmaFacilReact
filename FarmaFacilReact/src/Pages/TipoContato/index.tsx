@@ -22,8 +22,8 @@ export function TipoContato() {
     return (
         <>
             <HeaderMainContent title="TIPO CONTATO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="TipoContato" data={data} filter={"descricao"} headerTable={["id", "descricao"]} />
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <SearchContentScreens text="TipoContato" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     )
 }

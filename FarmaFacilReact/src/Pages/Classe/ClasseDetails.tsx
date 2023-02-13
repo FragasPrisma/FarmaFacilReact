@@ -26,7 +26,7 @@ export function ClasseDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES CLASSE" IncludeButton={false} ReturnButton={true} to={"classe"}/>
+            <HeaderMainContent title="Visualizar Classe" IncludeButton={false} ReturnButton={true} to={"classe"}/>
             <div className="form-group">
                 <Container>
                     <div className="row">

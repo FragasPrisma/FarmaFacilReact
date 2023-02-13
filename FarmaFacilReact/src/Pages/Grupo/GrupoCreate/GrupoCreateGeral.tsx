@@ -113,13 +113,39 @@ export function GrupoCreateGeral({ erros }: Erros) {
                         </div>
 
                     }
+                    {tipo == 5 &&
+                        <>
+                            <div className="col-2">
+                                <CustomInput
+                                    label="Desconto Max (%)"
+                                    type="number"
+                                    placeholder="Digite o desconto Max"
+                                    value={descontoMaximo}
+                                    OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                        setDescontoMaximo(parseFloat(e.target.value))
+                                    }
+                                />
+                            </div>
+                            <div className="col-2">
+                                <CustomInput
+                                    label="Markup (%)"
+                                    type="number"
+                                    placeholder="Digite o Markup"
+                                    value={fatorReferenciaGrupo}
+                                    OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                        setFatorReferenciaGrupo(parseFloat(e.target.value))
+                                    }
+                                />
+                            </div>
+                        </>
+                    }
 
                 </div>
                 <div className="row">
                     <div className="col-4">
                         <RadioCustom
                             name="tipo"
-                            options={["Matéria Prima", "Semi-Acabado", "Acabado", "Embalagem", "Cápsula", "Homeopatia", "Floral"]}
+                            options={["Matéria-Prima", "Semi-Acabado", "Acabado", "Embalagem", "Cápsula", "Drogaria", "Homeopatia", "Floral"]}
                             value={tipo}
                             titleComponet="Tipo"
                             onClickOptions={(check) => setTipo(check)}
@@ -138,6 +164,13 @@ export function GrupoCreateGeral({ erros }: Erros) {
                                 options={["Ativa Controle de Lotes"]}
                                 check={ativaControleDeLotesAcabados}
                                 onClickOptions={(e) => setAtivaControleDeLotesAcabados(e.target.checked)}
+                            />
+                        }
+                        {tipo == 5 &&
+                            <CheckboxCustom
+                                options={["Ativa Controle de Lotes"]}
+                                check={ativaControleLotesDrogaria}
+                                onClickOptions={(e) => setAtivaControleLotesDrogaria(e.target.checked)}
                             />
                         }
                     </div>

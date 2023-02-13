@@ -27,7 +27,7 @@ export function PbmDetails() {
 
   return (
     <>
-      <HeaderMainContent title="DETALHES PBM" IncludeButton={false} ReturnButton={true} to={"pbm"} />
+      <HeaderMainContent title="Visualizar PBM" IncludeButton={false} ReturnButton={true} to={"pbm"} />
       <div className="form-group">
         <Container>
           <div className="row">

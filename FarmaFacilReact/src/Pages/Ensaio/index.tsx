@@ -4,8 +4,8 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Ensaio(){
-    const [pagina,setPagina] = useState(1);
+export function Ensaio() {
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
@@ -21,9 +21,9 @@ export function Ensaio(){
 
     return (
         <>
-            <HeaderMainContent title="ENSAIO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Ensaio" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title="ENSAIO" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Ensaio" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

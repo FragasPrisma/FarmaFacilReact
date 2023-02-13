@@ -21,7 +21,7 @@ export function Visitador() {
     return (
         <>
             <HeaderMainContent title="VISITADOR" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Visitador" data={data} filter={"nome"} headerTable={["id", "nome"]} />
+            <SearchContentScreens text="Visitador" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

@@ -22,7 +22,7 @@ export function Categoria(){
     return (
         <>
             <HeaderMainContent title="CATEGORIA" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Categoria" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <SearchContentScreens text="Categoria" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID","Nome"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

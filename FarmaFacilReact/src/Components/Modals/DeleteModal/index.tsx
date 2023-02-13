@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Modal, ModalBody } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { useNavigate } from "react-router-dom";
 import { deleteDetail, GetId } from "../../../Services/Api";
 import { ButtonCancel } from "../../Buttons/ButtonCancel";
@@ -73,12 +72,14 @@ export function DeleteModal({
               </div>
               <MensageDefault>
                 {textInformationModal == null
-                  ? "Default"
+                  ? "Deseja excluir o registro?"
                   : textInformationModal}
               </MensageDefault>
             </div>
             <div className="row container_buttons">
-              <div className="col-12">
+              <div className="col-12" style={{display: "flex",
+                    width: "100%",
+                    justifyContent: "center"}}>
                 <ButtonConfirm onCLick={submitButtonConfirm} />
                 <ButtonCancel onClickCancel={closeModal} />
               </div>
@@ -86,7 +87,7 @@ export function DeleteModal({
           </Container>
         </ModalBody>
       </Modal>
-      <SuccessModal show={stateModalSucces} textCustom="Cadastro deletado com" />
+      <SuccessModal show={stateModalSucces} textCustom="Registro excluído com " />
 
     </>
   );

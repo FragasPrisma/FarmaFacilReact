@@ -22,7 +22,7 @@ export function Bairro(){
     return (
         <>
             <HeaderMainContent title="BAIRRO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Bairro" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <SearchContentScreens text="Bairro" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

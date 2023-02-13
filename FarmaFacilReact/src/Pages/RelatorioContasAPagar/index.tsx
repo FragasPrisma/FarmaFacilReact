@@ -6,9 +6,12 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { InverterDate } from "../../helper/InverterDate";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
 import { IFiltroContasAPagar } from "../../Interfaces/RelatorioContasAPagar/IFiltroContasAPagar";
+import { IReport } from "../../Interfaces/Report/IReport";
+import { ReportContasPagas } from "../../Reports/ReportContasPagas";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 
@@ -35,6 +38,8 @@ export function RelatorioContasAPagar() {
         dataFinal: "",
         classificacao: 0
     }
+
+    let dadosReport = [] as string[][]
 
     useEffect(() => {
         const loadDataFornecedores = async () => {
@@ -71,7 +76,7 @@ export function RelatorioContasAPagar() {
             setIsLoading(false)
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroDataFim("Data Inicio vazia!");
+                setErroDataFim("Data Final vazia!");
             }, 2000)
             return;
         }
@@ -85,16 +90,51 @@ export function RelatorioContasAPagar() {
         if (filtroData.classificacao == 0) {
             const response = await postFormAll("RelatorioContasAPagarPorPlanoDeContas", filtroData);
             if (response.status === 200) {
-                setIsLoading(false)
+                GerarPdf(response.data);
+                setIsLoading(false);
             }
-            setIsLoading(false)
+            setIsLoading(false);
         } else {
             const response = await postFormAll("RelatorioContasAPagarPorFornecedor", filtroData);
             if (response.status === 200) {
-                setIsLoading(false)
+                GerarPdf(response.data);
+                setIsLoading(false);
             }
-            setIsLoading(false)
+            setIsLoading(false);
         }
+    }
+
+    function GerarPdf(data: any[]) {
+        data.map((item: { duplicatasContasAPagar: any[]; fornecedor: { nomeFornecedor: string } }) => {
+
+            item.duplicatasContasAPagar.map((x: { dataVencimento: string; numeroFatura: string; valor: number }) => {
+
+                let nomeFornecedor = "";
+                
+                if (item.fornecedor) {
+                    nomeFornecedor = item.fornecedor.nomeFornecedor
+                }
+                dadosReport.push(
+                    [
+                        InverterDate(x.dataVencimento),
+                        x.numeroFatura,
+                        nomeFornecedor.slice(0, 15),
+                        x.valor.toString(),
+                    ]
+                )
+            })
+        })
+
+        let dataReport: IReport = {
+            title: classificacao == 1 ? "Duplicatas Pagas Por Vencimento" : "Duplicatas Pagas Por Pagamento",
+            nomeEmpresa: "Concept Pharma",
+            perido: { dataInicial: dataInicio, dataFinal: dataFim },
+            cabecalho: ["Vcto","Duplicata", "Fornecedor","Valor"],
+            widths: ["15%","15%","50%","20%"],
+            dados: dadosReport
+        }
+
+        ReportContasPagas(dataReport)
     }
 
     return (
@@ -113,7 +153,7 @@ export function RelatorioContasAPagar() {
                     </FieldsetCustom>
                 </div>
                 <div className="row mt-2">
-                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={3}>
+                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={4}>
                         <div className="row">
                             <div className="col-12 mt-2 mb-2">
                                 {classificacao == 1 &&

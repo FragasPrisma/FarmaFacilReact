@@ -35,5 +35,6 @@ export const Container = styled.div`
   }
   .container_buttons{
     padding-left: 1.5rem;
+    width: 100%;
   }
 `;

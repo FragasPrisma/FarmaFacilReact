@@ -25,7 +25,7 @@ export function TabelaFloral() {
     return (
         <>
             <HeaderMainContent title="TABELA FLORAL" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Tabela Floral" data={data} filter={"volume"} headerTable={["id", "volume"]} />
+            <SearchContentScreens text="Tabela Floral" data={data} filter={"volume"} headerTable={["id", "volume"]} headerTableView={["ID", "Volume"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

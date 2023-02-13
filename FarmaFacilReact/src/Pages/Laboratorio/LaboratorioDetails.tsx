@@ -27,7 +27,7 @@ export function LaboratorioDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES LABORATÓRIO" IncludeButton={false} ReturnButton={true} to={"laboratorio"} />
+            <HeaderMainContent title="Visualizar Laboratório" IncludeButton={false} ReturnButton={true} to={"laboratorio"} />
             <div className="form-group">
                 <Container>
                     <div className="row">

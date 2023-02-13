@@ -22,8 +22,8 @@ export function Etapa() {
     return (
         <>
             <HeaderMainContent title="ETAPA" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Etapa" data={data} filter={"descricao"} headerTable={["id", "sequencia", "descricao"]} />
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <SearchContentScreens text="Etapa" data={data} filter={"descricao"} headerTable={["id", "sequencia", "descricao"]} headerTableView={["ID", "Sequência", "Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }
