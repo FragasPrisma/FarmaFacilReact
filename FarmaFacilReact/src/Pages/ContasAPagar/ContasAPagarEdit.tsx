@@ -113,7 +113,7 @@ export function ContasAPagarEdit() {
 
         if(valorDuplicata <= 0){
             setIsLoading(false);
-            setErroValor("Valor inválido !")
+            setErroValor("Campo de preenchimento obrigatório.")
             return;
         }
 

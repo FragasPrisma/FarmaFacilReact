@@ -49,6 +49,7 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
                 display: "flex",
                 justifyContent: "end",
                 paddingRight: "2rem",
+                border:"none",
               }}
             >
               <ActionsButtonsDefault

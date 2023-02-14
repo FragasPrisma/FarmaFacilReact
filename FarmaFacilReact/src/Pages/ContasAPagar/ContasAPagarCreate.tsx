@@ -116,7 +116,7 @@ export function ContasAPagarCreate() {
         }
 
         if (fornecedorId <= 0) {
-            setErroFornecedor("Selecione o fornecedor !")
+            setErroFornecedor("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
@@ -130,7 +130,7 @@ export function ContasAPagarCreate() {
         }
 
         if (!dataEmissao) {
-            setErroDataEmissao("Informe a data de emissão !")
+            setErroDataEmissao("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
@@ -167,7 +167,7 @@ export function ContasAPagarCreate() {
 
     function ValidNumber(numero: number, index: number) {
         if (numero <= 0) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório", })
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório.", })
             return false;
         } else {
             return true;

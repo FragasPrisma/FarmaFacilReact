@@ -79,13 +79,13 @@ export function ContasAPagarPagar() {
         setErroValor("");
 
         if (!dataPagamento) {
-            setErroData("Informe a data de pagamento !")
+            setErroData("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
 
         if (valorPago <= 0 || !valorPago) {
-            setErroValor("Valor inválido !")
+            setErroValor("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
