@@ -13,6 +13,7 @@ import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
 import { TableHelp } from "./TableHelp";
 import { IMensagemPadrao } from "../../Interfaces/MensagemPadrao/IMensagemPadrao";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function MensagemPadraoCreate() {
 
@@ -55,14 +56,22 @@ export function MensagemPadraoCreate() {
         setIsLoading(true);
 
         if (!statusDescricao.trim()) {
-            setErroStatus("Campo status é obrigatório !")
+            setErroStatus("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
         if (!mensagem.trim()) {
-            setErroMensagem("Campo mensagem é obrigatório !")
+            setErroMensagem("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
@@ -84,7 +93,7 @@ export function MensagemPadraoCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR MENSAGEM PADRÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Mensagens Padrão" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -111,7 +120,7 @@ export function MensagemPadraoCreate() {
                         </div>
                         <div className="col-2">
                             <CheckboxCustom
-                                options={["Enviar Automáticamente"]}
+                                options={["Enviar Automaticamente"]}
                                 onClickOptions={(e) => setEnviarAutomatico(e.target.checked)}
                                 check={enviarAutomatico}
                             />
@@ -143,6 +152,7 @@ export function MensagemPadraoCreate() {
                             <Question size={36} color="#cf0209" />
                         </div>
                     </div>
+                    <LabelObrigatorio/>
                     <div className="row">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />

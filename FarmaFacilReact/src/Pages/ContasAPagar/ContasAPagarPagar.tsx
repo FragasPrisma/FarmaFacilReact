@@ -79,13 +79,13 @@ export function ContasAPagarPagar() {
         setErroValor("");
 
         if (!dataPagamento) {
-            setErroData("Informe a data de pagamento !")
+            setErroData("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
 
         if (valorPago <= 0 || !valorPago) {
-            setErroValor("Valor inválido !")
+            setErroValor("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
@@ -113,7 +113,7 @@ export function ContasAPagarPagar() {
 
     return (
         <>
-            <HeaderMainContent title="PAGAR DUPLICATA" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Pagar Duplicata" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {contasAPagarModel.id > 0 &&
                     <Container>
