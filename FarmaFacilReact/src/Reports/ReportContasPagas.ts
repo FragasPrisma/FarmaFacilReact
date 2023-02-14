@@ -6,7 +6,7 @@ import { IReport } from '../Interfaces/Report/IReport';
 
 export function ReportContasPagas(report: IReport) {
 
-    (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+    (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
     const stylesParameters: StyleDictionary = {
         headerTable: {
