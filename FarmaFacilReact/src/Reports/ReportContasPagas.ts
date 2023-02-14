@@ -4,7 +4,6 @@ import { StyleDictionary, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { InverterDate } from '../helper/InverterDate';
 import { IReport } from '../Interfaces/Report/IReport';
 
-
 export function ReportContasPagas(report: IReport) {
 
     (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
