@@ -211,7 +211,7 @@ import { ContasAPagarCreate } from "./Pages/ContasAPagar/ContasAPagarCreate";
 import { ContasAPagarEdit } from "./Pages/ContasAPagar/ContasAPagarEdit";
 import { ContasAPagarDetails } from "./Pages/ContasAPagar/ContasAPagarDetails";
 import { ContasAPagarPagar } from "./Pages/ContasAPagar/ContasAPagarPagar";
-import { ManutencaoCompras } from "./Pages/Compras";
+import { ManutencaoCompras } from "./Pages/Compras/ComprasCreate";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
