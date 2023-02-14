@@ -265,7 +265,7 @@ export function ContasAPagarCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR CONTAS A PAGAR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Contas a Pagar" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -464,7 +464,7 @@ export function ContasAPagarCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Contas a pagar adicionado com " />
+                <SuccessModal show={isOpenSuccess}/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

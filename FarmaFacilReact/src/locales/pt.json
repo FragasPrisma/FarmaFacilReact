@@ -1,0 +1,11 @@
+{
+    "translation": {
+        "login": {
+            "title": "Entrar",
+            "titleInfo": "Faça Login com os dados que você inseriu durante o registro.",
+            "esqueceuSenha": "Esqueceu a senha?",
+            "cliqueAqui": "Clique Aqui",
+            "password": "Senha"
+        }
+    }
+}

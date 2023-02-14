@@ -113,7 +113,7 @@ export function ContasAPagarPagar() {
 
     return (
         <>
-            <HeaderMainContent title="PAGAR DUPLICATA" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Pagar Duplicata" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {contasAPagarModel.id > 0 &&
                     <Container>

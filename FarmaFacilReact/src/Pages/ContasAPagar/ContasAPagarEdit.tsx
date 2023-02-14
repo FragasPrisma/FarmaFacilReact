@@ -157,7 +157,7 @@ export function ContasAPagarEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR DUPLICATA CONTAS A PAGAR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Duplicata" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {contasAPagarModel.id > 0 &&
                     <Container>
@@ -263,7 +263,7 @@ export function ContasAPagarEdit() {
                         </div>
                     </Container>
                 }
-                <SuccessModal show={isOpenSuccess} textCustom="Duplicata editada com " />
+                <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>
