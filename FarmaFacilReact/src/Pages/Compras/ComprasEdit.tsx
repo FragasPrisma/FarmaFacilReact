@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
@@ -9,36 +10,38 @@ import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { GenericTable } from "../../Components/Others/GenericTable";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
 import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
-import { getAll, postFormAll } from "../../Services/Api";
+import { getAll, GetId } from "../../Services/Api";
 import { Container } from "./styles";
 
-export function ManutencaoCompras() {
+export function ManutencaoComprasEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [tipo, setTipo] = useState("");
-    const [tipoDemanda, setTipoDemanda] = useState(0);
-    const [vendaDe, setVendaDe] = useState("");
-    const [vendaDeHora, setVendaDeHora] = useState("");
-    const [vendaAte, setVendaAte] = useState("");
-    const [vendaAteHora, setVendaAteHora] = useState("");
-    const [curvaAbc, setCurvaAbc] = useState("Geral");
-    const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(true);
-    const [tempoDeRep, setTempoDeRep] = useState(0);
-    const [quantidadeDias, setQuantidadeDias] = useState(0);
-    const [tipoValor, setTipoValor] = useState(0);
-    const [aPartirDe, setAPartirDe] = useState("");
-    const [fornecedoresIds, setFornecedoresIds] = useState([] as number[]);
-    const [saldoQuantidadeComprometida, setSaldoQuantidadeComprometida] = useState(false);
-    const [gruposIds, setGruposIds] = useState([] as number[]);
-    const [produtosIds, setProdutosIds] = useState([] as number[]);
-    const [laboratorioId, setLaboratorioId] = useState(0);
+    const [filtro, setFiltro] = useState({} as IManutencaoCompras);
+    const [data, setData] = useState({} as IManutencaoCompras);
+
+    const [tipo, setTipo] = useState(filtro.tipo);
+    const [tipoDemanda, setTipoDemanda] = useState(filtro.tipoDemanda);
+    const [vendaDe, setVendaDe] = useState(filtro.vendaDe);
+    const [vendaDeHora, setVendaDeHora] = useState(filtro.vendaDeHora);
+    const [vendaAte, setVendaAte] = useState(filtro.vendaAte);
+    const [vendaAteHora, setVendaAteHora] = useState(filtro.vendaAteHora);
+    const [curvaAbc, setCurvaAbc] = useState(filtro.curvaAbc);
+    const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(filtro.consideraEncomendaFaltas);
+    const [tempoDeRep, setTempoDeRep] = useState(filtro.tempoDeRep);
+    const [quantidadeDias, setQuantidadeDias] = useState(filtro.quantidadeDias);
+    const [tipoValor, setTipoValor] = useState(filtro.tipoValor);
+    const [aPartirDe, setAPartirDe] = useState(filtro.aPartirDe);
+    const [fornecedoresIds, setFornecedoresIds] = useState(filtro.fornecedoresIds);
+    const [saldoQuantidadeComprometida, setSaldoQuantidadeComprometida] = useState(filtro.saldoQuantidadeComprometida);
+    const [gruposIds, setGruposIds] = useState(filtro.gruposIds);
+    const [produtosIds, setProdutosIds] = useState(filtro.produtosIds);
+    const [laboratorioId, setLaboratorioId] = useState(filtro.laboratorioId);
 
     const [readonlyVendaDe, setReadonlyVendaDe] = useState(false);
     const [readonlyVendaDeHora, setReadonlyVendaDeHora] = useState(false);
@@ -51,29 +54,21 @@ export function ManutencaoCompras() {
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
-    //const [produtos, setProdutos] = useState([] as IProduto[]);
+    //const [produtos, setProdutos] = useState([] as IProduto[])
 
-    const data : IManutencaoCompras = {
-        tipo: "",
-        tipoDemanda: null,
-        vendaDe: "",
-        vendaDeHora: "",
-        vendaAte: "",
-        vendaAteHora: "",
-        curvaAbc: "",
-        consideraEncomendaFaltas: true,
-        tempoDeRep: 0,
-        quantidadeDias: 0,
-        tipoValor: 0,
-        aPartirDe: "",
-        saldoQuantidadeComprometida: false,
-        laboratorioId: 0,
-        fornecedoresIds: [],
-        gruposIds: [],
-        produtosIds: [],
-    }
+    const { id } = useParams();
+    let idParams = !id ? "0" : id.toString();
 
     useEffect(() => {
+
+        async function Init() {
+            const response = await GetId("RetornaCompraPorId", idParams);
+
+            if (response.status === 200) {
+                setFiltro(response.data);
+            }
+        }
+
         const loadDataFornecedores = async () => {
             const response = await getAll("ListaFornecedor");
             setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
@@ -93,7 +88,8 @@ export function ManutencaoCompras() {
         //     const response = await getAll("ListaProduto");
         //     setProdutos(response.data);
         // }
-
+        
+        Init();
         loadDataFornecedores();
         loadDataLaboratorios();
         loadDataGrupos();
@@ -200,7 +196,7 @@ export function ManutencaoCompras() {
 
     return (
         <>
-            <HeaderMainContent title="Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras"/>
+            <HeaderMainContent title="Editar Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">

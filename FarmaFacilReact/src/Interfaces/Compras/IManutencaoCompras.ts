@@ -6,7 +6,7 @@ export interface IManutencaoCompras {
     vendaAte: string,
     vendaAteHora: string,
     curvaAbc: string,
-    consideraEncomentaFaltas: boolean,
+    consideraEncomendaFaltas: boolean,
     tempoDeRep: number,
     quantidadeDias: number,
     tipoValor: number,
