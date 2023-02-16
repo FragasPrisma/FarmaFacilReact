@@ -217,6 +217,7 @@ import { ManutencaoComprasEdit } from "./Pages/Compras/ComprasEdit";
 import { ManutencaoComprasDetails } from "./Pages/Compras/ComprasDetails";
 import { RelatorioCompras } from "./Pages/Compras/RelatorioCompras";
 import { CotacaoCompras } from "./Pages/Compras/CotacaoCompras";
+import { Empresa } from "./Pages/Empresa";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1952,6 +1953,14 @@ export function AppRoutes() {
               element={
                 <Private>
                   <CotacaoCompras/>
+                </Private>
+              }
+            />
+            <Route 
+              path="/empresa"
+              element={
+                <Private>
+                  <Empresa />
                 </Private>
               }
             />
