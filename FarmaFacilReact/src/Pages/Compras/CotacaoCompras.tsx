@@ -100,6 +100,7 @@ export function CotacaoCompras() {
                                     options={["Rejeitadas"]}
                                     check={rejeitadas}
                                     onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setRejeitadas(e.target.checked)}
+                                    color="#ff000080"
                                 />
                             </div>
                             <div className="col-6 mt-2">
@@ -107,11 +108,13 @@ export function CotacaoCompras() {
                                     options={["Emitidas"]}
                                     check={emitidas}
                                     onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setEmitidas(e.target.checked)}
+                                    color="#ffff0080"
                                 />
                                 <CheckboxCustom
                                     options={["Processadas"]}
                                     check={processadas}
                                     onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setProcessadas(e.target.checked)}
+                                    color="#00800080"
                                 />
                             </div>
                         </div>

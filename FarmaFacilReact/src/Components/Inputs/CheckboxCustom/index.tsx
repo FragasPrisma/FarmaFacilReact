@@ -6,9 +6,10 @@ interface ISelect {
   check?:boolean;
   onClickOptions?: (e: ChangeEvent<HTMLInputElement>) => void;
   readOnly?:boolean;
+  color?: string;
 }
 
-export function CheckboxCustom({ titleComponet, options, check ,onClickOptions,readOnly}: ISelect) {
+export function CheckboxCustom({ titleComponet, options, check ,onClickOptions ,readOnly, color}: ISelect) {
 
   return (
     <>
@@ -17,7 +18,7 @@ export function CheckboxCustom({ titleComponet, options, check ,onClickOptions,r
       ) : (
         <></>
       )}
-      <ContainerCheck>
+      <ContainerCheck style={{backgroundColor: color}}>
         {options.map((option, index) => (
           <div key={index}>
             <input type="checkbox" checked={check} onChange={onClickOptions} disabled={readOnly}/>

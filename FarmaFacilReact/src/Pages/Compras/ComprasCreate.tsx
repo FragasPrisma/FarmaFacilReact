@@ -39,6 +39,8 @@ export function ManutencaoCompras() {
     const [gruposIds, setGruposIds] = useState([] as number[]);
     const [produtosIds, setProdutosIds] = useState([] as number[]);
     const [laboratorioId, setLaboratorioId] = useState(0);
+    const [filialId, setFilialId] = useState(0);
+    const [considerarApenasFilialSelecionada, setConsiderarApenasFilialSelecionada] = useState(false);
 
     const [readonlyVendaDe, setReadonlyVendaDe] = useState(false);
     const [readonlyVendaDeHora, setReadonlyVendaDeHora] = useState(false);
@@ -51,9 +53,10 @@ export function ManutencaoCompras() {
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
+    //const [filiais, setFiliais] = useState([] as IFilial[]); 
     //const [produtos, setProdutos] = useState([] as IProduto[]);
 
-    const data : IManutencaoCompras = {
+    const data: IManutencaoCompras = {
         tipo: "",
         tipoDemanda: null,
         vendaDe: "",
@@ -71,6 +74,8 @@ export function ManutencaoCompras() {
         fornecedoresIds: [],
         gruposIds: [],
         produtosIds: [],
+        filialId: 0,
+        considerarApenasFilialSelecionada: false,
     }
 
     useEffect(() => {
@@ -94,10 +99,16 @@ export function ManutencaoCompras() {
         //     setProdutos(response.data);
         // }
 
+        // const loadDataFiliais = async () => {
+        //     const response = await getAll("ListaFilial");
+        //     setFiliais(response.data);
+        // }
+
         loadDataFornecedores();
         loadDataLaboratorios();
         loadDataGrupos();
         //loadDataProdutos();
+        //loadDataFilial();
     }, [])
 
     useEffect(() => {
@@ -136,7 +147,7 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
-        } else if (tipo == "Encomendas/Faltas"){
+        } else if (tipo == "Encomendas/Faltas") {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
@@ -153,7 +164,7 @@ export function ManutencaoCompras() {
         }
     }, [tipo])
 
-    useEffect (() => {
+    useEffect(() => {
         if (tipoValor == 2) {
             setReadonlyAPartirDe(false);
         } else {
@@ -181,6 +192,8 @@ export function ManutencaoCompras() {
         data.fornecedoresIds = fornecedoresIds;
         data.gruposIds = gruposIds;
         data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
+        data.filialId = filialId;
+        data.considerarApenasFilialSelecionada = considerarApenasFilialSelecionada;
 
         console.log("Data:", data);
 
@@ -200,18 +213,18 @@ export function ManutencaoCompras() {
 
     return (
         <>
-            <HeaderMainContent title="Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras"/>
+            <HeaderMainContent title="Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">
-                        <SelectInput 
-                            options={["","Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
+                        <SelectInput
+                            options={["", "Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
                             label="Tipo"
                             Select={(select) => setTipo(select)}
                         />
                     </div>
                     <div className="col-2">
-                        { tipo == "Demanda" &&
+                        {tipo == "Demanda" &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}
@@ -268,7 +281,7 @@ export function ManutencaoCompras() {
                         />
                     </div>
                     <div className="col-1 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Tempo de Rep"
                             type="number"
                             value={tempoDeRep}
@@ -279,7 +292,7 @@ export function ManutencaoCompras() {
                         />
                     </div>
                     <div className="col-1 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Quantidade de dias"
                             type="number"
                             value={quantidadeDias}
@@ -292,7 +305,7 @@ export function ManutencaoCompras() {
                 </div>
                 <div className="row">
                     <div className="col-2">
-                        <SelectInput 
+                        <SelectInput
                             options={["Geral", "A", "B", "C"]}
                             label="Curva Abc"
                             Select={(select) => setCurvaAbc(select)}
@@ -349,7 +362,7 @@ export function ManutencaoCompras() {
                     <div className="col-4 mt-4">
                         <MultiSelect
                             label="Grupos"
-                            title="Grupos" 
+                            title="Grupos"
                             data={grupos}
                             isMultiple={true}
                             Select={(gruposIds) => setGruposIds(gruposIds)}
@@ -357,9 +370,9 @@ export function ManutencaoCompras() {
                         />
                     </div>
                     <div className="col-4 mt-4">
-                        <MultiSelect 
+                        <MultiSelect
                             label="Fornecedores"
-                            title="Fornecedores" 
+                            title="Fornecedores"
                             data={fornecedores}
                             isMultiple={true}
                             Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
@@ -368,7 +381,6 @@ export function ManutencaoCompras() {
                     </div>
                 </div>
                 <div className="row">
-                    
                     <div className="col-4">
                         {/* <MultiSelect 
                             label="Produtos"
@@ -378,6 +390,22 @@ export function ManutencaoCompras() {
                             Select={(produtosIds) => SetProdutosIds)}
                             placeholder="Selecione o(s) produto(s)"
                         /> */}
+                    </div>
+                    <div className="col-4">
+                        {/* <CustomDropDown
+                            data={filiais}
+                            title="Selecione a Filial"
+                            filter="nome"
+                            label="Filial"
+                            Select={(filialId) => setLaboratorioId(filialId)}
+                        /> */}
+                    </div>
+                    <div className="col-3">
+                        <CheckboxCustom
+                            options={["Considerar apenas filial selecionada"]}
+                            check={considerarApenasFilialSelecionada}
+                            onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConsiderarApenasFilialSelecionada(e.target.checked)}
+                        />
                     </div>
                 </div>
                 <div className="row">

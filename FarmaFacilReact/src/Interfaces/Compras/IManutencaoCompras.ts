@@ -16,4 +16,6 @@ export interface IManutencaoCompras {
     fornecedoresIds: number[],
     gruposIds: number[],
     produtosIds: number[],
+    filialId: number,
+    considerarApenasFilialSelecionada: boolean
 }
