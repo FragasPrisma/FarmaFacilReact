@@ -1,0 +1,31 @@
+export interface IFarmacia {
+    Id: number;  
+    RazaoSocial: string;  
+    NomeFantasia: string;  
+    Cnpj: string;  
+    InscricaoEstadual: string;  
+    InscricaoMunicipal: string;   
+    RegimeTributario: number; 
+    DDD: number; 
+    Telefone: number;
+    Fax: number;  
+    Email: string;  
+    WhatsApp: number;
+    Cep: string;  
+    Logradouro: string;  
+    Numero: number;  
+    Complemento: string;  
+    CidadeId: number;  
+    EstadoId: number;  
+    BairroId: number;   
+    NomeFarmaceutico: string;  
+    CRF: number;  
+    CpfRespSNGPC: number;  
+    UsuarioSNGPC: string;   
+    SenhaSNGPC: string;  
+    Ativo: boolean; 
+    LicencaFunc: string;  
+    AutoridadeSanitaria: string;   
+    LicencaMapa: string;   
+    FornecedorInternoId: number;
+}
