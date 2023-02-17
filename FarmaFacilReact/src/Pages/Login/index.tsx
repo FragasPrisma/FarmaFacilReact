@@ -1,9 +1,12 @@
 import { useState, useContext, ChangeEvent, useEffect } from "react";
 import { AuthContext } from "../../Context/auth";
 import logo from "../../assets/img/logoFFW.jpg";
-import { Container } from "./styles";
-import { Spinner } from "react-bootstrap";
+import { Container, DropdownCustom } from "./styles";
+import { Dropdown, Spinner } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
+import brasil from '../../assets/img/brasil_flag.png'
+import spain from '../../assets/img/spain_flag.jpg'
+import us from '../../assets/img/us_flag.jpg'
 import i18n from '../../i18n';
 
 export function Login() {
@@ -12,11 +15,12 @@ export function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordPlaceHold, setPasswordPlaceHold] = useState("Senha");
   const [erro, setErro] = useState("");
   const [isLoading, setIsLoading] = useState(false)
-  const [ptBr, setPtBr] = useState(false);
   const { t } = useTranslation();
-  const [placHolder, setPlaceHolder] = useState(t('login.password'))
+  const [img, setImg] = useState(brasil);
+  const [textImg, setTextImg] = useState("Português")
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -36,16 +40,26 @@ export function Login() {
     login(email, password);
   };
 
-  function MudarLenguage(e: any) {
+  function ModificarIdioma(e: any, option: number) {
     e.preventDefault();
-    if (ptBr) {
-      setPtBr(false)
+    
+    if (option == 1) {
+      setImg(brasil)
+      setTextImg("Português")
       i18n.changeLanguage('pt');
     } else {
-      setPtBr(true)
-      i18n.changeLanguage('es');
+      if(option == 2){
+        setImg(spain)
+        setTextImg("Spanish")
+        setPasswordPlaceHold("Contraseña")
+        i18n.changeLanguage('es');
+      }else{
+        setImg(us)
+        setTextImg("English")
+        setPasswordPlaceHold("Password")
+        i18n.changeLanguage('us');
+      }
     }
-    setPlaceHolder(t('login.password'))
   }
 
   return (
@@ -57,10 +71,27 @@ export function Login() {
       <div className="container_form">
         <div className="container_lenguage">
           <h2 className="title_form">{t('login.title')}</h2>
-          <select className="select-lenguage" onChange={(e) => MudarLenguage(e)}>
-            <option value={1} >Português</option>
-            <option value={2} >Espanhol</option>
-          </select>
+
+          <Dropdown>
+            <DropdownCustom split variant="" id="">
+              <img src={img} /> <span className="text-image">{textImg}</span>
+            </DropdownCustom>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                onClick={(e) => ModificarIdioma(e, 1)}>
+                <img src={brasil} className="images" /> <span className="text-option">Português</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={(e) => ModificarIdioma(e, 2)}>
+                <img src={spain} className="images" /> <span className="text-option">Spanish</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={(e) => ModificarIdioma(e, 3)}>
+                <img src={us} className="images" /> <span className="text-option">English</span>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown >
+
         </div>
         <p className="text_acess">
           {t('login.titleInfo')}
@@ -78,7 +109,7 @@ export function Login() {
           <input
             type="password"
             name="password"
-            //placeholder={placHolder}
+            placeholder={passwordPlaceHold.toString()}
             value={password}
             className="inputs"
             onChange={(e) => setPassword(e.target.value)}
@@ -99,6 +130,6 @@ export function Login() {
           </div>
         </form>
       </div>
-    </Container>
+    </Container >
   );
 }

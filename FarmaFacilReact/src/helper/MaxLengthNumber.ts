@@ -1,9 +1,6 @@
 export function MaxLengthNumber(length: number, value: number) {
 
-    let valueString = value.toString();
-
-    console.log(length)
-    console.log(valueString)
+    value = value > length ? length : value 
 
     return value
 }

@@ -4,11 +4,11 @@ import { getAll } from "../../../Services/Api"
 import { IFornecedor, IFornecedorComplemento } from "../../../Interfaces/Fornecedor/IFornecedor"
 import { Container } from "../styles"
 import { useState, useEffect, ChangeEvent } from 'react'
+import { IBanco } from "../../../Interfaces/Banco/IBanco"
+import { IPlanoDeconta } from "../../../Interfaces/PlanoDeContas/IPlanoDeConta"
 
 export let fornecedorComplementoEdit: IFornecedorComplemento = {
-    homePage: "",
-    contato: "",
-    telefoneContato: "",
+
     bancoId: null,
     agencia: "",
     contaCorrenteFornecedor: "",
@@ -39,7 +39,6 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
 
     const [bancoId, setBancoId] = useState(fornecedorModel.bancoId);
     const [planoDeContaId, setPlanoDeContaId] = useState(fornecedorModel.planoDeContaId);
-    const [homePage, setHomePage] = useState(fornecedorModel.homePage);
     const [agencia, setAgencia] = useState(fornecedorModel.agencia);
     const [contaCorrenteFornecedor, setContaCorrenteFornecedor] = useState(fornecedorModel.contaCorrenteFornecedor);
     const [responsavelTecnico, setResponsavelTecnico] = useState(fornecedorModel.responsavelTecnico);
@@ -53,10 +52,12 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
     const [previsaoEntrega, setPrevisaoEntrega] = useState(fornecedorModel.previsaoEntrega);
     const [frete, setFrete] = useState(fornecedorModel.frete);
     const [observacoes, setObservacoes] = useState(fornecedorModel.observacoes);
-    const [bancos, setBancos] = useState([]);
-    const [contas, setContas] = useState([]);
+    const [host, setHost] = useState(fornecedorModel.hostFornecedor);
+    const [usuario, setUsuario] = useState(fornecedorModel.usuarioFornecedor);
+    const [senha, setSenha] = useState(fornecedorModel.senhaFornecedor)
+    const [bancos, setBancos] = useState([] as IBanco []);
+    const [contas, setContas] = useState([] as IPlanoDeconta []);
 
-    fornecedorComplementoEdit.homePage = homePage;
     fornecedorComplementoEdit.bancoId = bancoId;
     fornecedorComplementoEdit.agencia = agencia;
     fornecedorComplementoEdit.contaCorrenteFornecedor = contaCorrenteFornecedor;
@@ -72,6 +73,9 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
     fornecedorComplementoEdit.previsaoEntrega = previsaoEntrega;
     fornecedorComplementoEdit.frete = frete;
     fornecedorComplementoEdit.observacoes = observacoes;
+    fornecedorComplementoEdit.hostFornecedor = host;
+    fornecedorComplementoEdit.usuarioFornecedor = usuario;
+    fornecedorComplementoEdit.senhaFornecedor = senha;
 
     useEffect(() => {
         const loadDataContas = async () => {
@@ -92,118 +96,14 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
         <Container>
             <div className="row">
                 <div className="col-4">
-                    <CustomDropDown data={bancos} title={nomeBanco ? nomeBanco : "Selecione o Banco"} filter="nome" label="Banco" Select={(bancoId) => setBancoId(bancoId)} />
-                </div>
-                <div className="col-4">
-                    <CustomDropDown data={contas} title={nomePLanoDeConta ? nomePLanoDeConta : "Selecione o Plano de Contas"} filter="descricao" label="Plano de Contas" Select={(planoId) => setPlanoDeContaId(planoId)} />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
-                    <CustomInput
-                        label="Responsável técnico"
-                        type="text"
-                        placeholder="Digite o nome do responsável"
-                        value={responsavelTecnico}
-                        maxLength={50}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setResponsavelTecnico(e.target.value)
-                        }
-                        required={false}
+                    <CustomDropDown
+                        data={bancos}
+                        title={nomeBanco ? nomeBanco : "Selecione o Banco"}
+                        filter="nome"
+                        label="Banco"
+                        Select={(bancoId) => setBancoId(bancoId)}
                     />
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
-                    <CustomInput
-                        label="Observações"
-                        type="text"
-                        placeholder="Digite a observação"
-                        value={observacoes}
-                        maxLength={50}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setObservacoes(e.target.value)
-                        }
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
-                    <CustomInput
-                        label="Home-Page"
-                        type="text"
-                        placeholder="Home-Page"
-                        value={homePage}
-                        maxLength={60}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setHomePage(e.target.value)
-                        }
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-
-                <div className="col-3">
-                    <CustomInput
-                        label="Autorização de funcionamento"
-                        type="text"
-                        placeholder="Digite a autorização"
-                        value={autorizacaoFuncionamento}
-                        maxLength={10}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setAutorizacaoFuncionamento(e.target.value)
-                        }
-                        required={false}
-                    />
-                </div>
-
-                <div className="col-3">
-                    <CustomInput
-                        label="Autorização Especial"
-                        type="text"
-                        placeholder="Digite a autorização especial"
-                        value={autorizacaoEspecial}
-                        maxLength={10}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setAutorizacaoEspecial(e.target.value)
-                        }
-                        required={false}
-                    />
-                </div>
-
-                <div className="col-2">
-                    <CustomInput
-                        label="Licença Mapa"
-                        type="text"
-                        placeholder="Digite a licença"
-                        value={licencaMapa}
-                        maxLength={50}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setLicencaMapa(e.target.value)
-                        }
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-
-
-                <div className="col-2">
-                    <CustomInput
-                        label="Cadastro Farmácia"
-                        type="text"
-                        placeholder="Digite o cadastro"
-                        value={cadastroFarmacia}
-                        maxLength={10}
-                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setCadastroFarmacia(e.target.value)
-                        }
-                        required={false}
-                    />
-                </div>
-
                 <div className="col-2">
                     <CustomInput
                         label="Agência"
@@ -230,7 +130,24 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         required={false}
                     />
                 </div>
-                <div className="col-2">
+            </div>
+            <div className="row">
+                <div className="col-8">
+                    <CustomInput
+                        label="Responsável técnico"
+                        type="text"
+                        placeholder="Digite o nome do responsável"
+                        value={responsavelTecnico}
+                        maxLength={50}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setResponsavelTecnico(e.target.value)
+                        }
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
                     <CustomInput
                         label="Alvará sanitário"
                         type="text"
@@ -243,11 +160,117 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         required={false}
                     />
                 </div>
-
-
+                <div className="col-4">
+                    <CustomInput
+                        label="Autorização de funcionamento"
+                        type="text"
+                        placeholder="Digite a autorização"
+                        value={autorizacaoFuncionamento}
+                        maxLength={10}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setAutorizacaoFuncionamento(e.target.value)
+                        }
+                        required={false}
+                    />
+                </div>
             </div>
             <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Autorização Especial"
+                        type="text"
+                        placeholder="Digite a autorização especial"
+                        value={autorizacaoEspecial}
+                        maxLength={10}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setAutorizacaoEspecial(e.target.value)
+                        }
+                        required={false}
+                    />
+                </div>
+                <div className="col-4">
+                    <CustomInput
+                        label="Licença Mapa"
+                        type="text"
+                        placeholder="Digite a licença"
+                        value={licencaMapa}
+                        maxLength={50}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setLicencaMapa(e.target.value)
+                        }
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Cadastro Farmácia"
+                        type="text"
+                        placeholder="Digite o cadastro"
+                        value={cadastroFarmacia}
+                        maxLength={10}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setCadastroFarmacia(e.target.value)
+                        }
+                        required={false}
+                    />
+                </div>
+                <div className="col-4">
+                    <CustomDropDown
+                        data={contas}
+                        title={nomePLanoDeConta ? nomePLanoDeConta : "Selecione o Plano de Contas"}
+                        filter="descricao"
+                        label="Plano de Contas"
+                        Select={(planoId) => setPlanoDeContaId(planoId)}
+                    />
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Host"
+                        type="text"
+                        placeholder="Digite o host"
+                        value={host}
+                        required={false}
+                        maxLength={50}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setHost(e.target.value)
+                        }
+                    />
+                </div>
                 <div className="col-2">
+                    <CustomInput
+                        label="Usuário"
+                        type="text"
+                        placeholder="Digite o usuário"
+                        value={usuario}
+                        required={false}
+                        maxLength={15}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setUsuario(e.target.value)
+                        }
+                    />
+                </div>
+                <div className="col-2">
+                    <CustomInput
+                        label="Senha"
+                        type="password"
+                        placeholder="Digite a senha"
+                        value={senha}
+                        required={false}
+                        maxLength={15}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setSenha(e.target.value)
+                        }
+                    />
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-4">
                     <CustomInput
                         label="Valor mínimo"
                         type="number"
@@ -260,8 +283,23 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         required={false}
                     />
                 </div>
+                <div className="col-4">
+                    <CustomInput
+                        label="Forma Pgto"
+                        type="text"
+                        placeholder="Digite a forma pgto"
+                        value={formaPagamento}
+                        maxLength={100}
+                        OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setFormaPagamento(e.target.value)
+                        }
+                        required={false}
+                    />
+                </div>
+            </div>
 
-                <div className="col-2">
+            <div className="row">
+                <div className="col-4">
                     <CustomInput
                         label="Previsão de Entrega"
                         type="number"
@@ -274,8 +312,7 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         required={false}
                     />
                 </div>
-
-                <div className="col-2">
+                <div className="col-4">
                     <CustomInput
                         label="Frete"
                         type="text"
@@ -288,16 +325,18 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         required={false}
                     />
                 </div>
+            </div>
 
-                <div className="col-2">
+            <div className="row">
+                <div className="col-8">
                     <CustomInput
-                        label="Forma Pgto"
+                        label="Observações"
                         type="text"
-                        placeholder="Digite a forma pgto"
-                        value={formaPagamento}
-                        maxLength={100}
+                        placeholder="Digite a observação"
+                        value={observacoes}
+                        maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setFormaPagamento(e.target.value)
+                            setObservacoes(e.target.value)
                         }
                         required={false}
                     />

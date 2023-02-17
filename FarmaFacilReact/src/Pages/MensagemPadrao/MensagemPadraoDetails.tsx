@@ -39,7 +39,7 @@ export function MensagemPadraoDetials() {
 
     return (
         <>
-            <HeaderMainContent title="Visualizar Mensagens Padrão" IncludeButton={false} ReturnButton={true} to="mensagenspadrao" />
+            <HeaderMainContent title="Visualizar Mensagem Padrão" IncludeButton={false} ReturnButton={true} to="mensagenspadrao" />
             <div className="form-group">
                 <Container>
                     <div className="row">

@@ -1,11 +1,11 @@
 {
     "translation": {
         "login": {
-            "title": "Entrar",
-            "titleInfo": "Faça Login com os dados que você inseriu durante o registro.",
-            "esqueceuSenha": "Esqueceu sua senha?",
-            "cliqueAqui": "Clique aqui",
-            "password": "Senha"
+            "title": "Enter",
+            "titleInfo": "Login with the data you entered during registration.",
+            "esqueceuSenha": "Forgot password?",
+            "cliqueAqui": "Click here",
+            "password": "Password"
         },
         "bairro":{
             "id":"ID",

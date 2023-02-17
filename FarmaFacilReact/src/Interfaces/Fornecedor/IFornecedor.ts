@@ -15,6 +15,7 @@ export interface IFornecedor {
     ddd: string,
     telefone: string,
     celular: string,
+    dddCelular: string,
     email: string,
     homePage: string,
     contato: string,
@@ -36,7 +37,8 @@ export interface IFornecedor {
     observacoes: string,
     usuarioFornecedor: string,
     senhaFornecedor: string,
-    hostFornecedor: string
+    hostFornecedor: string,
+    contribuinte: number | null
 }
 
 export interface IFornecedorGeral {
@@ -56,13 +58,16 @@ export interface IFornecedorGeral {
     ddd: string,
     telefone: string,
     celular: string,
-    email: string
+    dddCelular: string,
+    email: string,
+    homePage: string,
+    contato: string,
+    telefoneContato: string,
+    contribuinte: number | null
 }
 
 export interface IFornecedorComplemento {
-    homePage: string;
-    contato: string;
-    telefoneContato: string;
+
     bancoId: number | null;
     agencia: string;
     contaCorrenteFornecedor: string;

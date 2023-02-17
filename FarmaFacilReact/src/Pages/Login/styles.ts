@@ -1,6 +1,52 @@
+import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
+export const DropdownCustom = styled(Dropdown.Toggle)`
+
+  :hover{
+    border: 1px solid rgb(232, 2, 10);
+    color: rgb(91, 104, 115);
+  }
+
+  .text-image{
+    margin-right: .5rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(91, 104, 115);
+  }
+    
+  height: 28px;
+  width: 22px;
+  padding: 0;
+  cursor: pointer;
+  width: 10rem;
+  height: 2.5rem;
+  border: 1px solid rgb(232, 2, 10);
+  border-radius: 20px;
+  padding: 0.5rem;
+  color: rgb(91, 104, 115);
+  font-weight: 500;
+  font-size: 15px;
+
+  img{
+    margin-right: .5rem;
+    width: 18px;
+    height: 14px;
+  }
+`
+
 export const Container = styled.div`
+
+  .images{
+    width: 18px;
+    height: 14px;
+  }
+  .text-option{
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(91, 104, 115);
+    margin-left: 0.5rem;
+  }
   
   border: 1px solid #f1f1f1;
   display: flex;
@@ -130,5 +176,4 @@ export const Container = styled.div`
     font-weight: 500;
     font-size: 15px;
   }
-  
 `;
