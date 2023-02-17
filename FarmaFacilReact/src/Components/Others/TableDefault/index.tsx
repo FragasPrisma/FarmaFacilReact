@@ -10,11 +10,13 @@ interface Props {
   iconOptions?: boolean;
   itensExtraButton?: ItensButtonExtra[];
   btnsEditExcluir?: boolean;
+  btnVisualizar?: boolean;
+  actionsButtons?: boolean;
   openModal?: boolean;
-  openModalFunction?: (id:string) => void
+  openModalFunction?: (id: string) => void
 }
 
-export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView, openModal = false , openModalFunction}: Props) {
+export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false, openModalFunction }: Props) {
 
   return (
     <TableCustom>
@@ -23,12 +25,14 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
           {header.map((head, index) => (
             <th style={{ width: "calc(2rem - 100%)" }} key={index}>{headerTableView ? headerTableView[index] : head[0].toUpperCase() + head.substring(1)}</th>
           ))}
-          <th style={{ textAlign: "end", paddingRight: "1.6rem", width: "300px" }}>
+          {!actionsButtons &&
+            <th style={{ textAlign: "end", paddingRight: "1.6rem", width: "300px" }}>
             {iconOptions &&
               <label>Opções</label>
             }
-
-            <label className="mr-4">Visualizar</label>
+            {!btnVisualizar &&
+              <label className="mr-4">Visualizar</label>
+            }
             {!btnsEditExcluir &&
               <>
                 <label className="label-editar">Editar</label>
@@ -36,6 +40,7 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
               </>
             }
           </th>
+          }
         </TrCustom>
       </thead>
       <tbody>
@@ -44,25 +49,28 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
             {header.map((item, index) => (
               <td key={index}>{dataItem[item].toString().slice(0, 30)}</td>
             ))}
-            <td
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                paddingRight: "2rem",
-                border:"none",
-              }}
-            >
-              <ActionsButtonsDefault
-                id={dataItem.id.toString()}
-                pathParameters={path}
-                urlText={path}
-                iconOptions={iconOptions}
-                itensExtraButton={itensExtraButton}
-                btnsEditExcluir={btnsEditExcluir}
-                openModal={openModal}
-                openModalFunction={openModalFunction}
-              ></ActionsButtonsDefault>
-            </td>
+            {!actionsButtons &&
+              <td
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  paddingRight: "2rem",
+                  border: "none",
+                }}
+              >
+                <ActionsButtonsDefault
+                  id={dataItem.id.toString()}
+                  pathParameters={path}
+                  urlText={path}
+                  iconOptions={iconOptions}
+                  itensExtraButton={itensExtraButton}
+                  btnsEditExcluir={btnsEditExcluir}
+                  btnVisualizar={btnVisualizar}
+                  openModal={openModal}
+                  openModalFunction={openModalFunction}
+                ></ActionsButtonsDefault>
+              </td>
+            }
           </TrCustom>
         ))}
       </tbody>

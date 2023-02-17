@@ -221,6 +221,9 @@ import { Empresa } from "./Pages/Empresa";
 import { EmpresaCreate } from "./Pages/Empresa/EmpresaCreate";
 import { EmpresaDetails } from "./Pages/Empresa/EmpresaDetails";
 import { EmpresaEdit } from "./Pages/Empresa/EmpresaEdit";
+import { NegociacaoCompras } from "./Pages/Compras/NegociacaoCompras";
+import { UltimasCompras } from "./Pages/Compras/UltimasCompras";
+import { UltimasVendas } from "./Pages/Compras/UltimasVendas";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -1956,6 +1959,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <CotacaoCompras/>
+                </Private>
+              }
+            />
+            <Route 
+              path="compras/cotacaoCompras/negociacaoCompras/:id"
+              element={
+                <Private>
+                  <NegociacaoCompras/>
+                </Private>
+              }
+            />
+            <Route 
+              path="compras/cotacaoCompras/negociacaoCompras/ultimasCompras/:id"
+              element={
+                <Private>
+                  <UltimasCompras/>
+                </Private>
+              }
+            />
+            <Route 
+              path="compras/cotacaoCompras/negociacaoCompras/ultimasVendas/:id"
+              element={
+                <Private>
+                  <UltimasVendas/>
                 </Private>
               }
             />

@@ -14,11 +14,13 @@ interface IDataSearch {
   iconOptions?: boolean;
   itensExtraButton?: ItensButtonExtra[];
   btnsEditExcluir?: boolean;
+  btnVisualizar?: boolean;
+  actionsButtons?: boolean;
   openModal?: boolean;
   openModalFunction?: (id:string) => void
 }
 
-export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView, openModal = false , openModalFunction}: IDataSearch) {
+export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false , openModalFunction}: IDataSearch) {
 
   const [searchOptions, setSearchOptions] = useState(false);
   const [value, setValue] = useState("");
@@ -60,11 +62,12 @@ export function SearchContentScreens({ text, data, filter, headerTable, iconOpti
         iconOptions={iconOptions}
         itensExtraButton={itensExtraButton}
         btnsEditExcluir={btnsEditExcluir}
+        btnVisualizar={btnVisualizar}
         headerTableView={headerTableView}
+        actionsButtons={actionsButtons}
         openModal={openModal}
         openModalFunction={openModalFunction}
       />
     </ContainerSearch>
-
   );
 }
