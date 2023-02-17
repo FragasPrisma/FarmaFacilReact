@@ -22,7 +22,7 @@ export function MensagemPadrao() {
     return (
         <>
             <HeaderMainContent title="MENSAGENS PADRÃO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Mensagens Padrão" data={data} filter={"statusDescricao"} headerTable={["id", "statusDescricao"]} headerTableView={["ID", "Status Descrição"]} />
+            <SearchContentScreens text="Mensagens Padrão" data={data} filter={"statusDescricao"} headerTable={["id", "statusDescricao"]} headerTableView={["ID", "Status da descrição"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

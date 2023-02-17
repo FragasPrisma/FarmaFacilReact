@@ -139,7 +139,7 @@ export function RelatorioContasAPagar() {
 
     return (
         <>
-            <HeaderMainContent title="RELATÓRIO CONTAS A PAGAR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Relatório Contas a Pagar" IncludeButton={false} ReturnButton={false} />
             <Container>
                 <div className="row mt-4">
                     <FieldsetCustom legend="Classificação" borderAll={true} numberCols={2}>

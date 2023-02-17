@@ -6,6 +6,15 @@
             "esqueceuSenha": "olvido la contraseña?",
             "cliqueAqui": "Haga clic aquí",
             "password": "contraseña"
+        },
+        "bairro":{
+            "id":"ID",
+            "nome":"Nombre",
+            "bairro":"Vecindario",
+            "adicionar":"Agregar"
+        },
+        "search":{
+            "pesquisa":"Búsqueda de"
         }
     }
 }

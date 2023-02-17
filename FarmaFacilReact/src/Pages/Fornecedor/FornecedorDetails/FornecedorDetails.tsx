@@ -57,7 +57,7 @@ export function FornecedorDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES DO FORNECEDOR" IncludeButton={false} ReturnButton={true} to={"fornecedor"} />
+            <HeaderMainContent title="Visualizar Fornecedor" IncludeButton={false} ReturnButton={true} to={"fornecedor"} />
             <div className="form-group">
                 {fornecedorModel.id > 0 &&
                     <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />

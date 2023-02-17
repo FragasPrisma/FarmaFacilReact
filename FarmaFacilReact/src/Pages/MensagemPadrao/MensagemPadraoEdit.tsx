@@ -110,7 +110,7 @@ export function MensagemPadraoEdit() {
 
     return (
         <>
-            <HeaderMainContent title="Editar Mensagens Padrão" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Mensagem Padrão" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -128,16 +128,16 @@ export function MensagemPadraoEdit() {
                                 required={true}
                             />
                         </div>
-                        <div className="col-2 mb-3">
+                        <div className="col-2 mb-3 mt-1">
                             <CheckboxCustom
-                                options={["Descrição Rótulo"]}
+                                options={["Descrição rótulo"]}
                                 onClickOptions={(e) => setDescricaoRotulo(e.target.checked)}
                                 check={descricaoRotulo}
                             />
                         </div>
-                        <div className="col-2">
+                        <div className="col-2 mt-1">
                             <CheckboxCustom
-                                options={["Enviar Automáticamente"]}
+                                options={["Enviar automáticamente"]}
                                 onClickOptions={(e) => setEnviarAutomatico(e.target.checked)}
                                 check={enviarAutomatico}
                             />

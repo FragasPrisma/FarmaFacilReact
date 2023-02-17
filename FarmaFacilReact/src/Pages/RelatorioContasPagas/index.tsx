@@ -150,7 +150,7 @@ export function RelatorioContasPagas() {
 
         let dataReport: IReport = {
             title: classificacao == 1 ? "Duplicatas Pagas Por Vencimento" : "Duplicatas Pagas Por Pagamento",
-            nomeEmpresa: "Teste 2023",
+            nomeEmpresa: "Concept Pharma",
             perido: { dataInicial: dataInicio, dataFinal: dataFim },
             cabecalho: ["Vcto", "Fornecedor", "Pgto", "Observação", "Valor", "Vlr Pago", "Dias", "Dif. Pgto"],
             widths: ["11%", "15%", "11,5%", "23,5%", "8%", "12,5%", "6%", "12,5%"],
@@ -162,7 +162,7 @@ export function RelatorioContasPagas() {
 
     return (
         <>
-            <HeaderMainContent title="RELATÓRIO CONTAS PAGAS" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Relatório Contas Pagas" IncludeButton={false} ReturnButton={false} />
             <Container>
                 <div className="row mt-4">
                     <FieldsetCustom legend="Classificação" borderAll={true} numberCols={2}>

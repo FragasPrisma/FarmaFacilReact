@@ -1,13 +1,13 @@
 import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
 import { StyleDictionary, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { InverterDate } from '../helper/InverterDate';
 import { IReport } from '../Interfaces/Report/IReport';
+import fonstPdfMake from '../fontsPdfMake.json'
 
 export function ReportContasPagas(report: IReport) {
 
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+    pdfMake.vfs = fonstPdfMake;
+    
     const stylesParameters: StyleDictionary = {
         headerTable: {
             fontSize: 10,

@@ -1,16 +1,20 @@
 import { ButtonCancel } from "../../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
-import { useState } from "react";
-import { postFormAll } from "../../../Services/Api";
+import { useEffect, useState } from "react";
+import { getAll, postFormAll } from "../../../Services/Api";
 import { useNavigate } from "react-router-dom";
 import TabsPage from "../../../Components/Others/Tabs";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
-import { FornecedorCreateGeral, fornecedorGeral } from "./FornecedorCreateGeral";
+import { FornecedorCreateGeral, fornecedorGeral, sigla } from "./FornecedorCreateGeral";
 import { fornecedorComplemento, FornecedorCreateComplemento } from "./FornecedorCreateComplemento";
+import { validCPF } from "../../../helper/ValidCpf";
+import { ValidCnpj } from "../../../helper/ValidCnpj";
+import { LabelObrigatorio } from "../../../Components/Others/LabelMensagemObrigatorio";
+import { ValidIeDigitos } from "../../../helper/ValidIeDigitos";
 
 export function FornecedorCreate() {
 
@@ -20,22 +24,28 @@ export function FornecedorCreate() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState({ erro: true, index: 0, erroNome: "" })
-
+    const [fornecedores, setFornecedores] = useState([] as IFornecedor[])
     const [errorRequest, setErrorRequest] = useState("");
+
+    useEffect(() => {
+        const loadDataFornecedor = async () => {
+            const request = await getAll("ListaFornecedor");
+            setFornecedores(request.data)
+        }
+        loadDataFornecedor()
+    }, [])
 
     let arrayTab: any = [];
     const titles = itemsHandlesFornecedor;
 
-    arrayTab.unshift(
-        <FornecedorCreateGeral erros={error} />
-    );
     arrayTab.push(
+        <FornecedorCreateGeral erros={error} />,
         <FornecedorCreateComplemento />
     );
 
     function ValidString(text: string, index: number) {
         if (!text.trim()) {
-            setError({ erro: true, erroNome: "Campo obrigatório !", index: index })
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: index })
             return false
         }
 
@@ -44,23 +54,70 @@ export function FornecedorCreate() {
 
     async function submit() {
 
+        let erroCpfCnpj = false;
         setError({ erro: false, erroNome: "", index: 0 })
 
         setIsLoading(true);
 
         if (!ValidString(fornecedorGeral.nomeFornecedor.trim(), 1)
             || !ValidString(fornecedorGeral.nomeFantasia.trim(), 2)
-            || !ValidString(fornecedorGeral.cpf.trim(), 3)
-            || !ValidString(fornecedorGeral.cnpj.trim(), 4)
             || !ValidString(fornecedorGeral.inscricaoEstadual.trim(), 5)
         ) {
             setIsLoading(false);
             return;
         }
 
-        if (fornecedorGeral.estadoId <= 0) {
-            setError({ erro: true, erroNome: "Campo obrigatório !", index: 6 });
+        if(!fornecedorGeral.cnpj.trim() && !fornecedorGeral.cpf.trim()){
+
+            ValidString(fornecedorGeral.cpf.trim(), 3)
+            ValidString(fornecedorGeral.cnpj.trim(), 4)
+            return;
+        }
+        
+        if (!ValidIeDigitos(sigla, fornecedorGeral.inscricaoEstadual)) {
+            setError({ erro: true, erroNome: "Inscrição estadual inválida.", index: 5 })
             setIsLoading(false);
+            return;
+        }
+        if (fornecedorGeral.estadoId <= 0) {
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
+            setIsLoading(false);
+            return;
+        }
+        if (!validCPF(fornecedorGeral.cpf) || !ValidCnpj(fornecedorGeral.cnpj)) {
+            if (fornecedorGeral.cpf && !validCPF(fornecedorGeral.cpf)) {
+                setError({ erro: true, erroNome: "CPF inválido !", index: 3 });
+                setIsLoading(false);
+                return;
+            }
+            if (fornecedorGeral.cnpj && !ValidCnpj(fornecedorGeral.cnpj)) {
+                setError({ erro: true, erroNome: "CNPJ inválido !", index: 4 });
+                setIsLoading(false);
+                return;
+            }
+        }
+
+        fornecedores.map(x => {
+
+            if (x.cpf == fornecedorGeral.cpf && fornecedorGeral.cpf) {
+                setError({ erro: true, erroNome: "CPF já cadastrado !", index: 3 });
+                setIsLoading(false);
+                erroCpfCnpj = true
+            }
+            if (x.cnpj == fornecedorGeral.cnpj && fornecedorGeral.cnpj) {
+                setError({ erro: true, erroNome: "CNPJ já cadastrado !", index: 4 });
+                setIsLoading(false);
+                erroCpfCnpj = true;
+            }
+            if (x.inscricaoEstadual == fornecedorGeral.inscricaoEstadual && fornecedorGeral.inscricaoEstadual) {
+                setError({ erro: true, erroNome: "Inscrição Estadual já cadastrada !", index: 5 });
+                setIsLoading(false);
+                erroCpfCnpj = true;
+            }
+
+        })
+
+        if (erroCpfCnpj) {
             return;
         }
 
@@ -102,7 +159,9 @@ export function FornecedorCreate() {
             observacoes: "",
             usuarioFornecedor: "",
             senhaFornecedor: "",
-            hostFornecedor: ""
+            hostFornecedor: "",
+            dddCelular: "",
+            contribuinte: 0
         }
 
         data.id = fornecedorGeral.id;
@@ -122,9 +181,7 @@ export function FornecedorCreate() {
         data.telefone = fornecedorGeral.telefone;
         data.celular = fornecedorGeral.celular;
         data.email = fornecedorGeral.email;
-        data.homePage = fornecedorComplemento.homePage;
-        data.contato = fornecedorComplemento.contato;
-        data.telefoneContato = fornecedorComplemento.telefoneContato;
+        data.homePage = fornecedorGeral.homePage;
         data.bancoId = fornecedorComplemento.bancoId;
         data.agencia = fornecedorComplemento.agencia;
         data.contaCorrenteFornecedor = fornecedorComplemento.contaCorrenteFornecedor;
@@ -143,6 +200,10 @@ export function FornecedorCreate() {
         data.usuarioFornecedor = fornecedorComplemento.usuarioFornecedor;
         data.senhaFornecedor = fornecedorComplemento.senhaFornecedor;
         data.hostFornecedor = fornecedorComplemento.hostFornecedor;
+        data.dddCelular = fornecedorGeral.dddCelular;
+        data.telefoneContato = fornecedorGeral.telefoneContato;
+        data.contato = fornecedorGeral.contato;
+        data.contribuinte = fornecedorGeral.contribuinte
 
         const resp = await postFormAll("AdicionarFornecedor", data);
 
@@ -163,11 +224,11 @@ export function FornecedorCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Fornecedor" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
 
                 <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
-
+                <LabelObrigatorio />
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
                 <div className="row">
                     <div className="col-6">
@@ -176,7 +237,7 @@ export function FornecedorCreate() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor adicionado com " />
+            <SuccessModal show={isOpenSuccess} />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

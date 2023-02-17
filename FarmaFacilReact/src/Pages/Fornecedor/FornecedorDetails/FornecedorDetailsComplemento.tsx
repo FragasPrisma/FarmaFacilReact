@@ -23,94 +23,6 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                         required={false}
                     />
                 </div>
-                <div className="col-4">
-                    <CustomInput
-                        label="Plano de Contas"
-                        type="text"
-                        value={nomePLanoDeConta}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
-                    <CustomInput
-                        label="Responsável técnico"
-                        type="text"
-                        value={fornecedorModel.responsavelTecnico}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
-                    <CustomInput
-                        label="Observações"
-                        type="text"
-                        value={fornecedorModel.observacoes}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
-                    <CustomInput
-                        label="Home-Page"
-                        type="text"
-                        value={fornecedorModel.homePage}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-
-                <div className="col-3">
-                    <CustomInput
-                        label="Autorização de funcionamento"
-                        type="text"
-                        value={fornecedorModel.autorizacaoFuncionamento}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-
-                <div className="col-3">
-                    <CustomInput
-                        label="Autorização Especial"
-                        type="text"
-                        value={fornecedorModel.autorizacaoEspecial}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-
-                <div className="col-2">
-                    <CustomInput
-                        label="Licença Mapa"
-                        type="text"
-                        value={fornecedorModel.licencaMapa}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-            </div>
-            <div className="row">
-
-
-                <div className="col-2">
-                    <CustomInput
-                        label="Cadastro Farmácia"
-                        type="text"
-                        value={fornecedorModel.cadastroFarmacia}
-                        readonly={true}
-                        required={false}
-                    />
-                </div>
-
                 <div className="col-2">
                     <CustomInput
                         label="Agência"
@@ -129,7 +41,21 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                         required={false}
                     />
                 </div>
-                <div className="col-2">
+
+            </div>
+            <div className="row">
+                <div className="col-8">
+                    <CustomInput
+                        label="Responsável técnico"
+                        type="text"
+                        value={fornecedorModel.responsavelTecnico}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
                     <CustomInput
                         label="Alvará sanitário"
                         type="text"
@@ -138,11 +64,88 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                         required={false}
                     />
                 </div>
-
-
+                <div className="col-4">
+                    <CustomInput
+                        label="Autorização de funcionamento"
+                        type="text"
+                        value={fornecedorModel.autorizacaoFuncionamento}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
             </div>
             <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Autorização Especial"
+                        type="text"
+                        value={fornecedorModel.autorizacaoEspecial}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+
+                <div className="col-4">
+                    <CustomInput
+                        label="Licença Mapa"
+                        type="text"
+                        value={fornecedorModel.licencaMapa}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Cadastro Farmácia"
+                        type="text"
+                        value={fornecedorModel.cadastroFarmacia}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+                <div className="col-4">
+                    <CustomInput
+                        label="Plano de Contas"
+                        type="text"
+                        value={nomePLanoDeConta}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Host"
+                        type="text"
+                        value={fornecedorModel.hostFornecedor}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
                 <div className="col-2">
+                    <CustomInput
+                        label="Usuário"
+                        type="text"
+                        value={fornecedorModel.usuarioFornecedor}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+                <div className="col-2">
+                    <CustomInput
+                        label="Senha"
+                        type="text"
+                        value={fornecedorModel.senhaFornecedor}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
                     <CustomInput
                         label="Valor mínimo"
                         type="number"
@@ -151,18 +154,27 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                         required={false}
                     />
                 </div>
-
-                <div className="col-2">
+                <div className="col-4">
                     <CustomInput
-                        label="Previsão de Entrega"
+                        label="Forma Pgto"
+                        type="text"
+                        value={fornecedorModel.formaPagamento}
+                        readonly={true}
+                        required={false}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4">
+                    <CustomInput
+                        label="Previsão de Entrega (Dias)"
                         type="number"
                         value={fornecedorModel.previsaoEntrega}
                         readonly={true}
                         required={false}
                     />
                 </div>
-
-                <div className="col-2">
+                <div className="col-4">
                     <CustomInput
                         label="Frete"
                         type="text"
@@ -171,12 +183,13 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                         required={false}
                     />
                 </div>
-
-                <div className="col-2">
+            </div>
+            <div className="row">
+                <div className="col-8">
                     <CustomInput
-                        label="Forma Pgto"
+                        label="Observações"
                         type="text"
-                        value={fornecedorModel.formaPagamento}
+                        value={fornecedorModel.observacoes}
                         readonly={true}
                         required={false}
                     />
