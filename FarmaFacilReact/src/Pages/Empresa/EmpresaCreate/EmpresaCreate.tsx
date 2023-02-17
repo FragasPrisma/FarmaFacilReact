@@ -1,10 +1,10 @@
-import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { Container } from "./styles";
+import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
+import { Container } from "../styles";
 import { TabFarmacia } from "./TabFarmacia";
-import "./ArquivoConfig";
-import { itemsHandles, itemsHandlesChildrenAcabado, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao } from "../../Enum/ItemsParametro";
-import TabsParametro from "../../Components/Others/TabsParametro";
-import TabsEmpresa from "../../Components/Others/TabsEmpresa";
+import "../ArquivoConfig";
+import { itemsHandles, itemsHandlesChildrenAcabado, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao } from "../../../Enum/ItemsParametro";
+import TabsParametro from "../../../Components/Others/TabsParametro";
+import TabsEmpresa from "../../../Components/Others/TabsEmpresa";
 
 export function EmpresaCreate() {
     let componentsOfTabsGeral: any = [];
