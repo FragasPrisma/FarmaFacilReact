@@ -20,7 +20,7 @@ export interface IFarmacia {
     BairroId: number;   
     NomeFarmaceutico: string;  
     CRF: number;  
-    CpfRespSNGPC: number;  
+    CpfRespSNGPC: string;  
     UsuarioSNGPC: string;   
     SenhaSNGPC: string;  
     Ativo: boolean; 
@@ -28,4 +28,36 @@ export interface IFarmacia {
     AutoridadeSanitaria: string;   
     LicencaMapa: string;   
     FornecedorInternoId: number;
+}
+
+export let Farmacia: IFarmacia = {
+    Id: 0,
+    RazaoSocial: "",
+    NomeFantasia: "",
+    Cnpj: "",
+    InscricaoEstadual: "",
+    InscricaoMunicipal: "",
+    RegimeTributario: 0,
+    DDD: "",
+    Telefone: "",
+    Celular: "",
+    Email: "",
+    WhatsApp: "",
+    Cep: "",
+    Logradouro: "",
+    Numero: "",
+    Complemento: "",
+    CidadeId: 0,
+    EstadoId: 0,
+    BairroId: 0,
+    NomeFarmaceutico: "",
+    CRF: 0,
+    CpfRespSNGPC: "",
+    UsuarioSNGPC: "",
+    SenhaSNGPC: "",
+    Ativo: true,
+    LicencaFunc: "",
+    AutoridadeSanitaria: "",
+    LicencaMapa: "",
+    FornecedorInternoId: 0
 }
