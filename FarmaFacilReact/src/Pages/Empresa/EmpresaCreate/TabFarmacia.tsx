@@ -47,6 +47,7 @@ export const TabFarmacia = () => {
   const [estados, setEstados] = useState([] as IEstado[]);
   const [fornecedores, setFornecedores] = useState([] as IFornecedor[])
 
+  Farmacia.Id = 0;
   Farmacia.RazaoSocial = razaoSocial;
   Farmacia.NomeFantasia = nomeFantasia;
   Farmacia.Cnpj = cnpj;
@@ -390,7 +391,7 @@ export const TabFarmacia = () => {
             value={licencaFunc}
             required={true}
             placeholder="Digite um valor para a licença"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setSenhaSNGPC(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaFunc(e.target.value)}
           />
         </div>
       </div>
@@ -415,7 +416,7 @@ export const TabFarmacia = () => {
             value={licencaMapa}
             required={true}
             placeholder="Digite um valor para a licença do mapa"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaFunc(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaMapa(e.target.value)}
           />
         </div>
       </div>
