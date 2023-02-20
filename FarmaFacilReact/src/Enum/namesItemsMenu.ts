@@ -14,19 +14,18 @@
         //     { titulo: "Lista de Clientes", link: "/lista-clientes" },
         //   ],
         // },
-        
-import Flat from "../assets/img/bench.png";
+      
 
 export const namesItemsMenu = [
 
-  {
-    img: "",
-    titulo: "Compras",
-    hasSubMenu: true,
-    subMenu: [
-      { titulo: "Compras", link: "/compras"}
-    ]
-  },
+  // {
+  //   img: "",
+  //   titulo: "Compras",
+  //   hasSubMenu: true,
+  //   subMenu: [
+  //     { titulo: "Compras", link: "/compras"}
+  //   ]
+  // },
   {
     img: "",
     titulo: "Contas a Pagar",
@@ -82,7 +81,7 @@ export const namesItemsMenu = [
     titulo: "Produção",
     hasSubMenu: true,
     subMenu: [
-      { img: "", titulo: "Bula", link: "/bula" },
+      //{ img: "", titulo: "Bula", link: "/bula" },
       { img: "", titulo: "Funcionário Laboratório", link: "/funcionariolaboratorio" },
       { img: "", titulo: "Especificação Cápsula", link: "/especificacaocapsula" },
       { img: "", titulo: "Forma Farmacêutica", link: "/formafarmaceutica" },
@@ -121,8 +120,8 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
       { img: "", titulo: "Estado", link: "/estado" },
-      { img: "", titulo: "Empresa", link: "/empresa" }, 
-      { img: "", titulo: "Parametro", link: "/parametro" },
+      //{ img: "", titulo: "Empresa", link: "/empresa" }, 
+      //{ img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
