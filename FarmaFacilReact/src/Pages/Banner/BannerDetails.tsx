@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
 import { IBanner } from "../../Interfaces/Banner/IBanner";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 
 export function BannerDetails() {
 
@@ -27,7 +28,7 @@ export function BannerDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES BANNER" IncludeButton={false} ReturnButton={true} to="banner" />
+            <HeaderMainContent title="Visualizar Banner" IncludeButton={false} ReturnButton={true} to="banner" />
             <div className="form-group">
                 {bannerModel.id > 0 &&
                     <Container>
@@ -95,6 +96,15 @@ export function BannerDetails() {
                                 </div>
                         </div>
                         <UploadImagem img={"data:image/png;base64," + bannerModel.imagem} onButton={false} text="Imagem do Banner"/>
+                        <div className="row mt-5">
+                        <div className="col-3">
+                            <CheckboxCustom
+                                options={["Banner ativo"]}
+                                check={bannerModel.ativo}
+                                readOnly={true}
+                            />
+                        </div>
+                    </div>
                     </Container>
                 }
             </div>
