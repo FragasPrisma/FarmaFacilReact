@@ -136,6 +136,8 @@ export const namesItemsMenu = [
       { img: "", titulo: "Natureza de Operação", link: "/naturezaDeOperacao" },
       { img: "", titulo: "Transportador", link: "/transportador" },
       { img: "", titulo: "Contabilista", link: "/contabilista" },
+      { img: "", titulo: "Plano de Contas", link: "/planodecontas" },
+      
     ],
   }
 ];
