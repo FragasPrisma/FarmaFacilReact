@@ -1,20 +1,141 @@
 {
     "translation": {
         "login": {
-            "title": "Enter",
-            "titleInfo": "Login with the data you entered during registration.",
-            "esqueceuSenha": "Forgot password?",
+            "title": "Log in",
+            "titleInfo": "Log in with the data you entered during registration.",
+            "esqueceuSenha": "Forgot your password?",
             "cliqueAqui": "Click here",
             "password": "Password"
         },
-        "bairro":{
-            "id":"ID",
-            "nome":"Nome",
-            "bairro":"Bairro",
-            "adicionar":"Adicionar"
+        "administradoraCartao": {
+            "id": "ID",
+            "nome": "Name",
+            "administradoraCartao": "Card administrator",
+            "adicionar": "Add",
+            "title": "Add Card Administrator",
+            "titleEdit": "Edit Card Administrator",
+            "titleVisualizar": "View Card Administrator",
+            "erros": {
+                "tef": "TEF Manager is required!",
+                "modalidade": "Modality is required!"
+            },
+            "propriedade": {
+                "recebimento": "Receiving (Days)",
+                "desconto": "Administrator discount (%)",
+                "ativo": "Active administrator",
+                "parcelaTaxaAdm": "Admin fee installments",
+                "tef": {
+                    "title": "TEF Manager",
+                    "visa": "Visa/Master/Amex",
+                    "banri": "BanriCompras",
+                    "conv": "ConvCard",
+                    "edm": "EDMCard",
+                    "hiper": "HiperCard",
+                    "inte": "Integracao4S"
+                },
+                "cielo": {
+                    "title": "Cielo reward",
+                    "troco": "Change",
+                    "desconto": "Discount",
+                    "vias": "Differentiated paths",
+                    "cupom": "Reduced coupon"
+                },
+                "modalidade": {
+                    "title": "Modality",
+                    "credito": "Credit",
+                    "debito": "Debit"
+                }
+            }
         },
-        "search":{
-            "pesquisa":"Pesquisa de"
+        "bairro": {
+            "id": "ID",
+            "nome": "Name",
+            "bairro": "Neighborhood",
+            "title": "Add Neighborhood",
+            "titleEdit": "Edit Neighborhood",
+            "titleVisualizar": "View Neighborhood"
+        },
+        "banco": {},
+        "banner": {
+            "header": {
+                "id": "ID",
+                "descricao": "Description",
+                "posicao": "Position",
+                "dataInicio": "Start date",
+                "dataFim": "End date"
+            },
+            "erros": {
+                "campoPosicao": "Invalid position field.",
+                "campoPosicaoDuplicado": "Invalid position field.",
+                "imagem": "Select an image."
+            },
+            "propriedade": {
+                "link": "Link",
+                "digiteLink": "Enter the link",
+                "novaAba": "Open link in new tab",
+                "mesmaAba": "Open link in same tab",
+                "posicao": "Position",
+                "dataInicio": "Start date",
+                "dataFim": "End date",
+                "ativo": "Active banner",
+                "imagem": "Select an image"
+            },
+            "banner": "Banner",
+            "title": "Add Banner",
+            "titleEdit": "Edit Banner",
+            "titleVisualizar": "View Banner",
+            "titleAcaoLink": "Link Action",
+            "titleImagem": "Banner Image"
+        },
+        "fornecedor": {
+            "fornecedor": "Supplier"
+        },
+        "planoDeContas": {
+            "planoDeContas": "Chart of accounts"
+        },
+        "search": {
+            "pesquisa": "Search for"
+        },
+        "tableDefault": {
+            "visualizar": "View",
+            "editar": "Edit",
+            "excluir": "Delete",
+            "opcoes": "Options"
+        },
+        "btns": {
+            "incluir": "Include",
+            "confirmar": "Confirm",
+            "cancelar": "Cancel",
+            "voltar": "Back"
+        },
+        "header": {
+            "desconectar": "Disconnect"
+        },
+        "deleteModal": {
+            "excluir": "Do you want to delete the record?",
+            "excluido": "Record deleted"
+        },
+        "failModal": {
+            "camposObrigatorios": "Mandatory field(s) not filled correctly."
+        },
+        "successModal": {
+            "registro": "Record included",
+            "message": "Success!"
+        },
+        "labelObrigatorio": {
+            "message": "Fields marked with * are mandatory."
+        },
+        "textGeneric": {
+            "nome": "Name",
+            "digiteNome": "Enter the name",
+            "descricao": "Description",
+            "digiteDescricao": "Enter the description",
+            "selecioneFornecedor": "Select the Supplier",
+            "selecionePlanoDeContas": "Select the Chart of Accounts",
+            "registroEditado": "Record edited"
+        },
+        "erros": {
+            "campoObrigatorio": "Mandatory field."
         }
     }
 }

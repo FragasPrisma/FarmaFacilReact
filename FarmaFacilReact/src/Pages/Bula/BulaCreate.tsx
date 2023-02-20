@@ -11,6 +11,7 @@ import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { IBula } from "../../Interfaces/Bula/IBula";
+import { Editor } from "../../Components/Others/Editor";
 
 export function BulaCreate() {
 
@@ -26,7 +27,7 @@ export function BulaCreate() {
 
     const navigate = useNavigate();
 
-    const data : IBula = {
+    const data: IBula = {
         id: 0,
         descricao: descricao.trim(),
         limitacaoVisual: limitacaoVisual,
@@ -93,18 +94,10 @@ export function BulaCreate() {
                         </div>
                     </div>
                     <div className="row mb-3">
-                        <div className="col-auto">
-                            <CustomTextArea
-                                value={descricao}
-                                label="Texto Bula"
-                                cols={105}
-                                rows={20}
-                                maxLength={1000}
-                                erro={erroDescricao}
-                                required={true}
-                                OnChange={(e) => { setDescricao(e.target.value) }}
-                            />
-                        </div>
+                        <Editor
+                            OnChange={(text) => { setDescricao(text) }}
+                            width={800}
+                        />
                     </div>
                     <div className="row">
                         <div className="col-6">
