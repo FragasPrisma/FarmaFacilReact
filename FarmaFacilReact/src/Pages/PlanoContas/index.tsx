@@ -8,6 +8,8 @@ import {Modall} from "./ComponentDeleteItem";
 import './styles.ts'
 import { useDispatch, useSelector } from "react-redux";
 import { changePlano } from "../../store/PlanoContas";
+import { ModalGeneric } from "../../Components/Modals/ModalGeneric";
+import { FailModal } from "../../Components/Modals/FailModal";
 
 
 export let value: any
@@ -17,9 +19,14 @@ function PlanoContasRecursivo({ children }: any) {
   const [openMap, setOpenMap] = useState(new Map());
   const [showModal, setShowModal] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+  
+  let msg = "Esta conta possui sub-contas ligadas a ela e por isso não pode ser excluída. Se deseja realmente apagar esta conta apague antes todas as suas sub-contas!"
 
+  const dispatch = useDispatch()
 
- const dispatch = useDispatch()
+ const state = useSelector((state) => state)
+ let valuee:any = state
   
     const openModal = () => {
       setShowModal(!showModal)
@@ -38,7 +45,25 @@ function PlanoContasRecursivo({ children }: any) {
 
   const toggleModal = () => {
     setModalActive(!isModalActive);
+    
+    
   };
+  
+
+
+  // const modalFail = () => {
+  //   if(valuee.children.length > 0) modalFail()
+      
+  //   setTimeout(() => {
+  //     setIsOpenFail(false)
+  //   }, 2500) 
+  //   setIsOpenFail(true)  
+  //   return (
+  //     <FailModal text={msg} show={isOpenFail} onClose={() => setIsOpenFail(false)} /> 
+  //   )
+
+  // }
+
 
 
   return (
@@ -75,9 +100,10 @@ function PlanoContasRecursivo({ children }: any) {
 
                
               <Trash size={17} color="#cf0209" style={{ marginLeft: "5px" }} onClick={toggleModal} />
-                <Modall isActive={isModalActive} toggleModal={toggleModal} >
-                  Tem certeza que deseja <p style={{color: '#cf0209', display: 'flex'}}> excluir </p> 
-                 </Modall>
+             
+                 <Modall isActive={isModalActive} toggleModal={toggleModal} >
+                 Deseja excluir o registro?
+                 </Modall> 
                 
                  
             </div>
