@@ -218,9 +218,9 @@ import { ManutencaoComprasDetails } from "./Pages/Compras/ComprasDetails";
 import { RelatorioCompras } from "./Pages/Compras/RelatorioCompras";
 import { CotacaoCompras } from "./Pages/Compras/CotacaoCompras";
 import { Empresa } from "./Pages/Empresa";
-import { EmpresaCreate } from "./Pages/Empresa/EmpresaCreate";
-import { EmpresaDetails } from "./Pages/Empresa/EmpresaDetails";
-import { EmpresaEdit } from "./Pages/Empresa/EmpresaEdit";
+import { EmpresaCreate } from "./Pages/Empresa/EmpresaCreate/EmpresaCreate";
+import { EmpresaDetails } from "./Pages/Empresa/EmpresaDetails/EmpresaDetails";
+import { EmpresaEdit } from "./Pages/Empresa/EmpresaEdit/EmpresaEdit";
 import { NegociacaoCompras } from "./Pages/Compras/NegociacaoCompras";
 import { UltimasCompras } from "./Pages/Compras/UltimasCompras";
 import { UltimasVendas } from "./Pages/Compras/UltimasVendas";
@@ -1946,7 +1946,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/compras/relatorioCompras/:id"
               element={
                 <Private>
@@ -1954,39 +1954,39 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/compras/cotacaoCompras/:id"
               element={
                 <Private>
-                  <CotacaoCompras/>
+                  <CotacaoCompras />
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="compras/cotacaoCompras/negociacaoCompras/:id"
               element={
                 <Private>
-                  <NegociacaoCompras/>
+                  <NegociacaoCompras />
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="compras/cotacaoCompras/negociacaoCompras/ultimasCompras/:id"
               element={
                 <Private>
-                  <UltimasCompras/>
+                  <UltimasCompras />
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="compras/cotacaoCompras/negociacaoCompras/ultimasVendas/:id"
               element={
                 <Private>
-                  <UltimasVendas/>
+                  <UltimasVendas />
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/empresa"
               element={
                 <Private>
