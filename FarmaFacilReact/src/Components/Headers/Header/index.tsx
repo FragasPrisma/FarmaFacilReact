@@ -12,10 +12,12 @@ import {
   ContainerLogout,
   ContainerDescription,
 } from "./styles";
+import { useTranslation } from "react-i18next";
 
 export function Header() {
   const [state, setState] = useState(false);
   const { logout } = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const deslogar = () => logout();
 
@@ -41,7 +43,7 @@ export function Header() {
           <UserCircle size={50} />
           {state && (
             <div>
-              <span onClick={deslogar}>Desconectar</span>
+              <span onClick={deslogar}>{t('header.desconectar')}</span>
             </div>
           )}
         </ButtonLogout>

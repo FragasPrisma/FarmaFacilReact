@@ -1,6 +1,7 @@
 import { ActionsButtonsDefault } from "../../Buttons/ActionsButtonsDefault";
 import { TableCustom, TrCustom } from "./styles";
 import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButtonExtra";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data: any[];
@@ -18,6 +19,8 @@ interface Props {
 
 export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false, openModalFunction }: Props) {
 
+  const { t } = useTranslation();
+
   return (
     <TableCustom>
       <thead>
@@ -28,15 +31,15 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
           {!actionsButtons &&
             <th style={{ textAlign: "end", paddingRight: "1.6rem", width: "300px" }}>
             {iconOptions &&
-              <label>Opções</label>
+              <label>{t('tableDefault.opcoes')}</label>
             }
             {!btnVisualizar &&
-              <label className="mr-4">Visualizar</label>
+              <label className="mr-4">{t('tableDefault.visualizar')}</label>
             }
             {!btnsEditExcluir &&
               <>
-                <label className="label-editar">Editar</label>
-                <label>Excluir</label>
+                <label className="label-editar">{t('tableDefault.editar')}</label>
+                <label>{t('tableDefault.excluir')}</label>
               </>
             }
           </th>

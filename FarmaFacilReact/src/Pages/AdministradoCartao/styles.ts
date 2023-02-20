@@ -6,4 +6,11 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    
+    .text-danger-erro{
+        color: #cf0209;
+        font-size: .9rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
 `

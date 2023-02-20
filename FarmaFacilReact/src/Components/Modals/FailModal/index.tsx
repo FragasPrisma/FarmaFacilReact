@@ -1,4 +1,5 @@
 import { Modal, ModalBody } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { CloseButton, MensageDefault, Container } from "./styles";
 
 interface Props {
@@ -12,6 +13,7 @@ export function FailModal(props: Props) {
   function closeModal() {
     props.onClose();
   }
+  const { t } = useTranslation();
 
   return (
     <Modal
@@ -29,7 +31,7 @@ export function FailModal(props: Props) {
           </div>
           <div className="div_text">
             <MensageDefault>
-              {props.text == null ? "Campo (os) obrigatório (os) não preenchido (os) corretamente." : props.text}
+              {props.text == null ? t('failModal.camposObrigatorios') : props.text}
             </MensageDefault>
           </div>
         </Container>

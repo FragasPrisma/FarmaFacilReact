@@ -1,6 +1,7 @@
 import { NotePencil, PlusCircle, Trash } from 'phosphor-react';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { Container } from './styles';
 
 interface IData {
@@ -17,6 +18,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
     const [imagemModel, setImagemModel] = useState(img);
     const [widthImg, setWidth] = useState(0);
     const [heightImg, setHeight] = useState(0);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (img) {
@@ -93,7 +95,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
                                 key={1}
                                 overlay={
                                     <Tooltip id={`tooltip-top`}>
-                                        Incluir
+                                        {t('btns.incluir')}
                                     </Tooltip>
                                 }
                             >
@@ -104,7 +106,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
                                 key={1}
                                 overlay={
                                     <Tooltip id={`tooltip-top`}>
-                                        Editar
+                                        {t('tableDefault.editar')}
                                     </Tooltip>
                                 }
                             >
@@ -114,7 +116,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
                                 key={1}
                                 overlay={
                                     <Tooltip id={`tooltip-top`}>
-                                        Excluir
+                                        {t('tableDefault.excluir')}
                                     </Tooltip>
                                 }
                             >

@@ -3,27 +3,36 @@ import { SearchContentScreens } from "../../Components/Others/SearchContentScree
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
+import { useTranslation } from "react-i18next";
+import { IAdministradoCartao } from "../../Interfaces/AdministradoCartao/IAdministradoCartao";
 
-export function AdministradoraDeCartao(){
-    const [pagina,setPagina] = useState(1);
+export function AdministradoraDeCartao() {
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([] as IAdministradoCartao[]);
+    const { t } = useTranslation();
 
     useEffect(() => {
-        const loadDataTableBairro = async () => {
+        const loadDataTable = async () => {
             const response = await getAll(`ListaPaginacaoAdministradoraCartao/${pagina}`);
             setQtdPagina(response.data.total);
             setData(response.data.listGroup);
         }
 
-        loadDataTableBairro()
+        loadDataTable()
     }, [pagina]);
 
     return (
         <>
-            <HeaderMainContent title="ADMINISTRADORA DE CARTÃO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Administradora de Cartão" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID","Nome"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title={t('administradoraCartao.administradoraCartao')} IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens
+                text={t('administradoraCartao.administradoraCartao')}
+                data={data}
+                filter={"nome"}
+                headerTable={["id", "nome"]}
+                headerTableView={[t('administradoraCartao.id'), t('administradoraCartao.nome')]}
+            />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

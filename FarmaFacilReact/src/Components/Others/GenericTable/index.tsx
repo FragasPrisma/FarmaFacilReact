@@ -1,5 +1,6 @@
 import { DeleteButton, TableCustom, TrCustom } from "./styles";
 import { NotePencil, Trash } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     data: any[];
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function GenericTable({ data = [], header, onDelete, deleteButton = true, editButton = false, onEdit }: Props) {
+    const { t } = useTranslation();
     function OnClickDelete(index: number) {
         if (onDelete) {
             onDelete(index);
@@ -31,10 +33,10 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true,
                         <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
                     ))}
                     {deleteButton &&
-                        <th className="col-1">Excluir</th>
+                        <th className="col-1">{t('tableDefault.excluir')}</th>
                     }
                     {editButton &&
-                        <th className="col-1">Editar</th>
+                        <th className="col-1">{t('tableDefault.editar')}</th>
                     }
                 </TrCustom>
             </thead>

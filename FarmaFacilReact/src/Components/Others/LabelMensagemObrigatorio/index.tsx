@@ -1,9 +1,11 @@
+import { useTranslation } from "react-i18next";
 import { LabelMensagemObrigatorio } from "./styles";
 
 export function LabelObrigatorio() {
+    const { t } = useTranslation();
     return (
         <LabelMensagemObrigatorio>
-            Os campos com * são de preenchimento obrigatório.
+            {t('labelObrigatorio.message')}
         </LabelMensagemObrigatorio>
     )
 }

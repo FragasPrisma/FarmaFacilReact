@@ -14,12 +14,14 @@ import { IBanner } from "../../Interfaces/Banner/IBanner";
 import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
+import { useTranslation } from "react-i18next";
 
 export function BannerCreate() {
 
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [descricao, setDescricao] = useState("");
     const [link, setLink] = useState("");
@@ -69,7 +71,7 @@ export function BannerCreate() {
 
     function ValidString(texto: string, index: number) {
         if (!texto.trim()) {
-            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório.", })
+            setErros({ erro: true, index: index, erroNome: t('erros.campoObrigatorio') })
             return false;
         } else {
             return true;
@@ -91,13 +93,13 @@ export function BannerCreate() {
         }
 
         if (posicao <= 0) {
-            setErroPosicao("Campo posição inválido !")
+            setErroPosicao(t('banner.erros.campoPosicao').toString())
             setIsLoading(false);
             return;
         }
 
         if (!imagem) {
-            setErroImagem("Selecione uma imagem !")
+            setErroImagem(t('banner.erros.imagem').toString())
             setIsLoading(false);
             return;
         }
@@ -105,7 +107,7 @@ export function BannerCreate() {
         const banner = banners.filter(x => x.posicao == posicao);
 
         if (banner.length > 0) {
-            setErroPosicao(`A posição informada já está sendo utilizada por outro banner!`)
+            setErroPosicao(t('banner.erros.campoPosicaoDuplicado').toString())
             setIsLoading(false);
             return;
         }
@@ -136,15 +138,15 @@ export function BannerCreate() {
 
     return (
         <>
-            <HeaderMainContent title="Incluir Banner" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title={t('banner.title')} IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
                         <div className="col-6">
                             <CustomInput
-                                label="Descrição"
+                                label={t('textGeneric.descricao')}
                                 type="text"
-                                placeholder="Digite a descrição"
+                                placeholder={t('textGeneric.digiteDescricao').toString()}
                                 value={descricao}
                                 maxLength={100}
                                 erros={erros}
@@ -160,9 +162,9 @@ export function BannerCreate() {
                     <div className="row">
                         <div className="col-6">
                             <CustomInput
-                                label="Link"
+                                label={t('banner.propriedade.link')}
                                 type="text"
-                                placeholder="Digite o link"
+                                placeholder={t('banner.propriedade.digiteLink').toString()}
                                 value={link}
                                 maxLength={100}
                                 erros={erros}
@@ -177,10 +179,11 @@ export function BannerCreate() {
                     <div className="row">
                         <div className="col-4">
                             <RadioCustom
-                                options={["Abrir link em nova aba", "Abrir link na mesma aba"]}
+                                requerid={true}
+                                options={[t('banner.propriedade.novaAba'), t('banner.propriedade.mesmaAba')]}
                                 name="acaoLink"
                                 onClickOptions={(value, label) => setAcaoLink(value)}
-                                titleComponet="Ação Link"
+                                titleComponet={t('banner.titleAcaoLink').toString()}
                                 value={acaoLink}
                             />
                         </div>
@@ -188,9 +191,8 @@ export function BannerCreate() {
                     <div className="row mb-4">
                         <div className="col-3">
                             <CustomInput
-                                label="Posição"
+                                label={t('banner.propriedade.posicao')}
                                 type="number"
-                                placeholder="Digite a posição"
                                 value={posicao}
                                 erro={erroPosicao}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -201,7 +203,7 @@ export function BannerCreate() {
                         </div>
                         <div className="col-3">
                             <CustomInput
-                                label="Data inicial"
+                                label={t('banner.propriedade.dataInicio')}
                                 type="date"
                                 erros={erros}
                                 index={3}
@@ -214,7 +216,7 @@ export function BannerCreate() {
                         </div>
                         <div className="col-3">
                             <CustomInput
-                                label="Data final"
+                                label={t('banner.propriedade.dataFim')}
                                 type="date"
                                 value={dataFim}
                                 erros={erros}
@@ -227,11 +229,11 @@ export function BannerCreate() {
                         </div>
                     </div>
 
-                    <UploadImagem onUpdate={updateImgModel} text="Selecione a imagem" requerid={true} onDelete={onDelete} />
+                    <UploadImagem onUpdate={updateImgModel} text={t('banner.propriedade.imagem')} requerid={true} onDelete={onDelete} />
                     <div className="row mt-5">
                         <div className="col-3">
                             <CheckboxCustom
-                                options={["Banner ativo"]}
+                                options={[t('banner.propriedade.ativo')]}
                                 check={ativo}
                                 onClickOptions={(check) => setAtivo(check.target.checked)}
                             />
