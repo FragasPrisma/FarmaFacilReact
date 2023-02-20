@@ -1,4 +1,3 @@
-import Table from "react-bootstrap/Table";
 import { useState } from "react";
 import { ActionsButtonsDefault } from "../../Buttons/ActionsButtonsDefault";
 import { TableCustom, TrCustom } from "./styles";

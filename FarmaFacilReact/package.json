@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
     "@types/bootstrap": "^5.2.6",
     "axios": "^1.2.2",
     "bootstrap": "^5.3.0-alpha1",
@@ -16,10 +17,15 @@
     "match-sorter": "^6.3.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
+    "react-accessible-treeview": "^2.3.1",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.4",
     "react-tooltip": "^5.5.1",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.6"
   },

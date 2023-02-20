@@ -15,11 +15,11 @@ export function LaboratorioEdit() {
     const navigate = useNavigate();
     const [erroDescricao,setErroDescricao] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [laboratorioId, setLaboratorioId] = useState(0);
     const { id } = useParams();
+    const [laboratorioId, setLaboratorioId] = useState(0);
     const [data] = useState({id:0,descricao:""});
     const [isLoading,setIsLoading] = useState(false);
-
+    
     let idParams = !id ? "0" : id.toString();
 
     useEffect(() =>{

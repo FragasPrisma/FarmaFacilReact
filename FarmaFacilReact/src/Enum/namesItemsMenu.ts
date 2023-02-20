@@ -100,7 +100,7 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
       //{ img: "", titulo: "Estado", link: "/estado" },
-      //{ img: "", titulo: "Parametro", link: "/parametro" },
+      { img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
       { img: "", titulo: "Portador", link: "/portador" },
@@ -113,6 +113,8 @@ export const namesItemsMenu = [
       { img: "", titulo: "Natureza de Operação", link: "/naturezaDeOperacao" },
       { img: "", titulo: "Transportador", link: "/transportador" },
       { img: "", titulo: "Contabilista", link: "/contabilista" },
+      { img: "", titulo: "Plano de Contas", link: "/planodecontas" },
+      
     ],
   }
 ];

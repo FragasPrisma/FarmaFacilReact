@@ -1,7 +1,6 @@
 import { CaretDown, CaretRight, CaretUp, ListPlus, X } from "phosphor-react";
 import { MenuSidebar, NavLinkCustom } from "./styles";
 import { SetStateAction, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { namesItemsMenu } from "../../../Enum/namesItemsMenu";
 
 export function Sidebar() {

@@ -125,9 +125,9 @@ export function AdministradoraCartaoDetails() {
                                         "Crédito"]}
                                     readonly={true}
                                     name="modalidade"
+                                    value={modalidade}
                                     onClickOptions={(value, label) => setmodalidade(value)}
                                     titleComponet="Modadilade"
-                                    value={modalidade}
                                 />
                             </div>
                             <div className="col-2 mt-4">

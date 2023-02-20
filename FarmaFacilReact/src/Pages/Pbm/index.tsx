@@ -22,7 +22,7 @@ export function Pbm() {
 
   return (
     <>
-      <HeaderMainContent title="PBM" IncludeButton={true} ReturnButton={false} />
+      <HeaderMainContent title="Pbm" IncludeButton={true} ReturnButton={false} />
       <SearchContentScreens text="Pbm" data={data} filter={"nome"} headerTable={["id", "nome", "observacao"]} />
       <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
     </>

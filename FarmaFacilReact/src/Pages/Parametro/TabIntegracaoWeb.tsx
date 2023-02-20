@@ -1,7 +1,9 @@
+import { ChangeEvent, useState } from "react";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 
 export const TabIntegracaoWeb = () => {
+  const [prazoOrcamento, setPrazoOrcamento] = useState(Number);
   return (
     <>
       <div className="row mt-4">
@@ -26,21 +28,23 @@ export const TabIntegracaoWeb = () => {
             <CustomInput
               label="Prazo orçamentos"
               required={false}
-              type="string"
+              type="number"
+              value={prazoOrcamento}
+              OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setPrazoOrcamento(Number(e.target.value))
+              }
             />
           </div>
         </FieldsetCustom>
       </div>
 
-
-
       <div className="row mt-4">
         <FieldsetCustom legend="Receituário" numberCols={3}>
           <div className="col-12">
-          <CustomInput label="Host" required={false} type="string" />
-             </div>
+            <CustomInput label="Host" required={false} type="string" />
+          </div>
         </FieldsetCustom>
-        </div>
+      </div>
     </>
   );
 };
