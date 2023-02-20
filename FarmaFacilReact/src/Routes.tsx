@@ -183,6 +183,10 @@ import { BannerEdit } from "./Pages/Banner/BannerEdit";
 import { BannerDetails } from "./Pages/Banner/BannerDetails";
 import { Unidade } from "./Pages/Unidade";
 import { UnidadeCreate } from "./Pages/Unidade/UnidadeCreate";
+import { PlanoContas } from './Pages/PlanoContas/index';
+import { PlanoContasCreate } from "./Pages/PlanoContas/PlanoContasCreate";
+import { PlanoContasEdit } from "./Pages/PlanoContas/PlanoContasEdit";
+import { PlanoContasDetails } from "./Pages/PlanoContas/PlanoContasDetails";
 import { UnidadeEdit } from "./Pages/Unidade/UnidadeEdit";
 import { UnidadeDetails } from "./Pages/Unidade/UnidadeDetails";
 import { Prescritor } from "./Pages/Prescritor";
@@ -959,6 +963,51 @@ export function AppRoutes() {
                 </Private>
               }
             />
+              
+              
+              <Route
+              path="/planodecontas"
+              element={
+                <Private>
+                  <PlanoContas />
+                </Private>
+              }
+            />
+
+
+            
+        <Route
+              path="/planodecontas/create"
+              element={
+                <Private>
+                  <PlanoContasCreate />
+                </Private>
+              }
+            />
+             
+              <Route
+              path="/planodecontas/edit/:id"
+              element={
+                <Private>
+                  <PlanoContasEdit />
+                </Private>
+              }
+            />
+
+
+
+              <Route
+              path="/planodecontas/details/:id"
+              element={
+                <Private>
+                  <PlanoContasDetails />
+                </Private>
+              }
+            />  
+
+
+
+
             <Route
               path="/nbm"
               element={

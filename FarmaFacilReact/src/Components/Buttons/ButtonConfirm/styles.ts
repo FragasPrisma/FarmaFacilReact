@@ -9,6 +9,8 @@ export const ButtonConfirmMain = styled.button`
     border: none;
     border-radius: 4px;
 
+    
+
     .text_link {
     color: inherit;
     text-decoration: inherit;
