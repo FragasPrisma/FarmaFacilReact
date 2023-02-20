@@ -9,6 +9,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { Container } from "../Dcb/styles";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/IRootState";
 
 
 export function PlanoContasCreate() {
@@ -30,7 +31,7 @@ export function PlanoContasCreate() {
   };
 
 
-  const state = useSelector((state) => state)
+  const state = useSelector((state: RootState) => state.planoReducer)
   let valuee:any = state
 
 

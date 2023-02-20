@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { Container } from "./styles";
+import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 
 export const TabFarmacia = () => {
   const [razaoSocial, setRazaoSocial] = useState(String);
@@ -59,7 +60,7 @@ export const TabFarmacia = () => {
         </div>
 
         <div className="col-2">
-          <RadioCustom
+          {/* <RadioCustom
             check={modalidade}
             onClickOptions={(e: ChangeEvent<HTMLInputElement>) =>
               setModalidade(e.target.value)
@@ -69,7 +70,7 @@ export const TabFarmacia = () => {
               "Simples nac. SubLimite",
               "Regime Normal",
             ]}
-          />
+          /> */}
         </div>
       </div>
 

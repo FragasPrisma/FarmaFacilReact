@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changePlano } from "../../store/PlanoContas";
 import { ModalGeneric } from "../../Components/Modals/ModalGeneric";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { RootState } from "../../store/IRootState";
 
 
 export let value: any
@@ -37,7 +38,7 @@ function PlanoContasRecursivo({ children }: any) {
     
 
 
- const state = useSelector((state) => state)
+ const state = useSelector((state: RootState) => state.planoReducer)
  let valuee:any = state
   
     const openModal = () => {

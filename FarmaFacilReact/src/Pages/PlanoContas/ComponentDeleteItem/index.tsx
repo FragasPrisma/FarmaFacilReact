@@ -9,13 +9,14 @@ import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { deleteDetail, GetId, postFormAll } from "../../../Services/Api";
+import { RootState } from "../../../store/IRootState";
 import { CloseButton, MensageDefault, Container } from "./styles";
 
 export const Modall = ({ children, isActive, toggleModal }:any) => {
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [stateModalSucces, setStateModalSucces] = useState(false);
   
-  const state = useSelector((state) => state)
+  const state = useSelector((state: RootState) => state.planoReducer)
   let valuee:any = state
   let msg = "Esta conta possui sub-contas ligadas a ela e por isso não pode ser excluída. Se deseja realmente apagar esta conta apague antes todas as suas sub-contas!"
 

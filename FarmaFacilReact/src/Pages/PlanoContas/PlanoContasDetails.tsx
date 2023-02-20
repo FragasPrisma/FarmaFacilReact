@@ -11,6 +11,7 @@ import { Container } from "../Dcb/styles";
 //import { valSelectedIndex, valSelectedText } from "./ComponentTree";
 
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/IRootState";
 
 export function PlanoContasDetails() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export function PlanoContasDetails() {
   const [conta, setConta] = useState("");
 
 
-  const state = useSelector((state) => state)
+  const state = useSelector((state: RootState) => state.planoReducer)
   
   let valuee:any = state
 
