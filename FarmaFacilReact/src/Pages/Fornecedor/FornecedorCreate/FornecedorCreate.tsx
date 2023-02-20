@@ -73,12 +73,15 @@ export function FornecedorCreate() {
             ValidString(fornecedorGeral.cnpj.trim(), 4)
             return;
         }
-        
-        if (!ValidIeDigitos(sigla, fornecedorGeral.inscricaoEstadual)) {
-            setError({ erro: true, erroNome: "Inscrição estadual inválida.", index: 5 })
-            setIsLoading(false);
-            return;
+
+        if(sigla.charAt(0).toUpperCase() != "P"){
+            if (!ValidIeDigitos(sigla, fornecedorGeral.inscricaoEstadual)) {
+                setError({ erro: true, erroNome: "Inscrição estadual inválida.", index: 5 })
+                setIsLoading(false);
+                return;
+            }
         }
+        
         if (fornecedorGeral.estadoId <= 0) {
             setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
             setIsLoading(false);

@@ -3,7 +3,7 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
-import { postFormAll } from "../../Services/Api";
+import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
@@ -11,6 +11,9 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
 import { IBanner } from "../../Interfaces/Banner/IBanner";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
 
 export function BannerCreate() {
 
@@ -26,12 +29,27 @@ export function BannerCreate() {
     const [dataFim, setDataFim] = useState("")
     const [imagemBanner, setImagemBanner] = useState("");
     const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
+    const [ativo, setAtivo] = useState(false);
 
     const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
     const [erroPosicao, setErroPosicao] = useState("");
     const [erroImagem, setErroImagem] = useState("");
-
     const [isLoading, setIsLoading] = useState(false);
+    const [banners, setBanners] = useState([] as IBanner[]);
+
+    useEffect(() => {
+
+        const init = async () => {
+            const request = await getAll("listabanner");
+
+            if (request.status == 200) {
+                setBanners(request.data)
+            }
+        };
+
+        init();
+
+    }, [])
 
     const data: IBanner = {
         id: 0,
@@ -43,7 +61,7 @@ export function BannerCreate() {
         dataFim: dataFim,
         imagemBanner: imagemBanner,
         imagem: imagem,
-        ativo: true,
+        ativo: ativo,
         tipoDadoImagem: "",
         integrados: "",
         bannerMagentoId: 0
@@ -51,7 +69,7 @@ export function BannerCreate() {
 
     function ValidString(texto: string, index: number) {
         if (!texto.trim()) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório.", })
             return false;
         } else {
             return true;
@@ -65,8 +83,8 @@ export function BannerCreate() {
 
         if (!ValidString(descricao.trim(), 1)
             || !ValidString(link.trim(), 2)
-            || !ValidString(dataInicio,3)
-            || !ValidString(dataFim,4)
+            || !ValidString(dataInicio, 3)
+            || !ValidString(dataFim, 4)
         ) {
             setIsLoading(false);
             return;
@@ -80,6 +98,14 @@ export function BannerCreate() {
 
         if (!imagem) {
             setErroImagem("Selecione uma imagem !")
+            setIsLoading(false);
+            return;
+        }
+
+        const banner = banners.filter(x => x.posicao == posicao);
+
+        if (banner.length > 0) {
+            setErroPosicao(`A posição informada já está sendo utilizada por outro banner!`)
             setIsLoading(false);
             return;
         }
@@ -104,9 +130,13 @@ export function BannerCreate() {
         setImagem(value);
     };
 
+    const onDelete = () => {
+        setImagem("");
+    }
+
     return (
         <>
-            <HeaderMainContent title="ADICIONAR BANNER" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Banner" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -155,7 +185,7 @@ export function BannerCreate() {
                             />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row mb-4">
                         <div className="col-3">
                             <CustomInput
                                 label="Posição"
@@ -164,7 +194,7 @@ export function BannerCreate() {
                                 value={posicao}
                                 erro={erroPosicao}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setPosicao(parseInt(e.target.value))
+                                    setPosicao(MaxLengthNumber(999, parseInt(e.target.value)))
                                 }
                                 required={true}
                             />
@@ -197,10 +227,20 @@ export function BannerCreate() {
                         </div>
                     </div>
 
-                    <UploadImagem onUpdate={updateImgModel} text="Seleciona a Imagem" />
+                    <UploadImagem onUpdate={updateImgModel} text="Selecione a imagem" requerid={true} onDelete={onDelete} />
+                    <div className="row mt-5">
+                        <div className="col-3">
+                            <CheckboxCustom
+                                options={["Banner ativo"]}
+                                check={ativo}
+                                onClickOptions={(check) => setAtivo(check.target.checked)}
+                            />
+                        </div>
+                    </div>
                     {erroImagem &&
-                        <p className="text-danger">{erroImagem}</p>
+                        <p className="text-danger-erro">{erroImagem}</p>
                     }
+                    <LabelObrigatorio />
                     <div className="row mt-3">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -208,7 +248,7 @@ export function BannerCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Banner adicionado com " />
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -1,4 +1,6 @@
+import { NotePencil, PlusCircle, Trash } from 'phosphor-react';
 import { useState, ChangeEvent, useEffect } from 'react';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Container } from './styles';
 
 interface IData {
@@ -6,9 +8,11 @@ interface IData {
     onUpdate?: (value: string | ArrayBuffer | null) => void;
     onButton?: boolean
     text: string
+    requerid?: boolean
+    onDelete?:() => void
 }
 
-export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
+export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , onDelete}: IData) {
 
     const [imagemModel, setImagemModel] = useState(img);
     const [widthImg, setWidth] = useState(0);
@@ -26,7 +30,14 @@ export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
         }
     }, [])
 
-
+    function DeleteImagem(){
+        setImagemModel("")
+        setWidth(0)
+        setHeight(0)
+        if(onDelete){
+            onDelete()
+        }
+    }
 
     const openFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -65,15 +76,50 @@ export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
     return (
         <>
             <Container>
-                <div className="row mt-3">
-                    <div className="col-auto">
-                        <span className="span">{text}</span>
+                <div className="row mt-3 container-btn">
+                    <div className="col-auto div-span-banner">
+                        <span className="span-banner">{text}</span>
+                        {requerid &&
+                            <span className='col-auto text-erro'>*</span>
+                        }
                     </div>
+
                     {onButton &&
 
 
-                        <div className="col-3">
-                            <label htmlFor="arquivo" className="imgLabel">Clique Aqui!</label>
+                        <div className="col-auto">
+                            
+                            <OverlayTrigger
+                                key={1}
+                                overlay={
+                                    <Tooltip id={`tooltip-top`}>
+                                        Incluir
+                                    </Tooltip>
+                                }
+                            >
+                                <Button variant=""><label htmlFor="arquivo" className="imgLabel"><PlusCircle size={22} color="#cf0209" /></label></Button>
+                            </OverlayTrigger>
+
+                            <OverlayTrigger
+                                key={1}
+                                overlay={
+                                    <Tooltip id={`tooltip-top`}>
+                                        Editar
+                                    </Tooltip>
+                                }
+                            >
+                                <Button variant=""><label htmlFor="arquivo" className="imgLabel"><NotePencil size={20} color="#cf0209" /></label></Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                                key={1}
+                                overlay={
+                                    <Tooltip id={`tooltip-top`}>
+                                        Excluir
+                                    </Tooltip>
+                                }
+                            >
+                                <Button variant="" onClick={DeleteImagem}><Trash size={20} color="#cf0209" /></Button>
+                            </OverlayTrigger>
                             <input
                                 style={{ display: "none" }}
                                 type='file'
@@ -84,6 +130,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text }: IData) {
                             />
                         </div>
                     }
+
                 </div>
 
                 <div style={{ padding: ".3rem" }}>
