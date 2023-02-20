@@ -93,7 +93,7 @@ export function MensagemPadraoCreate() {
 
     return (
         <>
-            <HeaderMainContent title="Incluir Mensagens Padrão" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Mensagem Padrão" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -111,16 +111,16 @@ export function MensagemPadraoCreate() {
                                 required={true}
                             />
                         </div>
-                        <div className="col-2 mb-3">
+                        <div className="col-2 mb-3 mt-1">
                             <CheckboxCustom
-                                options={["Descrição Rótulo"]}
+                                options={["Descrição rótulo"]}
                                 onClickOptions={(e) => setDescricaoRotulo(e.target.checked)}
                                 check={descricaoRotulo}
                             />
                         </div>
-                        <div className="col-2">
+                        <div className="col-2 mt-1">
                             <CheckboxCustom
-                                options={["Enviar Automaticamente"]}
+                                options={["Enviar automaticamente"]}
                                 onClickOptions={(e) => setEnviarAutomatico(e.target.checked)}
                                 check={enviarAutomatico}
                             />
@@ -160,7 +160,7 @@ export function MensagemPadraoCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Mensagem Padrão adicionada com " />
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -19,14 +19,14 @@ import Flat from "../assets/img/bench.png";
 
 export const namesItemsMenu = [
 
-  // {
-  //   img: "",
-  //   titulo: "Compras",
-  //   hasSubMenu: true,
-  //   subMenu: [
-  //     { titulo: "Manutenção de Compras", link: "/compras"}
-  //   ]
-  // },
+  {
+    img: "",
+    titulo: "Compras",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Compras", link: "/compras"}
+    ]
+  },
   {
     img: "",
     titulo: "Contas a Pagar",
@@ -121,7 +121,8 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
       { img: "", titulo: "Estado", link: "/estado" },
-      //{ img: "", titulo: "Parametro", link: "/parametro" },
+      { img: "", titulo: "Empresa", link: "/empresa" }, 
+      { img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
@@ -135,6 +136,8 @@ export const namesItemsMenu = [
       { img: "", titulo: "Natureza de Operação", link: "/naturezaDeOperacao" },
       { img: "", titulo: "Transportador", link: "/transportador" },
       { img: "", titulo: "Contabilista", link: "/contabilista" },
+      { img: "", titulo: "Plano de Contas", link: "/planodecontas" },
+      
     ],
   }
 ];

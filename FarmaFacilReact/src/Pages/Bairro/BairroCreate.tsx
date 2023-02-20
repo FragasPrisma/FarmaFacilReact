@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { IBairro } from "../../Interfaces/Bairro/IBairro";
+import { useTranslation } from "react-i18next";
 
 export function BairroCreate() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -17,6 +18,7 @@ export function BairroCreate() {
   const [nome, setNome] = useState("");
   const [erroNome, setErroNome] = useState("");
   const [isLoading,setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   const data : IBairro = {
     id: 0,
@@ -32,7 +34,7 @@ export function BairroCreate() {
       setIsOpenFail(true);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome("Campo nome é obrigatório !")
+        setErroNome(t('erros.campoObrigatorio').toString())
       }, 2000)
       setIsLoading(false);
       return;
@@ -57,15 +59,15 @@ export function BairroCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR BAIRRO" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent title={`${t('bairro.title')}`} IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">
             <div className="col-5">
               <CustomInput
-                label="Nome"
+                label={t('textGeneric.nome')}
                 type="text"
-                placeholder="Digite o nome do Bairro"
+                placeholder={t('textGeneric.digiteNome').toString()}
                 value={nome}
                 maxLength={50}
                 erro={erroNome}
@@ -83,7 +85,7 @@ export function BairroCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Bairro adicionado com " />
+        <SuccessModal show={isOpenSuccess} />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

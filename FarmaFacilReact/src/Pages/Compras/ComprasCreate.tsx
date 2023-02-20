@@ -37,8 +37,10 @@ export function ManutencaoCompras() {
     const [fornecedoresIds, setFornecedoresIds] = useState([] as number[]);
     const [saldoQuantidadeComprometida, setSaldoQuantidadeComprometida] = useState(false);
     const [gruposIds, setGruposIds] = useState([] as number[]);
-    const [produtoId, setProdutosIds] = useState([] as number[]);
+    const [produtosIds, setProdutosIds] = useState([] as number[]);
     const [laboratorioId, setLaboratorioId] = useState(0);
+    const [filialId, setFilialId] = useState(0);
+    const [considerarApenasFilialSelecionada, setConsiderarApenasFilialSelecionada] = useState(false);
 
     const [readonlyVendaDe, setReadonlyVendaDe] = useState(false);
     const [readonlyVendaDeHora, setReadonlyVendaDeHora] = useState(false);
@@ -51,9 +53,10 @@ export function ManutencaoCompras() {
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
+    //const [filiais, setFiliais] = useState([] as IFilial[]); 
     //const [produtos, setProdutos] = useState([] as IProduto[]);
 
-    const data : IManutencaoCompras = {
+    const data: IManutencaoCompras = {
         tipo: "",
         tipoDemanda: null,
         vendaDe: "",
@@ -61,7 +64,7 @@ export function ManutencaoCompras() {
         vendaAte: "",
         vendaAteHora: "",
         curvaAbc: "",
-        consideraEncomentaFaltas: true,
+        consideraEncomendaFaltas: true,
         tempoDeRep: 0,
         quantidadeDias: 0,
         tipoValor: 0,
@@ -71,6 +74,8 @@ export function ManutencaoCompras() {
         fornecedoresIds: [],
         gruposIds: [],
         produtosIds: [],
+        filialId: 0,
+        considerarApenasFilialSelecionada: false,
     }
 
     useEffect(() => {
@@ -94,10 +99,16 @@ export function ManutencaoCompras() {
         //     setProdutos(response.data);
         // }
 
+        // const loadDataFiliais = async () => {
+        //     const response = await getAll("ListaFilial");
+        //     setFiliais(response.data);
+        // }
+
         loadDataFornecedores();
         loadDataLaboratorios();
         loadDataGrupos();
         //loadDataProdutos();
+        //loadDataFilial();
     }, [])
 
     useEffect(() => {
@@ -136,7 +147,7 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
-        } else if (tipo == "Encomendas/Faltas"){
+        } else if (tipo == "Encomendas/Faltas") {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
@@ -153,7 +164,7 @@ export function ManutencaoCompras() {
         }
     }, [tipo])
 
-    useEffect (() => {
+    useEffect(() => {
         if (tipoValor == 2) {
             setReadonlyAPartirDe(false);
         } else {
@@ -171,7 +182,7 @@ export function ManutencaoCompras() {
         data.vendaAte = readonlyVendaAte == false ? vendaAte : "";
         data.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : "";
         data.curvaAbc = curvaAbc;
-        data.consideraEncomentaFaltas = consideraEncomendaFaltas;
+        data.consideraEncomendaFaltas = consideraEncomendaFaltas;
         data.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
         data.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
         data.tipoValor = tipoValor;
@@ -181,6 +192,8 @@ export function ManutencaoCompras() {
         data.fornecedoresIds = fornecedoresIds;
         data.gruposIds = gruposIds;
         data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
+        data.filialId = filialId;
+        data.considerarApenasFilialSelecionada = considerarApenasFilialSelecionada;
 
         console.log("Data:", data);
 
@@ -200,18 +213,18 @@ export function ManutencaoCompras() {
 
     return (
         <>
-            <HeaderMainContent title="Manutenção de Compras" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">
-                        <SelectInput 
-                            options={["","Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
+                        <SelectInput
+                            options={["", "Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
                             label="Tipo"
                             Select={(select) => setTipo(select)}
                         />
                     </div>
                     <div className="col-2">
-                        { tipo == "Demanda" &&
+                        {tipo == "Demanda" &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}
@@ -267,24 +280,8 @@ export function ManutencaoCompras() {
                             readonly={readonlyVendaAteHora}
                         />
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-2">
-                        <SelectInput 
-                            options={["Geral", "A", "B", "C"]}
-                            label="Curva Abc"
-                            Select={(select) => setCurvaAbc(select)}
-                        />
-                    </div>
-                    <div className="col-2 mt-3">
-                        <CheckboxCustom
-                            options={["Considerar Encomenda/Faltas"]}
-                            check={consideraEncomendaFaltas}
-                            onClickOptions={(e) => setConsideraEncomendaFaltas(e.target.checked)}
-                        />
-                    </div>
-                    <div className="col-1">
-                        <CustomInput 
+                    <div className="col-1 mt-4">
+                        <CustomInput
                             label="Tempo de Rep"
                             type="number"
                             value={tempoDeRep}
@@ -294,8 +291,8 @@ export function ManutencaoCompras() {
                             readonly={readonlyTempoDeRep}
                         />
                     </div>
-                    <div className="col-1">
-                        <CustomInput 
+                    <div className="col-1 mt-4">
+                        <CustomInput
                             label="Quantidade de dias"
                             type="number"
                             value={quantidadeDias}
@@ -303,6 +300,41 @@ export function ManutencaoCompras() {
                                 setQuantidadeDias(parseInt(e.target.value))
                             }
                             readonly={readonlyQuantidadeDias}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-2">
+                        <SelectInput
+                            options={["Geral", "A", "B", "C"]}
+                            label="Curva Abc"
+                            Select={(select) => setCurvaAbc(select)}
+                        />
+                    </div>
+                    <div className="col-2">
+
+                    </div>
+                    <div className="col-2">
+                        <CustomDropDown
+                            data={laboratorios}
+                            title="Selecione os Laboratorios"
+                            filter="descricao"
+                            label="Laboratório"
+                            Select={(laboratorioId) => setLaboratorioId(laboratorioId)}
+                        />
+                    </div>
+                    <div className="col-2 mt-3">
+                        <CheckboxCustom
+                            options={["Considerar Encomenda/Faltas"]}
+                            check={consideraEncomendaFaltas}
+                            onClickOptions={(e) => setConsideraEncomendaFaltas(e.target.checked)}
+                        />
+                    </div>
+                    <div className="col-3 mt-3">
+                        <CheckboxCustom
+                            options={["Saldo com Quantidade Comprometida"]}
+                            check={saldoQuantidadeComprometida}
+                            onClickOptions={(e) => setSaldoQuantidadeComprometida(e.target.checked)}
                         />
                     </div>
                 </div>
@@ -327,51 +359,52 @@ export function ManutencaoCompras() {
                             readonly={readonlyAPartirDe}
                         />
                     </div>
-                    <div className="col-2 mt-4">
-                        <CustomDropDown
-                            data={laboratorios}
-                            title="Selecione os Laboratorios"
-                            filter="descricao"
-                            label="Laboratório"
-                            Select={(laboratorioId) => setLaboratorioId(laboratorioId)}
-                        />
-                    </div>
-                    <div className="col-3 mt-4">
-                        <CheckboxCustom
-                            options={["Saldo com Quantidade Comprometida"]}
-                            check={saldoQuantidadeComprometida}
-                            onClickOptions={(e) => setSaldoQuantidadeComprometida(e.target.checked)}
-                        />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-4">
+                    <div className="col-4 mt-4">
                         <MultiSelect
                             label="Grupos"
-                            title="Grupos" 
+                            title="Grupos"
                             data={grupos}
                             isMultiple={true}
                             Select={(gruposIds) => setGruposIds(gruposIds)}
                             placeholder="Selecione o(s) grupo(s)"
                         />
                     </div>
-                    <div className="col-4">
-                        {/* <CustomDropDown
-                            data={produtos}
-                            title="Selecione os produtos"
-                            filter="descricao"
-                            label="Produtos"
-                            Select={(produtoId) => setProdutoId(produtoId)}
-                        /> */}
-                    </div>
-                    <div className="col-4">
-                        <MultiSelect 
+                    <div className="col-4 mt-4">
+                        <MultiSelect
                             label="Fornecedores"
-                            title="Fornecedores" 
+                            title="Fornecedores"
                             data={fornecedores}
                             isMultiple={true}
                             Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
                             placeholder="Selecione o(s) fornecedor(es)"
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-4">
+                        {/* <MultiSelect 
+                            label="Produtos"
+                            title="Produtos"
+                            data={produtos}
+                            isMultiple={true}
+                            Select={(produtosIds) => SetProdutosIds)}
+                            placeholder="Selecione o(s) produto(s)"
+                        /> */}
+                    </div>
+                    <div className="col-4">
+                        {/* <CustomDropDown
+                            data={filiais}
+                            title="Selecione a Filial"
+                            filter="nome"
+                            label="Filial"
+                            Select={(filialId) => setLaboratorioId(filialId)}
+                        /> */}
+                    </div>
+                    <div className="col-3">
+                        <CheckboxCustom
+                            options={["Considerar apenas filial selecionada"]}
+                            check={considerarApenasFilialSelecionada}
+                            onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConsiderarApenasFilialSelecionada(e.target.checked)}
                         />
                     </div>
                 </div>

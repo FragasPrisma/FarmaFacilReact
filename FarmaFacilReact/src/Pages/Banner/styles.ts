@@ -10,7 +10,7 @@ export const Container = styled.div`
     input[type="file"] {
     display: none;
 }
-span{
+.span-container{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 800;
     color: #272727;
@@ -21,14 +21,12 @@ span{
     width: 290px;
     height: 290px;
 }
-.imgLabel {
-    padding: 9px 4px;
-    width: 130px;
-    height:37px;
-    background-color: #3d55b0;
-    color: #FFF;
-    text-align: center;
-    cursor: pointer;
-    border-radius:5px;
+
+.text-danger-erro{
+    color: #cf0209;
+    font-size: .9rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
 }
+
 `

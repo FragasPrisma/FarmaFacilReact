@@ -23,7 +23,7 @@ export let ncmPorEstado = [] as INcmPorEstado[];
 export let ncmPorEstadoExcluir = [] as INcmPorEstado[];
 
 export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributosCsosn, ListaEstados }: Data) {
-    const [ncmPorEstadoModel, setNcmPorEstadoModel] = useState([] as INcmPorEstado[]);
+    const [ncmPorEstadoModel, setNcmPorEstadoModel] = useState([{}] as INcmPorEstado[]);
 
     const [exibirErro, setExibirErro] = useState(false);
     const [erroJaInserido, setErroJaInserido] = useState("");
@@ -128,10 +128,10 @@ export function NcmEditPorEstado({ NcmPorEstado, ListaTributosCst, ListaTributos
         percentualFcp: 'percentualFcp'
     };
 
-    function setDataItem(index: number, field: keyof IFields, value: any) {
+    function setDataItem(index: number, field: keyof IFields, value: string | number | boolean | null | undefined) {
         setNcmPorEstadoModel(prev => {
-            const newModel: any = [...prev];
-            newModel[index][fields[field]] = (value);
+            const newModel = [...prev];
+            (newModel[index] as any)[fields[field]] = value;
             return newModel;
         });
 

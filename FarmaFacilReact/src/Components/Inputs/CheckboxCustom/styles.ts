@@ -7,18 +7,18 @@ export const TitleContainer = styled.p`
   color: #707070;
 `;
 
-export const ContainerCheck = styled.div`
-  border: 1px solid rgba(91, 104, 115, 0.365);
-  border-radius: 4px;
-  background: #ececec;
-  border-bottom: 3px solid;
-  padding-left: 0.2rem;
-  margin-top: 0.3rem;
-  /* margin-bottom: 0.2rem; */
+  export const ContainerCheck = styled.div`
+    border: 1px solid rgba(91, 104, 115, 0.365);
+    border-radius: 4px;
+    background: #ececec;
+    border-bottom: 3px solid;
+    padding-left: 0.2rem;
+    margin-top: 0.3rem;
+    /* margin-bottom: 0.2rem; */
 
-  label {
-    padding: 0 0.2rem;
-    font-weight: 700;
-    font-size: 0.8rem;
-  }
-`;
+    label {
+      padding: 0 0.2rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+  `;

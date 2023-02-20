@@ -13,11 +13,12 @@ interface Path {
     iconOptions?: boolean;
     itensExtraButton?: ItensButtonExtra[];
     btnsEditExcluir?: boolean;
+    btnVisualizar?: boolean;
     openModal?: boolean;
-    openModalFunction?: (id:string) => void
+    openModalFunction?: (id: string) => void
 }
 
-export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions, itensExtraButton, btnsEditExcluir = false, openModal = false , openModalFunction}: Path) {
+export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions, itensExtraButton, btnsEditExcluir = false, btnVisualizar = false, openModal = false, openModalFunction }: Path) {
     const [stateModal, setStateModal] = useState(false)
 
     function openModalDelete() {
@@ -27,11 +28,13 @@ export function ActionsButtonsDefault({ id, pathParameters, urlText, iconOptions
     return (
         <Container>
             {iconOptions && itensExtraButton &&
-                <ExtraButton><CustomDropDownExtra itens={itensExtraButton} id={id} openModal={openModal} openModalFunction={openModalFunction}/></ExtraButton>
+                <ExtraButton><CustomDropDownExtra itens={itensExtraButton} id={id} openModal={openModal} openModalFunction={openModalFunction} /></ExtraButton>
             }
-            <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '')}/details/${id}`}>
-                <DetailsButton><Eye size={22} color="#cf0209" /></DetailsButton>
-            </NavLink>
+            {!btnVisualizar &&
+                <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '')}/details/${id}`}>
+                    <DetailsButton><Eye size={22} color="#cf0209" /></DetailsButton>
+                </NavLink>
+            }
             {!btnsEditExcluir &&
                 <>
                     <NavLink className="text_link" to={`/${pathParameters.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '')}/edit/${id}`}>

@@ -3,9 +3,139 @@
         "login": {
             "title": "Entrar",
             "titleInfo": "Faça Login com os dados que você inseriu durante o registro.",
-            "esqueceuSenha": "Esqueceu a senha?",
-            "cliqueAqui": "Clique Aqui",
+            "esqueceuSenha": "Esqueceu sua senha?",
+            "cliqueAqui": "Clique aqui",
             "password": "Senha"
+        },
+        "administradoraCartao": {
+            "id": "ID",
+            "nome": "Nome",
+            "administradoraCartao": "Administradora de cartão",
+            "adicionar": "Adicionar",
+            "title": "Incluir Administradora de cartão",
+            "titleEdit": "Editar Administrado de cartão",
+            "titleVisualizar": "Visualizar Administrado de cartão",
+            "erros": {
+                "tef": "Gerenciador TEF é obrigatório !",
+                "modalidade": "Modalidade é obrigatório !"
+            },
+            "propriedade": {
+                "recebimento": "Recebimento (Dias)",
+                "desconto": "Desconto administradora (%)",
+                "ativo": "Administradora ativa",
+                "parcelaTaxaAdm": "Parcelar taxa adm",
+                "tef": {
+                    "title": "Gerenciador TEF",
+                    "visa": "Visa/Master/Amex",
+                    "banri": "BanriCompras",
+                    "conv": "ConvCard",
+                    "edm": "EDMCard",
+                    "hiper": "HiperCard",
+                    "inte": "Integracao4S"
+                },
+                "cielo": {
+                    "title": "Cielo premia",
+                    "troco": "Troco",
+                    "desconto": "Desconto",
+                    "vias": "Vias Diferenciadas",
+                    "cupom": "Cupom Reduzido"
+                },
+                "modalidade": {
+                    "title": "Modalidade",
+                    "credito": "Crédito",
+                    "debito": "Débito"
+                }
+            }
+        },
+        "bairro": {
+            "id": "ID",
+            "nome": "Nome",
+            "bairro": "Bairro",
+            "title": "Incluir Bairro",
+            "titleEdit": "Editar Bairro",
+            "titleVisualizar": "Visualizar Bairro"
+        },
+        "banco": {},
+        "banner": {
+            "header": {
+                "id": "ID",
+                "descricao": "Descrição",
+                "posicao": "Posição",
+                "dataInicio": "Data início",
+                "dataFim": "Data fim"
+            },
+            "erros": {
+                "campoPosicao": "Campo posição inválido.",
+                "campoPosicaoDuplicado": "Campo posição inválido.",
+                "imagem": "Selecione uma imagem."
+            },
+            "propriedade": {
+                "link": "Link",
+                "digiteLink": "Digite o link",
+                "novaAba": "Abrir link em nova aba",
+                "mesmaAba": "Abrir link na mesma aba",
+                "posicao": "Posição",
+                "dataInicio": "Data inicial",
+                "dataFim": "Data final",
+                "ativo": "Banner ativo",
+                "imagem": "Selecione uma imagem"
+            },
+            "banner": "Banner",
+            "title": "Incluir Banner",
+            "titleEdit": "Editar Banner",
+            "titleVisualizar": "Visualizar Banner",
+            "titleAcaoLink": "Ação Link",
+            "titleImagem": "Imagem do banner"
+        },
+        "fornecedor": {
+            "fornecedor": "Fornecedor"
+        },
+        "planoDeContas": {
+            "planoDeContas": "Plano de contas"
+        },
+        "search": {
+            "pesquisa": "Pesquisa de"
+        },
+        "tableDefault": {
+            "visualizar": "Visualizar",
+            "editar": "Editar",
+            "excluir": "Excluir",
+            "opcoes": "Opções"
+        },
+        "btns": {
+            "incluir": "Incluir",
+            "confirmar": "Confirmar",
+            "cancelar": "Cancelar",
+            "voltar": "Voltar"
+        },
+        "header": {
+            "desconectar": "Desconectar"
+        },
+        "deleteModal": {
+            "excluir": "Deseja excluir o registro?",
+            "excluido": "Registro excluido com"
+        },
+        "failModal": {
+            "camposObrigatorios": "Campo (os) obrigatório (os) não preenchido (os) corretamente."
+        },
+        "successModal": {
+            "registro": "Registro incluído com",
+            "message": "Sucesso!"
+        },
+        "labelObrigatorio": {
+            "message": "Os campos com * são de preenchimento obrigatório."
+        },
+        "textGeneric": {
+            "nome": "Nome",
+            "digiteNome": "Digite o nome",
+            "descricao": "Descrição",
+            "digiteDescricao": "Digite a descrição",
+            "selecioneFornecedor": "Selecione o Fornecedor",
+            "selecionePlanoDeContas": "Selecione o Plano de contas",
+            "registroEditado": "Registro editado com "
+        },
+        "erros": {
+            "campoObrigatorio": "Campo de preenchimento obrigatório."
         }
     }
 }

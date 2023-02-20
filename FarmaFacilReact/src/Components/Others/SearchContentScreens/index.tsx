@@ -4,6 +4,7 @@ import { X } from "phosphor-react";
 import { TableDefault } from "../TableDefault";
 import Lupa from "../../../assets/img/lupa.png";
 import { ItensButtonExtra } from "../../../Interfaces/ItensButtonExtra/ItensButtonExtra";
+import { useTranslation } from "react-i18next";
 
 interface IDataSearch {
   text: string;
@@ -14,15 +15,18 @@ interface IDataSearch {
   iconOptions?: boolean;
   itensExtraButton?: ItensButtonExtra[];
   btnsEditExcluir?: boolean;
+  btnVisualizar?: boolean;
+  actionsButtons?: boolean;
   openModal?: boolean;
   openModalFunction?: (id:string) => void
 }
 
-export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, btnsEditExcluir = false, headerTableView, openModal = false , openModalFunction}: IDataSearch) {
+export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false , openModalFunction}: IDataSearch) {
 
   const [searchOptions, setSearchOptions] = useState(false);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(data);
+  const { t } = useTranslation();
 
   const searchOptionsFechar = () => {
     setValue("")
@@ -44,7 +48,7 @@ export function SearchContentScreens({ text, data, filter, headerTable, iconOpti
 
   return (
     <ContainerSearch className="">
-      <span className="title_search">Pesquisa de {text} </span>
+      <span className="title_search">{t('search.pesquisa')} {text} </span>
       <div className="container_search" onClick={searchOptionsFechar}>
 
         <img src={Lupa} />
@@ -60,11 +64,12 @@ export function SearchContentScreens({ text, data, filter, headerTable, iconOpti
         iconOptions={iconOptions}
         itensExtraButton={itensExtraButton}
         btnsEditExcluir={btnsEditExcluir}
+        btnVisualizar={btnVisualizar}
         headerTableView={headerTableView}
+        actionsButtons={actionsButtons}
         openModal={openModal}
         openModalFunction={openModalFunction}
       />
     </ContainerSearch>
-
   );
 }

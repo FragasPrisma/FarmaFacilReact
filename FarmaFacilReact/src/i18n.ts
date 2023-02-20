@@ -2,10 +2,12 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import pt from '../src/locales/pt.json';
 import es from '../src/locales/es.json';
+import us from '../src/locales/us.json'
 
 const resources = {
     pt,
-    es
+    es,
+    us
 }
 
 i18n

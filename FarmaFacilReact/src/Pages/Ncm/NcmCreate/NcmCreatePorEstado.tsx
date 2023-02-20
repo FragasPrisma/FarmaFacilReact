@@ -132,12 +132,12 @@ export function NcmCreatePorEstado() {
         percentualFcp: 'percentualFcp'
     };
 
-    function setDataItem(index: number, field: keyof IFields, value: any) {
-        // setNcmPorEstadoModel(prev => {
-        //     const newModel = [...prev];
-        //     newModel[index][fields[field]] = value;
-        //     return newModel;
-        // });
+    function setDataItem(index: number, field: keyof IFields, value: string | number | boolean | null | undefined) {
+        setNcmPorEstadoModel(prev => {
+            const newModel = [...prev];
+            (newModel[index] as any)[fields[field]] = value;
+            return newModel;
+        });
 
         if (field == 'percentualFcp') {
             adicionaNovaAliquota(index)

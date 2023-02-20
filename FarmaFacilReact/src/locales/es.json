@@ -1,11 +1,141 @@
 {
     "translation": {
         "login": {
-            "title": "Entrar",
+            "title": "Iniciar sesión",
             "titleInfo": "Inicie sesión con los datos que ingresó durante el registro.",
-            "esqueceuSenha": "olvido la contraseña?",
+            "esqueceuSenha": "¿Olvidó su contraseña?",
             "cliqueAqui": "Haga clic aquí",
-            "password": "contraseña"
+            "password": "Contraseña"
+        },
+        "administradoraCartao": {
+            "id": "ID",
+            "nome": "Nombre",
+            "administradoraCartao": "Administradora de tarjeta",
+            "adicionar": "Añadir",
+            "title": "Incluir administradora de tarjeta",
+            "titleEdit": "Editar administradora de tarjeta",
+            "titleVisualizar": "Visualizar administradora de tarjeta",
+            "erros": {
+                "tef": "¡El administrador TEF es obligatorio!",
+                "modalidade": "¡La modalidad es obligatoria!"
+            },
+            "propriedade": {
+                "recebimento": "Recepción (días)",
+                "desconto": "Descuento administradora (%)",
+                "ativo": "Administradora activa",
+                "parcelaTaxaAdm": "Dividir tasa adm",
+                "tef": {
+                    "title": "Administrador TEF",
+                    "visa": "Visa/Master/Amex",
+                    "banri": "BanriCompras",
+                    "conv": "ConvCard",
+                    "edm": "EDMCard",
+                    "hiper": "HiperCard",
+                    "inte": "Integracion4S"
+                },
+                "cielo": {
+                    "title": "Cielo premia",
+                    "troco": "Cambio",
+                    "desconto": "Descuento",
+                    "vias": "Vías diferenciadas",
+                    "cupom": "Cupón reducido"
+                },
+                "modalidade": {
+                    "title": "Modalidad",
+                    "credito": "Crédito",
+                    "debito": "Débito"
+                }
+            }
+        },
+        "bairro": {
+            "id": "ID",
+            "nome": "Nombre",
+            "bairro": "Barrio",
+            "title": "Incluir barrio",
+            "titleEdit": "Editar barrio",
+            "titleVisualizar": "Visualizar barrio"
+        },
+        "banco": {},
+        "banner": {
+            "header": {
+                "id": "ID",
+                "descricao": "Descripción",
+                "posicao": "Posición",
+                "dataInicio": "Fecha de inicio",
+                "dataFim": "Fecha de finalización"
+            },
+            "erros": {
+                "campoPosicao": "Campo de posición inválido.",
+                "campoPosicaoDuplicado": "Campo de posición duplicado.",
+                "imagem": "Seleccione una imagen."
+            },
+            "propriedade": {
+                "link": "Enlace",
+                "digiteLink": "Escriba el enlace",
+                "novaAba": "Abrir enlace en una nueva pestaña",
+                "mesmaAba": "Abrir enlace en la misma pestaña",
+                "posicao": "Posición",
+                "dataInicio": "Fecha de inicio",
+                "dataFim": "Fecha de finalización",
+                "ativo": "Banner activo",
+                "imagem": "Seleccione una imagen"
+            },
+            "banner": "Banner",
+            "title": "Incluir banner",
+            "titleEdit": "Editar banner",
+            "titleVisualizar": "Visualizar banner",
+            "titleAcaoLink": "Enlace de acción",
+            "titleImagem": "Imagen del banner"
+        },
+        "fornecedor": {
+            "fornecedor": "Proveedor"
+        },
+        "planoDeContas": {
+            "planoDeContas": "Plan de cuentas"
+        },
+        "search": {
+            "pesquisa": "Búsqueda de"
+        },
+        "tableDefault": {
+            "visualizar": "Visualizar",
+            "editar": "Editar",
+            "excluir": "Eliminar",
+            "opcoes": "Opciones"
+        },
+        "btns": {
+            "incluir": "Incluir",
+            "confirmar": "Confirmar",
+            "cancelar": "Cancelar",
+            "voltar": "Volver"
+        },
+        "header": {
+            "desconectar": "Desconectar"
+        },
+        "deleteModal": {
+            "excluir": "¿Desea eliminar el registro?",
+            "excluido": "Registro eliminado con"
+        },
+        "failModal": {
+            "camposObrigatorios": "Campo(s) obligatorio(s) no completado(s) correctamente."
+        },
+        "successModal": {
+            "registro": "Registro incluido con",
+            "message": "Éxito!"
+        },
+        "labelObrigatorio": {
+            "message": "Los campos con * son obligatorios."
+        },
+        "textGeneric": {
+            "nome": "Nombre",
+            "digiteNome": "Ingrese el nombre",
+            "descricao": "Descripción",
+            "digiteDescricao": "Ingrese la descripción",
+            "selecioneFornecedor": "Seleccione el proveedor",
+            "selecionePlanoDeContas": "Seleccione el plan de cuentas",
+            "registroEditado": "Registro editado con "
+        },
+        "erros": {
+            "campoObrigatorio": "Campo de llenado obligatorio."
         }
     }
 }

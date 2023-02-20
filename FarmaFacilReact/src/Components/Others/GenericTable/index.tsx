@@ -1,26 +1,28 @@
 import { DeleteButton, TableCustom, TrCustom } from "./styles";
 import { NotePencil, Trash } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     data: any[];
     header: string[];
     onDelete?: (index: number) => void;
-    onEdit?:(object: any) => void;
+    onEdit?: (object: any) => void;
     deleteButton?: boolean;
-    editButton?:boolean
+    editButton?: boolean
 }
 
-export function GenericTable({ data = [], header, onDelete, deleteButton = true, editButton = false, onEdit}: Props) {
+export function GenericTable({ data = [], header, onDelete, deleteButton = true, editButton = false, onEdit }: Props) {
+    const { t } = useTranslation();
     function OnClickDelete(index: number) {
         if (onDelete) {
             onDelete(index);
         }
     }
 
-    function OnclickEdit(object : any){
-       if(onEdit){
+    function OnclickEdit(object: any) {
+        if (onEdit) {
             onEdit(object)
-       }
+        }
     }
 
     return (
@@ -31,10 +33,10 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true,
                         <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
                     ))}
                     {deleteButton &&
-                        <th className="col-1">Excluir</th>
+                        <th className="col-1">{t('tableDefault.excluir')}</th>
                     }
                     {editButton &&
-                       <th className="col-1">Editar</th>
+                        <th className="col-1">{t('tableDefault.editar')}</th>
                     }
                 </TrCustom>
             </thead>
@@ -44,16 +46,16 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true,
                         {header.map((header, index) => (
                             <td key={index}>{data[header]}</td>
                         ))}
-                        { deleteButton &&
+                        {deleteButton &&
                             <td className="col-1">
                                 <DeleteButton onClick={() => OnClickDelete(index)}><Trash size={20} color="#cf0209" /></DeleteButton>
                             </td>
-                         }
-                         {editButton &&
+                        }
+                        {editButton &&
                             <td className="col-1">
                                 <DeleteButton onClick={() => OnclickEdit(data)} ><NotePencil size={20} color="#cf0209" /></DeleteButton>
                             </td>
-                         }
+                        }
                     </TrCustom>
                 ))}
             </tbody>

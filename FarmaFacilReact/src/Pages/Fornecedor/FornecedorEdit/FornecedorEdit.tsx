@@ -2,17 +2,21 @@ import { ButtonCancel } from "../../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
 import { useState, useEffect } from "react";
-import { postFormAll, GetId } from "../../../Services/Api";
+import { postFormAll, GetId, getAll } from "../../../Services/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import TabsPage from "../../../Components/Others/Tabs";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { itemsHandlesFornecedor } from "../../../Enum/itensFornecedor";
 import { FornecedorEditComplemento } from "./FornecedorEditComplemento";
-import { FornecedorEditGeral } from "./FornecedorEditGeral";
+import { FornecedorEditGeral, siglaEdit } from "./FornecedorEditGeral";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { fornecedorComplementoEdit } from './FornecedorEditComplemento'
 import { fornecedorGeralEdit } from './FornecedorEditGeral'
+import { LabelObrigatorio } from "../../../Components/Others/LabelMensagemObrigatorio";
+import { ValidCnpj } from "../../../helper/ValidCnpj";
+import { validCPF } from "../../../helper/ValidCpf";
+import { ValidIeDigitos } from "../../../helper/ValidIeDigitos";
 
 export function FornecedorEdit() {
 
@@ -29,6 +33,7 @@ export function FornecedorEdit() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState({ erro: true, index: 0, erroNome: "" })
     const [fornecedorModel, setFornnecedorModel] = useState({} as IFornecedor);
+    const [fornecedores, setFornecedores] = useState([] as IFornecedor[])
 
     const [errorRequest, setErrorRequest] = useState("");
 
@@ -62,21 +67,29 @@ export function FornecedorEdit() {
             }
 
         }
-
+        const loadDataFornecedor = async () => {
+            const request = await getAll("ListaFornecedor");
+            setFornecedores(request.data)
+        }
+        loadDataFornecedor()
         loadData()
     }, []);
 
     let arrayTab: any = [];
     const titles = itemsHandlesFornecedor;
+    {
+        fornecedorModel.id > 0 &&
+            arrayTab.push(
 
-    arrayTab.push(
-        <FornecedorEditGeral fornecedorModel={fornecedorModel} erros={error} nomeBairro={dataBairro} nomeCidade={dataCidade} nomeEstado={dataEstado} />,
-        <FornecedorEditComplemento fornecedorModel={fornecedorModel} nomeBanco={dataBanco} nomePLanoDeConta={dataPlanoConta} />
-    );
+                < FornecedorEditGeral fornecedorModel={fornecedorModel} erros={error} nomeBairro={dataBairro} nomeCidade={dataCidade} nomeEstado={dataEstado} />,
+                <FornecedorEditComplemento fornecedorModel={fornecedorModel} nomeBanco={dataBanco} nomePLanoDeConta={dataPlanoConta} />
+
+            )
+    }
 
     function ValidString(text: string, index: number) {
         if (!text.trim()) {
-            setError({ erro: true, erroNome: "Campo obrigatório !", index: index })
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: index })
             return false
         }
 
@@ -85,66 +98,115 @@ export function FornecedorEdit() {
 
     async function submit() {
 
+        let erroCpfCnpj = false;
         setError({ erro: false, erroNome: "", index: 0 })
 
         setIsLoading(true);
 
-        let data = {
-            id: fornecedorModel.id,
-            nomeFornecedor: fornecedorGeralEdit.nomeFornecedor,
-            NomeFantasia: fornecedorGeralEdit.nomeFantasia,
-            Cnpj: fornecedorGeralEdit.cnpj,
-            Cpf: fornecedorGeralEdit.cpf,
-            InscricaoEstadual: fornecedorGeralEdit.inscricaoEstadual,
-            Cep: fornecedorGeralEdit.cep,
-            Endereco: fornecedorGeralEdit.endereco,
-            NumeroEndereco: fornecedorGeralEdit.numeroEndereco,
-            Complemento: fornecedorGeralEdit.complemento,
-            BairroId: fornecedorGeralEdit.bairroId,
-            CidadeId: fornecedorGeralEdit.cidadeId,
-            EstadoId: fornecedorGeralEdit.estadoId,
-            Ddd: fornecedorGeralEdit.ddd,
-            Telefone: fornecedorGeralEdit.telefone,
-            Celular: fornecedorGeralEdit.celular,
-            Email: fornecedorGeralEdit.email,
-            HomePage: fornecedorComplementoEdit.homePage,
-            Contato: fornecedorComplementoEdit.contato,
-            TelefoneContato: fornecedorComplementoEdit.telefoneContato,
-            BancoId: fornecedorComplementoEdit.bancoId,
-            Agencia: fornecedorComplementoEdit.agencia,
-            ContaCorrenteFornecedor: fornecedorComplementoEdit.contaCorrenteFornecedor,
-            ResponsavelTecnico: fornecedorComplementoEdit.responsavelTecnico,
-            AlvaraSanitario: fornecedorComplementoEdit.alvaraSanitario,
-            AutorizacaoFuncionamento: fornecedorComplementoEdit.autorizacaoFuncionamento,
-            AutorizacaoEspecial: fornecedorComplementoEdit.autorizacaoEspecial,
-            LicencaMapa: fornecedorComplementoEdit.licencaMapa,
-            CadastroFarmacia: fornecedorComplementoEdit.cadastroFarmacia,
-            PlanoDeContaId: fornecedorComplementoEdit.planoDeContaId,
-            ValorMinimoPedido: fornecedorComplementoEdit.valorMinimoPedido,
-            FormaPagamento: fornecedorComplementoEdit.formaPagamento,
-            PrevisaoEntrega: fornecedorComplementoEdit.previsaoEntrega,
-            Frete: fornecedorComplementoEdit.frete,
-            Observacoes: fornecedorComplementoEdit.observacoes,
-            UsuarioFornecedor: fornecedorComplementoEdit.usuarioFornecedor,
-            SenhaFornecedor: fornecedorComplementoEdit.senhaFornecedor,
-            HostFornecedor: fornecedorComplementoEdit.hostFornecedor
-        };
-
-        if (!ValidString(fornecedorModel.nomeFornecedor.trim(), 1)
-            || !ValidString(fornecedorModel.nomeFantasia.trim(), 2)
-            || !ValidString(fornecedorModel.cpf.trim(), 3)
-            || !ValidString(fornecedorModel.cnpj.trim(), 4)
-            || !ValidString(fornecedorModel.inscricaoEstadual.trim(), 5)
+        if (!ValidString(fornecedorGeralEdit.nomeFornecedor.trim(), 1)
+            || !ValidString(fornecedorGeralEdit.nomeFantasia.trim(), 2)
+            || !ValidString(fornecedorGeralEdit.inscricaoEstadual.trim(), 5)
         ) {
             setIsLoading(false);
             return;
         }
 
-        if (fornecedorModel.estadoId <= 0) {
-            setError({ erro: true, erroNome: "Campo obrigatório !", index: 6 });
+        if(!fornecedorGeralEdit.cnpj.trim() && !fornecedorGeralEdit.cpf.trim()){
+
+            ValidString(fornecedorGeralEdit.cpf.trim(), 3)
+            ValidString(fornecedorGeralEdit.cnpj.trim(), 4)
+            return;
+        }
+        
+        if (!ValidIeDigitos(siglaEdit, fornecedorGeralEdit.inscricaoEstadual)) {
+            setError({ erro: true, erroNome: "Inscrição estadual inválida.", index: 5 })
             setIsLoading(false);
             return;
         }
+        if (fornecedorGeralEdit.estadoId <= 0) {
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
+            setIsLoading(false);
+            return;
+        }
+        if (!validCPF(fornecedorGeralEdit.cpf) || !ValidCnpj(fornecedorGeralEdit.cnpj)) {
+            if (fornecedorGeralEdit.cpf && !validCPF(fornecedorGeralEdit.cpf)) {
+                setError({ erro: true, erroNome: "CPF inválido !", index: 3 });
+                setIsLoading(false);
+                return;
+            }
+            if (fornecedorGeralEdit.cnpj && !ValidCnpj(fornecedorGeralEdit.cnpj)) {
+                setError({ erro: true, erroNome: "CNPJ inválido !", index: 4 });
+                setIsLoading(false);
+                return;
+            }
+        }
+
+        fornecedores.map(x => {
+
+            if (x.cpf == fornecedorGeralEdit.cpf && fornecedorGeralEdit.cpf && x.id != fornecedorModel.id) {
+                setError({ erro: true, erroNome: "CPF já cadastrado !", index: 3 });
+                setIsLoading(false);
+                erroCpfCnpj = true
+            }
+            if (x.cnpj == fornecedorGeralEdit.cnpj && fornecedorGeralEdit.cnpj && x.id != fornecedorModel.id) {
+                setError({ erro: true, erroNome: "CNPJ já cadastrado !", index: 4 });
+                setIsLoading(false);
+                erroCpfCnpj = true;
+            }
+            if (x.inscricaoEstadual == fornecedorGeralEdit.inscricaoEstadual && fornecedorGeralEdit.inscricaoEstadual && x.id != fornecedorModel.id) {
+                setError({ erro: true, erroNome: "Inscrição Estadual já cadastrada !", index: 5 });
+                setIsLoading(false);
+                erroCpfCnpj = true;
+            }
+
+        })
+
+        if (erroCpfCnpj) {
+            return;
+        }
+
+        let data: IFornecedor = {
+            id: fornecedorModel.id,
+            nomeFornecedor: fornecedorGeralEdit.nomeFornecedor,
+            nomeFantasia: fornecedorGeralEdit.nomeFantasia,
+            cnpj: fornecedorGeralEdit.cnpj,
+            cpf: fornecedorGeralEdit.cpf,
+            inscricaoEstadual: fornecedorGeralEdit.inscricaoEstadual,
+            cep: fornecedorGeralEdit.cep,
+            endereco: fornecedorGeralEdit.endereco,
+            numeroEndereco: fornecedorGeralEdit.numeroEndereco,
+            complemento: fornecedorGeralEdit.complemento,
+            bairroId: fornecedorGeralEdit.bairroId,
+            cidadeId: fornecedorGeralEdit.cidadeId,
+            estadoId: fornecedorGeralEdit.estadoId,
+            ddd: fornecedorGeralEdit.ddd,
+            telefone: fornecedorGeralEdit.telefone,
+            celular: fornecedorGeralEdit.celular,
+            email: fornecedorGeralEdit.email,
+            homePage: fornecedorGeralEdit.homePage,
+            bancoId: fornecedorComplementoEdit.bancoId,
+            agencia: fornecedorComplementoEdit.agencia,
+            contaCorrenteFornecedor: fornecedorComplementoEdit.contaCorrenteFornecedor,
+            responsavelTecnico: fornecedorComplementoEdit.responsavelTecnico,
+            alvaraSanitario: fornecedorComplementoEdit.alvaraSanitario,
+            autorizacaoFuncionamento: fornecedorComplementoEdit.autorizacaoFuncionamento,
+            autorizacaoEspecial: fornecedorComplementoEdit.autorizacaoEspecial,
+            licencaMapa: fornecedorComplementoEdit.licencaMapa,
+            cadastroFarmacia: fornecedorComplementoEdit.cadastroFarmacia,
+            planoDeContaId: fornecedorComplementoEdit.planoDeContaId,
+            valorMinimoPedido: fornecedorComplementoEdit.valorMinimoPedido,
+            formaPagamento: fornecedorComplementoEdit.formaPagamento,
+            previsaoEntrega: fornecedorComplementoEdit.previsaoEntrega,
+            frete: fornecedorComplementoEdit.frete,
+            observacoes: fornecedorComplementoEdit.observacoes,
+            usuarioFornecedor: fornecedorComplementoEdit.usuarioFornecedor,
+            senhaFornecedor: fornecedorComplementoEdit.senhaFornecedor,
+            hostFornecedor: fornecedorComplementoEdit.hostFornecedor,
+            dddCelular: fornecedorGeralEdit.dddCelular,
+            telefoneContato: fornecedorGeralEdit.telefoneContato,
+            contato: fornecedorGeralEdit.contato,
+            contribuinte: fornecedorGeralEdit.contribuinte
+        };
 
         const resp = await postFormAll("EditarFornecedor", data);
 
@@ -165,12 +227,13 @@ export function FornecedorEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR FORNECEDOR" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Fornecedor" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {fornecedorModel.id > 0 &&
                     <TabsPage Childrens={arrayTab} TabsQtd={titles.length} titles={titles} />
                 }
                 {errorRequest && <p className="text-danger">{errorRequest}</p>}
+                <LabelObrigatorio />
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -178,7 +241,7 @@ export function FornecedorEdit() {
                     </div>
                 </div>
             </div>
-            <SuccessModal show={isOpenSuccess} textCustom="Fornecedor editado com " />
+            <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
         </>
     );

@@ -1,8 +1,18 @@
+import { useState } from "react";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 
+// const sipro = {
+//     id: 0,
+//     mapaReferencia: 0
+  
+// }
+
 export const TabSiproquim = () => {
+  const [mapaReferencia, setMapaReferencia] = useState(Boolean);
+ // sipro.mapaReferencia = mapaReferencia
+
   return (
     <>
       <div className="row mt-4">
@@ -12,7 +22,6 @@ export const TabSiproquim = () => {
           </div>
         </FieldsetCustom>
       </div>
-
     </>
   );
 };
