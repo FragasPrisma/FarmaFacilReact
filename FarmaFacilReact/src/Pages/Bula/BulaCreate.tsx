@@ -11,7 +11,7 @@ import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { IBula } from "../../Interfaces/Bula/IBula";
-import { Editor } from "../../Components/Others/Editor";
+//import { Editor } from "../../Components/Others/Editor";
 
 export function BulaCreate() {
 
@@ -94,10 +94,10 @@ export function BulaCreate() {
                         </div>
                     </div>
                     <div className="row mb-3">
-                        <Editor
+                        {/* <Editor
                             OnChange={(text) => { setDescricao(text) }}
                             width={800}
-                        />
+                        /> */}
                     </div>
                     <div className="row">
                         <div className="col-6">

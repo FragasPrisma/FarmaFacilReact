@@ -1,33 +1,35 @@
-import { useState, useRef } from "react"
-import JoditEditor from "jodit-react";
+export {}
 
-interface EditorProps {
-    OnChange?: (text: string) => void;
-    width?: number;
-}
+// import { useState, useRef } from "react"
+// import JoditEditor from "jodit-react";
 
-export function Editor({ OnChange, width }: EditorProps) {
+// interface EditorProps {
+//     OnChange?: (text: string) => void;
+//     width?: number;
+// }
 
-    const widthConfig = width ? width : 600;
-    const editor = useRef(null);
-    const [content, setContent] = useState('');
-    const config = {
-        width: widthConfig
-    }
+// export function Editor({ OnChange, width }: EditorProps) {
 
-    const handleChange = (text: string) => {
-        setContent(text)
-        if (OnChange) {
-            OnChange(text)
-        }
-    }
+//     const widthConfig = width ? width : 600;
+//     const editor = useRef(null);
+//     const [content, setContent] = useState('');
+//     const config = {
+//         width: widthConfig
+//     }
 
-    return (
-        <JoditEditor
-            ref={editor}
-            value={content}
-            config={config}
-            onBlur={newContent => handleChange(newContent)}
-        />
-    );
-}
+//     const handleChange = (text: string) => {
+//         setContent(text)
+//         if (OnChange) {
+//             OnChange(text)
+//         }
+//     }
+
+//     return (
+//         <JoditEditor
+//             ref={editor}
+//             value={content}
+//             config={config}
+//             onBlur={newContent => handleChange(newContent)}
+//         />
+//     );
+// }
