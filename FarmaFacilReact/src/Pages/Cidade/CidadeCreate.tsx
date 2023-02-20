@@ -9,37 +9,39 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ICidade } from "../../Interfaces/Cidade/ICidade";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
 
 export function CidadeCreate() {
 
     const [nome,setNome] = useState("");
     const [codigoIbge, setCodigoIbge] = useState(Number);
-    const [codigoCfpsId,setCodigoCfpsId] = useState();
+    const [codigoCfpsId,setCodigoCfpsId] = useState(null);
     const [codigoSiafi,setCodigoSiafi] = useState(Number);
     const [isLoading,setIsloading] = useState(false);
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [erro, setErro] = useState("");
     const [errorRequest, setErrorRequest] = useState("");
-    const [tributos,setTributos] = useState([]);
+    const [tributos,setTributos] = useState([] as ITributo []);
     const navigate = useNavigate();
 
     useEffect(() => {
         const loadDataTributo = async () => {
             const response = await getAll("ListaTributo");
-            let TributoFilter = response.data;
-            setTributos(TributoFilter.filter((x: { tipoTributo: number; }) => x.tipoTributo == 6));
+            let TributoFilter : ITributo [] = response.data;
+            setTributos(TributoFilter.filter((x) => x.tipoTributo == 6));
         }
 
         loadDataTributo()
     }, []);
 
-    const cidade = {
-        Id: 0,
-        Nome: nome,
-        CodigoIbge: codigoIbge,
-        CodigoCfpsId: codigoCfpsId,
-        CodigoSiafi: codigoSiafi
+    const cidade : ICidade = {
+        id: 0,
+        nome: nome,
+        codigoIbge: codigoIbge,
+        codigoCfpsId: codigoCfpsId,
+        codigoSiafi: codigoSiafi
     };
 
 
@@ -77,7 +79,7 @@ export function CidadeCreate() {
             <div className="form-group">
                 <Container>
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-6">
                             <CustomInput
                                 label="Nome"
                                 type="text"
@@ -94,7 +96,7 @@ export function CidadeCreate() {
                     </div>
 
                     <div className="row">
-                        <div className="col-2">
+                        <div className="col-3">
                             <CustomInput
                                 label="Código IBGE"
                                 type="number"
@@ -106,12 +108,12 @@ export function CidadeCreate() {
                                 required={false}
                             />
                         </div>
-                        <div className="col-2">
+                        <div className="col-3">
                             <CustomInput
                                 label="Código SIAFI"
                                 type="number"
                                 placeholder="Digite o código SIAFI"
-                                value={codigoIbge}
+                                value={codigoSiafi}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setCodigoSiafi(parseInt(e.target.value))
                                 }
@@ -120,7 +122,7 @@ export function CidadeCreate() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-6">
                             <CustomDropDown data={tributos} title="Selecione o Código CFPS" filter="descricao" label="Código CFPS" Select={(cidadeId) => setCodigoCfpsId(cidadeId)}/>
                         </div>
                     </div>

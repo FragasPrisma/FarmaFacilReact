@@ -17,9 +17,26 @@
         
 import Flat from "../assets/img/bench.png";
 
-
-
 export const namesItemsMenu = [
+
+  {
+    img: "",
+    titulo: "Compras",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Compras", link: "/compras"}
+    ]
+  },
+  {
+    img: "",
+    titulo: "Contas a Pagar",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Contas a Pagar", link: "/contasapagar" },
+      { titulo: "Pagas", link: "/contaspagas"},
+      { titulo: "Pagar", link: "/contaspagar"},
+    ],
+  },
   {
     img: "",
     titulo: "Estoque",
@@ -27,15 +44,15 @@ export const namesItemsMenu = [
     subMenu: [
       { titulo: "Fornecedor", link: "/fornecedor" },
       { titulo: "Nbm", link: "/nbm" },
-      //{ titulo: "Ncm", link: "/ncm" },
-      { titulo: "Pbm", link: "/pbm" },
+      { titulo: "Ncm", link: "/ncm" },
+      { titulo: "PBM", link: "/pbm" },
       { titulo: "Classe", link: "/classe" },
-      { titulo: "Dci", link: "/dci" },
+      { titulo: "DCI", link: "/dci" },
       { titulo: "Principio Ativo", link: "principioativo" },
       { titulo: "Laboratorio", link: "laboratorio" },
       //{ titulo: "Produto", link: "produto" },
       { titulo: "Dcb", link: "dcb" },
-      //{ titulo: "Grupo", link: "grupo" },
+      { titulo: "Grupo", link: "grupo" },
     ],
   },
 
@@ -44,16 +61,19 @@ export const namesItemsMenu = [
     titulo: "Venda",
     hasSubMenu: true,
     subMenu: [
+      { img: "", titulo: "Prescritor", link: "/prescritor" },
       { img: "", titulo: "Administradora de Cartão", link: "/administradoradecartao" },
       { img: "", titulo: "Forma de Pagamento", link: "/formadepagamento" },
       { img: "", titulo: "Especialidade", link: "/especialidade" },
       { img: "", titulo: "Mensagens Padrão", link: "/mensagenspadrao" },
       { img: "", titulo: "Método", link: "/metodo" },
+      { img: "", titulo: "Tabela Floral", link: "/tabelafloral" },
       { img: "", titulo: "Tipo Contato", link: "/tipocontato" },
       { img: "", titulo: "Tipo Justificativa", link: "/tipojustificativa" },
       { img: "", titulo: "Posologia",link: "/posologia"  },
       { img: "", titulo: "Visitador", link: "/visitador" },
       { img: "", titulo: "Turno", link: "/turno" },
+      { img: "", titulo: "Convênio", link: "/convenio" },
     ],
   },
 
@@ -65,6 +85,7 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bula", link: "/bula" },
       { img: "", titulo: "Funcionário Laboratório", link: "/funcionariolaboratorio" },
       { img: "", titulo: "Especificação Cápsula", link: "/especificacaocapsula" },
+      { img: "", titulo: "Forma Farmacêutica", link: "/formafarmaceutica" },
     ],
   },
   {
@@ -99,8 +120,10 @@ export const namesItemsMenu = [
     subMenu: [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
-      //{ img: "", titulo: "Estado", link: "/estado" },
+      { img: "", titulo: "Estado", link: "/estado" },
+      { img: "", titulo: "Empresa", link: "/empresa" }, 
       { img: "", titulo: "Parametro", link: "/parametro" },
+      { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
       { img: "", titulo: "Portador", link: "/portador" },

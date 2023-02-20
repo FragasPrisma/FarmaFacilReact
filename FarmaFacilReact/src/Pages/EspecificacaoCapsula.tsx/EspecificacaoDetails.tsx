@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IEspecialidadeCapsula } from "../../Interfaces/EspecificacaoCapsula/IEspecificacaoCapsula";
 
 export function EspecificacaoDetails() {
 
-    const [descricao, setDescricao] = useState("");
-    const [prioridade, setPrioridade] = useState(Number);
+    const [especificacaoModel, setEspecificacaoModel] = useState({} as IEspecialidadeCapsula);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -17,8 +17,7 @@ export function EspecificacaoDetails() {
 
         async function Init() {
             const response = await GetId("RetornaEspecificacaoCapsulaPorId", idParams);
-            setDescricao(response.data.descricao);
-            setPrioridade(response.data.prioridade)
+            setEspecificacaoModel(response.data);
         }
 
         Init()
@@ -28,7 +27,7 @@ export function EspecificacaoDetails() {
         <>
             <HeaderMainContent title="DETALHES ESPECIFICAÇÃO CÁPSULA" IncludeButton={false} ReturnButton={true} to={"especificacaocapsula"} />
             <div className="form-group">
-                {descricao &&
+                {especificacaoModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-5">
@@ -36,8 +35,8 @@ export function EspecificacaoDetails() {
                                     label="Descrição"
                                     type="text"
                                     placeholder=""
-                                    value={descricao}
-                                    required={false}
+                                    value={especificacaoModel.descricao}
+                                    required={true}
                                     readonly={true}
                                 />
                             </div>
@@ -47,8 +46,8 @@ export function EspecificacaoDetails() {
                                 <CustomInput
                                     label="Prioridade"
                                     type="number"
-                                    value={prioridade}
-                                    required={false}
+                                    value={especificacaoModel.prioridade}
+                                    required={true}
                                     readonly={true}
                                 />
                             </div>

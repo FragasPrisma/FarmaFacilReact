@@ -4,8 +4,8 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function PosAdquirente(){
-    const [pagina,setPagina] = useState(1);
+export function PosAdquirente() {
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
@@ -21,9 +21,9 @@ export function PosAdquirente(){
 
     return (
         <>
-            <HeaderMainContent title="PÓS ADQUIRENTE" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Pós Adquirente" data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title="PÓS ADQUIRENTE" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Pós Adquirente" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

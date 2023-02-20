@@ -18,12 +18,12 @@ export function Especialidade() {
 
         loadDataTablePbm()
     }, [pagina]);
-    
+
     return (
         <>
             <HeaderMainContent title="ESPECIALIDADE" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Especialidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} />
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <SearchContentScreens text="Especialidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     )
 }

@@ -1,0 +1,20 @@
+{
+    "translation": {
+        "login": {
+            "title": "Enter",
+            "titleInfo": "Login with the data you entered during registration.",
+            "esqueceuSenha": "Forgot password?",
+            "cliqueAqui": "Click here",
+            "password": "Password"
+        },
+        "bairro":{
+            "id":"ID",
+            "nome":"Nome",
+            "bairro":"Bairro",
+            "adicionar":"Adicionar"
+        },
+        "search":{
+            "pesquisa":"Pesquisa de"
+        }
+    }
+}

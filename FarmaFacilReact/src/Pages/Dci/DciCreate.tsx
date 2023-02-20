@@ -8,7 +8,8 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { NOMEM } from "dns";
+import { IDci } from "../../Interfaces/Dci/IDci";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function DciCreate() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export function DciCreate() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
+    const data : IDci = {
         id: 0,
         codigoDci: codigoDci.trim(),
         descricao: descricao.trim(),
@@ -36,7 +37,7 @@ export function DciCreate() {
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroCodigoDci("Campo código dci é obrigatório !")
+                setErroCodigoDci("Campo de preenchimento obrigatório.")
             }, 2000)
             return;
         } else if (!descricao.trim()) {
@@ -44,7 +45,7 @@ export function DciCreate() {
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroDescricao("Campo descrição é obrigatório !")
+                setErroDescricao("Campo de preenchimento obrigatório.")
             }, 2000)
             return;
         }
@@ -66,7 +67,7 @@ export function DciCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR DCI" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir DCI" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -74,7 +75,7 @@ export function DciCreate() {
                             <CustomInput
                                 label="Código Dci"
                                 type="text"
-                                placeholder="Digite um código para o Dci"
+                                placeholder="Digite um código para o DCI"
                                 value={codigoDci}
                                 maxLength={15}
                                 erro={erroCodigoDci}
@@ -90,7 +91,7 @@ export function DciCreate() {
                             <CustomInput
                                 label="Descrição"
                                 type="textarea"
-                                placeholder="Digite uma descrição para o Dci"
+                                placeholder="Digite uma descrição para o DCI"
                                 value={descricao}
                                 maxLength={100}
                                 erro={erroDescricao}
@@ -101,6 +102,7 @@ export function DciCreate() {
                             />
                         </div>
                     </div>
+                    <LabelObrigatorio/>
                     <div className="row">
                         <div className="col-6 mt-2">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
@@ -108,7 +110,7 @@ export function DciCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="DCI adicionado com " />
+                <SuccessModal show={isOpenSuccess}/>
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

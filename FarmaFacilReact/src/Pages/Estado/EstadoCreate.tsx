@@ -4,14 +4,12 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { Container } from "./styles";
 import { ChangeEvent, useEffect, useState } from "react";
-import { getAll, GetId, postFormAll } from "../../Services/Api";
+import { getAll, postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
-import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { GenericTable } from "../../Components/Others/GenericTable";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 
 export function EstadoCreate() {
     const navigate = useNavigate();
@@ -23,49 +21,11 @@ export function EstadoCreate() {
     const [aliquotaIcmsEstado, setAliquotaIcmsEstado] = useState(0);
     const [aliquotaFcpEstado, setAliquotaFcpEstado] = useState(0)
     const [difalComCalculoPorDentro, setDifalComCalculoPorDentro] = useState(false);
-    const [difalComCalculoDeIsento, setDicalComcalculoDeIsento] = useState(false);
+    const [difalComCalculoDeIsento, setDifalComcalculoDeIsento] = useState(false);
     const [checagemContribuinteIsento, setChecagemContribuinteIsento] = useState(false);
     const [paisId, setPaisId] = useState();
     const [erroNome, setErroNome] = useState("");
     const [paises, setPaises] = useState([]);
-    const [estados, setEstados] = useState([]);
-    const [estadoOrigemId, setEstadoOrigemId] = useState(0);
-    const [estadoOrigemNome, setEstadoOrigemNome] = useState("");
-    const [estadoDestinoId, setEstadoDestinoId] = useState(0);
-    const [estadoDestinoNome, setEstadoDestinoNome] = useState("");
-    const [porcentagemIcms, setPorcentagemIcms] = useState(0);
-    const [datas, setDatas] = useState<any>([]);
-
-    const aliquotaEstado = {
-        estadoOrigem: "",
-        estadoDestino: "",
-        porcentagemIcms: 0
-    }
-
-    function submitAliquota() {
-        aliquotaEstado.estadoOrigem = estadoOrigemNome;
-        aliquotaEstado.estadoDestino = estadoDestinoNome;
-        aliquotaEstado.porcentagemIcms = porcentagemIcms;
-
-        if (aliquotaEstado.estadoOrigem == "" || aliquotaEstado.estadoDestino == "") 
-        {
-            return 
-        }
-
-        datas.push(aliquotaEstado)
-        console.log(datas)
-    }
-
-    useEffect(() => {
-        async function Init() {
-            let idEstadoDestino = estadoDestinoId.toString();
-            const response = await GetId("RetornaEstadoPorId", idEstadoDestino);
-            if (response.status == 200) {
-                setEstadoDestinoNome(response.data.nome)
-            }
-        }
-        Init()
-    }, [estadoDestinoId])
 
     const data = {
         id: 0,
@@ -86,15 +46,6 @@ export function EstadoCreate() {
         }
 
         loadDataPaises()
-    }, []);
-
-    useEffect(() => {
-        const loadDataEstados = async () => {
-            const response = await getAll("ListaEstado");
-            setEstados(response.data);
-        }
-
-        loadDataEstados()
     }, []);
 
     async function submit() {
@@ -211,57 +162,8 @@ export function EstadoCreate() {
                             <CheckboxCustom
                                 options={["Difal com Calculo Isento"]}
                                 check={difalComCalculoDeIsento}
-                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setDicalComcalculoDeIsento(e.target.checked)}
+                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setDifalComcalculoDeIsento(e.target.checked)}
                             />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 mt-4">
-                            <FieldsetCustom legend="Aliquotas por Estado">
-                                <div className="row">
-                                    <div className="col-3">
-                                        <CustomDropDown
-                                            data={estados}
-                                            title="Selecione o estado de origem"
-                                            filter="nome"
-                                            label="Estado origem"
-                                            Select={(estadoOrigemId) =>
-                                                setEstadoOrigemId(estadoOrigemId)}
-                                        />
-                                    </div>
-                                    <div className="col-3">
-                                        <CustomDropDown
-                                            data={estados}
-                                            title="Selecione o estado de destino"
-                                            filter="nome"
-                                            label="Estado destino"
-                                            Select={(estadoDestinoId) =>
-                                                setEstadoDestinoId(estadoDestinoId)}
-                                        />
-                                    </div>
-                                    <div className="col-1">
-                                        <CustomInput
-                                            label="% Icms"
-                                            type="number"
-                                            value={porcentagemIcms}
-                                            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                                setPorcentagemIcms(parseFloat(e.target.value))
-                                            }
-                                        />
-                                    </div>
-                                    <div className="col-2 mt-3">
-                                        <ButtonConfirm onCLick={submitAliquota} />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-6">
-                                        <GenericTable
-                                            data={datas} 
-                                            header={["Estado de Origem", "Estado de Destino", "% Icms"]}
-                                        />
-                                    </div>
-                                </div>
-                            </FieldsetCustom>
                         </div>
                     </div>
                     <div className="row">

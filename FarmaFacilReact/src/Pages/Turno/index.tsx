@@ -13,21 +13,21 @@ export function Turno() {
         const loadDataTable = async () => {
             const response = await getAll(`ListaPaginacaoTurno/${pagina}`);
             setQtdPagina(response.data.total);
-            response.data.listGroup.map((x: { horaInicial: string, horaFinal: string}) => {
+            response.data.listGroup.map((x: { horaInicial: string, horaFinal: string }) => {
                 x.horaInicial = x.horaInicial.slice(11, 16)
                 x.horaFinal = x.horaFinal.slice(11, 16)
             })
             setData(response.data.listGroup);
         }
-    
+
         loadDataTable()
     }, [pagina]);
 
     return (
         <>
             <HeaderMainContent title="TURNO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Turno" data={data} filter={"horaInicial"} headerTable={["id", "horaInicial", "horaFinal"]} />
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <SearchContentScreens text="Turno" data={data} filter={"horaInicial"} headerTable={["id", "horaInicial", "horaFinal"]} headerTableView={["ID", "Hora Inicial", "Hora Final"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

@@ -10,10 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { changePlano } from "../../store/PlanoContas";
 
 
-export let value: any[] | ((prevState: never[]) => never[]);
+export let value: any
 //export let itemSelected: any;
 
-function PlanoContasRecursivo({ children }) {
+function PlanoContasRecursivo({ children }: any) {
   const [openMap, setOpenMap] = useState(new Map());
   const [showModal, setShowModal] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
@@ -25,7 +25,7 @@ function PlanoContasRecursivo({ children }) {
       setShowModal(!showModal)
     }
 
-  const handleClick = (key) => {
+  const handleClick = (key:any) => {
    // itemSelected = key;
     dispatch(changePlano(key))
     
@@ -43,7 +43,7 @@ function PlanoContasRecursivo({ children }) {
 
   return (
     <ul>
-      {children.map((item) => (
+      {children.map((item:any) => (
         <li key={item.key} style={{ listStyleType: "none" }}>
           <div style={{ display: "flex", gap: '0.5rem', cursor: 'pointer' }} 
           onClick={() => handleClick(item)}
@@ -98,7 +98,7 @@ export function PlanoContas() {
     const loadDataTable = async () => {
       let response = await getAll(`ListaPlanoDeContas`);
 
-      let arr = response.data.map((x) => {
+      let arr = response.data.map((x:any) => {
         return {
           id: x.id,
           numeroConta: x.numeroConta,
@@ -109,7 +109,7 @@ export function PlanoContas() {
         };
       });
 
-      function buildTree(data) {
+      function buildTree(data:any) {
         const nodes = new Map();
 
         for (const item of data) {

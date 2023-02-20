@@ -4,8 +4,8 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function Metodo(){
-    const [pagina,setPagina] = useState(1);
+export function Metodo() {
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
@@ -21,9 +21,9 @@ export function Metodo(){
 
     return (
         <>
-            <HeaderMainContent title="MÉTODO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Método" data={data} filter={"descricao"} headerTable={["id", "descricao"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title="MÉTODO" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Método" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

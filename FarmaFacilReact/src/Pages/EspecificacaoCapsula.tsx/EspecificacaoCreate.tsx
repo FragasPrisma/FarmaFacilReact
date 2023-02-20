@@ -2,12 +2,13 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState } from "react";
-import { postFormAll } from "../../Services/Api";
+import { ChangeEvent, useState , useEffect } from "react";
+import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IEspecialidadeCapsula } from "../../Interfaces/EspecificacaoCapsula/IEspecificacaoCapsula";
 
 export function EspecificacaoCreate() {
 
@@ -15,21 +16,41 @@ export function EspecificacaoCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
     const [descricao, setDescricao] = useState("");
-    const [prioridade,setPrioridade] = useState(Number);
+    const [prioridade, setPrioridade] = useState(Number);
     const [erroDescricao, setErroDescricao] = useState("");
-    const [erroPrioridade,setErroPrioridade] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
+    const [erroPrioridade, setErroPrioridade] = useState("");
+    const [especificaoCapsulas, setEspecificacaoCapsulas] = useState([] as IEspecialidadeCapsula[])
+    const [isLoading, setIsLoading] = useState(false);
 
-    const data = {
+    const data: IEspecialidadeCapsula = {
         id: 0,
         descricao: descricao,
         prioridade: prioridade
     };
 
+    useEffect(() => {
+        const loadData = async () => {
+            const response = await getAll("ListaEspecificacaoCapsula");
+            setEspecificacaoCapsulas(response.data);
+        }
+        loadData()
+    }, []);
+
+    function ValidPrioridade(value : number){
+        let arrayValid = especificaoCapsulas.filter(x => x.prioridade == value);
+
+        if(arrayValid.length > 0){
+            setErroPrioridade("Prioridade inválida !")
+        }else{
+            setErroPrioridade("")
+        }
+
+        setPrioridade(value)
+    }
+
     async function submit() {
 
         setErroDescricao("");
-        setErroPrioridade("");
         setIsLoading(true);
 
         if (!descricao.trim()) {
@@ -38,8 +59,7 @@ export function EspecificacaoCreate() {
             return;
         }
 
-        if(!prioridade){
-            setErroPrioridade("Campo prioridade é obrigatório !")
+        if(erroPrioridade){
             setIsLoading(false);
             return;
         }
@@ -90,7 +110,7 @@ export function EspecificacaoCreate() {
                                 value={prioridade}
                                 erro={erroPrioridade}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setPrioridade(parseInt(e.target.value))
+                                    ValidPrioridade(parseInt(e.target.value))
                                 }
                                 required={true}
                             />
@@ -103,7 +123,7 @@ export function EspecificacaoCreate() {
                         <ButtonCancel to="especificacaocapsula" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} textCustom="Especificação Cápsula adicionada com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Especificação Cápsula adicionada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -1,12 +1,12 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 
 
 export const TabNFSe = () => {
   return (
     <>
-         
+
       <div className="row">
         <div className="col-3">
           <CustomInput
@@ -92,8 +92,8 @@ export const TabNFSe = () => {
         </div>
       </div>
 
-    <FieldsetCustom legend="Pao" >
-      <div className="row">
+      <FieldsetCustom legend="Pao" >
+        <div className="row">
           <div className="col-1">
             <CustomInput label="Aliquota" required={false} type="string" />
           </div>
@@ -120,8 +120,8 @@ export const TabNFSe = () => {
           <div className="col-2">
             <CustomInput label="Aliquota CSLL" required={false} type="string" />
           </div>
-      </div>
-        </FieldsetCustom> 
+        </div>
+      </FieldsetCustom>
     </>
   );
 };

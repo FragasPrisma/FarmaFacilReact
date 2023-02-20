@@ -9,7 +9,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { Container } from "../Dcb/styles";
 //import { valSelectedIndex, valSelectedText } from "./ComponentTree";
-import { itemSelected, value } from ".";
+
 import { useSelector } from "react-redux";
 
 export function PlanoContasDetails() {
@@ -24,7 +24,7 @@ export function PlanoContasDetails() {
 
   const state = useSelector((state) => state)
   
-  let valuee = state.plano
+  let valuee:any = state
 
   
  // let valuee = itemSelected;

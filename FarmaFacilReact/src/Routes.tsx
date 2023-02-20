@@ -31,6 +31,9 @@ import { NbmCreate } from "./Pages/Nbm/NbmCreate";
 import { NbmDetails } from "./Pages/Nbm/NbmDetails";
 import { NbmEdit } from "./Pages/Nbm/NbmEdit";
 import { Ncm } from "./Pages/Ncm";
+import { NcmCreate } from "./Pages/Ncm/NcmCreate/NcmCreate";
+import { NcmDetails } from "./Pages/Ncm/NcmDetails/NcmDetails";
+import { NcmEdit } from "./Pages/Ncm/NcmEdit/NcmEdit";
 import { Pbm } from "./Pages/Pbm/";
 import { PbmCreate } from "./Pages/Pbm/PbmCreate";
 import { PrincipioAtivo } from "./Pages/PrincipioAtivo";
@@ -47,9 +50,9 @@ import { ClasseEdit } from "./Pages/Classe/ClasseEdit";
 import { PbmEdit } from "./Pages/Pbm/PbmEdit";
 import { PbmDetails } from "./Pages/Pbm/PbmDetails";
 import { Parametro } from "./Pages/Parametro";
-import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate";
-import { FornecedorEdit } from "./Pages/Fornecedor/FornecedorEdit";
-import { FornecedorDetails } from "./Pages/Fornecedor/FornecedorDetails";
+import { FornecedorCreate } from "./Pages/Fornecedor/FornecedorCreate/FornecedorCreate";
+import { FornecedorEdit } from "./Pages/Fornecedor/FornecedorEdit/FornecedorEdit";
+import { FornecedorDetails } from "./Pages/Fornecedor/FornecedorDetails/FornecedorDetails";
 import { Especialidade } from "./Pages/Especialidade";
 import { EspecialidadeCreate } from "./Pages/Especialidade/EspecialidadeCreate";
 import { EspecialidadeDetails } from "./Pages/Especialidade/EspecialidadeDetails";
@@ -184,6 +187,47 @@ import { PlanoContas } from './Pages/PlanoContas/index';
 import { PlanoContasCreate } from "./Pages/PlanoContas/PlanoContasCreate";
 import { PlanoContasEdit } from "./Pages/PlanoContas/PlanoContasEdit";
 import { PlanoContasDetails } from "./Pages/PlanoContas/PlanoContasDetails";
+import { UnidadeEdit } from "./Pages/Unidade/UnidadeEdit";
+import { UnidadeDetails } from "./Pages/Unidade/UnidadeDetails";
+import { Prescritor } from "./Pages/Prescritor";
+import { PrescritorCreate } from "./Pages/Prescritor/PrescritorCreate/PrescritorCreate";
+import { PrescritorEdit } from "./Pages/Prescritor/PrescritorEdit/PrescritorEdit";
+import { PrescritorDetails } from "./Pages/Prescritor/PrescritorDetails/PrescritorDetails";
+import { TabelaFloral } from "./Pages/TabelaFloral";
+import { TabelaFloralCreate } from "./Pages/TabelaFloral/TabelaFloralCreate";
+import { TabelaFloralEdit } from "./Pages/TabelaFloral/TabelaFloralEdit";
+import { TabelaFloralDetails } from "./Pages/TabelaFloral/TabelaFloralDetails";
+import { GrupoCreate } from "./Pages/Grupo/GrupoCreate/GrupoCreate";
+import { GrupoEdit } from "./Pages/Grupo/GrupoEdit/GrupoEdit";
+import { GrupoDetails } from "./Pages/Grupo/GrupoDetails/GrupoDetails";
+import { Convenio } from "./Pages/Convenio";
+import { ConvenioCreate } from "./Pages/Convenio/ConvenioCreate/ConvenioCreate";
+import { ConvenioEdit } from "./Pages/Convenio/ConvenioEdit/ConvenioEdit";
+import { ConvenioDetails } from "./Pages/Convenio/ConvenioDetails/ConvenioDetails";
+import { FormaFarmaceutica } from "./Pages/FormaFarmaceutica";
+import { FormaFarmaceuticaCreate } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaCreate/FormaFarmaceuticaCreate";
+import { FormaFarmaceuticaEdit } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaEdit/FormaFarmaceuticaEdit";
+import { FormaFarmaceuticaDetails } from "./Pages/FormaFarmaceutica/FormaFarmaceuticaDetails/FormaFarmaceuticaDetails";
+import { ContasAPagar } from "./Pages/ContasAPagar";
+import { RelatorioContasPagas } from "./Pages/RelatorioContasPagas";
+import { RelatorioContasAPagar } from "./Pages/RelatorioContasAPagar";
+import { ContasAPagarCreate } from "./Pages/ContasAPagar/ContasAPagarCreate";
+import { ContasAPagarEdit } from "./Pages/ContasAPagar/ContasAPagarEdit";
+import { ContasAPagarDetails } from "./Pages/ContasAPagar/ContasAPagarDetails";
+import { ContasAPagarPagar } from "./Pages/ContasAPagar/ContasAPagarPagar";
+import { ManutencaoCompras } from "./Pages/Compras/ComprasCreate";
+import { Compras } from "./Pages/Compras";
+import { ManutencaoComprasEdit } from "./Pages/Compras/ComprasEdit";
+import { ManutencaoComprasDetails } from "./Pages/Compras/ComprasDetails";
+import { RelatorioCompras } from "./Pages/Compras/RelatorioCompras";
+import { CotacaoCompras } from "./Pages/Compras/CotacaoCompras";
+import { Empresa } from "./Pages/Empresa";
+import { EmpresaCreate } from "./Pages/Empresa/EmpresaCreate/EmpresaCreate";
+import { EmpresaDetails } from "./Pages/Empresa/EmpresaDetails/EmpresaDetails";
+import { EmpresaEdit } from "./Pages/Empresa/EmpresaEdit/EmpresaEdit";
+import { NegociacaoCompras } from "./Pages/Compras/NegociacaoCompras";
+import { UltimasCompras } from "./Pages/Compras/UltimasCompras";
+import { UltimasVendas } from "./Pages/Compras/UltimasVendas";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -249,6 +293,46 @@ export function AppRoutes() {
               element={
                 <Private>
                   <AdministradoraCartaoDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/contasapagar"
+              element={
+                <Private>
+                  <ContasAPagar />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/edit/:id"
+              element={
+                <Private>
+                  <ContasAPagarEdit />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/details/:id"
+              element={
+                <Private>
+                  <ContasAPagarDetails />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/duplicatascontasapagar/pagar/:id"
+              element={
+                <Private>
+                  <ContasAPagarPagar />{" "}
+                </Private>
+              }
+            />
+            <Route
+              path="/contasapagar/create"
+              element={
+                <Private>
+                  <ContasAPagarCreate />{" "}
                 </Private>
               }
             />
@@ -482,6 +566,70 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/formafarmaceutica"
+              element={
+                <Private>
+                  <FormaFarmaceutica />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/create"
+              element={
+                <Private>
+                  <FormaFarmaceuticaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/edit/:id"
+              element={
+                <Private>
+                  <FormaFarmaceuticaEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/formafarmaceutica/details/:id"
+              element={
+                <Private>
+                  <FormaFarmaceuticaDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio"
+              element={
+                <Private>
+                  <Convenio />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/create"
+              element={
+                <Private>
+                  <ConvenioCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/edit/:id"
+              element={
+                <Private>
+                  <ConvenioEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/convenio/details/:id"
+              element={
+                <Private>
+                  <ConvenioDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/contacorrente"
               element={
                 <Private>
@@ -623,6 +771,30 @@ export function AppRoutes() {
               element={
                 <Private>
                   <Grupo />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/create"
+              element={
+                <Private>
+                  <GrupoCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/edit/:id"
+              element={
+                <Private>
+                  <GrupoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/grupo/details/:id"
+              element={
+                <Private>
+                  <GrupoDetails />
                 </Private>
               }
             />
@@ -879,6 +1051,33 @@ export function AppRoutes() {
             />
 
             <Route
+              path="/ncm/create"
+              element={
+                <Private>
+                  <NcmCreate />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ncm/edit/:id"
+              element={
+                <Private>
+                  <NcmEdit />
+                </Private>
+              }
+            />
+
+            <Route
+              path="/ncm/details/:id"
+              element={
+                <Private>
+                  <NcmDetails />
+                </Private>
+              }
+            />
+
+            <Route
               path="/farmacopeia"
               element={
                 <Private>
@@ -886,6 +1085,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
+
 
             <Route
               path="/farmacopeia/create"
@@ -1540,6 +1740,22 @@ export function AppRoutes() {
               }
             />
             <Route
+              path="/unidade/edit/:id"
+              element={
+                <Private>
+                  <UnidadeEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/unidade/details/:id"
+              element={
+                <Private>
+                  <UnidadeDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/banco"
               element={
                 <Private>
@@ -1571,7 +1787,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/turno"
               element={
                 <Private>
@@ -1579,7 +1795,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/turno/create"
               element={
                 <Private>
@@ -1587,7 +1803,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/turno/details/:id"
               element={
                 <Private>
@@ -1595,7 +1811,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/turno/edit/:id"
               element={
                 <Private>
@@ -1603,7 +1819,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/visitador"
               element={
                 <Private>
@@ -1611,7 +1827,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/visitador/create"
               element={
                 <Private>
@@ -1619,7 +1835,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/visitador/details/:id"
               element={
                 <Private>
@@ -1627,7 +1843,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/visitador/edit/:id"
               element={
                 <Private>
@@ -1635,7 +1851,71 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
+              path="/prescritor"
+              element={
+                <Private>
+                  <Prescritor />
+                </Private>
+              }
+            />
+            <Route
+              path="/tabelafloral"
+              element={
+                <Private>
+                  <TabelaFloral />
+                </Private>
+              }
+            />
+            <Route
+              path="/tabelafloral/create"
+              element={
+                <Private>
+                  <TabelaFloralCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/tabelafloral/edit/:id"
+              element={
+                <Private>
+                  <TabelaFloralEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/tabelafloral/details/:id"
+              element={
+                <Private>
+                  <TabelaFloralDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/prescritor/create"
+              element={
+                <Private>
+                  <PrescritorCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/prescritor/edit/:id"
+              element={
+                <Private>
+                  <PrescritorEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/prescritor/details/:id"
+              element={
+                <Private>
+                  <PrescritorDetails />
+                </Private>
+              }
+            />
+            <Route
               path="/estado"
               element={
                 <Private>
@@ -1643,7 +1923,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/estado/create"
               element={
                 <Private>
@@ -1651,7 +1931,7 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/estado/details/:id"
               element={
                 <Private>
@@ -1659,11 +1939,131 @@ export function AppRoutes() {
                 </Private>
               }
             />
-            <Route 
+            <Route
               path="/estado/edit/:id"
               element={
                 <Private>
                   <EstadoEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/contaspagas"
+              element={
+                <Private>
+                  <RelatorioContasPagas />
+                </Private>
+              }
+            />
+            <Route
+              path="/contaspagar"
+              element={
+                <Private>
+                  <RelatorioContasAPagar />
+                </Private>
+              }
+            />
+            <Route
+              path="/compras"
+              element={
+                <Private>
+                  <Compras />
+                </Private>
+              }
+            />
+            <Route
+              path="/compras/create"
+              element={
+                <Private>
+                  <ManutencaoCompras />
+                </Private>
+              }
+            />
+            <Route
+              path="/compras/edit/:id"
+              element={
+                <Private>
+                  <ManutencaoComprasEdit />
+                </Private>
+              }
+            />
+            <Route
+              path="/compras/details/:id"
+              element={
+                <Private>
+                  <ManutencaoComprasDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/compras/relatorioCompras/:id"
+              element={
+                <Private>
+                  <RelatorioCompras />
+                </Private>
+              }
+            />
+            <Route
+              path="/compras/cotacaoCompras/:id"
+              element={
+                <Private>
+                  <CotacaoCompras />
+                </Private>
+              }
+            />
+            <Route
+              path="compras/cotacaoCompras/negociacaoCompras/:id"
+              element={
+                <Private>
+                  <NegociacaoCompras />
+                </Private>
+              }
+            />
+            <Route
+              path="compras/cotacaoCompras/negociacaoCompras/ultimasCompras/:id"
+              element={
+                <Private>
+                  <UltimasCompras />
+                </Private>
+              }
+            />
+            <Route
+              path="compras/cotacaoCompras/negociacaoCompras/ultimasVendas/:id"
+              element={
+                <Private>
+                  <UltimasVendas />
+                </Private>
+              }
+            />
+            <Route
+              path="/empresa"
+              element={
+                <Private>
+                  <Empresa />
+                </Private>
+              }
+            />
+            <Route
+              path="/empresa/create"
+              element={
+                <Private>
+                  <EmpresaCreate />
+                </Private>
+              }
+            />
+            <Route
+              path="/empresa/details/:id"
+              element={
+                <Private>
+                  <EmpresaDetails />
+                </Private>
+              }
+            />
+            <Route
+              path="/empresa/edit/:id"
+              element={
+                <Private>
+                  <EmpresaEdit />
                 </Private>
               }
             />

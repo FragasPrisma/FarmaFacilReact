@@ -1,5 +1,5 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 
 export const TabPrisma5Loader = () => {
@@ -20,9 +20,9 @@ export const TabPrisma5Loader = () => {
       </div>
 
       <div className="row">
-          <div className="col-2 mt-3 mb-4">
-            <CheckboxCustom options={["Pserv.ini"]} />
-          </div>
+        <div className="col-2 mt-3 mb-4">
+          <CheckboxCustom options={["Pserv.ini"]} />
+        </div>
       </div>
 
       <div className="row">

@@ -1,0 +1,21 @@
+export interface IManutencaoCompras {
+    tipo: string,
+    tipoDemanda: number | null,
+    vendaDe: string,
+    vendaDeHora: string,
+    vendaAte: string,
+    vendaAteHora: string,
+    curvaAbc: string,
+    consideraEncomendaFaltas: boolean,
+    tempoDeRep: number,
+    quantidadeDias: number,
+    tipoValor: number,
+    aPartirDe: string,
+    saldoQuantidadeComprometida: boolean,
+    laboratorioId: number,
+    fornecedoresIds: number[],
+    gruposIds: number[],
+    produtosIds: number[],
+    filialId: number,
+    considerarApenasFilialSelecionada: boolean
+}

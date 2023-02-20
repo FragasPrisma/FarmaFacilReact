@@ -8,6 +8,8 @@ import { Container } from "./styles";
 import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IPbm } from "../../Interfaces/Pbm/IPbm";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function PbmEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -18,8 +20,13 @@ export function PbmEdit() {
   const [observacao, setObservacao] = useState("");
   const [pbmId, setPbmId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({ id: 0, nome: "", observacao: "" });
   const [isLoading, setIsLoading] = useState(false);
+
+  let data: IPbm = {
+    id: pbmId,
+    nome: nome.trim(),
+    observacao: observacao
+  }
 
   let idParams = !id ? "0" : id.toString();
 
@@ -46,7 +53,7 @@ export function PbmEdit() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome("Campo nome é obrigatório !")
+        setErroNome("Campo de preenchimento obrigatório.")
       }, 2000)
       return;
     }
@@ -75,7 +82,7 @@ export function PbmEdit() {
 
   return (
     <>
-      <HeaderMainContent title="EDITAR PBM" IncludeButton={false} ReturnButton={false} />
+      <HeaderMainContent title="Editar PBM" IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -83,7 +90,7 @@ export function PbmEdit() {
               <CustomInput
                 label="Nome"
                 type="text"
-                placeholder="Digite o nome do Pbm"
+                placeholder="Digite o nome do PBM"
                 value={nome}
                 maxLength={50}
                 erro={erroNome}
@@ -99,16 +106,18 @@ export function PbmEdit() {
               <CustomInput
                 label="Observação"
                 type="textarea"
-                placeholder="Digite uma descrição para o Pbm"
+                placeholder="Digite uma descrição para o PBM"
                 value={observacao}
                 maxLength={150}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+
                   setObservacao(e.target.value)
                 }
                 required={false}
               />
             </div>
           </div>
+          <LabelObrigatorio/>
           <div className="row">
             <div className="col-6 mt-2">
               <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -116,7 +125,7 @@ export function PbmEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="PBM editado com" />
+        <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

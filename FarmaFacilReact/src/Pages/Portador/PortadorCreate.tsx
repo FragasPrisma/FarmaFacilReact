@@ -8,7 +8,8 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IPortador } from "../../Interfaces/Portador/IPortador";
 
 export function PortadorCreate() {
 
@@ -16,14 +17,14 @@ export function PortadorCreate() {
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState("");
-  const [portadorInativo,setPortadorInativo] = useState(false);
+  const [portadorInativo, setPortadorInativo] = useState(false);
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
-  const data = {
-    id: 0, 
+  const data : IPortador= {
+    id: 0,
     nome: nome.trim(),
-    portadorInativo:portadorInativo
+    portadorInativo: portadorInativo
   };
 
   async function submit() {
@@ -85,12 +86,12 @@ export function PortadorCreate() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading} />
               <ButtonCancel to="portador" />
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Protador adicionado com "/>
+        <SuccessModal show={isOpenSuccess} textCustom="Protador adicionado com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

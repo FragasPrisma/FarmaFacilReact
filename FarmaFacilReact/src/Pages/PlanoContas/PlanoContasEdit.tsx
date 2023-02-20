@@ -25,7 +25,7 @@ export function PlanoContasEdit() {
 
   const state = useSelector((state) => state)
 
-   let valuee = state.plano;
+   let valuee:any = state
 
    let handleCaseChildren = valuee.key
    let nivelConta = parseInt(handleCaseChildren[0])
@@ -35,7 +35,7 @@ export function PlanoContasEdit() {
    useEffect(() =>{
     
     async function Init() {
-      let response = await GetId("RetornarPlanoDeContasPorId", itemSelected.id);
+      let response = await GetId("RetornarPlanoDeContasPorId", valuee.id);
 
       setResponse(response.data)
 
@@ -62,20 +62,6 @@ const data = {
   descricao: descricao,
   sequencia: response.sequencia,
 };
-
-
-   
-
-  // useEffect(() => {
-    
-  //   const vl = () => {
-  //     setConta( handleCaseChildren )
-  //     setDescricao(valuee.label)
-  //   }
-
-  //   vl();
-
-  // }, []);
 
 
   async function submit() {

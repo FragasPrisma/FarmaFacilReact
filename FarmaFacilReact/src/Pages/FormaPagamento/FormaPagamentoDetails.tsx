@@ -5,14 +5,12 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IFormaPagamento } from "../../Interfaces/FormaPagamento/IFormaPagamento";
 
 export function FormaPagamentoDetails() {
 
-    const [descricao, setDescricao] = useState("");
-    const [tipoPagamento, setTipoPagamento] = useState(0);
-    const [autorizarDescontos, setAutorizarDescontos] = useState(0);
-    const [conciliacao, setConciliacao] = useState(false);
+    const [formaPagamentoModel, setFormaPagamentoModel] = useState({} as IFormaPagamento);
 
     const [descricaoPLanoDeContas, setDescricaoPLanoDeContas] = useState("");
 
@@ -22,12 +20,9 @@ export function FormaPagamentoDetails() {
     useEffect(() => {
 
         async function Init() {
-            const response = await GetId("RetornaFormaDePagamentoPorId", idParams);
 
-            setDescricao(response.data.descricao);
-            setTipoPagamento(response.data.tipoPagamento)
-            setAutorizarDescontos(response.data.autorizarDescontos)
-            setConciliacao(response.data.conciliacao)
+            const response = await GetId("RetornaFormaDePagamentoPorId", idParams);
+            setFormaPagamentoModel(response.data);
 
             if (response.data.planoDeConta) {
                 setDescricaoPLanoDeContas(response.data.planoDeConta.descricao)
@@ -48,7 +43,7 @@ export function FormaPagamentoDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={formaPagamentoModel.descricao}
                                 readonly={true}
                                 required={true}
                             />
@@ -74,9 +69,8 @@ export function FormaPagamentoDetails() {
                                 ]}
                                 readonly={true}
                                 name="tipo"
-                                onClickOptions={(value, label) => setTipoPagamento(value)}
                                 titleComponet="Tipo"
-                                value={tipoPagamento}
+                                value={formaPagamentoModel.tipoPagamento}
                             />
                         </div>
                         <div className="col-5">
@@ -88,13 +82,12 @@ export function FormaPagamentoDetails() {
                                     "Não Autorizado"]}
                                 name="descontos"
                                 readonly={true}
-                                onClickOptions={(value, label) => setAutorizarDescontos(value)}
-                                value={autorizarDescontos}
+                                value={formaPagamentoModel.autorizarDescontos}
                             />
                             <div className="col-12 mt-4">
                                 <CheckboxCustom
                                     options={["Conciliação"]}
-                                    check={conciliacao}
+                                    check={formaPagamentoModel.conciliacao}
                                     readOnly={true}
                                 />
                                 <div className="col-12">

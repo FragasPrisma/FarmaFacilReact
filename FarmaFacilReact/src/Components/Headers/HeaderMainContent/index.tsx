@@ -1,6 +1,7 @@
 import { ButtonReturn } from "../../Buttons/ButtonReturn";
 import { ButtonIncluir } from "../../Buttons/ButtonIncluir";
-import { ContainerHeaderMain, TitleMainHeader } from "./styles";
+import { ContainerHeaderMain, TitleMainHeader, SwitchCustom } from "./styles";
+import { ChangeEvent } from 'react'
 
 interface IOptions {
     title: string
@@ -8,19 +9,40 @@ interface IOptions {
     ReturnButton: boolean
     to?: string
     ButtonName?: string
+    IncludeSwitch?: boolean
+    TextSwitch?: string
+    onClick?: (check: boolean) => void
 }
 
-export function HeaderMainContent(props: IOptions) {
+export function HeaderMainContent({ title, IncludeButton, ReturnButton, to, ButtonName, IncludeSwitch, TextSwitch, onClick }: IOptions) {
+
+    function OnChecked(check: boolean) {
+        if (onClick) {
+            onClick(check)
+        }
+    }
+
     return (
         <ContainerHeaderMain>
-            <TitleMainHeader>{props.title}</TitleMainHeader>
-            {props.IncludeButton &&
+            <TitleMainHeader>{title}</TitleMainHeader>
+            {IncludeSwitch &&
+
+                <SwitchCustom>
+                    <SwitchCustom.Check
+                        type="switch"
+                        id="1"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => OnChecked(e.target.checked)}
+                        label={TextSwitch}
+                    />
+                </SwitchCustom>
+            }
+            {IncludeButton &&
                 <ButtonIncluir />
             }
-            {props.ReturnButton &&
-                <ButtonReturn to={props.to} text={props.ButtonName}/>
+            {ReturnButton &&
+                <ButtonReturn to={to} text={ButtonName} />
             }
-            
+
         </ContainerHeaderMain>
-    )   
+    )
 }

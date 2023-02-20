@@ -8,7 +8,8 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { NOMEM } from "dns";
+import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function LaboratorioCreate() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ export function LaboratorioCreate() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
+    const data : ILaboratorio = {
         id: 0,
         descricao: descricao.trim()
     };
@@ -31,7 +32,7 @@ export function LaboratorioCreate() {
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroDescricao("Campo descrição é obrigatório !")
+                setErroDescricao("Campo de preenchimento obrigatório.")
             }, 2000)
             return;
         }
@@ -54,7 +55,7 @@ export function LaboratorioCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR LABORATÓRIO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Laboratório" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -73,6 +74,7 @@ export function LaboratorioCreate() {
                             />
                         </div>
                     </div>
+                    <LabelObrigatorio/>
                     <div className="row">
                         <div className="col-6 mt-2">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
@@ -80,7 +82,7 @@ export function LaboratorioCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Laboratório adicionado com "/>
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

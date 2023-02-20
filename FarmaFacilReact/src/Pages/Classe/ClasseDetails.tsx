@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IClasse } from "../../Interfaces/Classe/IClasse";
 
 export function ClasseDetails() {
-    const [descricao, setDescricao] = useState("");
-    const [ClasseId, setClasseId] = useState(0);
+    const [classeModel, setClasseModel] = useState({} as IClasse);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -17,8 +17,7 @@ export function ClasseDetails() {
         async function Init() {
             const response = await GetId("RetornaClassePorId", idParams);
             if (response.status == 200) {
-                setClasseId(response.data.id);
-                setDescricao(response.data.descricao);
+                setClasseModel(response.data);
             }
         }
 
@@ -27,7 +26,7 @@ export function ClasseDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES CLASSE" IncludeButton={false} ReturnButton={true} to={"classe"}/>
+            <HeaderMainContent title="Visualizar Classe" IncludeButton={false} ReturnButton={true} to={"classe"}/>
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -35,7 +34,7 @@ export function ClasseDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={classeModel.descricao}
                                 required={true}
                                 readonly={true}
                             />

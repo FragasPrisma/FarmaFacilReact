@@ -8,6 +8,8 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
+import { useTranslation } from "react-i18next";
 
 export function BairroCreate() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -16,10 +18,11 @@ export function BairroCreate() {
   const [nome, setNome] = useState("");
   const [erroNome, setErroNome] = useState("");
   const [isLoading,setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
-  const data = {
-    id: 0, //id 0 é default
-    nome: nome,
+  const data : IBairro = {
+    id: 0,
+    nome: nome
   };
 
   async function submit() {
@@ -56,7 +59,7 @@ export function BairroCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR BAIRRO" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent title={`${t('bairro.adicionar')} ${t('bairro.bairro')}`} IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">

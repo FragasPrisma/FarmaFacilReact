@@ -8,8 +8,9 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ICategoria } from "../../Interfaces/Categoria/ICategoria";
 
 export function CategoriaEdit() {
 
@@ -18,17 +19,17 @@ export function CategoriaEdit() {
     const navigate = useNavigate();
     const [idCategoria, setId] = useState(0);
     const [nome, setNome] = useState("");
-    const [categoriaPaiId, setCategoriaPaiId] = useState();
+    const [categoriaPaiId, setCategoriaPaiId] = useState(null);
     const [categoriaAtivo, setCategoriaAtivo] = useState(false);
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [categorias, setCategorias] = useState([]);
+    const [categorias, setCategorias] = useState([] as ICategoria []);
 
     const [nomeCategoria, setNomeCategoria] = useState("");
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
-    
+
     useEffect(() => {
 
         const loadData = async () => {
@@ -57,7 +58,7 @@ export function CategoriaEdit() {
         Init()
     }, [])
 
-    const data = {
+    const data : ICategoria= {
         id: idCategoria,
         nome: nome.trim(),
         categoriaPaiId: categoriaPaiId,
@@ -76,10 +77,7 @@ export function CategoriaEdit() {
 
         if (!nome.trim()) {
             setIsOpenFail(true);
-            setTimeout(() => {
-                setIsOpenFail(false);
-                setErroNome("Campo nome é obrigatório !")
-            }, 2000)
+            setErroNome("Campo nome é obrigatório !")
             setIsLoading(false);
             return;
         }

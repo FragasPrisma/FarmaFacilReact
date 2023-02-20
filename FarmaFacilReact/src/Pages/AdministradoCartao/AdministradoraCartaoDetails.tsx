@@ -5,17 +5,12 @@ import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IAdministradoCartao } from "../../Interfaces/AdministradoCartao/IAdministradoCartao";
 
 export function AdministradoraCartaoDetails() {
 
-    const [nome, setNome] = useState("");
-    const [prazoDeRecebimento, setPrazoDeRecebimento] = useState(0);
-    const [desconto, setDesconto] = useState(0);
-    const [gerenciador, setGerenciador] = useState(-1);
-    const [cieloPremia, setCieloPremia] = useState(-1);
-    const [modalidade, setmodalidade] = useState(0);
-    const [ativo, setAtivo] = useState(false);
+    const [administradoraModel, setAdministradoModel] = useState({} as IAdministradoCartao);
 
     const { id } = useParams();
 
@@ -29,13 +24,7 @@ export function AdministradoraCartaoDetails() {
         async function Init() {
             const response = await GetId("RetornaAdministradoraDeCartaoPorId", idParams);
 
-            setNome(response.data.nome);
-            setPrazoDeRecebimento(response.data.prazoRecebimento)
-            setDesconto(response.data.desconto)
-            setGerenciador(response.data.gerenciador)
-            setCieloPremia(response.data.cieloPremia)
-            setmodalidade(response.data.modalidade)
-            setAtivo(response.data.ativo)
+            setAdministradoModel(response.data);
 
             if (response.data.fornecedor) {
                 setNomeFornecedor(response.data.fornecedor.nomeFornecedor)
@@ -52,14 +41,14 @@ export function AdministradoraCartaoDetails() {
         <>
             <HeaderMainContent title="DETALHES ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={true} to="administradoradecartao" />
             <div className="form-group">
-                {nome &&
+                {administradoraModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-5">
                                 <CustomInput
                                     label="Nome"
                                     type="text"
-                                    value={nome}
+                                    value={administradoraModel.nome}
                                     required={true}
                                     readonly={true}
                                 />
@@ -70,7 +59,7 @@ export function AdministradoraCartaoDetails() {
                                 <CustomInput
                                     label="Recebimento (Dias)"
                                     type="number"
-                                    value={prazoDeRecebimento}
+                                    value={administradoraModel.prazoRecebimento}
                                     required={false}
                                     readonly={true}
                                 />
@@ -79,7 +68,7 @@ export function AdministradoraCartaoDetails() {
                                 <CustomInput
                                     label="Desconto Administradora (%)"
                                     type="number"
-                                    value={desconto}
+                                    value={administradoraModel.desconto}
                                     required={false}
                                     readonly={true}
                                 />
@@ -97,13 +86,12 @@ export function AdministradoraCartaoDetails() {
                                         "Integracao4S"]}
                                     name="gerenciador"
                                     readonly={true}
-                                    onClickOptions={(value, label) => setGerenciador(value)}
                                     titleComponet="Gerenciador TEF"
-                                    value={gerenciador}
+                                    value={administradoraModel.gerenciador}
                                 />
                             </div>
                             <div className="col-5">
-                                {gerenciador == 0 &&
+                                {administradoraModel.gerenciador == 0 &&
                                     <RadioCustom
                                         titleComponet="Cielo Premia"
                                         options={["Troco",
@@ -112,8 +100,7 @@ export function AdministradoraCartaoDetails() {
                                             "CupomReduzido"]}
                                         name="cieloPremia"
                                         readonly={true}
-                                        onClickOptions={(value, label) => setCieloPremia(value)}
-                                        value={cieloPremia}
+                                        value={administradoraModel.cieloPremia}
                                     />
                                 }
                             </div>
@@ -125,15 +112,14 @@ export function AdministradoraCartaoDetails() {
                                         "Crédito"]}
                                     readonly={true}
                                     name="modalidade"
-                                    value={modalidade}
-                                    onClickOptions={(value, label) => setmodalidade(value)}
                                     titleComponet="Modadilade"
+                                    value={administradoraModel.modalidade}
                                 />
                             </div>
                             <div className="col-2 mt-4">
                                 <CheckboxCustom
                                     options={["Administradora Ativa"]}
-                                    check={ativo}
+                                    check={administradoraModel.ativo}
                                     readOnly={true}
                                 />
                             </div>

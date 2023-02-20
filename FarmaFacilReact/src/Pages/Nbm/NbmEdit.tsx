@@ -9,6 +9,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { INbm } from "../../Interfaces/Nbm/INbm";
 
 export function NbmEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -26,15 +27,15 @@ export function NbmEdit() {
     const { id } = useParams();
     const [isLoading,setIsLoading] = useState(false);
     
-    const [data] = useState({
-        id:0,
-        codigoNbm:"",
-        descricao:"",
-        vlrAgregadoEst:0,
-        vlrAgregadoInt:0,
-        vlrComplementarEst:0,
-        vlrComplementarInt:0,
-    });
+    let data : INbm = {
+        id: nbmId,
+        codigoNbm: codigoNbm,
+        descricao: descricao,
+        vlrAgregadoEst: valorAgregadoEstado,
+        vlrAgregadoInt: valorAgregadoInterestadual,
+        vlrComplementarEst: valorComplementarEstado,
+        vlrComplementarInt: valorComplementarInterestadual
+    }
 
     let idParams = !id ? "0" : id.toString();
 

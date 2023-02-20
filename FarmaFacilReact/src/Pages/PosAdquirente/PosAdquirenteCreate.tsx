@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IPosAdquirente } from "../../Interfaces/PosAdquirente/IPosAdquirente";
 
 export function PosAdquirenteCreate() {
 
@@ -15,12 +16,12 @@ export function PosAdquirenteCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
     const [descricao, setDescricao] = useState("");
-    const [chaveRequisicao,setChaveRequisicao] = useState("");
+    const [chaveRequisicao, setChaveRequisicao] = useState("");
     const [erroDescricao, setErroDescricao] = useState("");
-    const [erroChaveRequisicao,setErroChaveRequisicao] = useState("");
-    const [isLoading,setIsLoading] = useState(false);
+    const [erroChaveRequisicao, setErroChaveRequisicao] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    const data = {
+    const data: IPosAdquirente = {
         id: 0,
         descricao: descricao,
         chaveRequisicao: chaveRequisicao
@@ -38,7 +39,7 @@ export function PosAdquirenteCreate() {
             return;
         }
 
-        if(!chaveRequisicao){
+        if (!chaveRequisicao) {
             setErroChaveRequisicao("Campo chave reuisição é obrigatório !")
             setIsLoading(false);
             return;

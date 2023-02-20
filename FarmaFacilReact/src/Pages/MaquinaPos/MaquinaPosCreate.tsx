@@ -8,32 +8,28 @@ import { getAll, postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom/index";
-import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IMaquinaPos } from "../../Interfaces/MaquinaPos/IMaquinaPos";
+import { IPosAdquirente } from "../../Interfaces/PosAdquirente/IPosAdquirente";
 
 export function MaquinaPosCreate() {
   const navigate = useNavigate();
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [erroNome, setErroNome] = useState("");
+  const [erroDescricao, setErroDescricao] = useState("");
+  const [erroSerialPos, setErroSerialPos] = useState("");
 
   const [serialPos, setSerialPos] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [adquirenteId, setAdquirenteId] = useState();
-  const [adquirente, setAdquirente] = useState([]);
+  const [adquirenteId, setAdquirenteId] = useState(null);
+  const [adquirente, setAdquirente] = useState([] as IPosAdquirente []);
 
-  const data = {
+  const data : IMaquinaPos = {
     id: 0,
     descricao: descricao.trim(),
     serialPos: serialPos.trim(),
-    adquirentePosId: adquirenteId,
-    // adquirentePos: {
-    //   id: 0,
-    //   descricao: "",
-    //   chaveRequisicao: "",
-    // },
+    adquirentePosId: adquirenteId
   };
 
   useEffect(() => {
@@ -46,15 +42,21 @@ export function MaquinaPosCreate() {
   }, []);
 
   async function submit() {
-    setErroNome("");
+    
+    setErroSerialPos("");
+    setErroDescricao("");
+    setIsLoading(false);
+
+    if (!descricao.trim()) {
+      setErroDescricao("Campo descrição obrigatório !")
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     if (!serialPos.trim()) {
-      setIsOpenFail(true);
+      setErroSerialPos("Campo serial pós obrigatório !")
       setIsLoading(false);
-      setTimeout(() => {
-        setIsOpenFail(false);
-        setErroNome("Campo Serial é obrigatório!");
-      }, 2000);
       return;
     }
 
@@ -70,7 +72,6 @@ export function MaquinaPosCreate() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome(response.request.response);
       }, 2000);
     }
   }
@@ -92,7 +93,7 @@ export function MaquinaPosCreate() {
                 placeholder="Digite uma descrição do máquina pós"
                 value={descricao}
                 maxLength={10}
-                erro={erroNome}
+                erro={erroDescricao}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setDescricao(e.target.value)
                 }
@@ -108,6 +109,7 @@ export function MaquinaPosCreate() {
                 placeholder="Digite um Serial para máquina pós"
                 value={serialPos}
                 maxLength={150}
+                erro={erroSerialPos}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setSerialPos(e.target.value)
                 }

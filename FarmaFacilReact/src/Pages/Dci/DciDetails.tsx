@@ -4,32 +4,30 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IDci } from "../../Interfaces/Dci/IDci";
 
 export function DciDetails() {
-    const [codigoDci, setCodigoDci] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [dciId, setDciId] = useState("");
-    const { id } = useParams();
 
-    let idParams = !id ? "0" : id.toString();
-    
-    useEffect(() =>{
-    
-        async function Init() {
-          const response = await GetId("RetornaDciPorId", idParams);
-          if(response.status == 200){
-            setDciId(response.data.id);
-            setCodigoDci(response.data.codigoDci);
-            setDescricao(response.data.descricao)
-          }
-        }
-    
-        Init()
-      },[])
+  const [dciModel, setDciModel] = useState({} as IDci);
+  const { id } = useParams();
 
-    return (
-        <>
-            <HeaderMainContent title="DETALHES DCI" IncludeButton={false} ReturnButton={true} to={"dci"} />
+  let idParams = !id ? "0" : id.toString();
+
+  useEffect(() => {
+
+    async function Init() {
+      const response = await GetId("RetornaDciPorId", idParams);
+      if (response.status == 200) {
+        setDciModel(response.data);
+      }
+    }
+
+    Init()
+  }, [])
+
+  return (
+    <>
+      <HeaderMainContent title="Visualizar DCI" IncludeButton={false} ReturnButton={true} to={"dci"} />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -37,25 +35,25 @@ export function DciDetails() {
               <CustomInput
                 label="Código Dci"
                 type="text"
-                value={codigoDci}
+                value={dciModel.codigoDci}
                 required={true}
                 readonly={true}
               />
             </div>
           </div>
           <div className="row">
-              <div className="col-7">
-                <CustomInput
-                  label="Descrição"
-                  type="textarea"
-                  value={descricao}
-                  required={true}
-                  readonly={true}
-                />
+            <div className="col-7">
+              <CustomInput
+                label="Descrição"
+                type="textarea"
+                value={dciModel.descricao}
+                required={true}
+                readonly={true}
+              />
             </div>
           </div>
         </Container>
       </div>
-        </>
-    );
+    </>
+  );
 }

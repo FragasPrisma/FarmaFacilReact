@@ -5,18 +5,19 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { IBanco } from "../../Interfaces/Banco/IBanco";
 
 export function BancoEdit() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [BancoId, setBancoId] = useState(0);
     const { id } = useParams();
     const [nomeBanco, setNomeBanco] = useState("");
@@ -49,36 +50,36 @@ export function BancoEdit() {
     const [erroNomeBanco, setErroNomeBanco] = useState("");
     const [erroCodigoBanco, setErroCodigoBanco] = useState("");
 
-    const [data] = useState({
-        id: 0,
-        nome: "",
-        codigoBanco: "",
-        carteira: "",
-        modalidade: "",
-        formaCobranca: "",
-        layout: "",
-        sequenciaRemessa: 0,
-        nomeCedente: "",
-        cnpjCedente: "",
-        codigoCedente: "",
-        codigoTransmissao: "",
-        complementoTransmissao: "",
-        agencia: "",
-        agenciaDigito: "",
-        diasProtesto: 0,
-        juros: 0,
-        multa: 0,
-        contaCorrente: "",
-        contaCorrenteDigito: "",
-        convenio: "",
-        producao: false,
-        localPagamento: "",
-        mensagemInstrucao1: "",
-        mensagemInstrucao2: "",
-        mensagemInstrucao3: "",
-        mensagemInstrucao4: "",
-        mensagemInstrucao5: ""
-    });
+    const data : IBanco = {
+        id: BancoId,
+        nome: nomeBanco,
+        codigoBanco: codigoBanco,
+        carteira: carteira,
+        modalidade: modalidade,
+        formaCobranca: formaCobranca,
+        layout: layout,
+        sequenciaRemessa: sequenciaRemessa,
+        nomeCedente: nomeCedente,
+        cnpjCedente: cnpjCedente,
+        codigoCedente: codigoCedente,
+        codigoTransmissao: codigoTransmissao,
+        complementoTransmissao: complementoTransmissao,
+        agencia: agencia,
+        agenciaDigito: agenciaDigito,
+        diasProtesto: diasProtesto,
+        juros: juros,
+        multa: multa,
+        contaCorrente: contaCorrente,
+        contaCorrenteDigito: contaCorrenteDigito,
+        convenio: convenio,
+        producao: producao,
+        localPagamento: localPagamento,
+        mensagemInstrucao1: mensagemInstrucao1,
+        mensagemInstrucao2: mensagemInstrucao2,
+        mensagemInstrucao3: mensagemInstrucao3,
+        mensagemInstrucao4: mensagemInstrucao4,
+        mensagemInstrucao5: mensagemInstrucao5
+    };
 
 
     let idParams = !id ? "0" : id.toString();
@@ -541,7 +542,7 @@ export function BancoEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="Dado editado com" />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -1,20 +1,18 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
 import { TableHelp } from "./TableHelp";
+import { IMensagemPadrao } from "../../Interfaces/MensagemPadrao/IMensagemPadrao";
 
 export function MensagemPadraoDetials() {
 
-    const [statusDescricao, setStatusDescricao] = useState("");
-    const [mensagem, setMensagem] = useState("");
-    const [enviarAutomatico, setEnviarAutomatico] = useState(false);
-    const [descricaoRotulo, setDescricaoRotulo] = useState(false);
+    const [mensagemModel, setMensagemModel] = useState({} as IMensagemPadrao);
     const [help, setHelp] = useState(false);
     const [colunas, setColunas] = useState(112)
 
@@ -24,10 +22,7 @@ export function MensagemPadraoDetials() {
     useEffect(() => {
         async function Init() {
             const response = await GetId("RetornaMensagensPadraoPorId", idParams);
-            setStatusDescricao(response.data.statusDescricao);
-            setMensagem(response.data.mensagem)
-            setEnviarAutomatico(response.data.enviarAutomatico)
-            setDescricaoRotulo(response.data.descricaoRotulo)
+            setMensagemModel(response.data);
         }
 
         Init();
@@ -44,7 +39,7 @@ export function MensagemPadraoDetials() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES MENSAGEM PADRÃO" IncludeButton={false} ReturnButton={true} to="mensagenspadrao" />
+            <HeaderMainContent title="Visualizar Mensagem Padrão" IncludeButton={false} ReturnButton={true} to="mensagenspadrao" />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -52,7 +47,7 @@ export function MensagemPadraoDetials() {
                             <CustomInput
                                 label="Status"
                                 type="text"
-                                value={statusDescricao}
+                                value={mensagemModel.statusDescricao}
                                 readonly={true}
                                 required={true}
                             />
@@ -60,14 +55,14 @@ export function MensagemPadraoDetials() {
                         <div className="col-2 mb-3">
                             <CheckboxCustom
                                 options={["Descrição Rótulo"]}
-                                check={descricaoRotulo}
+                                check={mensagemModel.descricaoRotulo}
                                 readOnly={true}
                             />
                         </div>
                         <div className="col-2">
                             <CheckboxCustom
                                 options={["Enviar Automáticamente"]}
-                                check={enviarAutomatico}
+                                check={mensagemModel.enviarAutomatico}
                                 readOnly={true}
                             />
                         </div>
@@ -76,7 +71,7 @@ export function MensagemPadraoDetials() {
 
                         <div className="col-auto">
                             <CustomTextArea
-                                value={mensagem}
+                                value={mensagemModel.mensagem}
                                 label="Mensagem"
                                 cols={colunas}
                                 rows={20}

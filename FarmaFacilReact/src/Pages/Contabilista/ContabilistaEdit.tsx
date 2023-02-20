@@ -9,6 +9,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IEstado } from "../../Interfaces/Estado/IEstado";
+import { ICidade } from "../../Interfaces/Cidade/ICidade";
+import { IBairro } from "../../Interfaces/Bairro/IBairro";
+import { IContabilista } from "../../Interfaces/Contabilista/IContabilista";
 
 export function ContabilistaEdit() {
 
@@ -16,9 +20,9 @@ export function ContabilistaEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
 
-    const [bairroId, setBairroId] = useState();
-    const [cidadeId, setCidadeId] = useState();
-    const [estadoId, setEstadoId] = useState();
+    const [bairroId, setBairroId] = useState(null);
+    const [cidadeId, setCidadeId] = useState(null);
+    const [estadoId, setEstadoId] = useState(null);
 
     const [idContabilista, setId] = useState(0);
     const [nome, setNome] = useState("");
@@ -33,16 +37,13 @@ export function ContabilistaEdit() {
     const [email, setEmail] = useState("");
     const [complemento, setComplemento] = useState("");
 
-    const [erroNome, setErroNome] = useState("");
-    const [erroCnpj, setErroCnpj] = useState("");
-    const [erroCpf, setErroCpf] = useState("");
-    const [erroCrc, setErroCrc] = useState("");
-
     const [isLoading, setIsLoading] = useState(false);
 
-    const [estados, setEstados] = useState([]);
-    const [cidades, setCidades] = useState([]);
-    const [bairros, setBairros] = useState([]);
+    const [error, setErros] = useState({ erro: true, index: 0, erroNome: "" })
+
+    const [estados, setEstados] = useState([] as IEstado[]);
+    const [cidades, setCidades] = useState([] as ICidade[]);
+    const [bairros, setBairros] = useState([] as IBairro[]);
 
     const [nomeEstado, setNomeEstado] = useState("");
     const [nomeCidade, setNomeCidade] = useState("");
@@ -93,29 +94,21 @@ export function ContabilistaEdit() {
             const response = await getAll("ListaBairro");
             setBairros(response.data);
         }
-
-        loadDataBairro()
-    }, []);
-
-    useEffect(() => {
         const loadDataCidade = async () => {
             const response = await getAll("ListaCidade");
             setCidades(response.data);
         }
-
-        loadDataCidade()
-    }, []);
-
-    useEffect(() => {
         const loadDataEstado = async () => {
             const response = await getAll("ListaEstado");
             setEstados(response.data);
         }
 
         loadDataEstado()
+        loadDataCidade()
+        loadDataBairro()
     }, []);
 
-    const data = {
+    const data: IContabilista = {
         id: idContabilista,
         bairroId: bairroId,
         cidadeId: cidadeId,
@@ -133,34 +126,25 @@ export function ContabilistaEdit() {
         email: email
     };
 
+    function ValidString(texto: string, index: number) {
+        if (!texto.trim()) {
+            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     async function submit() {
 
-        setErroNome("");
-        setErroCnpj("");
-        setErroCpf("");
-        setErroCrc("");
+        setErros({ erro: false, erroNome: "", index: 0 })
         setIsLoading(true);
 
-        if (!nome.trim()) {
-            setErroNome("Campo nome é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!cnpj.trim()) {
-            setErroCnpj("Campo CNPJ é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!cpf.trim()) {
-            setErroCpf("Campo CPF é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!crc.trim()) {
-            setErroCrc("Campo CRC é obrigatório !")
+        if (!ValidString(nome, 1)
+            || !ValidString(cnpj, 2)
+            || !ValidString(cpf, 3)
+            || !ValidString(crc, 4)
+        ) {
             setIsLoading(false);
             return;
         }
@@ -177,7 +161,6 @@ export function ContabilistaEdit() {
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
-                setErroNome(resp.request.response)
             }, 2000)
         }
     }
@@ -196,7 +179,8 @@ export function ContabilistaEdit() {
                                     placeholder="Digite o nome"
                                     value={nome}
                                     maxLength={100}
-                                    erro={erroNome}
+                                    erros={error}
+                                    index={1}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setNome(e.target.value)
                                     }
@@ -211,7 +195,8 @@ export function ContabilistaEdit() {
                                     type="text"
                                     placeholder="Digite o CNPJ"
                                     value={cnpj}
-                                    erro={erroCnpj}
+                                    erros={error}
+                                    index={2}
                                     maxLength={14}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setCnpj(e.target.value)
@@ -225,7 +210,8 @@ export function ContabilistaEdit() {
                                     type="text"
                                     placeholder="Digite o CPF"
                                     value={cpf}
-                                    erro={erroCpf}
+                                    erros={error}
+                                    index={3}
                                     maxLength={11}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setCpf(e.target.value)
@@ -239,7 +225,8 @@ export function ContabilistaEdit() {
                                     type="text"
                                     placeholder="Digite o CRC"
                                     value={crc}
-                                    erro={erroCrc}
+                                    erros={error}
+                                    index={4}
                                     maxLength={15}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setCrc(e.target.value)

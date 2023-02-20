@@ -10,6 +10,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { describe } from "node:test";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { INbm } from "../../Interfaces/Nbm/INbm";
 
 export function NbmCreate() {
     const navigate = useNavigate();
@@ -25,14 +26,14 @@ export function NbmCreate() {
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
-        id: 0, //id 0 é default
+    const data : INbm = {
+        id: 0,
         codigoNbm: codigoNbm.trim(),
         descricao: descricao.trim(),
-        VlrAgregadoEst: valorAgregadoEstado,
-        VlrAgregadoInt: valorAgregadoInterestadual,
-        VlrComplementarEst: valorComplementarEstado,
-        VlrComplementarInt: valorComplementarInterestadual
+        vlrAgregadoEst: valorAgregadoEstado,
+        vlrAgregadoInt: valorAgregadoInterestadual,
+        vlrComplementarEst: valorComplementarEstado,
+        vlrComplementarInt: valorComplementarInterestadual
     };
 
     async function submit() {

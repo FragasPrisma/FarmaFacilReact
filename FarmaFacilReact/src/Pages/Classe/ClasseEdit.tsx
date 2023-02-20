@@ -9,25 +9,35 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IClasse } from "../../Interfaces/Classe/IClasse";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function ClasseEdit() {
+
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const navigate = useNavigate();
   const [erro, setErro] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [validadeDias, setValidadeDias] = useState(0)
   const [classeId, setClasseId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({ id: 0, descricao: "" });
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   let idParams = !id ? "0" : id.toString();
+
+  let data: IClasse = {
+    id: classeId,
+    descricao: descricao,
+    validadeDias: validadeDias
+  }
 
   useEffect(() => {
     async function Init() {
       const response = await GetId("RetornaClassePorId", idParams);
       setClasseId(response.data.id);
       setDescricao(response.data.descricao);
+      setValidadeDias(response.data.validadeDias);
     }
 
     Init();
@@ -37,15 +47,12 @@ export function ClasseEdit() {
 
     setIsLoading(true);
 
-    data.id = classeId;
-    data.descricao = descricao.trim();
-
     if (!descricao.trim()) {
       setIsOpenFail(true);
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErro("Campo descrição é obrigatório !");
+        setErro("Campo de preenchimento obrigatório.");
       }, 2000)
       return;
     }
@@ -70,7 +77,7 @@ export function ClasseEdit() {
   return (
     <>
       <HeaderMainContent
-        title="EDITAR CLASSE"
+        title="Editar Classe"
         IncludeButton={false}
         ReturnButton={false}
       />
@@ -91,15 +98,27 @@ export function ClasseEdit() {
                 required={true}
               />
             </div>
+            <div className="col-3">
+              <CustomInput
+                label="Validade Fcia. Popular (dias)"
+                type="number"
+                placeholder="Digite a validade Fcia. popular"
+                value={validadeDias}
+                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setValidadeDias(parseInt(e.target.value))
+                }
+              />
+            </div>
           </div>
+          <LabelObrigatorio />
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading} />
               <ButtonCancel to="classe" />
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Classe editada com"/>
+        <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

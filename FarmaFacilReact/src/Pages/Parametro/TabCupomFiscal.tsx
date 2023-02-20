@@ -1,4 +1,4 @@
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { CustomInput } from "./../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 

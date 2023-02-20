@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Modal, ModalBody } from "react-bootstrap";
 import { SucessMensage, MensageDefault } from "./styles";
 
@@ -19,7 +18,7 @@ export function SuccessModal({ show, textCustom}: IProps) {
         <div>
           {!textCustom ? (
             <>
-              <MensageDefault>Dado inserido com</MensageDefault>
+              <MensageDefault>Registro incluído com </MensageDefault>
             </>
           ) : (
             <>

@@ -1,18 +1,24 @@
-import  styled  from 'styled-components';
+import styled from 'styled-components';
 
 const Button = styled.button`
     background-color: transparent;
     border:none;
 `;
 
+export const Container = styled.div`
+    gap:40px;
+    display:flex; 
+    align-items: center;
+    justify-content: space-around;
+`
+
 export const DeleteButton = styled(Button)`
-    margin-left: 1.9rem;
 `;
 
 export const EditButton = styled(Button)`
-    margin-left: 2.1rem;
 `;
 
 export const DetailsButton = styled(Button)`
-    margin-left: 2rem;
+`;
+export const ExtraButton = styled(Button)`
 `;

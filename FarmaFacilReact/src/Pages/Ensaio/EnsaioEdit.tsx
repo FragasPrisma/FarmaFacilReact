@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { IEnsaio } from "../../Interfaces/Ensaio/IEnsaio";
 
 export function EnsaioEdit() {
 
@@ -17,8 +18,9 @@ export function EnsaioEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
     const [nome, setNome] = useState("");
-    const [farmacopeiaId, setFarmacopeiaId] = useState();
+    const [farmacopeiaId, setFarmacopeiaId] = useState(0);
     const [erroNome, setErroNome] = useState("");
+    const [erroFarmacopeia, setErroFarmacopeia] = useState("");
     const [farmacopeias, setFarmacopeias] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [idEnsaio, setId] = useState(0);
@@ -41,7 +43,7 @@ export function EnsaioEdit() {
         Init()
     }, [])
 
-    const data = {
+    const data: IEnsaio = {
         id: idEnsaio,
         nome: nome,
         farmacopeiaId: farmacopeiaId
@@ -63,6 +65,12 @@ export function EnsaioEdit() {
 
         if (!nome.trim()) {
             setErroNome("Campo nome é obrigatório !")
+            setIsLoading(false);
+            return;
+        }
+
+        if (farmacopeiaId <= 0) {
+            setErroFarmacopeia("Selecione a Farmacopéia !")
             setIsLoading(false);
             return;
         }
@@ -108,11 +116,14 @@ export function EnsaioEdit() {
                         </div>
                         <div className="row">
                             <div className="col-5">
-                                {nomeFarmacopeia ?
-                                    <CustomDropDown data={farmacopeias} title={nomeFarmacopeia} filter="nome" label="Farmacopéia" Select={(id) => setFarmacopeiaId(id)} />
-                                    :
-                                    <CustomDropDown data={farmacopeias} title="Selecione a Farmacopéia" filter="nome" label="Farmacopéia" Select={(id) => setFarmacopeiaId(id)} />
-                                }
+                                <CustomDropDown
+                                    data={farmacopeias}
+                                    title={nomeFarmacopeia}
+                                    filter="nome"
+                                    label="Farmacopéia"
+                                    error={erroFarmacopeia}
+                                    Select={(id) => setFarmacopeiaId(id)}
+                                />
                             </div>
                         </div>
                     </Container>
@@ -123,7 +134,7 @@ export function EnsaioEdit() {
                         <ButtonCancel to="ensaio" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} textCustom="Ensaio editado com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Ensaio editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -8,11 +8,12 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
-import { Table } from "react-bootstrap";
 import { TableHelp } from "./TableHelp";
+import { IMensagemPadrao } from "../../Interfaces/MensagemPadrao/IMensagemPadrao";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function MensagemPadraoCreate() {
 
@@ -31,7 +32,7 @@ export function MensagemPadraoCreate() {
 
 
 
-    const data = {
+    const data : IMensagemPadrao = {
         id: 0,
         statusDescricao: statusDescricao.trim(),
         mensagem: mensagem.trim(),
@@ -55,14 +56,22 @@ export function MensagemPadraoCreate() {
         setIsLoading(true);
 
         if (!statusDescricao.trim()) {
-            setErroStatus("Campo status é obrigatório !")
+            setErroStatus("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
         if (!mensagem.trim()) {
-            setErroMensagem("Campo mensagem é obrigatório !")
+            setErroMensagem("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
@@ -84,7 +93,7 @@ export function MensagemPadraoCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR MENSAGEM PADRÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Mensagem Padrão" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -102,16 +111,16 @@ export function MensagemPadraoCreate() {
                                 required={true}
                             />
                         </div>
-                        <div className="col-2 mb-3">
+                        <div className="col-2 mb-3 mt-1">
                             <CheckboxCustom
-                                options={["Descrição Rótulo"]}
+                                options={["Descrição rótulo"]}
                                 onClickOptions={(e) => setDescricaoRotulo(e.target.checked)}
                                 check={descricaoRotulo}
                             />
                         </div>
-                        <div className="col-2">
+                        <div className="col-2 mt-1">
                             <CheckboxCustom
-                                options={["Enviar Automáticamente"]}
+                                options={["Enviar automaticamente"]}
                                 onClickOptions={(e) => setEnviarAutomatico(e.target.checked)}
                                 check={enviarAutomatico}
                             />
@@ -134,7 +143,7 @@ export function MensagemPadraoCreate() {
 
                         {help &&
                             <div className="col-5 containerHelp">
-                                <TableHelp/>
+                                <TableHelp />
                             </div>
                         }
                     </div>
@@ -143,6 +152,7 @@ export function MensagemPadraoCreate() {
                             <Question size={36} color="#cf0209" />
                         </div>
                     </div>
+                    <LabelObrigatorio/>
                     <div className="row">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -150,7 +160,7 @@ export function MensagemPadraoCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Mensagem Padrão adicionada com " />
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

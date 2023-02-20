@@ -8,7 +8,7 @@ interface Props {
 
 export function ButtonConfirm({onCLick,isLoading}: Props) {
     return (
-        <ButtonConfirmMain onClick={onCLick}>
+        <ButtonConfirmMain onClick={ onCLick }>
             {isLoading ? 
                 <Spinner animation="border" size="sm" variant="secondary" />
                     :

@@ -2,12 +2,14 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState ,useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IMetodo } from "../../Interfaces/Metodo/IMetodo";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function MetodoEdit() {
 
@@ -37,7 +39,7 @@ export function MetodoEdit() {
         Init();
     }, []);
 
-    const data = {
+    const data: IMetodo = {
         id: idMetodo,
         descricao: descricao.trim(),
         quantidadeGotas: quantidadeGotas,
@@ -47,16 +49,11 @@ export function MetodoEdit() {
     async function submit() {
 
         setErro("")
+        setErroQtd("")
         setIsLoading(true);
 
         if (!descricao.trim()) {
-            setErro("Campo descrição é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if ((percentual == 0 && quantidadeGotas == 0)) {
-            setErroQtd("É obrigatório informar a quantidade de gotas ou o percentual !")
+            setErro("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
         }
@@ -85,7 +82,7 @@ export function MetodoEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR MÉTODO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Método" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -104,6 +101,7 @@ export function MetodoEdit() {
                             />
                         </div>
                     </div>
+                    <span className="text-danger-erro">{errorQdt}</span>
                     <div className="row">
                         <div className="col-2 mb-3">
                             <CustomInput
@@ -118,9 +116,9 @@ export function MetodoEdit() {
                             />
                         </div>
                         <div className="col-1 mt-4">
-                            <span>Ou %</span>
+                            <span className="span-porcentagem">Ou %</span>
                         </div>
-                        <div className="col-2 mb-3">
+                        <div className="col-2">
                             <CustomInput
                                 label="Percentual"
                                 type="number"
@@ -133,9 +131,7 @@ export function MetodoEdit() {
                             />
                         </div>
                     </div>
-                    <div className="col-auto">
-                        <p className="text-danger">{errorQdt}</p>
-                    </div>
+                    <LabelObrigatorio />
                     <div className="row">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -143,7 +139,7 @@ export function MetodoEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Método editado com " />
+                <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

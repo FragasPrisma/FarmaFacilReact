@@ -1,5 +1,5 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { useState, ChangeEvent } from 'react'
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
@@ -37,7 +37,7 @@ export let geralManipulacao = {
     amostragemDesPadraoRelat: "",
     amostragemQtdTeoricaMin: "",
     amostragemQtdTeoricaMax: "",
-    conclusaoOrdemManipulacao:0
+    conclusaoOrdemManipulacao: 0
 }
 
 export const TabGeralManipulacao = () => {
@@ -73,7 +73,7 @@ export const TabGeralManipulacao = () => {
     const [amostragemDesPadraoRelat, setAmostragemDesPadraoRelat] = useState("");
     const [amostragemQtdTeoricaMin, setAmostragemQtdTeoricaMin] = useState("");
     const [amostragemQtdTeoricaMax, setAmostragemQtdTeoricaMax] = useState("");
-    const [conclusaoOrdemManipulacao,setConclusaoOrdemManipulacao] = useState(0);
+    const [conclusaoOrdemManipulacao, setConclusaoOrdemManipulacao] = useState(0);
 
     geralManipulacao.previsaoEntregaHoras = previsaoEntregaHoras;
     geralManipulacao.formulasHoras = formulasHoras;

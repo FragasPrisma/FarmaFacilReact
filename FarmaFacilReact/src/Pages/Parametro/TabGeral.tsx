@@ -1,5 +1,5 @@
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { CustomInput } from "./../../Components/Inputs/CustomInput/index";
 
 export const TabGeral = () => {

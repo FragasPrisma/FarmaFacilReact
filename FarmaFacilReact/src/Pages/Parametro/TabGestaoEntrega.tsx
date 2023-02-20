@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom/index";
 
 const gestaoEntrega = {
@@ -17,12 +17,7 @@ export const TabGestaoEntrega = () => {
       <div className="row mt-4">
         <FieldsetCustom legend="Romaneio" numberCols={4}>
           <div className="col-12 mt-4">
-            <RadioCustom
-              options={["Jato de Tinta/Laser", "60 Colunas"]}
-              name="romaneio"
-              value={romaneio}
-              onClickOptions={(value, label) => setRomaneio(value)}
-            />
+            <CheckboxCustom options={["Jato de Tinta/Laser", "60 Colunas"]} />
           </div>
         </FieldsetCustom>
       </div>

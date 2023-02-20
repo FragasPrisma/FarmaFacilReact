@@ -3,12 +3,17 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
-import { postFormAll } from "../../Services/Api";
+import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
+import { IBanner } from "../../Interfaces/Banner/IBanner";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
 
 export function BannerCreate() {
 
@@ -20,24 +25,34 @@ export function BannerCreate() {
     const [link, setLink] = useState("");
     const [acaoLink, setAcaoLink] = useState(0);
     const [posicao, setPosicao] = useState(0);
-    const [dataInicio, setDataInicio] = useState(Date)
-    const [dataFim, setDataFim] = useState(Date)
+    const [dataInicio, setDataInicio] = useState("")
+    const [dataFim, setDataFim] = useState("")
     const [imagemBanner, setImagemBanner] = useState("");
-    const [imagem, setImagem] = useState("");
+    const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
+    const [ativo, setAtivo] = useState(false);
 
-    const [erroDescricao, setErroDescricao] = useState("");
-    const [erroLink, setErroLink] = useState("");
+    const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
     const [erroPosicao, setErroPosicao] = useState("");
     const [erroImagem, setErroImagem] = useState("");
-    const [erroDataInicial, setErroDataInicial] = useState("");
-    const [erroDataFim, setErroDataFim] = useState("");
-
     const [isLoading, setIsLoading] = useState(false);
+    const [banners, setBanners] = useState([] as IBanner[]);
 
-    const [imagemModel, setImagemModel] = useState("");
+    useEffect(() => {
 
-    const data = {
-        id: 0, //id 0 é default
+        const init = async () => {
+            const request = await getAll("listabanner");
+
+            if (request.status == 200) {
+                setBanners(request.data)
+            }
+        };
+
+        init();
+
+    }, [])
+
+    const data: IBanner = {
+        id: 0,
         descricao: descricao,
         link: link,
         acaoLink: acaoLink,
@@ -46,25 +61,31 @@ export function BannerCreate() {
         dataFim: dataFim,
         imagemBanner: imagemBanner,
         imagem: imagem,
-        ativo: true,
+        ativo: ativo,
         tipoDadoImagem: "",
         integrados: "",
         bannerMagentoId: 0
     };
 
+    function ValidString(texto: string, index: number) {
+        if (!texto.trim()) {
+            setErros({ erro: true, index: index, erroNome: "Campo de preenchimento obrigatório.", })
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     async function submit() {
 
-        setErroDescricao("");
+        setErros({ erro: false, index: 0, erroNome: "" });
         setIsLoading(true);
 
-        if (!descricao.trim()) {
-            setErroDescricao("Campo descrição é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!link.trim()) {
-            setErroLink("Campo link é obrigatório !")
+        if (!ValidString(descricao.trim(), 1)
+            || !ValidString(link.trim(), 2)
+            || !ValidString(dataInicio, 3)
+            || !ValidString(dataFim, 4)
+        ) {
             setIsLoading(false);
             return;
         }
@@ -75,20 +96,16 @@ export function BannerCreate() {
             return;
         }
 
-        if(!dataInicio.toString()){
-            setErroDataInicial("Campo data inicial é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-        console.log(dataFim)
-        if(!dataFim){
-            setErroDataFim("Campo data final é obrigatório !")
+        if (!imagem) {
+            setErroImagem("Selecione uma imagem !")
             setIsLoading(false);
             return;
         }
 
-        if (!imagem) {
-            setErroImagem("Selecione uma imagem !")
+        const banner = banners.filter(x => x.posicao == posicao);
+
+        if (banner.length > 0) {
+            setErroPosicao(`A posição informada já está sendo utilizada por outro banner!`)
             setIsLoading(false);
             return;
         }
@@ -109,34 +126,17 @@ export function BannerCreate() {
         }
     }
 
-    function openFile(e: ChangeEvent<HTMLInputElement>) {
+    const updateImgModel = (value: string | ArrayBuffer | null) => {
+        setImagem(value);
+    };
 
-        e.preventDefault();
-
-        if (e.target.files) {
-
-            var input = e.target.files[0];
-            var reader = new FileReader();
-
-            reader.onload = function () {
-
-                var dataURL = reader.result;
-
-                if (typeof (dataURL) === "string") {
-                    var index = dataURL.indexOf(',') + 1;
-                    var base64 = dataURL.slice(index);
-                    setImagemModel(dataURL)
-                    setImagem(base64)
-                }
-            };
-
-            reader.readAsDataURL(input);
-        }
+    const onDelete = () => {
+        setImagem("");
     }
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR BANNER" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Incluir Banner" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -147,7 +147,8 @@ export function BannerCreate() {
                                 placeholder="Digite a descrição"
                                 value={descricao}
                                 maxLength={100}
-                                erro={erroDescricao}
+                                erros={erros}
+                                index={1}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDescricao(e.target.value)
                                 }
@@ -164,7 +165,8 @@ export function BannerCreate() {
                                 placeholder="Digite o link"
                                 value={link}
                                 maxLength={100}
-                                erro={erroLink}
+                                erros={erros}
+                                index={2}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setLink(e.target.value)
                                 }
@@ -183,7 +185,7 @@ export function BannerCreate() {
                             />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row mb-4">
                         <div className="col-3">
                             <CustomInput
                                 label="Posição"
@@ -192,7 +194,7 @@ export function BannerCreate() {
                                 value={posicao}
                                 erro={erroPosicao}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setPosicao(parseInt(e.target.value))
+                                    setPosicao(MaxLengthNumber(999, parseInt(e.target.value)))
                                 }
                                 required={true}
                             />
@@ -201,7 +203,8 @@ export function BannerCreate() {
                             <CustomInput
                                 label="Data inicial"
                                 type="date"
-                                erro={erroDataInicial}
+                                erros={erros}
+                                index={3}
                                 value={dataInicio}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDataInicio(e.target.value)
@@ -214,7 +217,8 @@ export function BannerCreate() {
                                 label="Data final"
                                 type="date"
                                 value={dataFim}
-                                erro={erroDataFim}
+                                erros={erros}
+                                index={4}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDataFim(e.target.value)
                                 }
@@ -223,25 +227,20 @@ export function BannerCreate() {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
-                        <div className="col-auto">
-                            <span>Imagem do Banner</span>
-                            <span className="text-danger">*</span>
-                        </div>
+                    <UploadImagem onUpdate={updateImgModel} text="Selecione a imagem" requerid={true} onDelete={onDelete} />
+                    <div className="row mt-5">
                         <div className="col-3">
-                            <label htmlFor="arquivo" className="imgLabel">Clique Aqui!</label>
-                            <input
-                                type='file'
-                                className="imgInput"
-                                accept='image/*'
-                                id="arquivo"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => openFile(e)} />
+                            <CheckboxCustom
+                                options={["Banner ativo"]}
+                                check={ativo}
+                                onClickOptions={(check) => setAtivo(check.target.checked)}
+                            />
                         </div>
                     </div>
-                    <div className="row container-img border mt-2">
-                        <img src={imagemModel} />
-                        <span className="text-danger">{erroImagem}</span>
-                    </div>
+                    {erroImagem &&
+                        <p className="text-danger-erro">{erroImagem}</p>
+                    }
+                    <LabelObrigatorio />
                     <div className="row mt-3">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -249,7 +248,7 @@ export function BannerCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Banner adicionado com " />
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

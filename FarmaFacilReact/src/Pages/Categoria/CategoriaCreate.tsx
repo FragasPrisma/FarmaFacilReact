@@ -2,14 +2,15 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState , useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ICategoria } from "../../Interfaces/Categoria/ICategoria";
 
 export function CategoriaCreate() {
 
@@ -17,12 +18,12 @@ export function CategoriaCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const navigate = useNavigate();
     const [nome, setNome] = useState("");
-    const [categoriaPaiId, setCategoriaPaiId] = useState();
+    const [categoriaPaiId, setCategoriaPaiId] = useState(null);
     const [categoriaAtivo, setCategoriaAtivo] = useState(false);
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [categorias,setCategorias] = useState([]);
+    const [categorias, setCategorias] = useState([] as ICategoria []);
 
     useEffect(() => {
         const loadData = async () => {
@@ -33,8 +34,8 @@ export function CategoriaCreate() {
         loadData()
     }, []);
 
-    const data = {
-        id: 0, //id 0 é default
+    const data : ICategoria = {
+        id: 0,
         nome: nome.trim(),
         categoriaPaiId: categoriaPaiId,
         categoriaAtivo: categoriaAtivo,
@@ -42,7 +43,7 @@ export function CategoriaCreate() {
         categoriaMagentoId: null,
         integrados: false,
         excluidos: false,
-        alteradoPais: false
+        alteradoPais: false,
     };
 
     async function submit() {
@@ -52,10 +53,7 @@ export function CategoriaCreate() {
 
         if (!nome.trim()) {
             setIsOpenFail(true);
-            setTimeout(() => {
-                setIsOpenFail(false);
-                setErroNome("Campo nome é obrigatório !")
-            }, 2000)
+            setErroNome("Campo nome é obrigatório !")
             setIsLoading(false);
             return;
         }
@@ -99,12 +97,12 @@ export function CategoriaCreate() {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <CustomDropDown 
-                            data={categorias} 
-                            title="Selecione a Categoria Pai" 
-                            filter="nome" 
-                            label="Categoria Pai" 
-                            Select={(categoriaPaiId) => setCategoriaPaiId(categoriaPaiId)} />
+                            <CustomDropDown
+                                data={categorias}
+                                title="Selecione a Categoria Pai"
+                                filter="nome"
+                                label="Categoria Pai"
+                                Select={(categoriaPaiId) => setCategoriaPaiId(categoriaPaiId)} />
                         </div>
                     </div>
                     <div className="row">

@@ -3,11 +3,12 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
-import { GetId, postFormAll } from "../../Services/Api";
+import { getAll, GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IEspecialidadeCapsula } from "../../Interfaces/EspecificacaoCapsula/IEspecificacaoCapsula";
 
 export function EspecificacaoEdit() {
 
@@ -20,6 +21,7 @@ export function EspecificacaoEdit() {
     const [erroPrioridade, setErroPrioridade] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [idEspecificacao, setEspecificacaoId] = useState(0);
+    const [especificaoCapsulas, setEspecificacaoCapsulas] = useState([] as IEspecialidadeCapsula[])
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -32,9 +34,25 @@ export function EspecificacaoEdit() {
             setDescricao(response.data.descricao);
             setPrioridade(response.data.prioridade)
         }
-
+        const loadData = async () => {
+            const response = await getAll("ListaEspecificacaoCapsula");
+            setEspecificacaoCapsulas(response.data);
+        }
+        loadData()
         Init()
     }, [])
+
+    function ValidPrioridade(value : number){
+        let arrayValid = especificaoCapsulas.filter(x => x.prioridade == value && x.id != idEspecificacao);
+
+        if(arrayValid.length > 0){
+            setErroPrioridade("Prioridade inválida !")
+        }else{
+            setErroPrioridade("")
+        }
+
+        setPrioridade(value)
+    }
 
     const data = {
         id: idEspecificacao,
@@ -45,7 +63,6 @@ export function EspecificacaoEdit() {
     async function submit() {
 
         setErroDescricao("");
-        setErroPrioridade("");
         setIsLoading(true);
 
         if (!descricao.trim()) {
@@ -54,8 +71,7 @@ export function EspecificacaoEdit() {
             return;
         }
 
-        if (!prioridade) {
-            setErroPrioridade("Campo prioridade é obrigatório !")
+        if (erroPrioridade) {
             setIsLoading(false);
             return;
         }
@@ -107,7 +123,7 @@ export function EspecificacaoEdit() {
                                     value={prioridade}
                                     erro={erroPrioridade}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                        setPrioridade(parseInt(e.target.value))
+                                        ValidPrioridade(parseInt(e.target.value))
                                     }
                                     required={true}
                                 />

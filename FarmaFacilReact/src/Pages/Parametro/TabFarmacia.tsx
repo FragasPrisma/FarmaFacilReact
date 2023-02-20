@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
-import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { Container } from "./styles";
 
 export const TabFarmacia = () => {

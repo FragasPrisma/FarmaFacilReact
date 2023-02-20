@@ -10,7 +10,9 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
+import { IFormaPagamento } from "../../Interfaces/FormaPagamento/IFormaPagamento";
 
 export function FormaPagamentoEdit() {
 
@@ -22,12 +24,12 @@ export function FormaPagamentoEdit() {
     const [tipoPagamento, setTipoPagamento] = useState(0);
     const [autorizarDescontos, setAutorizarDescontos] = useState(0);
     const [conciliacao, setConciliacao] = useState(false);
-    const [planoDeContaId, setPlanoDeContaId] = useState();
+    const [planoDeContaId, setPlanoDeContaId] = useState(null);
 
     const [erroDescricao, setErroDescricao] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [planoDeContas, setPlanoDeContas] = useState([]);
+    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta[]);
     const [descricaoPLanoDeContas, setDescricaoPLanoDeContas] = useState("");
 
     const { id } = useParams();
@@ -61,7 +63,7 @@ export function FormaPagamentoEdit() {
         loadDataPlanoDeContas()
     }, []);
 
-    const data = {
+    const data: IFormaPagamento = {
         id: idFormaPagamento,
         descricao: descricao,
         tipoPagamento: tipoPagamento,
@@ -161,11 +163,13 @@ export function FormaPagamentoEdit() {
                                         onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConciliacao(e.target.checked)}
                                     />
                                     <div className="col-12">
-                                        {descricaoPLanoDeContas ?
-                                            <CustomDropDown data={planoDeContas} title={descricaoPLanoDeContas} filter="descricao" label="PLano de Contas" Select={(Id) => setPlanoDeContaId(Id)} />
-                                            :
-                                            <CustomDropDown data={planoDeContas} title="Selecione o Plano de Conta" filter="descricao" label="PLano de Contas" Select={(Id) => setPlanoDeContaId(Id)} />
-                                        }
+                                        <CustomDropDown
+                                            data={planoDeContas.filter(x => x.nivelConta == 1 || x.nivelConta == 3)}
+                                            title={descricaoPLanoDeContas ? descricaoPLanoDeContas : "Selecione o Plano de Conta"}
+                                            filter="descricao"
+                                            label="PLano de Contas"
+                                            Select={(Id) => setPlanoDeContaId(Id)}
+                                        />
                                     </div>
                                 </div>
 
@@ -179,7 +183,7 @@ export function FormaPagamentoEdit() {
                         <ButtonCancel to="formadepagamento" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} textCustom="Forma de Pagamento editada com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Forma de Pagamento editada com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

@@ -1,14 +1,13 @@
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { IContaCorrente } from "../../Interfaces/ContaCorrente/IContaCorrente";
 export function ContaCorrenteDetails() {
 
-  const [nome, setNome] = useState("");
-  const [numeroConta,setNumeroConta] = useState("");
-  const [limite,setLimite] = useState(Number);
+  const [contaCorrenteModel, setContaCorrentemodel] = useState({} as IContaCorrente);
 
   const { id } = useParams();
   let idParams = !id ? "0" : id.toString();
@@ -16,9 +15,7 @@ export function ContaCorrenteDetails() {
   useEffect(() => {
     async function Init() {
       const response = await GetId("RetornaContaCorrentePorId", idParams);
-      setNome(response.data.nome);
-      setNumeroConta(response.data.numeroConta)
-      setLimite(response.data.limite)
+      setContaCorrentemodel(response.data);
     }
 
     Init();
@@ -28,39 +25,41 @@ export function ContaCorrenteDetails() {
     <>
       <HeaderMainContent title="DETALHES CONTA CORRENTE" IncludeButton={false} ReturnButton={true} to="contacorrente" />
       <div className="form-group">
-        <Container>
-          <div className="row">
-            <div className="col-6 mb-3">
-              <CustomInput
-                label="Nome"
-                type="text"
-                value={nome}
-                readonly={true}
-                required={true}
-              />
+        {contaCorrenteModel.id > 0 &&
+          <Container>
+            <div className="row">
+              <div className="col-6 mb-3">
+                <CustomInput
+                  label="Nome"
+                  type="text"
+                  value={contaCorrenteModel.nome}
+                  readonly={true}
+                  required={true}
+                />
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-4">
-              <CustomInput
-                label="Número da Conta"
-                type="text"
-                value={numeroConta}
-                readonly={true}
-                required={true}
-              />
+            <div className="row">
+              <div className="col-4">
+                <CustomInput
+                  label="Número da Conta"
+                  type="text"
+                  value={contaCorrenteModel.numeroConta}
+                  readonly={true}
+                  required={true}
+                />
+              </div>
+              <div className="col-2">
+                <CustomInput
+                  label="Limite"
+                  type="number"
+                  value={contaCorrenteModel.limite}
+                  required={false}
+                  readonly={true}
+                />
+              </div>
             </div>
-            <div className="col-2">
-              <CustomInput
-                label="Limite"
-                type="number"
-                value={limite}
-                required={false}
-                readonly={true}
-              />
-            </div>
-          </div>
-        </Container>
+          </Container>
+        }
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { CustomInput } from "./../../Components/Inputs/CustomInput";
 import { FieldsetCustom } from "./../../Components/Others/FieldsetCustom";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 
 export const TabConvenios = () => {
   return (

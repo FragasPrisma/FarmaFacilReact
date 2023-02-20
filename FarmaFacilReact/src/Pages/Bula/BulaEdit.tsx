@@ -1,22 +1,23 @@
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState , useEffect , ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { IBula } from "../../Interfaces/Bula/IBula";
 
 export function BulaEdit() {
 
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [idBula,setId] = useState(0);
+    const [idBula, setId] = useState(0);
     const [descricao, setDescricao] = useState("");
     const [limitacaoVisual, setLimitacaoVisual] = useState(false);
     const [tipo, setTipo] = useState(0);
@@ -33,12 +34,13 @@ export function BulaEdit() {
             setId(response.data.id);
             setDescricao(response.data.descricao);
             setLimitacaoVisual(response.data.limitacaoVisual)
-            setTipo(response.data.tipo)}
+            setTipo(response.data.tipo)
+        }
 
         Init();
     }, []);
 
-    const data = {
+    const data : IBula = {
         id: idBula,
         descricao: descricao.trim(),
         limitacaoVisual: limitacaoVisual,
@@ -88,7 +90,7 @@ export function BulaEdit() {
                         <div className="col-3">
                             <RadioCustom
                                 name="tipo"
-                                options={["Alopática","Homeopática"]}
+                                options={["Alopática", "Homeopática"]}
                                 value={tipo}
                                 titleComponet="Tipo de Bula"
                                 onClickOptions={(select) => setTipo(select)}

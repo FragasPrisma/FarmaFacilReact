@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from 'react-router-dom';
+import { IEspecialidade } from "../../Interfaces/Especialidade/IEspecialidade";
 
 export function EspecialidadeDetails() {
-    const [descricao, setDescricao] = useState("");
+    const [especialidadeModel, setEspecialidadeModel] = useState({} as IEspecialidade);
     const { id } = useParams();
 
     let idParams = !id ? "0" : id.toString();
@@ -16,7 +17,7 @@ export function EspecialidadeDetails() {
         async function Init() {
             const response = await GetId("RetornaEspecialidadePorId", idParams);
             if (response.status == 200) {
-                setDescricao(response.data.descricao);
+                setEspecialidadeModel(response.data);
             }
         }
 
@@ -33,7 +34,7 @@ export function EspecialidadeDetails() {
                             <CustomInput
                                 label="Descrição"
                                 type="text"
-                                value={descricao}
+                                value={especialidadeModel.descricao}
                                 required={true}
                                 readonly={true}
                             />

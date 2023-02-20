@@ -5,11 +5,11 @@ interface ISelect {
   options: string[];
   name: string;
   onClickOptions?: (options: number, label: string) => void ;
-  value: number;
+  value: number | null;
   readonly?:boolean
 }
 
-export function RadioCustom({ titleComponet, options, name, onClickOptions, value,readonly}: ISelect) {
+export function RadioCustom({ titleComponet, options, name, onClickOptions, value, readonly}: ISelect) {
 
   function ReloadOption(option:number, label:string){
     if (onClickOptions) {

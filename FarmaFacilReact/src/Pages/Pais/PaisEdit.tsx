@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IPais } from "../../Interfaces/Pais/IPais";
 
 export function PaisEdit() {
 
@@ -37,7 +38,7 @@ export function PaisEdit() {
     Init();
   }, []);
 
-  const data = {
+  const data : IPais = {
     id: idPais, 
     nome: nome.trim(),
     codigoIbge:codigoIbge,

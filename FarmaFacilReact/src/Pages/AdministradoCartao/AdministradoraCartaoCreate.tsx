@@ -10,7 +10,8 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IAdministradoCartao } from "../../Interfaces/AdministradoCartao/IAdministradoCartao";
 
 export function AdministradoraCartaoCreate() {
 
@@ -25,11 +26,11 @@ export function AdministradoraCartaoCreate() {
     const [cieloPremia, setCieloPremia] = useState(-1);
     const [modalidade, setmodalidade] = useState(0);
     const [ativo, setAtivo] = useState(false);
-    const [fornecedorId, setFornecedorId] = useState();
-    const [planoDeContaId, setPlanoDeConta] = useState();
+    const [fornecedorId, setFornecedorId] = useState(null);
+    const [planoDeContaId, setPlanoDeConta] = useState(null);
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [erro,setErro] = useState("");
+    const [erro, setErro] = useState("");
 
     const [fornecedores, setFornecedores] = useState([]);
     const [planoDeContas, setPlanoDeContas] = useState([]);
@@ -49,8 +50,8 @@ export function AdministradoraCartaoCreate() {
         }
         loadDataPlanoDeContas()
     }, []);
-    
-    const data = {
+
+    const data : IAdministradoCartao = {
         id: 0,
         nome: nome,
         prazoRecebimento: prazoDeRecebimento,
@@ -74,13 +75,13 @@ export function AdministradoraCartaoCreate() {
             return;
         }
 
-        if(gerenciador < 0){
+        if (gerenciador < 0) {
             setErro("Gerenciador TEF é obrigatório !")
             setIsLoading(false);
             return;
         }
 
-        if(modalidade < 0){
+        if (modalidade < 0) {
             setErro("Modalidade é obrigatório !")
             setIsLoading(false);
             return;
@@ -216,7 +217,7 @@ export function AdministradoraCartaoCreate() {
                         <ButtonCancel to="administradoradecartao" />
                     </div>
                 </div>
-                <SuccessModal show={isOpenSuccess} textCustom="Administrado de Cartão adiciona com "/>
+                <SuccessModal show={isOpenSuccess} textCustom="Administrado de Cartão adiciona com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

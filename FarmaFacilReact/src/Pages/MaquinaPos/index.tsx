@@ -30,7 +30,8 @@ export function MaquinaPos() {
         text="Máquina Pós"
         data={data}
         filter={"descricao"}
-        headerTable={["id", "descricao", "serialPos", "adquirentePosId"]}
+        headerTable={["id", "descricao", "serialPos"]}
+        headerTableView={["ID", "Descrição", "Serial PÓS"]}
       />
       <Paginations
         pagina={pagina}

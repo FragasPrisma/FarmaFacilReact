@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IPortador } from "../../Interfaces/Portador/IPortador";
 
 export function PortadorDetails() {
 
-    const [nome, setNome] = useState("");
-    const [portadorInativo, setPortadorInativo] = useState(false);
+    const [portadorModel, setPortadorModel] = useState({} as IPortador);
 
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
@@ -17,8 +17,7 @@ export function PortadorDetails() {
     useEffect(() => {
         async function Init() {
             const response = await GetId("RetornaPortadorPorId", idParams);
-            setNome(response.data.nome);
-            setPortadorInativo(response.data.portadorInativo)
+            setPortadorModel(response.data);
         }
 
         Init();
@@ -35,7 +34,7 @@ export function PortadorDetails() {
                                 label="Nome"
                                 type="text"
                                 readonly={true}
-                                value={nome}
+                                value={portadorModel.nome}
                                 required={true}
                             />
                         </div>
@@ -44,7 +43,7 @@ export function PortadorDetails() {
                         <div className="col-2 mb-3">
                             <CheckboxCustom
                                 options={["Portador Inativo"]}
-                                check={portadorInativo}
+                                check={portadorModel.portadorInativo}
                                 readOnly={true}
                             />
                         </div>

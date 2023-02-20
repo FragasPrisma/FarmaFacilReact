@@ -9,6 +9,7 @@ import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
+import { IEtapa } from "../../Interfaces/Etapa/IEtapa";
 
 export function EtapaCreate() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ export function EtapaCreate() {
     const [erroSequencia, setErroSequencia] = useState("");
     const [erroTipo, setErroTipo] = useState("");
 
-    const data = {
+    const data : IEtapa = {
         id: 0,
         descricao: descricao.trim(),
         sequencia: sequencia,

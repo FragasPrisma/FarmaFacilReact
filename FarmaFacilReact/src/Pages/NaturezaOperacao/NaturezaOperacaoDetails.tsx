@@ -4,24 +4,13 @@ import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import { GetId } from "../../Services/Api";
 import { useParams } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
+import { INaturezaOperacao } from "../../Interfaces/NaturezaOperacao/INaturezaOperacao";
 
 export function NaturezaOperacaoDetails() {
 
-    const [idNaturezaOperacao, setId] = useState(0);
-    const [codigo, setCodigo] = useState(0);
-    const [descricao, setDescricao] = useState("");
-    const [tipo, setTipo] = useState(0);
-    const [exportarSintegra, setExportarSintegra] = useState(false);
-    const [observacao, setObservacao] = useState("");
-    const [exibeDocumentoReferenciado, setExibeDocumentoReferenciado] = useState(false);
-    const [considerarCfopCreditoIcms, setConsiderarCfopCreditoIcms] = useState(false);
-    const [naoInsidePis, setNaoInsidePis] = useState(false);
-    const [naoInsideCofins, setNaoInsideCofins] = useState(false);
-    const [naoInsideIcms, setNaoInsideIcms] = useState(false);
-    const [cfopDevolucao, setCfopDevolucao] = useState(false);
-    const [cfopSubstituicaoTributaria, setCfopSubstituicaoTributaria] = useState(false);
+    const [naturezaOperacaoModel, setNaturezaOperacaoModel] = useState({} as INaturezaOperacao);
 
     const [nomeCst, setNomeCst] = useState("");
     const [nomeCsosn, setNomeCsosn] = useState("");
@@ -38,19 +27,7 @@ export function NaturezaOperacaoDetails() {
             const response = await GetId("RetornaNaturezaDeOperacaoPorId", idParams);
             if (response.status == 200) {
 
-                setId(response.data.id);
-                setCodigo(response.data.codigo)
-                setDescricao(response.data.descricao)
-                setObservacao(response.data.observacao)
-                setTipo(response.data.tipo)
-                setExportarSintegra(response.data.exportarSintegra)
-                setExibeDocumentoReferenciado(response.data.exibeDocumentoReferenciado)
-                setConsiderarCfopCreditoIcms(response.data.considerarCfopCreditoIcms)
-                setNaoInsidePis(response.data.naoInsidePis)
-                setNaoInsideCofins(response.data.naoInsideCofins)
-                setNaoInsideIcms(response.data.naoInsideIcms)
-                setCfopDevolucao(response.data.cfopDevolucao)
-                setCfopSubstituicaoTributaria(response.data.cfopSubstituicaoTributaria)
+                setNaturezaOperacaoModel(response.data);
 
                 if (response.data.planoDeConta) { setNomePlanoDeContas(response.data.planoDeConta.descricao) }
                 if (response.data.cst) { setNomeCst(response.data.cst.descricao) }
@@ -70,14 +47,14 @@ export function NaturezaOperacaoDetails() {
                 to="naturezadeoperacao"
             />
             <div className="form-group">
-                {idNaturezaOperacao > 0 &&
+                {naturezaOperacaoModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-2">
                                 <CustomInput
                                     label="Código"
                                     type="number"
-                                    value={codigo}
+                                    value={naturezaOperacaoModel.codigo}
                                     readonly={true}
                                     required={true}
                                 />
@@ -88,7 +65,7 @@ export function NaturezaOperacaoDetails() {
                                 <CustomInput
                                     label="Descrição"
                                     type="text"
-                                    value={descricao}
+                                    value={naturezaOperacaoModel.descricao}
                                     readonly={true}
                                     required={true}
                                 />
@@ -99,7 +76,7 @@ export function NaturezaOperacaoDetails() {
                                 <CustomInput
                                     label="Observação"
                                     type="text"
-                                    value={observacao}
+                                    value={naturezaOperacaoModel.observacao}
                                     readonly={true}
                                     required={false}
                                 />
@@ -116,7 +93,7 @@ export function NaturezaOperacaoDetails() {
                                     ]}
                                     name="tipo"
                                     readonly={true}
-                                    value={tipo}
+                                    value={naturezaOperacaoModel.tipo}
                                 />
                             </div>
 
@@ -127,7 +104,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "Exige documento referenciado"
                                 ]}
-                                    check={exibeDocumentoReferenciado}
+                                    check={naturezaOperacaoModel.exibeDocumentoReferenciado}
                                     readOnly={true}
                                 />
                             </div>
@@ -135,7 +112,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "Exportar Sintegra"
                                 ]}
-                                    check={exportarSintegra}
+                                    check={naturezaOperacaoModel.exportarSintegra}
                                     readOnly={true}
                                 />
                             </div>
@@ -147,7 +124,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "Considerar CFOP no crédito do ICMS"
                                 ]}
-                                    check={considerarCfopCreditoIcms}
+                                    check={naturezaOperacaoModel.considerarCfopCreditoIcms}
                                     readOnly={true}
                                 />
                             </div>
@@ -155,7 +132,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "Não incide PIS"
                                 ]}
-                                    check={naoInsidePis}
+                                    check={naturezaOperacaoModel.naoInsidePis}
                                     readOnly={true}
                                 />
                             </div>
@@ -166,7 +143,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "Não incide COFINS"
                                 ]}
-                                    check={naoInsideCofins}
+                                    check={naturezaOperacaoModel.naoInsideCofins}
                                     readOnly={true}
                                 />
                             </div>
@@ -174,7 +151,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "Não incide ICMS"
                                 ]}
-                                    check={naoInsideIcms}
+                                    check={naturezaOperacaoModel.naoInsideIcms}
                                     readOnly={true}
                                 />
                             </div>
@@ -185,7 +162,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "CFOP de devolução"
                                 ]}
-                                    check={cfopDevolucao}
+                                    check={naturezaOperacaoModel.cfopDevolucao}
                                     readOnly={true}
                                 />
                             </div>
@@ -193,7 +170,7 @@ export function NaturezaOperacaoDetails() {
                                 <CheckboxCustom options={[
                                     "CFOP Substituição tributária"
                                 ]}
-                                    check={cfopSubstituicaoTributaria}
+                                    check={naturezaOperacaoModel.cfopSubstituicaoTributaria}
                                     readOnly={true}
                                 />
                             </div>

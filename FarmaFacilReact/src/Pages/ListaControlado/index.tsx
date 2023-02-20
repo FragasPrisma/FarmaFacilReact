@@ -4,8 +4,8 @@ import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
 
-export function ListaControlado(){
-    const [pagina,setPagina] = useState(1);
+export function ListaControlado() {
+    const [pagina, setPagina] = useState(1);
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
@@ -21,9 +21,9 @@ export function ListaControlado(){
 
     return (
         <>
-            <HeaderMainContent title="LISTA CONTROLADO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Lista Controlado" data={data} filter={"codigo"} headerTable={["codigo", "descricao"]}/>
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
+            <HeaderMainContent title="LISTA CONTROLADO" IncludeButton={true} ReturnButton={false} />
+            <SearchContentScreens text="Lista Controlado" data={data} filter={"codigo"} headerTable={["codigo", "descricao"]} headerTableView={["Código", "Descrição"]} />
+            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

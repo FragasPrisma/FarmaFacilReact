@@ -8,9 +8,10 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { CheckboxCustom } from "./../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { CustomDropDown } from "./../../Components/Inputs/CustomDropDown/index";
 import { RadioCustom } from "./../../Components/Inputs/RadioCustom/index";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
 
 export function TributoCreate() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export function TributoCreate() {
   const [tipoTributo, setTipoTributo] = useState(0);
   const [tipoTributoLabel, setTipoTributoLabel] = useState("");
 
-  const data = {
+  const data : ITributo = {
     id: 0,
     tipoTributo: tipoTributo,
     descricao: descricao.trim(),

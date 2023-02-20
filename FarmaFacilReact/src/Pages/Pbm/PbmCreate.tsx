@@ -8,6 +8,8 @@ import { postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
+import { IPbm } from "../../Interfaces/Pbm/IPbm";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function PbmCreate() {
   const navigate = useNavigate();
@@ -19,8 +21,8 @@ export function PbmCreate() {
   const [erroNome, setErroNome] = useState("");
   
 
-  const data = {
-    id: 0, //id 0 é default
+  const data : IPbm = {
+    id: 0,
     nome: nome.trim(),
     observacao: observacao.trim(),
   };
@@ -33,7 +35,7 @@ export function PbmCreate() {
       setIsLoading(false);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome("Campo nome é obrigatório !")
+        setErroNome("Campo de preenchimento obrigatório.")
       }, 2000)
       return;
     }
@@ -55,7 +57,7 @@ export function PbmCreate() {
 
   return (
     <>
-      <HeaderMainContent title="ADICIONAR PBM" IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent title="Incluir PBM" IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">
@@ -63,7 +65,7 @@ export function PbmCreate() {
               <CustomInput
                 label="Nome"
                 type="text"
-                placeholder="Digite o nome do Pbm"
+                placeholder="Digite o nome do PBM"
                 value={nome}
                 maxLength={50}
                 erro={erroNome}
@@ -78,8 +80,8 @@ export function PbmCreate() {
             <div className="col-6">
               <CustomInput
                 label="Observação"
-                type="textarea"
-                placeholder="Digite uma descrição para o Pbm"
+                type="text"
+                placeholder="Digite uma descrição para o PBM"
                 value={observacao}
                 maxLength={150}
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -89,6 +91,7 @@ export function PbmCreate() {
               />
             </div>
           </div>
+          <LabelObrigatorio/>
           <div className="row">
             <div className="col-6 mt-2">
               <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
@@ -96,7 +99,7 @@ export function PbmCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="PBM adicionado com "/>
+        <SuccessModal show={isOpenSuccess}/>
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

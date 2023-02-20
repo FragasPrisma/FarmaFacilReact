@@ -32,6 +32,14 @@ export const ContainerInput = styled.div`
         display: flex;
         background-color: #ECECEC;
     }
+    .text-danger-erro{
+        color: #cf0209;
+        font-size: .9rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
 `
 
 export const LabelRequired = styled.label`

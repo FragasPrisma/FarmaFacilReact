@@ -3,12 +3,16 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
-import { GetId, postFormAll } from "../../Services/Api";
+import { getAll, GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem";
+import { IBanner } from "../../Interfaces/Banner/IBanner";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function BannerEdit() {
 
@@ -21,23 +25,31 @@ export function BannerEdit() {
     const [link, setLink] = useState("");
     const [acaoLink, setAcaoLink] = useState(0);
     const [posicao, setPosicao] = useState(0);
-    const [dataInicio, setDataInicio] = useState(Date)
-    const [dataFim, setDataFim] = useState(Date)
+    const [dataInicio, setDataInicio] = useState("")
+    const [dataFim, setDataFim] = useState("")
     const [imagemBanner, setImagemBanner] = useState("");
-    const [imagem, setImagem] = useState("");
-
-    const [erroDescricao, setErroDescricao] = useState("");
-    const [erroLink, setErroLink] = useState("");
+    const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
     const [erroPosicao, setErroPosicao] = useState("");
     const [erroImagem, setErroImagem] = useState("");
-    const [erroDataInicial, setErroDataInicial] = useState("");
-    const [erroDataFim, setErroDataFim] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [ativo, setAtivo] = useState(false);
+    const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
+    const [banners, setBanners] = useState([] as IBanner[]);
 
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
 
     useEffect(() => {
+
+        const initBanners = async () => {
+            const request = await getAll("listabanner");
+
+            if (request.status == 200) {
+                setBanners(request.data)
+            }
+        };
+
+        initBanners();
 
         async function Init() {
             const response = await GetId("RetornaBannerPorId", idParams);
@@ -49,13 +61,13 @@ export function BannerEdit() {
             setPosicao(response.data.posicao);
             setDataInicio(response.data.dataInicio.slice(0, 10));
             setDataFim(response.data.dataFim.slice(0, 10));
-            setImagem(response.data.imagem);
+            setImagem("data:image/png;base64," + response.data.imagem);
         }
 
         Init()
     }, [])
 
-    const data = {
+    const data: IBanner = {
         id: idBanner,
         descricao: descricao,
         link: link,
@@ -65,25 +77,32 @@ export function BannerEdit() {
         dataFim: dataFim,
         imagemBanner: imagemBanner,
         imagem: imagem,
-        ativo: true,
+        ativo: ativo,
         tipoDadoImagem: "",
         integrados: "",
         bannerMagentoId: 0
     };
 
+    function ValidString(texto: string, index: number) {
+        if (!texto.trim()) {
+            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     async function submit() {
 
-        setErroDescricao("");
+        setErros({ erro: false, index: 0, erroNome: "" });
         setIsLoading(true);
+        console.log(data)
 
-        if (!descricao.trim()) {
-            setErroDescricao("Campo descrição é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if (!link.trim()) {
-            setErroLink("Campo link é obrigatório !")
+        if (!ValidString(descricao.trim(), 1)
+            || !ValidString(link.trim(), 2)
+            || !ValidString(dataInicio, 3)
+            || !ValidString(dataFim, 4)
+        ) {
             setIsLoading(false);
             return;
         }
@@ -94,23 +113,25 @@ export function BannerEdit() {
             return;
         }
 
-        if(!dataInicio){
-            setErroDataInicial("Campo data inicial é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
-        if(!dataFim){
-            setErroDataFim("Campo data final é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
-
         if (!imagem) {
             setErroImagem("Selecione uma imagem !")
             setIsLoading(false);
             return;
         }
+
+        const banner = banners.filter(x => x.posicao == posicao && x.id != idBanner);
+
+        if (banner.length > 0) {
+            setErroPosicao(`A posição informada já está sendo utilizada por outro banner!`)
+            setIsLoading(false);
+            return;
+        }
+
+        var index = typeof imagem == "string" ? imagem.indexOf(',') + 1 : 0;
+
+        var base64 = typeof imagem == "string" ? imagem.slice(index) : "";
+
+        data.imagem = base64;
 
         const resp = await postFormAll("EditarBanner", data);
 
@@ -128,33 +149,17 @@ export function BannerEdit() {
         }
     }
 
-    function openFile(e: ChangeEvent<HTMLInputElement>) {
+    const updateImgModel = (value: string | ArrayBuffer | null) => {
+        setImagem(value);
+    };
 
-        e.preventDefault();
-
-        if (e.target.files) {
-
-            var input = e.target.files[0];
-            var reader = new FileReader();
-
-            reader.onload = function () {
-
-                var dataURL = reader.result;
-
-                if (typeof (dataURL) === "string") {
-                    var index = dataURL.indexOf(',') + 1;
-                    var base64 = dataURL.slice(index);
-                    setImagem(base64)
-                }
-            };
-
-            reader.readAsDataURL(input);
-        }
+    const onDelete = () => {
+        setImagem("");
     }
 
     return (
         <>
-            <HeaderMainContent title="EDITAR BANNER" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Banner" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {idBanner > 0 &&
                     <Container>
@@ -166,7 +171,8 @@ export function BannerEdit() {
                                     placeholder="Digite a descrição"
                                     value={descricao}
                                     maxLength={100}
-                                    erro={erroDescricao}
+                                    erros={erros}
+                                    index={1}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDescricao(e.target.value)
                                     }
@@ -183,7 +189,8 @@ export function BannerEdit() {
                                     placeholder="Digite o link"
                                     value={link}
                                     maxLength={100}
-                                    erro={erroLink}
+                                    erros={erros}
+                                    index={2}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setLink(e.target.value)
                                     }
@@ -202,7 +209,7 @@ export function BannerEdit() {
                                 />
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row mb-3">
                             <div className="col-3">
                                 <CustomInput
                                     label="Posição"
@@ -220,8 +227,9 @@ export function BannerEdit() {
                                 <CustomInput
                                     label="Data inicial"
                                     type="date"
+                                    erros={erros}
+                                    index={3}
                                     value={dataInicio}
-                                    erro={erroDataInicial}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDataInicio(e.target.value)
                                     }
@@ -233,7 +241,8 @@ export function BannerEdit() {
                                     label="Data final"
                                     type="date"
                                     value={dataFim}
-                                    erro={erroDataFim}
+                                    erros={erros}
+                                    index={4}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDataFim(e.target.value)
                                     }
@@ -242,25 +251,20 @@ export function BannerEdit() {
                             </div>
                         </div>
 
-                        <div className="row mt-3">
-                            <div className="col-auto">
-                                <span>Imagem do Banner</span>
-                                <span className="text-danger">*</span>
-                            </div>
+                        <UploadImagem onUpdate={updateImgModel} text="Selecione a imagem" img={imagem ? imagem : ""} requerid={true} onDelete={onDelete} />
+                        <div className="row mt-5">
                             <div className="col-3">
-                                <label htmlFor="arquivo" className="imgLabel">Clique Aqui!</label>
-                                <input
-                                    type='file'
-                                    className="imgInput"
-                                    accept='image/*'
-                                    id="arquivo"
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => openFile(e)} />
+                                <CheckboxCustom
+                                    options={["Banner ativo"]}
+                                    check={ativo}
+                                    onClickOptions={(check) => setAtivo(check.target.checked)}
+                                />
                             </div>
                         </div>
-                        <div className="row container-img border mt-2">
-                            <img src={imagem && "data:image/png;base64," + imagem} />
-                            <span className="text-danger">{erroImagem}</span>
-                        </div>
+                        {erroImagem &&
+                            <p className="text-danger-erro">{erroImagem}</p>
+                        }
+                        <LabelObrigatorio/>
                         <div className="row mt-3">
                             <div className="col-6">
                                 <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -269,7 +273,7 @@ export function BannerEdit() {
                         </div>
                     </Container>
                 }
-                <SuccessModal show={isOpenSuccess} textCustom="Banner editado com " />
+                <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

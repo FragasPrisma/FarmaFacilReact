@@ -9,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
 
 export function TributoEdit() {
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
@@ -17,13 +18,19 @@ export function TributoEdit() {
   const [erroNome, setErroNome] = useState("");
   const [tributoId, setTributoId] = useState(0);
   const { id } = useParams();
-  const [data] = useState({ id: 0, tipoTributo: 0, codigo: "", descricao: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   const [descricao, setDescricao] = useState("");
   const [codigo, setCodigo] = useState("");
   const [tipoTributo, setTipoTributo] = useState(0);
   const [tipoTributoLabel, setTipoTributoLabel] = useState("");
+
+  let data: ITributo = {
+    id: tributoId,
+    codigo: codigo,
+    descricao: descricao,
+    tipoTributo: tipoTributo
+  }
 
   let idParams = !id ? "0" : id.toString();
 

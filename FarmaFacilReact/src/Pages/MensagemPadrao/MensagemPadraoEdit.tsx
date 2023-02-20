@@ -2,17 +2,19 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState ,useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { Question } from "phosphor-react";
 import { Table } from "react-bootstrap";
 import { TableHelp } from "./TableHelp";
+import { IMensagemPadrao } from "../../Interfaces/MensagemPadrao/IMensagemPadrao";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 
 export function MensagemPadraoEdit() {
 
@@ -27,7 +29,7 @@ export function MensagemPadraoEdit() {
     const [erroMensagem, setErroMensagem] = useState("");
     const [help, setHelp] = useState(false);
     const [colunas, setColunas] = useState(112)
-    const [idMensagem,setId] = useState(0);
+    const [idMensagem, setId] = useState(0);
     const navigate = useNavigate();
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
@@ -47,7 +49,7 @@ export function MensagemPadraoEdit() {
 
 
 
-    const data = {
+    const data : IMensagemPadrao = {
         id: idMensagem,
         statusDescricao: statusDescricao.trim(),
         mensagem: mensagem.trim(),
@@ -71,14 +73,22 @@ export function MensagemPadraoEdit() {
         setIsLoading(true);
 
         if (!statusDescricao.trim()) {
-            setErroStatus("Campo status é obrigatório !")
+            setErroStatus("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
         if (!mensagem.trim()) {
-            setErroMensagem("Campo mensagem é obrigatório !")
+            setErroMensagem("Campo de preenchimento obrigatório.")
+            setIsOpenFail(true);
             setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
             return;
         }
 
@@ -100,7 +110,7 @@ export function MensagemPadraoEdit() {
 
     return (
         <>
-            <HeaderMainContent title="EDITAR MENSAGEM PADRÃO" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Editar Mensagem Padrão" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
@@ -118,16 +128,16 @@ export function MensagemPadraoEdit() {
                                 required={true}
                             />
                         </div>
-                        <div className="col-2 mb-3">
+                        <div className="col-2 mb-3 mt-1">
                             <CheckboxCustom
-                                options={["Descrição Rótulo"]}
+                                options={["Descrição rótulo"]}
                                 onClickOptions={(e) => setDescricaoRotulo(e.target.checked)}
                                 check={descricaoRotulo}
                             />
                         </div>
-                        <div className="col-2">
+                        <div className="col-2 mt-1">
                             <CheckboxCustom
-                                options={["Enviar Automáticamente"]}
+                                options={["Enviar automáticamente"]}
                                 onClickOptions={(e) => setEnviarAutomatico(e.target.checked)}
                                 check={enviarAutomatico}
                             />
@@ -159,6 +169,7 @@ export function MensagemPadraoEdit() {
                             <Question size={36} color="#cf0209" />
                         </div>
                     </div>
+                    <LabelObrigatorio/>
                     <div className="row">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
@@ -166,7 +177,7 @@ export function MensagemPadraoEdit() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Mensagem Padrão editada com " />
+                <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

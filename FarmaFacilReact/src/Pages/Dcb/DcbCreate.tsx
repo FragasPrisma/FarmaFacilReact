@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { IDcb } from "../../Interfaces/Dcb/IDcb";
 
 export function DcbCreate() {
     const navigate = useNavigate();
@@ -19,8 +20,8 @@ export function DcbCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
 
-    const data = {
-        id: 0, //id 0 é default
+    const data : IDcb= {
+        id: 0, 
         codigoDcb: codigoDcb,
         descricao: descricao
     };

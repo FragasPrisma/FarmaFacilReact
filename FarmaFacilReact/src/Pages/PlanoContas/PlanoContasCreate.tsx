@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { Container } from "../Dcb/styles";
-import { itemSelected, value } from ".";
 import { useSelector } from "react-redux";
 
 
@@ -32,7 +31,7 @@ export function PlanoContasCreate() {
 
 
   const state = useSelector((state) => state)
-  let valuee = state.plano
+  let valuee:any = state
 
 
  // let val = itemSelected

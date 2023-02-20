@@ -2,31 +2,39 @@ import styled from "styled-components";
 import { Table } from "react-bootstrap";
 
 export const TableCustom = styled(Table)`
+   
   border-collapse: separate;
   border-spacing: 0 0.68rem;
-  thead{
+
+  table-layout: fixed;
+  width: 100%;
+
+  thead {
     height: 2rem;
   }
 `;
 
 export const TrCustom = styled.tr`
-
-  .labelExcluir{
-    margin-left:1.3rem;
+  .label-editar {
+    margin-right: .8rem;
   }
 
-  label{
+  .mr-4{
+    margin-right: .2rem;
+  }
+
+  label {
     background-color: transparent;
     border: none;
-    color: #5B6873;
+    color: #5b6873;
     padding: 0;
-    font-size:11px;
-    margin-left:1.1rem;
+    font-size: 11px;
+    margin-left: 1.1rem;
   }
 
-  th{
-    font-size:14px;
-    font-weight:500;
+  th {
+    font-size: 14px;
+    font-weight: 500;
     padding: 0;
     padding-left: 0.5rem;
     background-color: #fff;
@@ -40,8 +48,7 @@ export const TrCustom = styled.tr`
 
   tbody,
   tr,
-  td
-  {
+  td {
     color: #cf0209;
   }
 `;

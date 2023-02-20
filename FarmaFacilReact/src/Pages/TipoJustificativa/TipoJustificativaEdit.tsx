@@ -8,6 +8,7 @@ import { Container } from "./styles";
 import { useParams, useNavigate } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { ITipoJustificativa } from "../../Interfaces/TipoJustificativa/ITipoJustificativa";
 
 export function TipoJustificativaEdit() {
     const navigate = useNavigate();
@@ -18,7 +19,11 @@ export function TipoJustificativaEdit() {
     const [isLoading, setIsLoading] = useState(false);
     const [tipoJustificativaId, setTipoJustificativaId] = useState(0);
     const { id } = useParams();
-    const [data] = useState({ id: 0, descricao: "" });
+
+    let data: ITipoJustificativa = {
+        id: tipoJustificativaId,
+        descricao: descricao
+    }
 
     let idParams = !id ? "0" : id.toString();
 
@@ -93,12 +98,12 @@ export function TipoJustificativaEdit() {
                     </div>
                     <div className="row">
                         <div className="col-6 mt-2">
-                            <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+                            <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                             <ButtonCancel to="tipoJustificativa" />
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Tipo de Justificativa editada com"/>
+                <SuccessModal show={isOpenSuccess} textCustom="Tipo de Justificativa editada com" />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

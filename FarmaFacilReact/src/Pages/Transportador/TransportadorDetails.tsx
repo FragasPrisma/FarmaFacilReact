@@ -4,20 +4,12 @@ import { useState, useEffect } from "react";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 import { useParams } from "react-router-dom";
+import { ITransportador } from "../../Interfaces/Transportador/ITransportador";
 
 export function TransportadorDetails() {
 
-    const [idTransportador, setId] = useState(0);
-    const [nome, setNome] = useState("");
-    const [cpfCnpj, setCpfCnpj] = useState("");
-    const [ie, setIe] = useState("");
-    const [cep, setCep] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [numero, setNumero] = useState("");
-    const [ddd, setDdd] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [codigoAntt, setCodigoAntt] = useState("");
-    const [placa, setPlaca] = useState("");
+    const [transportadorModel, setTransportadorModel] = useState({} as ITransportador);
+    
     const [nomeBairro, setNomeBairro] = useState("");
     const [nomeCidade, setNomeCidade] = useState("");
     const [nomeEstado, setNomeEstado] = useState("");
@@ -32,17 +24,7 @@ export function TransportadorDetails() {
         async function Init() {
             const response = await GetId("RetornaTransportadorPorId", idParams);
             if (response.status == 200) {
-                setId(response.data.id);
-                setNome(response.data.nome);
-                setCpfCnpj(response.data.cpfCnpj)
-                setIe(response.data.ie)
-                setCep(response.data.cep)
-                setEndereco(response.data.endereco)
-                setNumero(response.data.numero)
-                setDdd(response.data.ddd)
-                setTelefone(response.data.telefone)
-                setCodigoAntt(response.data.codigoAntt)
-                setPlaca(response.data.placa)
+                setTransportadorModel(response.data);
 
                 if (response.data.bairro) {
                     setNomeBairro(response.data.bairro.nome)
@@ -66,14 +48,14 @@ export function TransportadorDetails() {
         <>
             <HeaderMainContent title="DETALHES TRANSPORTADOR" IncludeButton={false} ReturnButton={true} to="transportador" />
             <div className="form-group">
-                {idTransportador > 0 &&
+                {transportadorModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-8">
                                 <CustomInput
                                     label="Nome"
                                     type="text"
-                                    value={nome}
+                                    value={transportadorModel.nome}
                                     readonly={true}
                                     required={true}
                                 />
@@ -84,7 +66,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="CPF/CNPJ"
                                     type="text"
-                                    value={cpfCnpj}
+                                    value={transportadorModel.cpfCnpj}
                                     readonly={true}
                                     required={true}
                                 />
@@ -93,7 +75,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="Inscrição Estadual"
                                     type="text"
-                                    value={ie}
+                                    value={transportadorModel.ie}
                                     readonly={true}
                                 />
                             </div>
@@ -104,7 +86,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="CEP"
                                     type="text"
-                                    value={cep}
+                                    value={transportadorModel.cep}
                                     readonly={true}
                                 />
                             </div>
@@ -112,7 +94,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="Endereço"
                                     type="text"
-                                    value={endereco}
+                                    value={transportadorModel.endereco}
                                     readonly={true}
                                 />
                             </div>
@@ -120,7 +102,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="Número"
                                     type="text"
-                                    value={numero}
+                                    value={transportadorModel.numero}
                                     readonly={true}
                                 />
                             </div>
@@ -158,7 +140,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="DDD"
                                     type="text"
-                                    value={ddd}
+                                    value={transportadorModel.ddd}
                                     readonly={true}
                                 />
                             </div>
@@ -166,7 +148,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="Telefone"
                                     type="text"
-                                    value={telefone}
+                                    value={transportadorModel.telefone}
                                     readonly={true}
                                 />
                             </div>
@@ -176,7 +158,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="Código ANTT"
                                     type="text"
-                                    value={codigoAntt}
+                                    value={transportadorModel.codigoAntt}
                                     readonly={true}
                                 />
                             </div>
@@ -192,7 +174,7 @@ export function TransportadorDetails() {
                                 <CustomInput
                                     label="Placa do Veículo"
                                     type="text"
-                                    value={placa}
+                                    value={transportadorModel.placa}
                                     readonly={true}
                                 />
                             </div>

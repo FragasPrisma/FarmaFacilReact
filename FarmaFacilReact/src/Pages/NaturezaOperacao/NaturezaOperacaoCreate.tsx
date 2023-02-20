@@ -8,9 +8,11 @@ import { getAll, postFormAll } from "../../Services/Api";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { useNavigate } from "react-router-dom";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom/index";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom/index";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom/index";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
+import { ITributo } from "../../Interfaces/Tributo/ITributo";
+import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
 
 export function NaturezaOperacaoCreate() {
 
@@ -39,16 +41,16 @@ export function NaturezaOperacaoCreate() {
     const [cstId, setCstId] = useState();
     const [csosnId, setCsosnId] = useState();
 
-    const [tributosCsts, setTributosCsts] = useState([]);
-    const [tributosCsons, setTributosCsons] = useState([]);
-    const [planoDeContas, setPlanoDeContas] = useState([]);
+    const [tributosCsts, setTributosCsts] = useState([] as ITributo []);
+    const [tributosCsons, setTributosCsons] = useState([] as ITributo []);
+    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta []);
 
     useEffect(() => {
         const loadDataTributoCst = async () => {
             const response = await getAll("ListaTributo");
-            let TributoFilter = response.data;
-            setTributosCsts(TributoFilter.filter((x: { tipoTributo: number; }) => x.tipoTributo == 0));
-            setTributosCsons(TributoFilter.filter((x: { tipoTributo: number; }) => x.tipoTributo == 1));
+            let TributoFilter : ITributo [] = response.data;
+            setTributosCsts(TributoFilter.filter(x => x.tipoTributo == 0));
+            setTributosCsons(TributoFilter.filter(x => x.tipoTributo == 1));
         }
 
         loadDataTributoCst()
@@ -57,8 +59,8 @@ export function NaturezaOperacaoCreate() {
     useEffect(() => {
         const loadDataPlanoDeContas = async () => {
             const response = await getAll("ListaPlanoDeContas");
-            let planoDecontasFilter = response.data;
-            setPlanoDeContas(planoDecontasFilter.filter((x: { nivelConta: number; }) => x.nivelConta == 2));
+            let planoDecontasFilter : IPlanoDeconta [] = response.data;
+            setPlanoDeContas(planoDecontasFilter.filter(x => x.nivelConta == 2));
         }
 
         loadDataPlanoDeContas()

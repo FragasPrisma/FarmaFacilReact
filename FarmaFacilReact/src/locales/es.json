@@ -1,0 +1,20 @@
+{
+    "translation": {
+        "login": {
+            "title": "Entrar",
+            "titleInfo": "Inicie sesión con los datos que ingresó durante el registro.",
+            "esqueceuSenha": "olvido la contraseña?",
+            "cliqueAqui": "Haga clic aquí",
+            "password": "contraseña"
+        },
+        "bairro":{
+            "id":"ID",
+            "nome":"Nombre",
+            "bairro":"Vecindario",
+            "adicionar":"Agregar"
+        },
+        "search":{
+            "pesquisa":"Búsqueda de"
+        }
+    }
+}

@@ -2,22 +2,23 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState , useEffect } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { CheckboxCustom } from "../../Components/Others/CheckboxCustom";
+import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
+import { IPortador } from "../../Interfaces/Portador/IPortador";
 
 export function PortadorEdit() {
 
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [idPortador,setId] = useState(0);
+  const [idPortador, setId] = useState(0);
   const [nome, setNome] = useState("");
-  const [portadorInativo,setPortadorInativo] = useState(false);
+  const [portadorInativo, setPortadorInativo] = useState(false);
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
@@ -35,10 +36,10 @@ export function PortadorEdit() {
     Init();
   }, []);
 
-  const data = {
-    id: idPortador, 
+  const data: IPortador = {
+    id: idPortador,
     nome: nome.trim(),
-    portadorInativo:portadorInativo
+    portadorInativo: portadorInativo
   };
 
   async function submit() {
@@ -100,7 +101,7 @@ export function PortadorEdit() {
           </div>
           <div className="row">
             <div className="col-6">
-              <ButtonConfirm onCLick={submit} isLoading={isLoading}/>
+              <ButtonConfirm onCLick={submit} isLoading={isLoading} />
               <ButtonCancel to="portador" />
             </div>
           </div>

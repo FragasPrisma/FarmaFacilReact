@@ -22,7 +22,7 @@ export function AdministradoraDeCartao(){
     return (
         <>
             <HeaderMainContent title="ADMINISTRADORA DE CARTÃO" IncludeButton={true} ReturnButton={false}/>
-            <SearchContentScreens text="Administradora de Cartão" data={data} filter={"nome"} headerTable={["id", "nome"]}/>
+            <SearchContentScreens text="Administradora de Cartão" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID","Nome"]}/>
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );
