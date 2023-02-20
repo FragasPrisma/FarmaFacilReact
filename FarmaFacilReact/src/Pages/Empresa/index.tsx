@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import Paginations from "../../Components/Others/Pagination";
 import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
+import { Farmacia } from "../../Interfaces/Empresa/IFarmacia";
 import { getAll } from "../../Services/Api";
 
 export function Empresa() {
@@ -22,7 +23,7 @@ export function Empresa() {
     return (
         <>
             <HeaderMainContent title="Empresa" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Empresa" data={data} filter={"id"} headerTable={["id"]} headerTableView={["ID"]} />
+            <SearchContentScreens text="Empresa" data={data} filter={"id"} headerTable={["id", "farmacia.nomeFantasia"]}  headerTableView={["ID", "Nome"]} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     )

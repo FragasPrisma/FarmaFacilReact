@@ -28,6 +28,8 @@ export interface IFarmacia {
     AutoridadeSanitaria: string;   
     LicencaMapa: string;   
     FornecedorInternoId: number;
+    //FarmaceuticosAutorizados: number;
+    //FilialPagamentoId: number;
 }
 
 export let Farmacia: IFarmacia = {
@@ -60,4 +62,6 @@ export let Farmacia: IFarmacia = {
     AutoridadeSanitaria: "",
     LicencaMapa: "",
     FornecedorInternoId: 0
+    //FarmaceuticosAutorizados: 0,
+    //FilialPagamentoId: 0
 }

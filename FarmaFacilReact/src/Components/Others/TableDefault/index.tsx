@@ -27,28 +27,43 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
           ))}
           {!actionsButtons &&
             <th style={{ textAlign: "end", paddingRight: "1.6rem", width: "300px" }}>
-            {iconOptions &&
-              <label>Opções</label>
-            }
-            {!btnVisualizar &&
-              <label className="mr-4">Visualizar</label>
-            }
-            {!btnsEditExcluir &&
-              <>
-                <label className="label-editar">Editar</label>
-                <label>Excluir</label>
-              </>
-            }
-          </th>
+              {iconOptions &&
+                <label>Opções</label>
+              }
+              {!btnVisualizar &&
+                <label className="mr-4">Visualizar</label>
+              }
+              {!btnsEditExcluir &&
+                <>
+                  <label className="label-editar">Editar</label>
+                  <label>Excluir</label>
+                </>
+              }
+            </th>
           }
         </TrCustom>
       </thead>
       <tbody>
         {data.map((dataItem, indexItem) => (
           <TrCustom key={indexItem}>
-            {header.map((item, index) => (
-              <td key={index}>{dataItem[item].toString().slice(0, 30)}</td>
-            ))}
+            {header.map((item, index) => {
+              const props = item.split(".");
+              let value = dataItem;
+              for (let i = 0; i < props.length; i++) {
+                if (value[props[i]]) {
+                  value = value[props[i]];
+                } else {
+                  value = "";
+                  break;
+                }
+              }
+              return <td key={index}>{value.toString().slice(0, 30)}</td>;
+            })}
+            {/* {header.map((item, index) => (
+              <td key={index}>
+                {dataItem[item].toString().slice(0, 30)}
+              </td>
+            ))} */}
             {!actionsButtons &&
               <td
                 style={{
