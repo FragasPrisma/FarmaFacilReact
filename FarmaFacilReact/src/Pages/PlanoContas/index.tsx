@@ -13,6 +13,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 
 
 export let value: any
+export let incluir: boolean
 //export let itemSelected: any;
 
 function PlanoContasRecursivo({ children }: any) {
@@ -20,10 +21,21 @@ function PlanoContasRecursivo({ children }: any) {
   const [showModal, setShowModal] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
-  
-  let msg = "Esta conta possui sub-contas ligadas a ela e por isso não pode ser excluída. Se deseja realmente apagar esta conta apague antes todas as suas sub-contas!"
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+
+    const init = async () => {
+      let response = await getAll("ListaPlanoDeContas")
+    response.data.length == 0 ? incluir = true: incluir = false
+    }
+
+    init()
+    
+}, []);
+    
+
 
  const state = useSelector((state) => state)
  let valuee:any = state
@@ -45,26 +57,7 @@ function PlanoContasRecursivo({ children }: any) {
 
   const toggleModal = () => {
     setModalActive(!isModalActive);
-    
-    
   };
-  
-
-
-  // const modalFail = () => {
-  //   if(valuee.children.length > 0) modalFail()
-      
-  //   setTimeout(() => {
-  //     setIsOpenFail(false)
-  //   }, 2500) 
-  //   setIsOpenFail(true)  
-  //   return (
-  //     <FailModal text={msg} show={isOpenFail} onClose={() => setIsOpenFail(false)} /> 
-  //   )
-
-  // }
-
-
 
   return (
     <ul>
@@ -102,7 +95,7 @@ function PlanoContasRecursivo({ children }: any) {
               <Trash size={17} color="#cf0209" style={{ marginLeft: "5px" }} onClick={toggleModal} />
              
                  <Modall isActive={isModalActive} toggleModal={toggleModal} >
-                 Deseja excluir o registro?
+                    Deseja excluir o registro?
                  </Modall> 
                 
                  
@@ -172,7 +165,7 @@ export function PlanoContas() {
     <>
       <HeaderMainContent
         title="Plano de Contas"
-        IncludeButton={false}
+        IncludeButton={incluir}
         ReturnButton={false}
       />
 
