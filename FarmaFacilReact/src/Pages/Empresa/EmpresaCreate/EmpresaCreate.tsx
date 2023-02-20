@@ -6,14 +6,14 @@ import { itemsHandles, itemsHandlesChildrenAcabado, itemsHandlesChildrenGeral, i
 import TabsParametro from "../../../Components/Others/TabsParametro";
 import TabsEmpresa from "../../../Components/Others/TabsEmpresa";
 import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
 import { LabelObrigatorio } from "../../../Components/Others/LabelMensagemObrigatorio";
 import { Farmacia } from "../../../Interfaces/Empresa/IFarmacia";
 import { IEmpresa } from "../../../Interfaces/Empresa/IEmpresa";
-import { postFormAll } from "../../../Services/Api";
+import { getAll, postFormAll } from "../../../Services/Api";
 
 export function EmpresaCreate() {
     const navigate = useNavigate();
@@ -21,7 +21,11 @@ export function EmpresaCreate() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const [error, setError] = useState({ erro: true, index: 0, erroNome: "" })
+
     const [errorRequest, setErrorRequest] = useState("");
+
+    const [empresas ,setEmpresas] = useState([] as IEmpresa[]);
 
     let componentsOfTabsGeral: any = [];
     let componentsOfTabsManipulacao: any = [];
@@ -56,7 +60,11 @@ export function EmpresaCreate() {
     )
 
     componentsOfTabsGeral.push(
-        <TabFarmacia />
+        <TabFarmacia erros={{
+            erro: false,
+            erroNome: "",
+            index: 0
+        }} />
         //<TabImpressao />,
         //<TabCuspomFiscal />,
         // <TabConvenios />,
@@ -92,14 +100,34 @@ export function EmpresaCreate() {
     //     componentsOfTabsAcabado
     // )
 
+    useEffect(() => {
+        const loadDataEmpresa = async () => {
+            const request = await getAll("ListaFornecedor");
+            setEmpresas(request.data)
+        }
+        loadDataEmpresa()
+    }, [])
+
+    function ValidString(text: string, index: number) {
+        if (!text.trim()) {
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: index })
+            return false
+        }
+
+        return true;
+    }
+
     async function submit() {
+
+        let erroCpfCnpj = false;
+        setError({ erro: false, erroNome: "", index: 0 })
         setIsLoading(true);
+
+
 
         let data: IEmpresa = {
             Farmacia: Farmacia
         }
-
-        console.log(data)
 
         const resp = await postFormAll("AdicionarEmpresa", data);
 

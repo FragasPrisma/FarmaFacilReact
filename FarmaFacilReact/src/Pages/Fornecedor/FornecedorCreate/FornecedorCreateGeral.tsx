@@ -13,6 +13,7 @@ import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IBairro } from "../../../Interfaces/Bairro/IBairro";
 import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
+import { MaskTelefone } from "../../../Mask/MaskTelefone";
 
 export let sigla = ""; 
 
@@ -363,7 +364,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                         label="Telefone"
                         type="text"
                         placeholder="9999-9999"
-                        value={telefone}
+                        value={MaskTelefone(telefone)}
                         maxLength={9}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setTelefone(e.target.value)
@@ -389,7 +390,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                         label="Celular"
                         type="text"
                         placeholder="9 9999-9999"
-                        value={celular}
+                        value={MaskTelefone(celular)}
                         maxLength={9}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setCelular(e.target.value)
