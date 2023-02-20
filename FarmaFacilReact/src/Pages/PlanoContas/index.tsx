@@ -77,7 +77,7 @@ function PlanoContasRecursivo({ children }: any) {
               </span>
             )}
             {item.key + " - " + item.label}{" "}
-            <div style={{ paddingLeft: "1rem" }} key={item.key}>
+            <div style={{ paddingLeft: "1rem", position: 'absolute', right: '3rem' }} key={item.key}>
               
               <NavLink to={'/planodecontas/create'}>
               <Plus size={17} color="#cf0209" style={{marginLeft: "5px"}} />
