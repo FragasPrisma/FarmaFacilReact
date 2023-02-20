@@ -9,4 +9,5 @@ export interface IAdministradoCartao{
     ativo: boolean,
     fornecedorId: number | null,
     planoDeContaId: number | null,
+    parcelaTaxaAdm: boolean
   }

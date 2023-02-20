@@ -13,6 +13,8 @@ import { UploadImagem } from "../../Components/Others/UploadImagem/UploadImagem"
 import { IBanner } from "../../Interfaces/Banner/IBanner";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
+import { useTranslation } from "react-i18next";
+import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
 
 export function BannerEdit() {
 
@@ -35,6 +37,7 @@ export function BannerEdit() {
     const [ativo, setAtivo] = useState(false);
     const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
     const [banners, setBanners] = useState([] as IBanner[]);
+    const { t } = useTranslation();
 
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
@@ -85,7 +88,7 @@ export function BannerEdit() {
 
     function ValidString(texto: string, index: number) {
         if (!texto.trim()) {
-            setErros({ erro: true, index: index, erroNome: "Campo obrigatório !", })
+            setErros({ erro: true, index: index, erroNome: t('erros.campoObrigatorio') })
             return false;
         } else {
             return true;
@@ -96,7 +99,6 @@ export function BannerEdit() {
 
         setErros({ erro: false, index: 0, erroNome: "" });
         setIsLoading(true);
-        console.log(data)
 
         if (!ValidString(descricao.trim(), 1)
             || !ValidString(link.trim(), 2)
@@ -108,13 +110,13 @@ export function BannerEdit() {
         }
 
         if (posicao <= 0) {
-            setErroPosicao("Campo posição inválido !")
+            setErroPosicao(t('banner.erros.campoPosicao').toString())
             setIsLoading(false);
             return;
         }
 
         if (!imagem) {
-            setErroImagem("Selecione uma imagem !")
+            setErroImagem(t('banner.erros.imagem').toString())
             setIsLoading(false);
             return;
         }
@@ -122,7 +124,7 @@ export function BannerEdit() {
         const banner = banners.filter(x => x.posicao == posicao && x.id != idBanner);
 
         if (banner.length > 0) {
-            setErroPosicao(`A posição informada já está sendo utilizada por outro banner!`)
+            setErroPosicao(t('banner.erros.campoPosicaoDuplicado').toString())
             setIsLoading(false);
             return;
         }
@@ -159,16 +161,16 @@ export function BannerEdit() {
 
     return (
         <>
-            <HeaderMainContent title="Editar Banner" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title={t('banner.titleEdit')} IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 {idBanner > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-6">
                                 <CustomInput
-                                    label="Descrição"
+                                    label={t('textGeneric.descricao')}
                                     type="text"
-                                    placeholder="Digite a descrição"
+                                    placeholder={t('textGeneric.digiteDescricao').toString()}
                                     value={descricao}
                                     maxLength={100}
                                     erros={erros}
@@ -184,9 +186,9 @@ export function BannerEdit() {
                         <div className="row">
                             <div className="col-6">
                                 <CustomInput
-                                    label="Link"
+                                    label={t('banner.propriedade.link')}
                                     type="text"
-                                    placeholder="Digite o link"
+                                    placeholder={t('banner.propriedade.digiteLink').toString()}
                                     value={link}
                                     maxLength={100}
                                     erros={erros}
@@ -201,31 +203,31 @@ export function BannerEdit() {
                         <div className="row">
                             <div className="col-4">
                                 <RadioCustom
-                                    options={["Abrir link em nova aba", "Abrir link na mesma aba"]}
+                                    requerid={true}
+                                    options={[t('banner.propriedade.novaAba'), t('banner.propriedade.mesmaAba')]}
                                     name="acaoLink"
                                     onClickOptions={(value, label) => setAcaoLink(value)}
-                                    titleComponet="Ação Link"
+                                    titleComponet={t('banner.titleAcaoLink').toString()}
                                     value={acaoLink}
                                 />
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row mb-4">
                             <div className="col-3">
                                 <CustomInput
-                                    label="Posição"
+                                    label={t('banner.propriedade.posicao')}
                                     type="number"
-                                    placeholder="Digite a posição"
                                     value={posicao}
                                     erro={erroPosicao}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                        setPosicao(parseInt(e.target.value))
+                                        setPosicao(MaxLengthNumber(999, parseInt(e.target.value)))
                                     }
                                     required={true}
                                 />
                             </div>
                             <div className="col-3">
                                 <CustomInput
-                                    label="Data inicial"
+                                    label={t('banner.propriedade.dataInicio')}
                                     type="date"
                                     erros={erros}
                                     index={3}
@@ -238,7 +240,7 @@ export function BannerEdit() {
                             </div>
                             <div className="col-3">
                                 <CustomInput
-                                    label="Data final"
+                                    label={t('banner.propriedade.dataFim')}
                                     type="date"
                                     value={dataFim}
                                     erros={erros}
@@ -251,11 +253,11 @@ export function BannerEdit() {
                             </div>
                         </div>
 
-                        <UploadImagem onUpdate={updateImgModel} text="Selecione a imagem" img={imagem ? imagem : ""} requerid={true} onDelete={onDelete} />
+                        <UploadImagem onUpdate={updateImgModel} text={t('banner.propriedade.imagem')} requerid={true} onDelete={onDelete} img={imagem ? imagem : ""} />
                         <div className="row mt-5">
                             <div className="col-3">
                                 <CheckboxCustom
-                                    options={["Banner ativo"]}
+                                    options={[t('banner.propriedade.ativo')]}
                                     check={ativo}
                                     onClickOptions={(check) => setAtivo(check.target.checked)}
                                 />
@@ -264,7 +266,7 @@ export function BannerEdit() {
                         {erroImagem &&
                             <p className="text-danger-erro">{erroImagem}</p>
                         }
-                        <LabelObrigatorio/>
+                        <LabelObrigatorio />
                         <div className="row mt-3">
                             <div className="col-6">
                                 <ButtonConfirm onCLick={submit} isLoading={isLoading} />

@@ -5,6 +5,14 @@ export const TitleContainer = styled.p`
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0.2rem 0;
   color: #707070;
+
+  .text-danger-erro{
+    color: rgb(207, 2, 9);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-left: 5px;
+  }
 `;
 
 export const ContainerCheck = styled.div`

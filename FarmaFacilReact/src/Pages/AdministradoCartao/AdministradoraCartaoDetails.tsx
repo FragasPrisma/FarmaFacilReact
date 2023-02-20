@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { IAdministradoCartao } from "../../Interfaces/AdministradoCartao/IAdministradoCartao";
+import { useTranslation } from "react-i18next";
 
 export function AdministradoraCartaoDetails() {
 
@@ -16,6 +17,7 @@ export function AdministradoraCartaoDetails() {
 
     const [nomeFornecedor, setNomeFornecedor] = useState("");
     const [descricaoPLanoDeContas, setDescricaoPLanoDeContas] = useState("");
+    const { t } = useTranslation();
 
     let idParams = !id ? "0" : id.toString();
 
@@ -39,14 +41,14 @@ export function AdministradoraCartaoDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={true} to="administradoradecartao" />
+            <HeaderMainContent title={t('administradoraCartao.titleVisualizar')} IncludeButton={false} ReturnButton={true} to="administradoradecartao" />
             <div className="form-group">
                 {administradoraModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-5">
                                 <CustomInput
-                                    label="Nome"
+                                    label={t('textGeneric.nome')}
                                     type="text"
                                     value={administradoraModel.nome}
                                     required={true}
@@ -57,7 +59,7 @@ export function AdministradoraCartaoDetails() {
                         <div className="row">
                             <div className="col-2">
                                 <CustomInput
-                                    label="Recebimento (Dias)"
+                                    label={t('administradoraCartao.propriedade.recebimento')}
                                     type="number"
                                     value={administradoraModel.prazoRecebimento}
                                     required={false}
@@ -66,11 +68,18 @@ export function AdministradoraCartaoDetails() {
                             </div>
                             <div className="col-3">
                                 <CustomInput
-                                    label="Desconto Administradora (%)"
+                                    label={t('administradoraCartao.propriedade.desconto')}
                                     type="number"
                                     value={administradoraModel.desconto}
                                     required={false}
                                     readonly={true}
+                                />
+                            </div>
+                            <div className="col-4 mt-2">
+                                <CheckboxCustom
+                                    options={[t('administradoraCartao.propriedade.parcelaTaxaAdm')]}
+                                    check={administradoraModel.parcelaTaxaAdm}
+                                    readOnly={true}
                                 />
                             </div>
                         </div>
@@ -78,28 +87,31 @@ export function AdministradoraCartaoDetails() {
                         <div className="row">
                             <div className="col-5">
                                 <RadioCustom
-                                    options={["VisaMasterAmex",
-                                        "BanriCompras",
-                                        "ConvCard",
-                                        "EDMCard",
-                                        "HiperCard",
-                                        "Integracao4S"]}
-                                    name="gerenciador"
+                                    options={[t('administradoraCartao.propriedade.tef.visa'),
+                                    t('administradoraCartao.propriedade.tef.banri'),
+                                    t('administradoraCartao.propriedade.tef.conv'),
+                                    t('administradoraCartao.propriedade.tef.edm'),
+                                    t('administradoraCartao.propriedade.tef.hiper'),
+                                    t('administradoraCartao.propriedade.tef.inte')
+                                    ]}
+                                    requerid={true}
                                     readonly={true}
-                                    titleComponet="Gerenciador TEF"
+                                    name="gerenciador"
+                                    titleComponet={t('administradoraCartao.propriedade.tef.title').toString()}
                                     value={administradoraModel.gerenciador}
                                 />
                             </div>
                             <div className="col-5">
                                 {administradoraModel.gerenciador == 0 &&
                                     <RadioCustom
-                                        titleComponet="Cielo Premia"
-                                        options={["Troco",
-                                            "Desconto",
-                                            "ViasDiferenciadas",
-                                            "CupomReduzido"]}
-                                        name="cieloPremia"
+                                        titleComponet={t('administradoraCartao.propriedade.cielo.title').toString()}
+                                        options={[t('administradoraCartao.propriedade.cielo.troco'),
+                                        t('administradoraCartao.propriedade.cielo.desconto'),
+                                        t('administradoraCartao.propriedade.cielo.vias'),
+                                        t('administradoraCartao.propriedade.cielo.cupom'),
+                                        ]}
                                         readonly={true}
+                                        name="cieloPremia"
                                         value={administradoraModel.cieloPremia}
                                     />
                                 }
@@ -108,17 +120,19 @@ export function AdministradoraCartaoDetails() {
                         <div className="row">
                             <div className="col-5">
                                 <RadioCustom
-                                    options={["Débito",
-                                        "Crédito"]}
-                                    readonly={true}
+                                    requerid={true}
+                                    options={[t('administradoraCartao.propriedade.modalidade.credito'),
+                                    t('administradoraCartao.propriedade.modalidade.debito'),
+                                    ]}
                                     name="modalidade"
-                                    titleComponet="Modadilade"
+                                    readonly={true}
+                                    titleComponet={t('administradoraCartao.propriedade.modalidade.title').toString()}
                                     value={administradoraModel.modalidade}
                                 />
                             </div>
                             <div className="col-2 mt-4">
                                 <CheckboxCustom
-                                    options={["Administradora Ativa"]}
+                                    options={[t('administradoraCartao.propriedade.ativo')]}
                                     check={administradoraModel.ativo}
                                     readOnly={true}
                                 />
@@ -127,7 +141,7 @@ export function AdministradoraCartaoDetails() {
                         <div className="row mb-3">
                             <div className="col-5">
                                 <CustomInput
-                                    label="Fornecedor"
+                                    label={t('fornecedor.fornecedor')}
                                     type="text"
                                     value={nomeFornecedor}
                                     required={false}
@@ -136,7 +150,7 @@ export function AdministradoraCartaoDetails() {
                             </div>
                             <div className="col-5">
                                 <CustomInput
-                                    label="Plano de Contas"
+                                    label={t('planoDeContas.planoDeContas')}
                                     type="text"
                                     value={descricaoPLanoDeContas}
                                     required={false}

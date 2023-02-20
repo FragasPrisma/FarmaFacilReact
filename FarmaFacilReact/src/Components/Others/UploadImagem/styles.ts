@@ -12,7 +12,7 @@ export const Container = styled.div`
 }
 .container-btn{
     background-color: #ececec;
-    width: 24rem;
+    width: 25rem;
     border-radius: 6px;
     margin: 0px;
 }

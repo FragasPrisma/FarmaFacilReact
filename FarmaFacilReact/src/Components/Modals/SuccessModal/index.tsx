@@ -1,4 +1,5 @@
 import { Modal, ModalBody } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { SucessMensage, MensageDefault } from "./styles";
 
 interface IProps {
@@ -7,6 +8,7 @@ interface IProps {
 }
 
 export function SuccessModal({ show, textCustom}: IProps) {
+  const { t } = useTranslation();
   return (
     <Modal
       size="lg"
@@ -18,7 +20,7 @@ export function SuccessModal({ show, textCustom}: IProps) {
         <div>
           {!textCustom ? (
             <>
-              <MensageDefault>Registro incluído com </MensageDefault>
+              <MensageDefault>{t('successModal.registro')}</MensageDefault>
             </>
           ) : (
             <>
@@ -26,7 +28,7 @@ export function SuccessModal({ show, textCustom}: IProps) {
             </>
           )}
 
-          <SucessMensage>Sucesso!</SucessMensage>
+          <SucessMensage>{t('successModal.message')}</SucessMensage>
         </div>
       </ModalBody>
     </Modal>

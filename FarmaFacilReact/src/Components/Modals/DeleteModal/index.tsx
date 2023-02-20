@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, ModalBody } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteDetail, GetId } from "../../../Services/Api";
 import { ButtonCancel } from "../../Buttons/ButtonCancel";
@@ -25,7 +26,7 @@ export function DeleteModal({
   urlText
 }: IProps) {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const [stateModalSucces, setStateModalSucces] = useState(false);
 
   const closeModal = () => {
@@ -72,7 +73,7 @@ export function DeleteModal({
               </div>
               <MensageDefault>
                 {textInformationModal == null
-                  ? "Deseja excluir o registro?"
+                  ? t('deleteModal.excluir')
                   : textInformationModal}
               </MensageDefault>
             </div>
@@ -87,7 +88,7 @@ export function DeleteModal({
           </Container>
         </ModalBody>
       </Modal>
-      <SuccessModal show={stateModalSucces} textCustom="Registro excluído com " />
+      <SuccessModal show={stateModalSucces} textCustom={`${t('deleteModal.excluido')}`} />
 
     </>
   );

@@ -1,4 +1,4 @@
-import { useState, useContext, ChangeEvent, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/auth";
 import logo from "../../assets/img/logoFFW.jpg";
 import { Container, DropdownCustom } from "./styles";
@@ -8,11 +8,44 @@ import brasil from '../../assets/img/brasil_flag.png'
 import spain from '../../assets/img/spain_flag.jpg'
 import us from '../../assets/img/us_flag.jpg'
 import i18n from '../../i18n';
+import { useDispatch, useSelector } from "react-redux";
+import { changeLanguage } from "../../store/Language";
+import { RootState } from "../../store/IRootState";
 
 export function Login() {
 
   const { authenticated, login }: any = useContext(AuthContext);
 
+  const idioma = useSelector((state: RootState) => state.Language.idioma);
+
+  useEffect(() => {
+
+    i18n.changeLanguage(idioma);
+    
+    if (idioma == "pt") {
+      setImg(brasil)
+      setTextImg("Português")
+      i18n.changeLanguage('pt');
+      dispatch(changeLanguage({ name: "português", language: "pt" }))
+    } else {
+      if (idioma == "es") {
+        setImg(spain)
+        setTextImg("Spanish")
+        setPasswordPlaceHold("Contraseña")
+        i18n.changeLanguage('es');
+        dispatch(changeLanguage({ name: "espanhol", language: "es" }))
+      } else {
+        setImg(us)
+        setTextImg("English")
+        setPasswordPlaceHold("Password")
+        i18n.changeLanguage('us');
+        dispatch(changeLanguage({ name: "inglês", language: "us" }))
+      }
+    }
+    
+  }, [])
+
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordPlaceHold, setPasswordPlaceHold] = useState("Senha");
@@ -21,6 +54,8 @@ export function Login() {
   const { t } = useTranslation();
   const [img, setImg] = useState(brasil);
   const [textImg, setTextImg] = useState("Português")
+
+
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -42,22 +77,25 @@ export function Login() {
 
   function ModificarIdioma(e: any, option: number) {
     e.preventDefault();
-    
+
     if (option == 1) {
       setImg(brasil)
       setTextImg("Português")
       i18n.changeLanguage('pt');
+      dispatch(changeLanguage({ name: "português", language: "pt" }))
     } else {
-      if(option == 2){
+      if (option == 2) {
         setImg(spain)
         setTextImg("Spanish")
         setPasswordPlaceHold("Contraseña")
         i18n.changeLanguage('es');
-      }else{
+        dispatch(changeLanguage({ name: "espanhol", language: "es" }))
+      } else {
         setImg(us)
         setTextImg("English")
         setPasswordPlaceHold("Password")
         i18n.changeLanguage('us');
+        dispatch(changeLanguage({ name: "inglês", language: "us" }))
       }
     }
   }

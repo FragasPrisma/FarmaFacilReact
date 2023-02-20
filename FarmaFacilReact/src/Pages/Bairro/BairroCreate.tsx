@@ -34,7 +34,7 @@ export function BairroCreate() {
       setIsOpenFail(true);
       setTimeout(() => {
         setIsOpenFail(false);
-        setErroNome("Campo nome é obrigatório !")
+        setErroNome(t('erros.campoObrigatorio').toString())
       }, 2000)
       setIsLoading(false);
       return;
@@ -59,15 +59,15 @@ export function BairroCreate() {
 
   return (
     <>
-      <HeaderMainContent title={`${t('bairro.adicionar')} ${t('bairro.bairro')}`} IncludeButton={false} ReturnButton={false}/>
+      <HeaderMainContent title={`${t('bairro.title')}`} IncludeButton={false} ReturnButton={false}/>
       <div className="form-group">
         <Container>
           <div className="row">
             <div className="col-5">
               <CustomInput
-                label="Nome"
+                label={t('textGeneric.nome')}
                 type="text"
-                placeholder="Digite o nome do Bairro"
+                placeholder={t('textGeneric.digiteNome').toString()}
                 value={nome}
                 maxLength={50}
                 erro={erroNome}
@@ -85,7 +85,7 @@ export function BairroCreate() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Bairro adicionado com " />
+        <SuccessModal show={isOpenSuccess} />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>
