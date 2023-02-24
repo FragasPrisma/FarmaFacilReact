@@ -117,17 +117,19 @@ export function FornecedorEdit() {
             ValidString(fornecedorGeralEdit.cnpj.trim(), 4)
             return;
         }
+
+        if (fornecedorGeralEdit.estadoId <= 0) {
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
+            setIsLoading(false);
+            return;
+        }
         
         if (!ValidIeDigitos(siglaEdit, fornecedorGeralEdit.inscricaoEstadual)) {
             setError({ erro: true, erroNome: "Inscrição estadual inválida.", index: 5 })
             setIsLoading(false);
             return;
         }
-        if (fornecedorGeralEdit.estadoId <= 0) {
-            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
-            setIsLoading(false);
-            return;
-        }
+        
         if (!validCPF(fornecedorGeralEdit.cpf) || !ValidCnpj(fornecedorGeralEdit.cnpj)) {
             if (fornecedorGeralEdit.cpf && !validCPF(fornecedorGeralEdit.cpf)) {
                 setError({ erro: true, erroNome: "CPF inválido !", index: 3 });

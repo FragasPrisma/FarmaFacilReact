@@ -77,7 +77,7 @@ const Paginations = ({pagina,qtdPagina,Reload} : IPaginations) =>{
 
     return(
         <ContainerPaginations>
-            {itensNovos ? itensNovos.map((item) =>(<Pagination key={item.key}>{item}</Pagination>)) : <></>}
+            {itensNovos ? itensNovos.map((item, index) =>(<Pagination key={index}>{item}</Pagination>)) : <></>}
         </ContainerPaginations>
     );
 }

@@ -46,32 +46,64 @@ interface IData {
         erro: boolean,
         erroNome: string,
         index: number
-    }
+    },
+    textParameter: string
 }
 
-export function FornecedorCreateGeral({ erros }: IData) {
+export function FornecedorCreateGeral({ erros , textParameter}: IData) {
 
     useEffect(() => { setErrosParameters(erros) }, [erros])
 
-    const [nomeFornecedor, setNomeFornecedor] = useState("");
-    const [nomeFantasia, setNomeFantasia] = useState("");
-    const [cnpj, setCnpj] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [inscricaoEstadual, setInscricaoEstadual] = useState("");
-    const [cep, setCep] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [numeroEndereco, setNumeroEndereco] = useState("");
-    const [complemento, setComplemento] = useState("");
-    const [ddd, setDdd] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [dddCelular, setDddCelular] = useState("")
-    const [celular, setCelular] = useState("");
-    const [email, setEmail] = useState("");
-    const [erroEstadoId, setErroEstadoId] = useState("");
-    const [homePage, setHomePage] = useState("");
-    const [contato, setContato] = useState("")
-    const [telefoneContato, setTelefoneContato] = useState("")
-    const [siglaEstado, setSiglaEstado] = useState("");
+    useEffect(() => {
+
+        setNomeFornecedor("")
+        setNomeFantasia("")
+        setCnpj("")
+        setCpf("")
+        setInscricaoEstadual("")
+        setCep("")
+        setEndereco("")
+        setNumeroEndereco("")
+        setComplemento("")
+        setDdd("")
+        setTelefone("")
+        setDddCelular("")
+        setCelular("")
+        setEmail("")
+        setErroEstadoId("")
+        setHomePage("")
+        setContato("")
+        setTelefoneContato("")
+        setSiglaEstado("")
+        setCidadeId(0)
+        setBairroId(0)
+        setEstadoId(0)
+        setContribuinte(-1)
+        setNomeEstado("Selecione o Estado")
+        setNomeCidade("Selecione a Cidade")
+        setNomeBairro("Selecione o Bairro")
+
+    },[textParameter])
+
+    const [nomeFornecedor, setNomeFornecedor] = useState(textParameter);
+    const [nomeFantasia, setNomeFantasia] = useState(textParameter);
+    const [cnpj, setCnpj] = useState(textParameter);
+    const [cpf, setCpf] = useState(textParameter);
+    const [inscricaoEstadual, setInscricaoEstadual] = useState(textParameter);
+    const [cep, setCep] = useState(textParameter);
+    const [endereco, setEndereco] = useState(textParameter);
+    const [numeroEndereco, setNumeroEndereco] = useState(textParameter);
+    const [complemento, setComplemento] = useState(textParameter);
+    const [ddd, setDdd] = useState(textParameter);
+    const [telefone, setTelefone] = useState(textParameter);
+    const [dddCelular, setDddCelular] = useState(textParameter)
+    const [celular, setCelular] = useState(textParameter);
+    const [email, setEmail] = useState(textParameter);
+    const [erroEstadoId, setErroEstadoId] = useState(textParameter);
+    const [homePage, setHomePage] = useState(textParameter);
+    const [contato, setContato] = useState(textParameter)
+    const [telefoneContato, setTelefoneContato] = useState(textParameter)
+    const [siglaEstado, setSiglaEstado] = useState(textParameter);
     const [cidadeId, setCidadeId] = useState(0);
     const [bairroId, setBairroId] = useState(0);
     const [estadoId, setEstadoId] = useState(0);
@@ -106,6 +138,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
 
                 if (estado.length > 0) {
                     setNomeEstado(request.uf)
+                    setSiglaEstado(request.uf)
                     setEstadoId(estado[0].id)
                 }
 
@@ -132,12 +165,8 @@ export function FornecedorCreateGeral({ erros }: IData) {
         PesquisaCep()
     }, [cep])
 
-    function AdcionarEstado(id: any, select: any) {
-        setEstadoId(id)
-        setSiglaEstado(select)
-    }
-
     useEffect(() => {
+
         if (erros.index == 6) {
             setErroEstadoId("Campo de preenchimento obrigatório.");
         } else {
@@ -203,6 +232,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                             setNomeFornecedor(e.target.value)
                         }
                         required={true}
+                        focusParam={true}
                     />
                 </div>
                 <div className="col-4">
@@ -321,7 +351,12 @@ export function FornecedorCreateGeral({ erros }: IData) {
                         label="Estado"
                         error={erroEstadoId}
                         required={true}
-                        Select={(estadoId, select) => AdcionarEstado(estadoId, select)}
+                        Select={(estadoId, select) => {
+                            console.log(estadoId)
+                            setEstadoId(estadoId)
+                            setSiglaEstado(select)
+                            setNomeEstado(select)
+                        }}
                     />
                 </div>
                 <div className="col-4">
@@ -330,7 +365,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                         title={nomeCidade}
                         filter="nome"
                         label="Cidade"
-                        Select={(cidadeId) => setCidadeId(cidadeId)}
+                        Select={(cidadeId, select) => {setCidadeId(cidadeId), setNomeCidade(select)}}
                     />
                 </div>
                 <div className="col-3">
@@ -339,7 +374,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                         title={nomeBairro}
                         filter="nome"
                         label="Bairro"
-                        Select={(bairroId) => setBairroId(bairroId)}
+                        Select={(bairroId, select) => {setBairroId(bairroId) , setNomeBairro(select)}}
                     />
                 </div>
             </div>
@@ -414,7 +449,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                 </div>
             </div>
             <div className="row">
-                <div className="col-8">
+                <div className="col-4">
                     <CustomInput
                         label="E-mail"
                         type="text"
@@ -427,9 +462,7 @@ export function FornecedorCreateGeral({ erros }: IData) {
                         required={false}
                     />
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
+                <div className="col-4">
                     <CustomInput
                         label="Home-Page"
                         type="text"

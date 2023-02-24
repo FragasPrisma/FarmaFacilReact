@@ -87,6 +87,23 @@
             "titleAcaoLink": "Enlace de acción",
             "titleImagem": "Imagen del banner"
         },
+        "categoria": {
+            "header": {
+                "id": "ID",
+                "categoriaPai": "Categoría Padre",
+                "nome": "Nombre"
+            },
+            "categoria": "Categoría",
+            "title": "Incluir Categoría",
+            "titleEdit": "Editar Categoría",
+            "titleVisualizar": "Visualizar Categoría",
+            "propriedades": {
+                "categoriaPai": "Categoría Padre",
+                "categoriaAtiva": "Categoría Activa",
+                "title": "Seleccione la categoría padre",
+                "ativa": "Categoría Activa"
+            }
+        },
         "fornecedor": {
             "fornecedor": "Proveedor"
         },

@@ -102,6 +102,7 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         filter="nome"
                         label="Banco"
                         Select={(bancoId) => setBancoId(bancoId)}
+                        titleEdit="Selecione o banco"
                     />
                 </div>
                 <div className="col-2">
@@ -219,10 +220,11 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                 <div className="col-4">
                     <CustomDropDown
                         data={contas}
-                        title={nomePLanoDeConta ? nomePLanoDeConta : "Selecione o Plano de Contas"}
+                        title={nomePLanoDeConta ? nomePLanoDeConta : "Selecione o plano de contas"}
                         filter="descricao"
                         label="Plano de Contas"
                         Select={(planoId) => setPlanoDeContaId(planoId)}
+                        titleEdit="Selecione o plano de contas"
                     />
                 </div>
             </div>
@@ -281,6 +283,7 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                             setValorMinimoPedido(parseFloat(e.target.value))
                         }
                         required={false}
+                        textAlign={true}
                     />
                 </div>
                 <div className="col-4">
@@ -310,6 +313,7 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                             setPrevisaoEntrega(parseInt(e.target.value))
                         }
                         required={false}
+                        textAlign={true}
                     />
                 </div>
                 <div className="col-4">

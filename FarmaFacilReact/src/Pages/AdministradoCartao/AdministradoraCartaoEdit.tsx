@@ -164,6 +164,7 @@ export function AdministradoraCartaoEdit() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setNome(e.target.value)
                                 }
+                                focusParam={true}
                                 required={true}
                             />
                         </div>
@@ -177,6 +178,7 @@ export function AdministradoraCartaoEdit() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setPrazoDeRecebimento(MaxLengthNumber(10000, parseInt(e.target.value)))
                                 }
+                                textAlign={true}
                                 required={false}
                             />
                         </div>
@@ -188,6 +190,7 @@ export function AdministradoraCartaoEdit() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDesconto(MaxLengthNumber(9999999999.99, parseFloat(e.target.value)))
                                 }
+                                textAlign={true}
                                 required={false}
                             />
                         </div>

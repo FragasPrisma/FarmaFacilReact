@@ -13,8 +13,8 @@
             "administradoraCartao": "Administradora de cartão",
             "adicionar": "Adicionar",
             "title": "Incluir Administradora de cartão",
-            "titleEdit": "Editar Administrado de cartão",
-            "titleVisualizar": "Visualizar Administrado de cartão",
+            "titleEdit": "Editar Administradora de cartão",
+            "titleVisualizar": "Visualizar Administradora de cartão",
             "erros": {
                 "tef": "Gerenciador TEF é obrigatório !",
                 "modalidade": "Modalidade é obrigatório !"
@@ -66,7 +66,7 @@
             },
             "erros": {
                 "campoPosicao": "Campo posição inválido.",
-                "campoPosicaoDuplicado": "Campo posição inválido.",
+                "campoPosicaoDuplicado": "A posição informada já está sendo utilizada por outro banner!.",
                 "imagem": "Selecione uma imagem."
             },
             "propriedade": {
@@ -86,6 +86,23 @@
             "titleVisualizar": "Visualizar Banner",
             "titleAcaoLink": "Ação Link",
             "titleImagem": "Imagem do banner"
+        },
+        "categoria": {
+            "header": {
+                "id": "ID",
+                "categoriaPai": "Categoria Pai",
+                "nome": "Nome"
+            },
+            "categoria": "Categoria",
+            "title": "Incluir Categoria",
+            "titleEdit": "Editar Categoria",
+            "titleVisualizar": "Visualizar Categoria",
+            "propriedades": {
+                "categoriaPai": "Categoria pai",
+                "categoriaAtiva": "Categoria ativa",
+                "title": "Selecione a categoria pai",
+                "ativa": "Categoria ativa"
+            }
         },
         "fornecedor": {
             "fornecedor": "Fornecedor"
@@ -113,7 +130,7 @@
         },
         "deleteModal": {
             "excluir": "Deseja excluir o registro?",
-            "excluido": "Registro excluido com"
+            "excluido": "Registro excluído com"
         },
         "failModal": {
             "camposObrigatorios": "Campo (os) obrigatório (os) não preenchido (os) corretamente."

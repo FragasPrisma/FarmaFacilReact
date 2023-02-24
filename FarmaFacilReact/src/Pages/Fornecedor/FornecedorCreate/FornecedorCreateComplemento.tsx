@@ -27,7 +27,36 @@ export let fornecedorComplemento: IFornecedorComplemento = {
     hostFornecedor: ""
 }
 
-export function FornecedorCreateComplemento() {
+interface IData {
+    textParam: string;
+}
+
+export function FornecedorCreateComplemento({ textParam }: IData) {
+
+    useEffect(() => {
+
+        setBancoId(null)
+        setPlanoDeContaId(null)
+        setAgencia("")
+        setContaCorrenteFornecedor("")
+        setResponsavelTecnico("")
+        setAlvaraSanitario("")
+        setAutorizacaoFuncionamento("")
+        setAutorizacaoEspecial("")
+        setLicencaMapa("")
+        setCadastroFarmacia("")
+        setValorMinimoPedido(0)
+        setFormaPagamento("")
+        setPrevisaoEntrega(0)
+        setFrete("")
+        setObservacoes("")
+        setHost("")
+        setUsuario("")
+        setSenha("")
+        setNomeBanco("Selecione o banco")
+        setNomePlano("Selecione o plano de contas")
+
+    }, [textParam])
 
     const [bancoId, setBancoId] = useState(null);
     const [planoDeContaId, setPlanoDeContaId] = useState(null);
@@ -49,6 +78,8 @@ export function FornecedorCreateComplemento() {
     const [senha, setSenha] = useState("")
     const [bancos, setBancos] = useState([]);
     const [contas, setContas] = useState([]);
+    const [nomeBanco, setNomeBanco] = useState("Selecione o banco");
+    const [nomePlano, setNomePlano] = useState("Selecione o plano de contas")
 
     fornecedorComplemento.bancoId = bancoId;
     fornecedorComplemento.agencia = agencia;
@@ -89,10 +120,10 @@ export function FornecedorCreateComplemento() {
                 <div className="col-4">
                     <CustomDropDown
                         data={bancos}
-                        title="Selecione o Banco"
+                        title={nomeBanco}
                         filter="nome"
                         label="Banco"
-                        Select={(bancoId) => setBancoId(bancoId)}
+                        Select={(bancoId, select) => { setBancoId(bancoId), setNomeBanco(select) }}
                     />
                 </div>
                 <div className="col-2">
@@ -210,10 +241,10 @@ export function FornecedorCreateComplemento() {
                 <div className="col-4">
                     <CustomDropDown
                         data={contas}
-                        title="Selecione o Plano de Contas"
+                        title={nomePlano}
                         filter="descricao"
                         label="Plano de Contas"
-                        Select={(planoId) => setPlanoDeContaId(planoId)}
+                        Select={(planoId, select) => { setPlanoDeContaId(planoId), setNomePlano(select) }}
                     />
                 </div>
             </div>
@@ -269,8 +300,9 @@ export function FornecedorCreateComplemento() {
                         value={valorMinimoPedido}
                         maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setValorMinimoPedido(MaxLengthNumber(9999999999.99,parseFloat(e.target.value)))
+                            setValorMinimoPedido(MaxLengthNumber(9999999999.99, parseFloat(e.target.value)))
                         }
+                        textAlign={true}
                         required={false}
                     />
                 </div>
@@ -297,9 +329,10 @@ export function FornecedorCreateComplemento() {
                         placeholder="Digite a previsão"
                         value={previsaoEntrega}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setPrevisaoEntrega(MaxLengthNumber(100,parseInt(e.target.value)))
+                            setPrevisaoEntrega(MaxLengthNumber(100, parseInt(e.target.value)))
                         }
                         step="1"
+                        textAlign={true}
                         required={false}
                     />
                 </div>

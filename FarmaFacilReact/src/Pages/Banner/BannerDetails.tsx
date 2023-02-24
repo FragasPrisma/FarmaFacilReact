@@ -76,6 +76,7 @@ export function BannerDetails() {
                                     value={bannerModel.posicao}
                                     required={true}
                                     readonly={true}
+                                    textAlign={true}
                                 />
                             </div>
                             <div className="col-3">

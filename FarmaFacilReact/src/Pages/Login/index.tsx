@@ -23,11 +23,14 @@ export function Login() {
     i18n.changeLanguage(idioma);
     
     if (idioma == "pt") {
+
       setImg(brasil)
       setTextImg("Português")
       i18n.changeLanguage('pt');
       dispatch(changeLanguage({ name: "português", language: "pt" }))
+
     } else {
+      
       if (idioma == "es") {
         setImg(spain)
         setTextImg("Spanish")
@@ -82,6 +85,7 @@ export function Login() {
       setImg(brasil)
       setTextImg("Português")
       i18n.changeLanguage('pt');
+      setPasswordPlaceHold("Senha")
       dispatch(changeLanguage({ name: "português", language: "pt" }))
     } else {
       if (option == 2) {

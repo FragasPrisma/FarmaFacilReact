@@ -2,6 +2,7 @@
 import { configureStore , combineReducers } from '@reduxjs/toolkit'
 import planoReducer from './PlanoContas'
 import Language from './Language';
+import Search from './Search';
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -22,6 +23,7 @@ const persistedReducer1 = persistReducer(persistConfig1,Language)
 const rootReducer = combineReducers({
   planoReducer: persistedReducer,
   Language: persistedReducer1,
+  search : Search
 });
 
 export default () => {

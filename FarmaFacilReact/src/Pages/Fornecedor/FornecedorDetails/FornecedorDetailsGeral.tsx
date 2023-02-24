@@ -5,6 +5,7 @@ import { MaskCpf } from "../../../Mask/MaskCpf";
 import { MaskCnpj } from "../../../Mask/MaskCnpj";
 import { MaskIe } from "../../../Mask/MaskIe";
 import { MaskCep } from "../../../Mask/MaskCep";
+import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 
 interface IData {
     fornecedorModel: IFornecedor,
@@ -178,7 +179,7 @@ export function FornecedorDetailsGeral({ fornecedorModel, nomeBairro, nomeCidade
                 </div>
             </div>
             <div className="row">
-                <div className="col-8">
+                <div className="col-4">
                     <CustomInput
                         label="E-mail"
                         type="text"
@@ -187,9 +188,7 @@ export function FornecedorDetailsGeral({ fornecedorModel, nomeBairro, nomeCidade
                         required={false}
                     />
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
+                <div className="col-4">
                     <CustomInput
                         label="Home-Page"
                         type="text"
@@ -216,6 +215,16 @@ export function FornecedorDetailsGeral({ fornecedorModel, nomeBairro, nomeCidade
                         value={fornecedorModel.telefoneContato}
                         readonly={true}
                         required={false}
+                    />
+                </div>
+            </div>
+            <div className="row mt-2">
+                <div className="col-4">
+                    <RadioCustom
+                        options={["Contribuinte do ICMS", "Contribui isento de inscrição", "Não contribuinte"]}
+                        name="contribuinte"
+                        value={fornecedorModel.contribuinte ? fornecedorModel.contribuinte : -1}
+                        readonly={true}
                     />
                 </div>
             </div>

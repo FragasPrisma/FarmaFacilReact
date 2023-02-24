@@ -149,9 +149,10 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                     <CustomInput
                         label="Valor mínimo"
                         type="number"
-                        value={fornecedorModel.valorMinimoPedido}
+                        value={fornecedorModel.valorMinimoPedido > 0 ? fornecedorModel.valorMinimoPedido : ""}
                         readonly={true}
                         required={false}
+                        textAlign={true}
                     />
                 </div>
                 <div className="col-4">
@@ -169,9 +170,10 @@ export function FornecedorDetailsComplemento({ fornecedorModel, nomeBanco, nomeP
                     <CustomInput
                         label="Previsão de Entrega (Dias)"
                         type="number"
-                        value={fornecedorModel.previsaoEntrega}
+                        value={fornecedorModel.previsaoEntrega > 0 ? fornecedorModel.previsaoEntrega : ""}
                         readonly={true}
                         required={false}
+                        textAlign={true}
                     />
                 </div>
                 <div className="col-4">
