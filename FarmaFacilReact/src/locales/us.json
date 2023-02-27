@@ -106,7 +106,8 @@
             "incluir": "Include",
             "confirmar": "Confirm",
             "cancelar": "Cancel",
-            "voltar": "Back"
+            "voltar": "Back",
+            "filtrar": "Filter"
         },
         "header": {
             "desconectar": "Disconnect"

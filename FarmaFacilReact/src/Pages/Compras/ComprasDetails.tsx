@@ -1,10 +1,14 @@
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
+import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
+import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
 import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
@@ -19,6 +23,28 @@ export function ManutencaoComprasDetails() {
     //const [produtos, setProdutos] = useState([] as IProduto[]);
 
     const [descricaoLaboratorio, setDescricaoLaboratorio] = useState(0);
+
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompras[]);
+
+    const columns = [
+        { field: "id", headerName: "Id", width: 60 },
+        { field: "codigogrupo", headerName: "Código Grupo", width: 150 },
+        { field: "estoque", headerName: "Estoque", width: 200 },
+        { field: "descricaoproduto", headerName: "Descrição Produto", width: 200 },
+        { field: "nomelaboratorio", headerName: "Nome Laboratório", width: 200 },
+        { field: "curvaabcproduto", headerName: "Curva Abc Produto", width: 200 },
+        { field: "estoqueminimoproduto", headerName: "Estoque Minimo Produto", width: 200 },
+        { field: "estoquemaximoproduto", headerName: "Estoque Máximo Produto", width: 200 },
+    ];
+
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarFilterButton />
+                <GridToolbarDensitySelector />
+            </GridToolbarContainer>
+        );
+    }
     
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
@@ -212,6 +238,17 @@ export function ManutencaoComprasDetails() {
                         /> */}
                     </div>
                 </div>
+                <div className="row">
+                <div className="col-12 mt-4">
+                    <FieldsetCustom legend="Itens Compra">
+                        <section>
+                            <Box sx={{ height: 400, mt: 1 }}>
+                                <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} />
+                            </Box>
+                        </section>
+                    </FieldsetCustom>
+                </div>
+            </div>
             </Container>
         </>
     )

@@ -73,6 +73,8 @@ export function TurnoCreate() {
             return;
         }
 
+        console.log(data);
+
         const response = await postFormAll("AdicionarTurno", data);
 
         if (response.status === 200) {
