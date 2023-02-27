@@ -18,22 +18,22 @@ export function ContasAPagar() {
     const [openModal, setOpenModal] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false)
 
-    useEffect(() => {
-        const loadDataTable = async () => {
-            const response = await getAll(`ListaPaginacaoDuplicatas/${pagina}/${aPagar}`);
+    // useEffect(() => {
+    //     const loadDataTable = async () => {
+    //         const response = await getAll(`ListaPaginacaoDuplicatas/${pagina}/${aPagar}`);
 
-            if (response.data.listGroup) {
-                response.data.listGroup.map(function (x: IDuplicatasContasAPagar) {
-                    x.dataPagamento = x.dataPagamento ? InverterDate(x.dataPagamento) : ""
-                    x.dataVencimento = InverterDate(x.dataVencimento)
-                })
-                setQtdPagina(response.data.total);
-                setData(response.data.listGroup);
-            }
-        }
+    //         if (response.data.listGroup) {
+    //             response.data.listGroup.map(function (x: IDuplicatasContasAPagar) {
+    //                 x.dataPagamento = x.dataPagamento ? InverterDate(x.dataPagamento) : ""
+    //                 x.dataVencimento = InverterDate(x.dataVencimento)
+    //             })
+    //             setQtdPagina(response.data.total);
+    //             setData(response.data.listGroup);
+    //         }
+    //     }
 
-        loadDataTable()
-    }, [pagina, aPagar]);
+    //     loadDataTable()
+    // }, [pagina, aPagar]);
 
     let filtros = { title: "Pagar", path: "/duplicatascontasapagar/pagar/" }
     let labelSwitch = "Duplicatas a Pagar";
@@ -78,7 +78,7 @@ export function ContasAPagar() {
     return (
         <>
             <HeaderMainContent
-                title="DUPLICATAS CONTAS A PAGAR"
+                title="Duplicatas"
                 IncludeButton={true}
                 ReturnButton={false}
                 IncludeSwitch={true}
@@ -86,18 +86,18 @@ export function ContasAPagar() {
                 onClick={(check) => Check(check)}
             />
             <SearchContentScreens
-                text="Duplicatas Contas a Pagar"
-                data={data} filter={"numeroFatura"}
+                text="Duplicatas"
+                // data={data} filter={"numeroFatura"}
                 headerTable={aPagar == true ? ["numeroFatura", "observacao", "dataVencimento", "dataPagamento", "valorPago"]
                     : ["numeroFatura", "observacao", "dataVencimento", "valor"]}
                 headerTableView={aPagar == true ? ["Fatura", "Observação", "Vencimento", "Pagamento", "Valor Pago"]
-                    : ["Fatura", "Observação", "Vencimento", "Valor"]}
+                    : ["N° do documento", "Observação", "Vencimento", "Valor (R$)"]}
                 iconOptions={true}
                 itensExtraButton={[filtros]}
                 btnsEditExcluir={aPagar}
                 openModal={aPagar}
                 openModalFunction={(id) => CancelarPagamento(id)} 
-                urlSearch={"ListaPaginacaoContaAPagar"}            
+                urlSearch={"ListaPaginacaoContasAPagar"}            
             />
             <ModalGeneric object={duplicata} textInformationModal="Confirma o cancelamento?" url="EditarDuplicataContasAPagar" openModal={openModal} onClose={closeModal} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />

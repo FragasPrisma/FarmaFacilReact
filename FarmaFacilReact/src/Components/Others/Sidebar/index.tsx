@@ -46,7 +46,10 @@ export function Sidebar() {
             {namesItemsMenu.map((item) => (
               <li key={item.titulo} className="li_itens">
                 {item.hasSubMenu && (
-                  <div className="container_itens_menu" onClick={() => handleSubMenuClick(item.titulo)}>
+                  <div
+                    className="container_itens_menu"
+                    onClick={() => handleSubMenuClick(item.titulo)}
+                  >
                     {/* <img className="img_options" src={item.img}  /> */}
                     {item.titulo}
                     {activeSubMenu === item.titulo ? (
@@ -56,6 +59,7 @@ export function Sidebar() {
                     )}
                   </div>
                 )}
+
                 {item.hasSubMenu && activeSubMenu === item.titulo && (
                   <ul>
                     {item.subMenu.map((subMenu) => (
@@ -63,16 +67,16 @@ export function Sidebar() {
                         <NavLinkCustom to={subMenu.link}>
                           {subMenu.titulo}
                         </NavLinkCustom>
+                        
                       </li>
                     ))}
                   </ul>
-                )}
+                )}  
               </li>
-            ))}
+              ))} 
           </ul>
         </div>
       )}
     </MenuSidebar>
-
   );
 }

@@ -33,7 +33,7 @@ export function Empresa() {
     return (
         <>
             <HeaderMainContent title="Empresa" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Empresa" data={data} filter={"id"} headerTable={["id", "farmacia.nomeFantasia"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoEmpresa"} />
+            <SearchContentScreens text="Empresa" data={data} filter={"id"} headerTable={["id", "farmacia.nomeFantasia"]}  headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoEmpresa"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     )
