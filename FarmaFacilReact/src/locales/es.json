@@ -13,8 +13,118 @@
             "bairro":"Vecindario",
             "adicionar":"Agregar"
         },
+<<<<<<< Updated upstream
         "search":{
             "pesquisa":"Búsqueda de"
+=======
+        "bairro": {
+            "id": "ID",
+            "nome": "Nombre",
+            "bairro": "Barrio",
+            "title": "Incluir barrio",
+            "titleEdit": "Editar barrio",
+            "titleVisualizar": "Visualizar barrio"
+        },
+        "banco": {},
+        "banner": {
+            "header": {
+                "id": "ID",
+                "descricao": "Descripción",
+                "posicao": "Posición",
+                "dataInicio": "Fecha de inicio",
+                "dataFim": "Fecha de finalización"
+            },
+            "erros": {
+                "campoPosicao": "Campo de posición inválido.",
+                "campoPosicaoDuplicado": "Campo de posición duplicado.",
+                "imagem": "Seleccione una imagen."
+            },
+            "propriedade": {
+                "link": "Enlace",
+                "digiteLink": "Escriba el enlace",
+                "novaAba": "Abrir enlace en una nueva pestaña",
+                "mesmaAba": "Abrir enlace en la misma pestaña",
+                "posicao": "Posición",
+                "dataInicio": "Fecha de inicio",
+                "dataFim": "Fecha de finalización",
+                "ativo": "Banner activo",
+                "imagem": "Seleccione una imagen"
+            },
+            "banner": "Banner",
+            "title": "Incluir banner",
+            "titleEdit": "Editar banner",
+            "titleVisualizar": "Visualizar banner",
+            "titleAcaoLink": "Enlace de acción",
+            "titleImagem": "Imagen del banner"
+        },
+        "categoria": {
+            "header": {
+                "id": "ID",
+                "categoriaPai": "Categoría Padre",
+                "nome": "Nombre"
+            },
+            "categoria": "Categoría",
+            "title": "Incluir Categoría",
+            "titleEdit": "Editar Categoría",
+            "titleVisualizar": "Visualizar Categoría",
+            "propriedades": {
+                "categoriaPai": "Categoría Padre",
+                "categoriaAtiva": "Categoría Activa",
+                "title": "Seleccione la categoría padre",
+                "ativa": "Categoría Activa"
+            }
+        },
+        "fornecedor": {
+            "fornecedor": "Proveedor"
+        },
+        "planoDeContas": {
+            "planoDeContas": "Plan de cuentas"
+        },
+        "search": {
+            "pesquisa": "Búsqueda de"
+        },
+        "tableDefault": {
+            "visualizar": "Visualizar",
+            "editar": "Editar",
+            "excluir": "Eliminar",
+            "opcoes": "Opciones"
+        },
+        "btns": {
+            "incluir": "Incluir",
+            "confirmar": "Confirmar",
+            "cancelar": "Cancelar",
+            "voltar": "Volver",
+            "filtrar": "Filtrar"
+        },
+        "header": {
+            "desconectar": "Desconectar"
+        },
+        "deleteModal": {
+            "excluir": "¿Desea eliminar el registro?",
+            "excluido": "Registro eliminado con"
+        },
+        "failModal": {
+            "camposObrigatorios": "Campo(s) obligatorio(s) no completado(s) correctamente."
+        },
+        "successModal": {
+            "registro": "Registro incluido con",
+            "message": "Éxito!"
+        },
+        "labelObrigatorio": {
+            "message": "Los campos con * son obligatorios."
+        },
+        "textGeneric": {
+            "nome": "Nombre",
+            "digiteNome": "Ingrese el nombre",
+            "descricao": "Descripción",
+            "digiteDescricao": "Ingrese la descripción",
+            "selecioneFornecedor": "Seleccione el proveedor",
+            "selecionePlanoDeContas": "Seleccione el plan de cuentas",
+            "registroEditado": "Registro editado con "
+        },
+        "erros": {
+            "campoObrigatorio": "Campo de llenado obligatorio."
+>>>>>>> Stashed changes
         }
     }
 }

@@ -9,7 +9,6 @@ import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import { GenericTable } from "../../Components/Others/GenericTable";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
 import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
@@ -17,8 +16,16 @@ import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
+import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
+import Box from '@mui/material/Box';
+import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
+import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
+import { ThemeProvider } from '@mui/material/styles';
+import { setTheme } from "../../helper/GridsTranslate/setTheme";
+import { setTranslate } from "../../helper/GridsTranslate/setTranslate";
 
 export function ManutencaoCompras() {
+
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -56,6 +63,8 @@ export function ManutencaoCompras() {
     //const [filiais, setFiliais] = useState([] as IFilial[]); 
     //const [produtos, setProdutos] = useState([] as IProduto[]);
 
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompras[]);
+
     const data: IManutencaoCompras = {
         tipo: "",
         tipoDemanda: null,
@@ -78,21 +87,41 @@ export function ManutencaoCompras() {
         considerarApenasFilialSelecionada: false,
     }
 
+    const columns = [
+        { field: "id", headerName: "Id", width: 60 },
+        { field: "codigogrupo", headerName: "Código Grupo", width: 150 },
+        { field: "estoque", headerName: "Estoque", width: 200 },
+        { field: "descricaoproduto", headerName: "Descrição Produto", width: 200 },
+        { field: "nomelaboratorio", headerName: "Nome Laboratório", width: 200 },
+        { field: "curvaabcproduto", headerName: "Curva Abc Produto", width: 200 },
+        { field: "estoqueminimoproduto", headerName: "Estoque Minimo Produto", width: 200 },
+        { field: "estoquemaximoproduto", headerName: "Estoque Máximo Produto", width: 200 },
+    ];
+
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarFilterButton />
+                <GridToolbarDensitySelector />
+            </GridToolbarContainer>
+        );
+    }
+
     useEffect(() => {
-        const loadDataFornecedores = async () => {
-            const response = await getAll("ListaFornecedor");
-            setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
-        }
+        // const loadDataFornecedores = async () => {
+        //     const response = await getAll("ListaFornecedor");
+        //     setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
+        // }
 
-        const loadDataLaboratorios = async () => {
-            const response = await getAll("ListaLaboratorio");
-            setLaboratorios(response.data);
-        }
+        // const loadDataLaboratorios = async () => {
+        //     const response = await getAll("ListaLaboratorio");
+        //     setLaboratorios(response.data);
+        // }
 
-        const loadDataGrupos = async () => {
-            const response = await getAll("ListaGrupo");
-            setGrupos(SetDataMultiSelect(response.data, "descricao"));
-        }
+        // const loadDataGrupos = async () => {
+        //     const response = await getAll("ListaGrupo");
+        //     setGrupos(SetDataMultiSelect(response.data, "descricao"));
+        // }
 
         // const loadDataProdutos = async () => {
         //     const response = await getAll("ListaProduto");
@@ -104,9 +133,9 @@ export function ManutencaoCompras() {
         //     setFiliais(response.data);
         // }
 
-        loadDataFornecedores();
-        loadDataLaboratorios();
-        loadDataGrupos();
+        // loadDataFornecedores();
+        // loadDataLaboratorios();
+        // loadDataGrupos();
         //loadDataProdutos();
         //loadDataFilial();
     }, [])
@@ -195,20 +224,18 @@ export function ManutencaoCompras() {
         data.filialId = filialId;
         data.considerarApenasFilialSelecionada = considerarApenasFilialSelecionada;
 
-        console.log("Data:", data);
+        const response = await postFormAll("ManutencaoCompras/MontaFiltro", data);
 
-        //const response = await postFormAll("", data);
-
-        // if (response.status === 200) {
-        //     setIsLoading(false);
-        //     console.log(response.data);
-        // } else {
-        //     setIsOpenFail(true);
-        //     setIsLoading(false);
-        //     setTimeout(() => {
-        //         setIsOpenFail(false);
-        //     }, 2000)
-        // }
+        if (response.status === 200) {
+            setIsLoading(false);
+            setItemsCompras(response.data.result);
+        } else {
+            setIsOpenFail(true);
+            setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
+        }
     }
 
     return (
@@ -410,19 +437,26 @@ export function ManutencaoCompras() {
                 </div>
                 <div className="row">
                     <div className="col-4 mt-2">
-                        <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                        <ButtonFilter onCLick={submit} isLoading={isLoading} />
                     </div>
                 </div>
             </Container>
             <div className="row">
                 <div className="col-12 mt-4">
                     <FieldsetCustom legend="Itens Compra">
-                        {/* <GenericTable
-                            deleteButton={false}
-                            data={bairros}
-                            header={["id", "nome"]}
-                        /> */}
+                        <section>
+                            <ThemeProvider theme={setTheme()}>
+                                <Box sx={{ height: 400, mt: 1 }}>
+                                    <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} localeText={setTranslate()}/>
+                                </Box>
+                            </ThemeProvider>
+                        </section>
                     </FieldsetCustom>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4 mb-2">
+                    <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                 </div>
             </div>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />

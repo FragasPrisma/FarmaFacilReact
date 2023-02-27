@@ -2,28 +2,27 @@ import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
 
 export const MenuSidebar = styled.aside`
+  
   width: 17rem;
   background: #cf0209;
   display: flex;
   flex-direction: column;
   align-items: center;
-
   height: calc(100vh - 5.68rem);
   max-height: 300rem;
   overflow-y: auto;
-  //max-width: 18.1rem;
 
   ::-webkit-scrollbar {
-    width: 0.2em;
+    width: 0.4em;
     background-color: #cf0209;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #ececec;
+    background-color: #eff1f2;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #cf0209;
+    background-color: #eff1f2;
   }
 
   .container_menu {
@@ -73,8 +72,6 @@ export const MenuSidebar = styled.aside`
   }
   
   .ul_menu {
-    //list-style-type: none;
-    //padding-left: 3rem;
     text-decoration: none;
     line-height: 1.8rem;
     width: 95%;
@@ -107,7 +104,6 @@ export const MenuSidebar = styled.aside`
 .container_itens_menu{
   display: flex;
   justify-content: space-between;
-  //padding-left: 0.5rem;
   align-items: center;
 }
   
@@ -120,20 +116,13 @@ export const MenuSidebar = styled.aside`
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.3rem;
-  
     width: 100%;
     display: flex;
     align-items: center;
-
     list-style: none;
     text-decoration: none;
-
     line-height: 1.5rem;
-    //padding-left: 3.2rem;
     display: flex;
     justify-content: flex-start;
   
   `
-
-// .navLink {
-// }

@@ -13,8 +13,118 @@
             "bairro":"Bairro",
             "adicionar":"Adicionar"
         },
+<<<<<<< Updated upstream
         "search":{
             "pesquisa":"Pesquisa de"
+=======
+        "bairro": {
+            "id": "ID",
+            "nome": "Name",
+            "bairro": "Neighborhood",
+            "title": "Add Neighborhood",
+            "titleEdit": "Edit Neighborhood",
+            "titleVisualizar": "View Neighborhood"
+        },
+        "banco": {},
+        "banner": {
+            "header": {
+                "id": "ID",
+                "descricao": "Description",
+                "posicao": "Position",
+                "dataInicio": "Start date",
+                "dataFim": "End date"
+            },
+            "erros": {
+                "campoPosicao": "Invalid position field.",
+                "campoPosicaoDuplicado": "Invalid position field.",
+                "imagem": "Select an image."
+            },
+            "propriedade": {
+                "link": "Link",
+                "digiteLink": "Enter the link",
+                "novaAba": "Open link in new tab",
+                "mesmaAba": "Open link in same tab",
+                "posicao": "Position",
+                "dataInicio": "Start date",
+                "dataFim": "End date",
+                "ativo": "Active banner",
+                "imagem": "Select an image"
+            },
+            "banner": "Banner",
+            "title": "Add Banner",
+            "titleEdit": "Edit Banner",
+            "titleVisualizar": "View Banner",
+            "titleAcaoLink": "Link Action",
+            "titleImagem": "Banner Image"
+        },
+        "categoria": {
+            "header": {
+                "id": "ID",
+                "categoriaPai": "Parent Category",
+                "nome": "Name"
+            },
+            "categoria": "Category",
+            "title": "Include Category",
+            "titleEdit": "Edit Category",
+            "titleVisualizar": "View Category",
+            "propriedades": {
+                "categoriaPai": "Parent Category",
+                "categoriaAtiva": "Active Category",
+                "title": "Select parent category",
+                "ativa": "Active Category"
+            }
+        },
+        "fornecedor": {
+            "fornecedor": "Supplier"
+        },
+        "planoDeContas": {
+            "planoDeContas": "Chart of accounts"
+        },
+        "search": {
+            "pesquisa": "Search for"
+        },
+        "tableDefault": {
+            "visualizar": "View",
+            "editar": "Edit",
+            "excluir": "Delete",
+            "opcoes": "Options"
+        },
+        "btns": {
+            "incluir": "Include",
+            "confirmar": "Confirm",
+            "cancelar": "Cancel",
+            "voltar": "Back",
+            "filtrar": "Filter"
+        },
+        "header": {
+            "desconectar": "Disconnect"
+        },
+        "deleteModal": {
+            "excluir": "Do you want to delete the record?",
+            "excluido": "Record deleted"
+        },
+        "failModal": {
+            "camposObrigatorios": "Mandatory field(s) not filled correctly."
+        },
+        "successModal": {
+            "registro": "Record included",
+            "message": "Success!"
+        },
+        "labelObrigatorio": {
+            "message": "Fields marked with * are mandatory."
+        },
+        "textGeneric": {
+            "nome": "Name",
+            "digiteNome": "Enter the name",
+            "descricao": "Description",
+            "digiteDescricao": "Enter the description",
+            "selecioneFornecedor": "Select the Supplier",
+            "selecionePlanoDeContas": "Select the Chart of Accounts",
+            "registroEditado": "Record edited"
+        },
+        "erros": {
+            "campoObrigatorio": "Mandatory field."
+>>>>>>> Stashed changes
         }
     }
 }

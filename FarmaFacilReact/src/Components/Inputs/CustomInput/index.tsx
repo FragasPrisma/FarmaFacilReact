@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
 
 interface IInput {
@@ -15,20 +15,24 @@ interface IInput {
     index?: number;
     erros?: { erro: Boolean, index: number, erroNome: string };
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    focusParam?: boolean;
+    textAlign?:boolean
 }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign }: IInput) {
 
+    let aligRight = textAlign ? ".5rem" : "0"
     const [erroParameter, setErroParameter] = useState(erro)
     const [errosParameter, setErrosParameter] = useState(erros)
+    const [focus] = useState(focusParam);
 
     useEffect(() => {
         setErroParameter(erro)
-    },[erro])
+    }, [erro])
 
     useEffect(() => {
         setErrosParameter(erros)
-    },[erros])
+    }, [erros])
 
     return (
         <ContainerInput >
@@ -48,6 +52,11 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                     readOnly={readonly}
                     maxLength={maxLength}
                     onChange={OnChange}
+                    autoFocus={focus}
+                    style={{
+                        textAlign: textAlign ? "end" : "left",
+                        paddingRight:textAlign ? ".5rem" : "0"
+                    }}
                 />
             </div>
             {errosParameter?.erro && errosParameter.index == index &&

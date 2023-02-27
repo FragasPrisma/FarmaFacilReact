@@ -13,6 +13,42 @@ export function Login() {
 
   const { authenticated, login }: any = useContext(AuthContext);
 
+<<<<<<< Updated upstream
+=======
+  const idioma = useSelector((state: RootState) => state.Language.idioma);
+
+  useEffect(() => {
+
+    i18n.changeLanguage(idioma);
+    
+    if (idioma == "pt") {
+
+      setImg(brasil)
+      setTextImg("Português")
+      i18n.changeLanguage('pt');
+      dispatch(changeLanguage({ name: "português", language: "pt" }))
+
+    } else {
+      
+      if (idioma == "es") {
+        setImg(spain)
+        setTextImg("Spanish")
+        setPasswordPlaceHold("Contraseña")
+        i18n.changeLanguage('es');
+        dispatch(changeLanguage({ name: "espanhol", language: "es" }))
+      } else {
+        setImg(us)
+        setTextImg("English")
+        setPasswordPlaceHold("Password")
+        i18n.changeLanguage('us');
+        dispatch(changeLanguage({ name: "inglês", language: "us" }))
+      }
+    }
+    
+  }, [])
+
+  const dispatch = useDispatch();
+>>>>>>> Stashed changes
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordPlaceHold, setPasswordPlaceHold] = useState("Senha");
@@ -47,6 +83,11 @@ export function Login() {
       setImg(brasil)
       setTextImg("Português")
       i18n.changeLanguage('pt');
+<<<<<<< Updated upstream
+=======
+      setPasswordPlaceHold("Senha")
+      dispatch(changeLanguage({ name: "português", language: "pt" }))
+>>>>>>> Stashed changes
     } else {
       if(option == 2){
         setImg(spain)

@@ -13,17 +13,23 @@ interface Props {
   btnVisualizar?: boolean;
   actionsButtons?: boolean;
   openModal?: boolean;
-  openModalFunction?: (id: string) => void
+  openModalFunction?: (id: string) => void;
 }
 
 export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false, openModalFunction }: Props) {
 
+<<<<<<< Updated upstream
+=======
+  const { t } = useTranslation();
+  const widths = ["8%", "50%"]
+
+>>>>>>> Stashed changes
   return (
     <TableCustom>
       <thead>
         <TrCustom>
           {header.map((head, index) => (
-            <th style={{ width: "calc(2rem - 100%)" }} key={index}>{headerTableView ? headerTableView[index] : head[0].toUpperCase() + head.substring(1)}</th>
+            <th style={{ width: widths[index] }} key={index}>{headerTableView ? headerTableView[index] : head[0].toUpperCase() + head.substring(1)}</th>
           ))}
           {!actionsButtons &&
             <th style={{ textAlign: "end", paddingRight: "1.6rem", width: "300px" }}>
@@ -45,7 +51,7 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
       </thead>
       <tbody>
         {data.map((dataItem, indexItem) => (
-          <TrCustom key={indexItem}>
+          <TrCustom key={indexItem} >
             {header.map((item, index) => {
               const props = item.split(".");
               let value = dataItem;
@@ -57,7 +63,7 @@ export function TableDefault({ data = [], header, path, iconOptions = false, ite
                   break;
                 }
               }
-              return <td key={index}>{value.toString().slice(0, 30)}</td>;
+              return <td key={index}>{value.toString().slice(0, 80)}</td>;
             })}
             {/* {header.map((item, index) => (
               <td key={index}>

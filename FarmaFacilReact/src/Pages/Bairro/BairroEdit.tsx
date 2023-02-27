@@ -5,20 +5,31 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { IBairro } from "../../Interfaces/Bairro/IBairro";
 
 export function BairroEdit() {
+
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
+<<<<<<< Updated upstream
   const navigate = useNavigate();
   const [erroNome,setErroNome] = useState("");
   const [nome, setNome] = useState("");
   const [bairroId, setBairroId] = useState(0);
   const { id } = useParams();
   const [isLoading,setIsLoading] = useState(false);
+=======
+  const [erroNome, setErroNome] = useState("");
+  const [nome, setNome] = useState("");
+  const [bairroId, setBairroId] = useState(0);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
+>>>>>>> Stashed changes
 
   let idParams = !id ? "0" : id.toString();
 
@@ -55,7 +66,12 @@ export function BairroEdit() {
 
     const resp = await postFormAll("EditarBairro", data);
 
+<<<<<<< Updated upstream
     if(resp.status == 200){
+=======
+    if (resp.status == 200) {
+
+>>>>>>> Stashed changes
       setIsOpenSuccess(true);
       setTimeout(() => {
         navigate("/bairro");
@@ -72,7 +88,11 @@ export function BairroEdit() {
 
   return (
     <>
+<<<<<<< Updated upstream
       <HeaderMainContent title="EDITAR BAIRRO" IncludeButton={false} ReturnButton={false}/>
+=======
+      <HeaderMainContent title={`${t('bairro.titleEdit')}`} IncludeButton={false} ReturnButton={false} />
+>>>>>>> Stashed changes
       <div className="form-group">
         <Container>
           <div className="row">
@@ -87,6 +107,7 @@ export function BairroEdit() {
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setNome(e.target.value)
                 }
+                focusParam={true}
                 required={true}
               />
             </div>
@@ -98,7 +119,11 @@ export function BairroEdit() {
             </div>
           </div>
         </Container>
+<<<<<<< Updated upstream
         <SuccessModal show={isOpenSuccess} textCustom="Dado editado com"/>
+=======
+        <SuccessModal show={isOpenSuccess} textCustom={t('textGeneric.registroEditado').toString()} />
+>>>>>>> Stashed changes
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

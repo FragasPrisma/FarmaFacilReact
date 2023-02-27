@@ -122,7 +122,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
 
     useEffect(() => {
         if (erros.index == 6) {
-            setErroEstadoId("Selecione um Estado !");
+            setErroEstadoId(erros.erroNome);
         }
     }, [erros])
 
@@ -161,6 +161,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setNomeFornecedor(e.target.value)
                         }
+                        focusParam={true}
                         required={true}
                     />
                 </div>
@@ -281,6 +282,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                         error={erroEstadoId}
                         required={true}
                         Select={(estadoId, select) => AdcionarEstado(estadoId, select)}
+                        titleEdit="Selecione o estado"
                     />
                 </div>
                 <div className="col-4">
@@ -290,6 +292,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                         filter="nome"
                         label="Cidade"
                         Select={(cidadeId) => setCidadeId(cidadeId)}
+                        titleEdit="Selecione a cidade"
                     />
                 </div>
                 <div className="col-3">
@@ -299,6 +302,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                         filter="nome"
                         label="Bairro"
                         Select={(bairroId) => setBairroId(bairroId)}
+                        titleEdit="Selecione o bairro"
                     />
                 </div>
             </div>
@@ -373,7 +377,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                 </div>
             </div>
             <div className="row">
-                <div className="col-8">
+                <div className="col-4">
                     <CustomInput
                         label="E-mail"
                         type="text"
@@ -386,9 +390,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                         required={false}
                     />
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-8">
+                <div className="col-4">
                     <CustomInput
                         label="Home-Page"
                         type="text"

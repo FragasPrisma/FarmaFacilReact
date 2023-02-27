@@ -62,6 +62,7 @@ export function AdministradoraCartaoDetails() {
                                     value={administradoraModel.prazoRecebimento}
                                     required={false}
                                     readonly={true}
+                                    textAlign={true}
                                 />
                             </div>
                             <div className="col-3">
@@ -71,6 +72,7 @@ export function AdministradoraCartaoDetails() {
                                     value={administradoraModel.desconto}
                                     required={false}
                                     readonly={true}
+                                    textAlign={true}
                                 />
                             </div>
                         </div>

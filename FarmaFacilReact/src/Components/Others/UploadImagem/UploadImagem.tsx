@@ -27,8 +27,10 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
                 setWidth(image.width)
                 setHeight(image.height)
             };
+        }else{
+            DeleteImagem()
         }
-    }, [])
+    }, [img])
 
     function DeleteImagem(){
         setImagemModel("")
@@ -101,7 +103,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
                             </OverlayTrigger>
 
                             <OverlayTrigger
-                                key={1}
+                                key={2}
                                 overlay={
                                     <Tooltip id={`tooltip-top`}>
                                         Editar
@@ -111,7 +113,7 @@ export function UploadImagem({ img, onUpdate, onButton = true, text, requerid , 
                                 <Button variant=""><label htmlFor="arquivo" className="imgLabel"><NotePencil size={20} color="#cf0209" /></label></Button>
                             </OverlayTrigger>
                             <OverlayTrigger
-                                key={1}
+                                key={3}
                                 overlay={
                                     <Tooltip id={`tooltip-top`}>
                                         Excluir

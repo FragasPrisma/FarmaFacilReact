@@ -1,6 +1,9 @@
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
 import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
+import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
@@ -11,6 +14,7 @@ import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
+import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
 import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
@@ -56,8 +60,31 @@ export function ManutencaoComprasEdit() {
     const [grupos, setGrupos] = useState([] as IGrupo[]);
     //const [produtos, setProdutos] = useState([] as IProduto[])
 
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompras[]);
+
+    const columns = [
+        { field: "id", headerName: "Id", width: 60 },
+        { field: "codigogrupo", headerName: "Código Grupo", width: 150 },
+        { field: "estoque", headerName: "Estoque", width: 200 },
+        { field: "descricaoproduto", headerName: "Descrição Produto", width: 200 },
+        { field: "nomelaboratorio", headerName: "Nome Laboratório", width: 200 },
+        { field: "curvaabcproduto", headerName: "Curva Abc Produto", width: 200 },
+        { field: "estoqueminimoproduto", headerName: "Estoque Minimo Produto", width: 200 },
+        { field: "estoquemaximoproduto", headerName: "Estoque Máximo Produto", width: 200 },
+    ];
+
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarFilterButton />
+                <GridToolbarDensitySelector />
+            </GridToolbarContainer>
+        );
+    }
+
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
+    
 
     useEffect(() => {
 
@@ -157,7 +184,7 @@ export function ManutencaoComprasEdit() {
         }
     }, [tipoValor])
 
-    async function submit() {
+    async function filter() {
         setIsLoading(true);
 
         data.tipo = tipo;
@@ -192,6 +219,10 @@ export function ManutencaoComprasEdit() {
         //         setIsOpenFail(false);
         //     }, 2000)
         // }
+    }
+
+    async function submit() {
+
     }
 
     return (
@@ -378,19 +409,24 @@ export function ManutencaoComprasEdit() {
                 </div>
                 <div className="row">
                     <div className="col-4 mt-2">
-                        <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                        <ButtonFilter onCLick={filter} isLoading={isLoading} />
                     </div>
                 </div>
             </Container>
             <div className="row">
                 <div className="col-12 mt-4">
                     <FieldsetCustom legend="Itens Compra">
-                        {/* <GenericTable
-                            deleteButton={false}
-                            data={bairros}
-                            header={["id", "nome"]}
-                        /> */}
+                        <section>
+                            <Box sx={{ height: 400, mt: 1 }}>
+                                <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} />
+                            </Box>
+                        </section>
                     </FieldsetCustom>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4 mb-2">
+                    <ButtonConfirm onCLick={submit} isLoading={isLoading} /> 
                 </div>
             </div>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />

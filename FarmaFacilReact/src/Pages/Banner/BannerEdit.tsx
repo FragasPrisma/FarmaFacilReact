@@ -176,6 +176,7 @@ export function BannerEdit() {
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setDescricao(e.target.value)
                                     }
+                                    focusParam={true}
                                     required={true}
                                 />
                             </div>
@@ -221,6 +222,7 @@ export function BannerEdit() {
                                         setPosicao(parseInt(e.target.value))
                                     }
                                     required={true}
+                                    textAlign={true}
                                 />
                             </div>
                             <div className="col-3">
@@ -273,7 +275,7 @@ export function BannerEdit() {
                         </div>
                     </Container>
                 }
-                <SuccessModal show={isOpenSuccess} textCustom="Registro editado com " />
+                <SuccessModal show={isOpenSuccess} textCustom={t('textGeneric.registroEditado').toString()} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

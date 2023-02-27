@@ -142,6 +142,7 @@ export function AdministradoraCartaoEdit() {
         <>
             <HeaderMainContent title="EDITAR ADMINISTRADORA DE CARTÃO" IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
+<<<<<<< Updated upstream
                 {idAdministradora > 0 &&
                     <Container>
                         <div className="row">
@@ -157,6 +158,89 @@ export function AdministradoraCartaoEdit() {
                                         setNome(e.target.value)
                                     }
                                     required={true}
+=======
+                <Container>
+                    <div className="row">
+                        <div className="col-5">
+                            <CustomInput
+                                label={t('textGeneric.nome')}
+                                type="text"
+                                placeholder={t('textGeneric.digiteNome').toString()}
+                                value={nome}
+                                maxLength={50}
+                                erro={erroNome}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setNome(e.target.value)
+                                }
+                                focusParam={true}
+                                required={true}
+                            />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-2">
+                            <CustomInput
+                                label={t('administradoraCartao.propriedade.recebimento')}
+                                type="number"
+                                value={prazoDeRecebimento}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setPrazoDeRecebimento(MaxLengthNumber(10000, parseInt(e.target.value)))
+                                }
+                                textAlign={true}
+                                required={false}
+                            />
+                        </div>
+                        <div className="col-3">
+                            <CustomInput
+                                label={t('administradoraCartao.propriedade.desconto')}
+                                type="number"
+                                value={desconto}
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                    setDesconto(MaxLengthNumber(9999999999.99, parseFloat(e.target.value)))
+                                }
+                                textAlign={true}
+                                required={false}
+                            />
+                        </div>
+                        <div className="col-4 mt-2">
+                            <CheckboxCustom
+                                options={[t('administradoraCartao.propriedade.parcelaTaxaAdm')]}
+                                check={parcelaTaxaAdm}
+                                onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setParcelaTaxaAdm(e.target.checked)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-5">
+                            <RadioCustom
+                                options={[t('administradoraCartao.propriedade.tef.visa'),
+                                t('administradoraCartao.propriedade.tef.banri'),
+                                t('administradoraCartao.propriedade.tef.conv'),
+                                t('administradoraCartao.propriedade.tef.edm'),
+                                t('administradoraCartao.propriedade.tef.hiper'),
+                                t('administradoraCartao.propriedade.tef.inte')
+                                ]}
+                                requerid={true}
+                                name="gerenciador"
+                                onClickOptions={(value, label) => setGerenciador(value)}
+                                titleComponet={t('administradoraCartao.propriedade.tef.title').toString()}
+                                value={gerenciador}
+                            />
+                        </div>
+                        <div className="col-5">
+                            {gerenciador == 0 &&
+                                <RadioCustom
+                                    titleComponet={t('administradoraCartao.propriedade.cielo.title').toString()}
+                                    options={[t('administradoraCartao.propriedade.cielo.troco'),
+                                    t('administradoraCartao.propriedade.cielo.desconto'),
+                                    t('administradoraCartao.propriedade.cielo.vias'),
+                                    t('administradoraCartao.propriedade.cielo.cupom'),
+                                    ]}
+                                    name="cieloPremia"
+                                    onClickOptions={(value, label) => setCieloPremia(value)}
+                                    value={cieloPremia}
+>>>>>>> Stashed changes
                                 />
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
+<<<<<<< Updated upstream
 import { useEffect, useState, } from "react";
 import { getAll } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
@@ -30,17 +31,31 @@ export function Banner() {
         loadDataTable()
     }, [pagina]);
 
+=======
+import { useTranslation } from "react-i18next";
+
+export function Banner() {
+    
+    const { t } = useTranslation();
+
+>>>>>>> Stashed changes
     return (
         <>
             <HeaderMainContent title="Banner" IncludeButton={true} ReturnButton={false} />
             <SearchContentScreens
+<<<<<<< Updated upstream
                 text="Banner"
                 data={data}
                 filter={"descricao"}
                 headerTable={["id", "descricao", "posicao", "dataInicio", "dataFim"]}
                 headerTableView={["ID", "Descrição","Posição","Data início","Data fim"]}
+=======
+                text={t('banner.banner')}
+                headerTable={["posicao", "descricao"]}
+                headerTableView={[t('banner.header.posicao'), t('banner.header.descricao')]}
+                urlSearch="ListaPaginacaoBanner"
+>>>>>>> Stashed changes
             />
-            <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
 }

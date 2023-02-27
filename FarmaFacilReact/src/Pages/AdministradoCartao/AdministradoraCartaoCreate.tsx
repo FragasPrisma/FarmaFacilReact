@@ -2,7 +2,7 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect , KeyboardEvent} from "react";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,7 @@ export function AdministradoraCartaoCreate() {
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [erro, setErro] = useState("");
+<<<<<<< Updated upstream
 
     const [fornecedores, setFornecedores] = useState([]);
     const [planoDeContas, setPlanoDeContas] = useState([]);
@@ -42,6 +43,15 @@ export function AdministradoraCartaoCreate() {
         }
         loadDataFornecedor()
     }, []);
+=======
+    const [focus, setFocus] = useState(true);
+    const { t } = useTranslation();
+    const [nomeFornecedor, setNomeFornecedor] = useState(t('textGeneric.selecioneFornecedor'));
+    const [nomePlano, setNomePlano] = useState(t('textGeneric.selecionePlanoDeContas'))
+
+    const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
+    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta[]);
+>>>>>>> Stashed changes
 
     useEffect(() => {
         const loadDataPlanoDeContas = async () => {
@@ -92,7 +102,23 @@ export function AdministradoraCartaoCreate() {
         if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/administradoradecartao");
+
+                setNome("");
+                setPrazoDeRecebimento(0);
+                setDesconto(0);
+                setGerenciador(-1);
+                setCieloPremia(-1);
+                setmodalidade(0);
+                setAtivo(false);
+                setFornecedorId(null);
+                setPlanoDeConta(null);
+                setParcelaTaxaAdm(false);
+                setNomeFornecedor(t('textGeneric.selecioneFornecedor'))
+                setNomePlano(t('textGeneric.selecionePlanoDeContas'))
+
+                setIsOpenSuccess(false);
+                setIsLoading(false);
+                setFocus(true);
             }, 2000)
         } else {
             setIsOpenFail(true);
@@ -121,6 +147,7 @@ export function AdministradoraCartaoCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setNome(e.target.value)
                                 }
+                                focusParam={focus}
                                 required={true}
                             />
                         </div>
@@ -136,6 +163,7 @@ export function AdministradoraCartaoCreate() {
                                     setPrazoDeRecebimento(parseInt(e.target.value))
                                 }
                                 required={false}
+                                textAlign={true}
                             />
                         </div>
                         <div className="col-3">
@@ -147,6 +175,7 @@ export function AdministradoraCartaoCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDesconto(parseFloat(e.target.value))
                                 }
+                                textAlign={true}
                                 required={false}
                             />
                         </div>
@@ -203,14 +232,38 @@ export function AdministradoraCartaoCreate() {
                     </div>
                     <div className="row mb-3">
                         <div className="col-5">
+<<<<<<< Updated upstream
                             <CustomDropDown data={fornecedores} title="Selecione o Fornecedor" filter="nomeFornecedor" label="Fornecedor" Select={(Id) => setFornecedorId(Id)} />
                         </div>
                         <div className="col-5">
                             <CustomDropDown data={planoDeContas} title="Selecione o Plano de Conta" filter="descricao" label="PLano de Contas" Select={(Id) => setPlanoDeConta(Id)} />
+=======
+                            <CustomDropDown
+                                data={fornecedores}
+                                title={nomeFornecedor ? nomeFornecedor : "Selecione o fornecedor"}
+                                filter="nomeFornecedor"
+                                label={t('fornecedor.fornecedor')}
+                                Select={(Id, nome) => { setFornecedorId(Id); setNomeFornecedor(nome) }}
+                            />
+                        </div>
+                        <div className="col-5">
+                            <CustomDropDown
+                                data={planoDeContas}
+                                title={nomePlano ? nomePlano : "Selecione o plano de contas"}
+                                filter="descricao"
+                                label={t('planoDeContas.planoDeContas')}
+                                Select={(Id, descricao) => { setPlanoDeConta(Id); setNomePlano(descricao) }}
+                            />
+>>>>>>> Stashed changes
                         </div>
                     </div>
                     <p className="text-danger">{erro}</p>
                 </Container>
+<<<<<<< Updated upstream
+=======
+                
+                <LabelObrigatorio />
+>>>>>>> Stashed changes
                 <div className="row">
                     <div className="col-6">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />

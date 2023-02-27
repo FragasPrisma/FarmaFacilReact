@@ -6,12 +6,14 @@ import { Container } from "./styles";
 import { useParams } from "react-router-dom";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { ICategoria } from "../../Interfaces/Categoria/ICategoria";
+import { useTranslation } from "react-i18next";
 
 export function CategoriaDetails() {
 
     const [categoriaModel, setCategoriaModel] = useState({} as ICategoria);
 
     const [nomeCategoria, setNomeCategoria] = useState("");
+    const { t } = useTranslation();
     const { id } = useParams();
     let idParams = !id ? "" : id.toString();
 
@@ -32,14 +34,14 @@ export function CategoriaDetails() {
 
     return (
         <>
-            <HeaderMainContent title="DETALHES CATEGORIA" IncludeButton={false} ReturnButton={true} to="categoria" />
+            <HeaderMainContent title={t('categoria.titleVisualizar')} IncludeButton={false} ReturnButton={true} to="categoria" />
             <div className="form-group">
                 {categoriaModel.id > 0 &&
                     <Container>
                         <div className="row">
                             <div className="col-6">
                                 <CustomInput
-                                    label="Nome"
+                                    label={t('textGeneric.nome')}
                                     type="text"
                                     value={categoriaModel.nome}
                                     required={true}
@@ -50,7 +52,7 @@ export function CategoriaDetails() {
                         <div className="row">
                             <div className="col-6">
                                 <CustomInput
-                                    label="Categoria Pai"
+                                    label={t('categoria.propriedades.categoriaPai')}
                                     type="text"
                                     value={nomeCategoria}
                                     readonly={true}
@@ -60,7 +62,7 @@ export function CategoriaDetails() {
                         <div className="row">
                             <div className="col-3">
                                 <CheckboxCustom options={[
-                                    "Categoria Ativa"
+                                    t('categoria.propriedades.ativa')
                                 ]}
                                     check={categoriaModel.categoriaAtivo}
                                     readOnly={true}
