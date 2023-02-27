@@ -3,6 +3,8 @@ import axios, { AxiosResponse } from "axios";
 const API_URL = "https://localhost:44326/api/";
 //const API_URL = "https://api-ffweb.prismafive.com.br/api/"
 
+let token = localStorage.getItem("token")
+
 export const api = axios.create({
   baseURL: API_URL,
 });
@@ -28,6 +30,7 @@ export const getAll = async (url: string): Promise<AxiosResponse> => {
     const response = await api.get(url);
     return response;
   } catch (error: any) {
+    console.log(error)
     throw new Error(`Erro ao buscar dados de ${url}. Erro: ${error.message}`);
   }
 };
@@ -56,17 +59,16 @@ Deleta dados para a url especificada
 */
 export const deleteDetail = async (
   url: string,
-  payload: any
 ): Promise<AxiosResponse> => {
   try {
-    return await api.post(url, payload);
+    return await api.post(url);
   } catch (error: any) {
-    if(error.response.data){
+    if (error.response.data) {
       return error.response.data
-    }else{
+    } else {
       throw new Error(`Erro ao Deletar dado ${url}. Erro: ${error.message}`);
     }
-    
+
   }
 };
 /**
@@ -82,4 +84,3 @@ export const GetId = async (url: string, id: string): Promise<AxiosResponse> => 
     throw new Error(`Erro ao buscar dados de ${url}. Erro: ${error.message}`);
   }
 };
-
