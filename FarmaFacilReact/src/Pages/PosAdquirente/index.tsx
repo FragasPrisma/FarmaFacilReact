@@ -22,7 +22,7 @@ export function PosAdquirente() {
     return (
         <>
             <HeaderMainContent title="PÓS ADQUIRENTE" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Pós Adquirente" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Pós Adquirente" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoPosAdquirente"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

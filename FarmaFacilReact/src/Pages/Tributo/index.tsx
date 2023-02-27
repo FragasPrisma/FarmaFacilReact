@@ -30,7 +30,8 @@ export function Tributo() {
         data={data}
         filter={"descricao"}
         headerTable={["id", "tipoTributo", "descricao", "codigo"]}
-        headerTableView={["ID", "Tipo Tributo", "Descrição", "Código"]}
+        headerTableView={["ID", "Tipo Tributo", "Descrição", "Código"]} 
+        urlSearch={"ListaPaginacaoTributo"}      
       />
       <Paginations
         pagina={pagina}

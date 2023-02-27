@@ -22,7 +22,7 @@ export function Banco() {
     return (
         <>
             <HeaderMainContent title="BANCO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Banco" data={data} filter={"nome"} headerTable={["codigoBanco", "nome"]} headerTableView={["Código Banco", "Nome"]} />
+            <SearchContentScreens text="Banco" data={data} filter={"nome"} headerTable={["codigoBanco", "nome"]} headerTableView={["Código Banco", "Nome"]} urlSearch={"ListaPaginacaoBanco"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>
     );

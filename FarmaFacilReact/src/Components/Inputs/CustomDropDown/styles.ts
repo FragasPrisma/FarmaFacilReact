@@ -72,6 +72,13 @@ export const CustomDropDownContainer = styled(Dropdown)`
     
 `
 export const CustomFormControlContainer = styled(FormControl)`
+    ::placeholder {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 400;
+        color: #272727;
+        font-size: 0.8rem;
+        font-style: italic;
+    }
     background-color: transparent;
     width: 100% !important;
 `

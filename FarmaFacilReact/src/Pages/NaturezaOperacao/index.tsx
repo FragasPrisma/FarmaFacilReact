@@ -23,7 +23,7 @@ export function NaturezaDeOperecao() {
   return (
     <>
       <HeaderMainContent title="NATUREZA DE OPERAÇÃO" IncludeButton={true} ReturnButton={false} />
-      <SearchContentScreens text="Natureza de Operação" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID","Descrição"]} />
+      <SearchContentScreens text="Natureza de Operação" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoNaturezaOperacao"} />
       <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
     </>
   );

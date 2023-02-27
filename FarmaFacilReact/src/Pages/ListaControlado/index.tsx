@@ -22,7 +22,7 @@ export function ListaControlado() {
     return (
         <>
             <HeaderMainContent title="LISTA CONTROLADO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Lista Controlado" data={data} filter={"codigo"} headerTable={["codigo", "descricao"]} headerTableView={["Código", "Descrição"]} />
+            <SearchContentScreens text="Lista Controlado" data={data} filter={"codigo"} headerTable={["codigo", "descricao"]} headerTableView={["Código", "Descrição"]} urlSearch={"ListaPaginacaoListaControlado"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

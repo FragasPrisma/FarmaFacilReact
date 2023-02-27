@@ -22,7 +22,7 @@ export function Farmacopeia() {
     return (
         <>
             <HeaderMainContent title="FARMACOPÉIA" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Farmacopéia" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Farmacopéia" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoFarmacopeia"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

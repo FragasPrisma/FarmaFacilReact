@@ -22,7 +22,7 @@ export function Nbm() {
   return (
     <>
       <HeaderMainContent title="NBM" IncludeButton={true} ReturnButton={false} />
-      <SearchContentScreens text="Nbm" data={data} filter={"descricao"} headerTable={["id", "codigoNbm", "descricao"]} headerTableView={["ID", "Código NBM", "Descrição"]} />
+      <SearchContentScreens text="Nbm" data={data} filter={"descricao"} headerTable={["id", "codigoNbm", "descricao"]} headerTableView={["ID", "Código NBM", "Descrição"]} urlSearch={"ListaPaginacaoNbm"} />
       <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
     </>
   );

@@ -22,7 +22,7 @@ export function FormaDepagamento() {
     return (
         <>
             <HeaderMainContent title="FORMA DE PAGAMENTO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Forma de Pagamento" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Forma de Pagamento" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoFormaPagamento"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

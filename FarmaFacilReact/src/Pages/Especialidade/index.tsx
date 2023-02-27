@@ -22,7 +22,7 @@ export function Especialidade() {
     return (
         <>
             <HeaderMainContent title="ESPECIALIDADE" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Especialidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Especialidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoEspecialidade"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     )

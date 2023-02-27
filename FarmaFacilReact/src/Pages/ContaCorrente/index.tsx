@@ -22,7 +22,7 @@ export function ContaCorrente() {
     return (
         <>
             <HeaderMainContent title="CONTA CORRENTE" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Conta Corrente" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Conta Corrente" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoContaCorrente"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

@@ -22,7 +22,7 @@ export function Transportador() {
   return (
     <>
       <HeaderMainContent title="TRANSPORTADOR" IncludeButton={true} ReturnButton={false} />
-      <SearchContentScreens text="Transportador" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+      <SearchContentScreens text="Transportador" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoTransportador"} />
       <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
     </>
   );

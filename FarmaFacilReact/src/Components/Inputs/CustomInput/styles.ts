@@ -51,8 +51,10 @@ export const InputCustomized = styled.input`
     ::placeholder{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 400;
+        opacity: 0.7;
         color: #272727;
         font-size: 0.8rem;
+        font-style: italic;
     }
     background-color: transparent;
     border: none;

@@ -10,8 +10,26 @@ import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
+import { MaskCnpj } from "../../../Mask/Mask";
+import { MaskIe } from "../../../Mask/Mask";
+import { MaskCep } from "../../../Mask/Mask";
+import { ViaCep } from "../../../helper/ViaCep";
+import { MaskCpf } from "../../../Mask/Mask";
+import { MaskIm } from "../../../Mask/Mask";
+import { MaskTelefone } from "../../../Mask/Mask";
 
-export const TabFarmacia = () => {
+interface IData {
+  erros: {
+    erro: boolean,
+    erroNome: string,
+    index: number
+  }
+}
+
+export const TabFarmacia = ({ erros }: IData) => {
+
+  useEffect(() => { setErrosParameters(erros) }, [erros])
+
   const [razaoSocial, setRazaoSocial] = useState("");
   const [nomeFantasia, setNomeFantasia] = useState("");
   const [cnpj, setCnpj] = useState("");
@@ -23,6 +41,7 @@ export const TabFarmacia = () => {
   const [dddCelular, setDddCelular] = useState("");
   const [celular, setcelular] = useState("");
   const [email, setEmail] = useState("");
+  const [dddWhatsApp, setDddWhatsApp] = useState("");
   const [whatsApp, setWhatsApp] = useState("");
   const [cep, setCep] = useState("");
   const [logradouro, setLogradouro] = useState("");
@@ -42,16 +61,22 @@ export const TabFarmacia = () => {
   const [licencaMapa, setLicencaMapa] = useState("");
   const [fornecedorInternoId, setFornecedorInternoId] = useState(0);
 
+  const [nomeEstado, setNomeEstado] = useState("Selecione o Estado")
+  const [nomeCidade, setNomeCidade] = useState("Selecione a Cidade")
+  const [nomeBairro, setNomeBairro] = useState("Selecione o Bairro")
+
   const [bairros, setBairros] = useState([] as IBairro[]);
   const [cidades, setCidades] = useState([] as ICidade[]);
   const [estados, setEstados] = useState([] as IEstado[]);
   const [fornecedores, setFornecedores] = useState([] as IFornecedor[])
 
+  const [errosParameter, setErrosParameters] = useState(erros)
+
   Farmacia.Id = 0;
   Farmacia.RazaoSocial = razaoSocial;
   Farmacia.NomeFantasia = nomeFantasia;
-  Farmacia.Cnpj = cnpj;
-  Farmacia.InscricaoEstadual = inscricaoEstadual;
+  Farmacia.Cnpj = cnpj.replace(/[-/.]/g, "");;
+  Farmacia.InscricaoEstadual = inscricaoEstadual.replace(/\.|-/gm, '');
   Farmacia.InscricaoMunicipal = inscricaoMunicipal;
   Farmacia.RegimeTributario = regimeTributario;
   Farmacia.DDD = ddd;
@@ -59,7 +84,7 @@ export const TabFarmacia = () => {
   Farmacia.Celular = celular;
   Farmacia.Email = email;
   Farmacia.WhatsApp = whatsApp;
-  Farmacia.Cep = cep;
+  Farmacia.Cep = cep.replace(/\.|-/gm, '');
   Farmacia.Logradouro = logradouro;
   Farmacia.Numero = numero;
   Farmacia.Complemento = complemento;
@@ -76,6 +101,50 @@ export const TabFarmacia = () => {
   Farmacia.AutoridadeSanitaria = autoridadeSanitaria;
   Farmacia.LicencaMapa = licencaMapa;
   Farmacia.FornecedorInternoId = fornecedorInternoId;
+
+  useEffect(() => {
+    async function PesquisaCep() {
+
+      if (cep.length == 9) {
+
+        const request = await ViaCep(cep.replace(/\.|-/gm, ''))
+
+        setLogradouro(request.logradouro)
+        setComplemento(request.complemento)
+        setDdd(request.ddd)
+        setDddCelular(request.ddd)
+
+        const estado = estados.filter(x =>
+          x.sigla == request.uf
+        )
+
+        if (estado.length > 0) {
+          setNomeEstado(request.uf)
+          setEstadoId(estado[0].id)
+        }
+
+        const cidade = cidades.filter(x =>
+          x.nome == request.localidade
+        )
+
+        if (cidade.length > 0) {
+          setNomeCidade(request.localidade)
+          setCidadeId(cidade[0].id)
+        }
+
+        const bairro = bairros.filter(x =>
+          x.nome == request.bairro
+        )
+
+        if (bairro.length > 0) {
+          setNomeBairro(request.bairro)
+          setBairroId(bairro[0].id)
+        }
+
+      }
+    }
+    PesquisaCep()
+  }, [cep])
 
   useEffect(() => {
     const loadDataBairros = async () => {
@@ -110,10 +179,12 @@ export const TabFarmacia = () => {
         <div className="col-4 mt-4">
           <CustomInput
             label="Razão social"
-            type="string"
+            type="text"
             maxLength={50}
             value={razaoSocial}
-            placeholder="Digite um valor para a razão social"
+            placeholder="Prismafive Tecnologia"
+            erros={errosParameter}
+            index={1}
             required={true}
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setRazaoSocial(e.target.value)}
           />
@@ -121,10 +192,12 @@ export const TabFarmacia = () => {
         <div className="col-4 mt-4">
           <CustomInput
             label="Nome Fantasia"
-            type="string"
+            type="text"
             maxLength={50}
             value={nomeFantasia}
-            placeholder="Digite um valor para o nome fantasia"
+            placeholder="Prisma5"
+            erros={errosParameter}
+            index={2}
             required={true}
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setNomeFantasia(e.target.value)}
           />
@@ -147,31 +220,32 @@ export const TabFarmacia = () => {
         <div className="col-2">
           <CustomInput
             label="Cnpj"
-            type="string"
-            maxLength={14}
-            value={cnpj}
+            type="text"
+            maxLength={18}
+            value={MaskCnpj(cnpj)}
             required={true}
-            placeholder="Digite um valor para o Cnpj"
+            index={3}
+            placeholder="00.000.000/0000-00"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setCnpj(e.target.value)}
           />
         </div>
         <div className="col-2">
           <CustomInput
             label="Inc. Est."
-            type="string"
+            type="text"
             maxLength={20}
-            value={inscricaoEstadual}
-            placeholder="Digite um valor para o Inc. Est."
+            value={MaskIe(inscricaoEstadual)}
+            placeholder="000.000.000000000-00"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setInscricaoEstadual(e.target.value)}
           />
         </div>
         <div className="col-2">
           <CustomInput
             label="Inc. Mun."
-            type="string"
+            type="text"
             maxLength={20}
-            value={inscricaoMunicipal}
-            placeholder="Digite um valor para o Inc. Mun."
+            value={MaskIm(inscricaoMunicipal)}
+            placeholder="000/000-000000000000"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setInscricaoMunicipal(e.target.value)}
           />
         </div>
@@ -190,9 +264,10 @@ export const TabFarmacia = () => {
         <div className="col-4">
           <CustomInput
             label="Endereço"
-            type="string"
+            type="text"
             value={logradouro}
             required={true}
+            index={4}
             placeholder="Digite um valor para o endereço"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setLogradouro(e.target.value)}
           />
@@ -200,27 +275,31 @@ export const TabFarmacia = () => {
         <div className="col-1">
           <CustomInput
             label="Numero"
-            type="string"
+            type="text"
             maxLength={7}
             value={numero}
+            index={5}
             required={true}
+            placeholder={"000"}
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setNumero(e.target.value)}
           />
         </div>
-        <div className="col-1">
+        <div className="col-2">
           <CustomInput
             label="Cep"
-            type="string"
-            maxLength={8}
-            value={cep}
+            type="text"
+            maxLength={9}
+            value={MaskCep(cep)}
             required={true}
+            index={6}
+            placeholder={"00000-000"}
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setCep(e.target.value)}
           />
         </div>
-        <div className="col-4">
+        <div className="col-3">
           <CustomInput
             label="Complemento"
-            type="string"
+            type="text"
             maxLength={20}
             value={complemento}
             placeholder="Digite um valor para o complemento"
@@ -232,17 +311,17 @@ export const TabFarmacia = () => {
         <div className="col-3">
           <CustomDropDown
             data={bairros}
-            title="Selecione um Bairro"
+            title={nomeBairro}
             filter="nome"
             label="Bairro"
             required={true}
             Select={(bairroId) => setBairroId(bairroId)}
           />
         </div>
-        <div className="col-4">
+        <div className="col-3">
           <CustomDropDown
             data={cidades}
-            title="Selecione uma Cidade"
+            title={nomeCidade}
             filter="nome"
             label="Cidade"
             required={true}
@@ -252,7 +331,7 @@ export const TabFarmacia = () => {
         <div className="col-3">
           <CustomDropDown
             data={estados}
-            title="Selecione um Estado"
+            title={nomeEstado}
             filter="nome"
             label="Estado"
             required={true}
@@ -264,54 +343,66 @@ export const TabFarmacia = () => {
         <div className="col-1">
           <CustomInput
             label="DDD"
-            type="string"
+            type="text"
             maxLength={4}
             value={ddd}
             required={true}
-            placeholder="047"
+            index={7}
+            placeholder="47"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setDdd(e.target.value)}
           />
         </div>
         <div className="col-2">
           <CustomInput
             label="Telefone"
-            type="string"
+            type="text"
             maxLength={20}
-            value={telefone}
+            value={MaskTelefone(telefone)}
             required={true}
-            placeholder="Digite um valor para o telefone"
+            index={8}
+            placeholder="00000-0000"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setTelefone(e.target.value)}
           />
         </div>
         <div className="col-1">
           <CustomInput
             label="DDD"
-            type="string"
+            type="text"
             maxLength={4}
             value={dddCelular}
-            required={true}
-            placeholder="047"
+            placeholder="47"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setDddCelular(e.target.value)}
           />
         </div>
         <div className="col-2">
           <CustomInput
             label="Celular"
-            type="string"
+            type="text"
             maxLength={20}
-            value={celular}
-            placeholder="Digite um valor para o celular"
+            value={MaskTelefone(celular)}
+            placeholder="00000-0000"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setcelular(e.target.value)}
+          />
+        </div>
+        <div className="col-1">
+          <CustomInput
+            label="DDD"
+            type="text"
+            maxLength={4}
+            value={dddWhatsApp}
+            placeholder="47"
+            OnChange={(e: ChangeEvent<HTMLInputElement>) => setDddWhatsApp(e.target.value)}
           />
         </div>
         <div className="col-2">
           <CustomInput
             label="WhatsApp"
-            type="string"
+            type="text"
             maxLength={20}
-            value={whatsApp}
+            value={MaskTelefone(whatsApp)}
+            index={9}
             required={true}
-            placeholder="Digite um valor para o whatsApp"
+            placeholder="00000-0000"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setWhatsApp(e.target.value)}
           />
         </div>
@@ -320,21 +411,23 @@ export const TabFarmacia = () => {
         <div className="col-3">
           <CustomInput
             label="Email"
-            type="string"
+            type="text"
             maxLength={60}
             value={email}
             required={true}
-            placeholder="Digite um valor para o email"
+            index={10}
+            placeholder="prismafive@prismafive.com.br"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
         </div>
         <div className="col-3">
           <CustomInput
             label="Nome do Farmaceutico"
-            type="string"
+            type="text"
             maxLength={50}
             value={nomeFarmaceutico}
             required={true}
+            index={11}
             placeholder="Digite um valor para o nome do farmaceutico"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setNomeFarmaceutico(e.target.value)}
           />
@@ -345,6 +438,7 @@ export const TabFarmacia = () => {
             type="number"
             value={crf}
             required={true}
+            index={12}
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setCRF(parseFloat(e.target.value))}
           />
         </div>
@@ -353,20 +447,22 @@ export const TabFarmacia = () => {
         <div className="col-2">
           <CustomInput
             label="CPF Resp. SNGPC"
-            type="string"
-            maxLength={11}
-            value={cpfRespSNGPC}
+            type="text"
+            maxLength={14}
+            value={MaskCpf(cpfRespSNGPC)}
             required={true}
-            placeholder="Digite um valor para o cpf do resp"
+            index={13}
+            placeholder="000.000.000-00"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setCpfRespSNGPC(e.target.value)}
           />
         </div>
         <div className="col-3">
           <CustomInput
             label="Usuário SNGPC"
-            type="string"
+            type="text"
             maxLength={100}
             value={usuarioSNGPC}
+            index={14}
             required={true}
             placeholder="Digite um valor para o usuario"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setUsuarioSNGPC(e.target.value)}
@@ -375,9 +471,10 @@ export const TabFarmacia = () => {
         <div className="col-2">
           <CustomInput
             label="Senha SNGPC"
-            type="string"
+            type="password"
             maxLength={50}
             value={senhaSNGPC}
+            index={15}
             required={true}
             placeholder="Digite um valor para a senha"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setSenhaSNGPC(e.target.value)}
@@ -386,9 +483,10 @@ export const TabFarmacia = () => {
         <div className="col-2">
           <CustomInput
             label="Licença Func"
-            type="string"
+            type="text"
             maxLength={50}
             value={licencaFunc}
+            index={16}
             required={true}
             placeholder="Digite um valor para a licença"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaFunc(e.target.value)}
@@ -400,10 +498,11 @@ export const TabFarmacia = () => {
         <div className="col-5">
           <CustomInput
             label="Autoridade Sanitária"
-            type="string"
+            type="text"
             maxLength={50}
             value={autoridadeSanitaria}
             required={true}
+            index={17}
             placeholder="Digite um valor para a autoridade sanitária"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setAutoridadeSanitaria(e.target.value)}
           />
@@ -411,10 +510,11 @@ export const TabFarmacia = () => {
         <div className="col-2">
           <CustomInput
             label="Licença Mapa"
-            type="string"
+            type="text"
             maxLength={50}
             value={licencaMapa}
             required={true}
+            index={18}
             placeholder="Digite um valor para a licença do mapa"
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaMapa(e.target.value)}
           />

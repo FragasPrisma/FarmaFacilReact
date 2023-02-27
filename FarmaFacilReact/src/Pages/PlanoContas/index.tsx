@@ -8,18 +8,38 @@ import {Modall} from "./ComponentDeleteItem";
 import './styles.ts'
 import { useDispatch, useSelector } from "react-redux";
 import { changePlano } from "../../store/PlanoContas";
+import { ModalGeneric } from "../../Components/Modals/ModalGeneric";
+import { FailModal } from "../../Components/Modals/FailModal";
+import { RootState } from "../../store/IRootState";
 
 
 export let value: any
+export let incluir: boolean
 //export let itemSelected: any;
 
 function PlanoContasRecursivo({ children }: any) {
   const [openMap, setOpenMap] = useState(new Map());
   const [showModal, setShowModal] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+
+    const init = async () => {
+      let response = await getAll("ListaPlanoDeContas")
+    response.data.length == 0 ? incluir = true: incluir = false
+    }
+
+    init()
+    
+}, []);
+    
 
 
- const dispatch = useDispatch()
+ const state = useSelector((state: RootState) => state.planoReducer)
+ let valuee:any = state
   
     const openModal = () => {
       setShowModal(!showModal)
@@ -40,7 +60,6 @@ function PlanoContasRecursivo({ children }: any) {
     setModalActive(!isModalActive);
   };
 
-
   return (
     <ul>
       {children.map((item:any) => (
@@ -59,7 +78,7 @@ function PlanoContasRecursivo({ children }: any) {
               </span>
             )}
             {item.key + " - " + item.label}{" "}
-            <div style={{ paddingLeft: "1rem" }} key={item.key}>
+            <div style={{ paddingLeft: "1rem", position: 'absolute', right: '3rem' }} key={item.key}>
               
               <NavLink to={'/planodecontas/create'}>
               <Plus size={17} color="#cf0209" style={{marginLeft: "5px"}} />
@@ -75,9 +94,10 @@ function PlanoContasRecursivo({ children }: any) {
 
                
               <Trash size={17} color="#cf0209" style={{ marginLeft: "5px" }} onClick={toggleModal} />
-                <Modall isActive={isModalActive} toggleModal={toggleModal} >
-                  Tem certeza que deseja <p style={{color: '#cf0209', display: 'flex'}}> excluir </p> 
-                 </Modall>
+             
+                 <Modall isActive={isModalActive} toggleModal={toggleModal} >
+                    Deseja excluir o registro?
+                 </Modall> 
                 
                  
             </div>
@@ -146,7 +166,7 @@ export function PlanoContas() {
     <>
       <HeaderMainContent
         title="Plano de Contas"
-        IncludeButton={false}
+        IncludeButton={incluir}
         ReturnButton={false}
       />
 

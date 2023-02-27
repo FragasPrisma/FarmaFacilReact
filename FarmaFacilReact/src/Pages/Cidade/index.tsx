@@ -23,7 +23,7 @@ export function Cidade() {
     return (
         <>
             <HeaderMainContent title="CIDADE" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Cidade" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Cidade" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoCidade"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

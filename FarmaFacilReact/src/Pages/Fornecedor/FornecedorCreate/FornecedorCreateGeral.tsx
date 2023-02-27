@@ -4,10 +4,7 @@ import { Container } from "../styles";
 import { useState, ChangeEvent, useEffect } from 'react';
 import { getAll } from "../../../Services/Api";
 import { IFornecedorGeral } from "../../../Interfaces/Fornecedor/IFornecedor";
-import { MaskCpf } from "../../../Mask/MaskCpf";
-import { MaskCnpj } from "../../../Mask/MaskCnpj";
-import { MaskIe } from "../../../Mask/MaskIe";
-import { MaskCep } from "../../../Mask/MaskCep";
+import { MaskCpf, MaskCnpj, MaskIe, MaskCep, MaskTelefone } from "../../../Mask/Mask";
 import { ViaCep } from "../../../helper/ViaCep";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IBairro } from "../../../Interfaces/Bairro/IBairro";
@@ -398,7 +395,7 @@ export function FornecedorCreateGeral({ erros , textParameter}: IData) {
                         label="Telefone"
                         type="text"
                         placeholder="9999-9999"
-                        value={telefone}
+                        value={MaskTelefone(telefone)}
                         maxLength={9}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setTelefone(e.target.value)
@@ -424,7 +421,7 @@ export function FornecedorCreateGeral({ erros , textParameter}: IData) {
                         label="Celular"
                         type="text"
                         placeholder="9 9999-9999"
-                        value={celular}
+                        value={MaskTelefone(celular)}
                         maxLength={9}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setCelular(e.target.value)

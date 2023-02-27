@@ -10,6 +10,8 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { Container } from "../Dcb/styles";
 //import { itemSelected, value } from ".";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/IRootState";
+import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
 
 export function PlanoContasEdit() {
   const navigate = useNavigate();
@@ -19,11 +21,11 @@ export function PlanoContasEdit() {
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [conta, setConta] = useState("");
-  const [response, setResponse] = useState("")
+  const [response, setResponse] = useState({} as IPlanoDeconta);
  
   //state
 
-  const state = useSelector((state) => state)
+  const state = useSelector((state: RootState) => state.planoReducer)
 
    let valuee:any = state
 
@@ -60,7 +62,7 @@ const data = {
   numeroConta: response.numeroConta,
   numeroContaPai: response.numeroContaPai,
   descricao: descricao,
-  sequencia: response.sequencia,
+  //sequencia: response.sequencia,
 };
 
 

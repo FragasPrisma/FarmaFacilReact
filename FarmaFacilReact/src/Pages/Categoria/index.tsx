@@ -30,7 +30,8 @@ export function Categoria() {
                 text={t('categoria.categoria')}
                 data={data} filter={"nome"}
                 headerTable={["id", "categoriaPai.nome", "nome"]}
-                headerTableView={[t('categoria.header.id'), t('categoria.header.categoriaPai'), t('categoria.header.nome')]}
+                headerTableView={[t('categoria.header.id'), t('categoria.header.categoriaPai'), t('categoria.header.nome')]} 
+                urlSearch={"ListaPaginacaoCategoria"}            
             />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
