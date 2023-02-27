@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Table } from "react-bootstrap";
 
 export const TableCustom = styled(Table)`
-   
+
   border-collapse: separate;
   border-spacing: 0 0.68rem;
 
@@ -15,6 +15,11 @@ export const TableCustom = styled(Table)`
 `;
 
 export const TrCustom = styled.tr`
+/* 
+  :first-child{
+    width: 10rem;
+  } */
+
   .label-editar {
     margin-right: .8rem;
   }

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteDetail, GetId } from "../../../Services/Api";
 import { ButtonCancel } from "../../Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Buttons/ButtonConfirm";
+import { FailModal } from "../FailModal";
 import { SuccessModal } from "../SuccessModal";
 import { CloseButton, MensageDefault, Container } from "./styles";
 
@@ -28,6 +29,8 @@ export function DeleteModal({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [stateModalSucces, setStateModalSucces] = useState(false);
+  const [fail, setFail] = useState(false);
+  const [messageRequest, setMessageRequest] = useState<any | string>();
 
   const closeModal = () => {
     onClose();
@@ -40,20 +43,41 @@ export function DeleteModal({
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/\s/g, '')}PorId`, idItem);
     const payload = requestGetItemById.data;
-    const resp = await deleteDetail(`Excluir${urlText
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/\s/g, '')}`, payload);
 
-    if (resp.status == 200) {
-      closeModal();
+    try {
 
-      setStateModalSucces(true);
-      setTimeout(() => {
-        setStateModalSucces(false);
-        document.location.reload(); //refatorar usando refresh component
-      }, 2000);
+      const resp = await deleteDetail(`Excluir${urlText
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, '')}`, payload);
+
+      if (resp.status == 200) {
+        closeModal();
+        setMessageRequest(resp.data.value)
+        setStateModalSucces(true);
+        setTimeout(() => {
+          setStateModalSucces(false);
+          document.location.reload(); //refatorar usando refresh component
+        }, 2000);
+      } else {
+        setMessageRequest(resp)
+
+        closeModal();
+        setFail(true)
+        setTimeout(() => {
+          setFail(false);
+        }, 2000);
+      }
+
+    } catch (error: any) {
+      setMessageRequest(error)
+
+        closeModal();
+        setFail(true)
+        setTimeout(() => {
+          setFail(false);
+        }, 5000);
     }
   }
 
@@ -78,9 +102,11 @@ export function DeleteModal({
               </MensageDefault>
             </div>
             <div className="row container_buttons">
-              <div className="col-12" style={{display: "flex",
-                    width: "100%",
-                    justifyContent: "center"}}>
+              <div className="col-12" style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center"
+              }}>
                 <ButtonConfirm onCLick={submitButtonConfirm} />
                 <ButtonCancel onClickCancel={closeModal} />
               </div>
@@ -89,6 +115,7 @@ export function DeleteModal({
         </ModalBody>
       </Modal>
       <SuccessModal show={stateModalSucces} textCustom={`${t('deleteModal.excluido')}`} />
+      <FailModal show={fail} onClose={() => setFail(false)} text={messageRequest ? messageRequest : ""} />
 
     </>
   );

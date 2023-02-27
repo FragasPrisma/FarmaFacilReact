@@ -16,7 +16,7 @@ display: flex;
 }
 
 .container_outlet::-webkit-scrollbar {
-  width: 0.2em;
+  width: 0.4em;
   background-color: #ECECEC;
 }
 

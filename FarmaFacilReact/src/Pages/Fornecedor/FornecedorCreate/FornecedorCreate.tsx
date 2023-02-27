@@ -3,7 +3,6 @@ import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
 import { useEffect, useState } from "react";
 import { getAll, postFormAll } from "../../../Services/Api";
-import { useNavigate } from "react-router-dom";
 import TabsPage from "../../../Components/Others/Tabs";
 import { SuccessModal } from "../../../Components/Modals/SuccessModal";
 import { FailModal } from "../../../Components/Modals/FailModal";
@@ -18,14 +17,13 @@ import { ValidIeDigitos } from "../../../helper/ValidIeDigitos";
 
 export function FornecedorCreate() {
 
-    const navigate = useNavigate();
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState({ erro: true, index: 0, erroNome: "" })
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[])
     const [errorRequest, setErrorRequest] = useState("");
+    const [textParam, setTextParam] = useState("")
 
     useEffect(() => {
         const loadDataFornecedor = async () => {
@@ -39,8 +37,8 @@ export function FornecedorCreate() {
     const titles = itemsHandlesFornecedor;
 
     arrayTab.push(
-        <FornecedorCreateGeral erros={error} />,
-        <FornecedorCreateComplemento />
+        <FornecedorCreateGeral erros={error} textParameter={textParam} />,
+        <FornecedorCreateComplemento textParam={textParam} />
     );
 
     function ValidString(text: string, index: number) {
@@ -67,26 +65,27 @@ export function FornecedorCreate() {
             return;
         }
 
-        if(!fornecedorGeral.cnpj.trim() && !fornecedorGeral.cpf.trim()){
+        if (!fornecedorGeral.cnpj.trim() && !fornecedorGeral.cpf.trim()) {
 
             ValidString(fornecedorGeral.cpf.trim(), 3)
             ValidString(fornecedorGeral.cnpj.trim(), 4)
             return;
         }
 
-        if(sigla.charAt(0).toUpperCase() != "P"){
+        if (fornecedorGeral.estadoId <= 0) {
+            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
+            setIsLoading(false);
+            return;
+        }
+
+        if (sigla.charAt(0).toUpperCase() != "P") {
             if (!ValidIeDigitos(sigla, fornecedorGeral.inscricaoEstadual)) {
                 setError({ erro: true, erroNome: "Inscrição estadual inválida.", index: 5 })
                 setIsLoading(false);
                 return;
             }
         }
-        
-        if (fornecedorGeral.estadoId <= 0) {
-            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: 6 });
-            setIsLoading(false);
-            return;
-        }
+
         if (!validCPF(fornecedorGeral.cpf) || !ValidCnpj(fornecedorGeral.cnpj)) {
             if (fornecedorGeral.cpf && !validCPF(fornecedorGeral.cpf)) {
                 setError({ erro: true, erroNome: "CPF inválido !", index: 3 });
@@ -211,17 +210,24 @@ export function FornecedorCreate() {
         const resp = await postFormAll("AdicionarFornecedor", data);
 
         if (resp.status == 200) {
+            
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/fornecedor");
+                setIsOpenSuccess(false);
+                setIsLoading(false);
+                setTextParam(" ")
             }, 2000)
+            setTextParam("")
+        
         } else {
+        
             setIsOpenFail(true);
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
                 setErrorRequest(resp.request.response)
             }, 2000)
+        
         }
     }
 

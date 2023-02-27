@@ -2,7 +2,7 @@ import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect , KeyboardEvent} from "react";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
@@ -37,10 +37,13 @@ export function AdministradoraCartaoCreate() {
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [erro, setErro] = useState("");
+    const [focus, setFocus] = useState(true);
     const { t } = useTranslation();
+    const [nomeFornecedor, setNomeFornecedor] = useState(t('textGeneric.selecioneFornecedor'));
+    const [nomePlano, setNomePlano] = useState(t('textGeneric.selecionePlanoDeContas'))
 
-    const [fornecedores, setFornecedores] = useState([] as IFornecedor []);
-    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta []);
+    const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
+    const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta[]);
 
     useEffect(() => {
         const loadDataPlanoDeContas = async () => {
@@ -97,7 +100,23 @@ export function AdministradoraCartaoCreate() {
         if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/administradoradecartao");
+
+                setNome("");
+                setPrazoDeRecebimento(0);
+                setDesconto(0);
+                setGerenciador(-1);
+                setCieloPremia(-1);
+                setmodalidade(0);
+                setAtivo(false);
+                setFornecedorId(null);
+                setPlanoDeConta(null);
+                setParcelaTaxaAdm(false);
+                setNomeFornecedor(t('textGeneric.selecioneFornecedor'))
+                setNomePlano(t('textGeneric.selecionePlanoDeContas'))
+
+                setIsOpenSuccess(false);
+                setIsLoading(false);
+                setFocus(true);
             }, 2000)
         } else {
             setIsOpenFail(true);
@@ -126,6 +145,7 @@ export function AdministradoraCartaoCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setNome(e.target.value)
                                 }
+                                focusParam={focus}
                                 required={true}
                             />
                         </div>
@@ -140,6 +160,7 @@ export function AdministradoraCartaoCreate() {
                                     setPrazoDeRecebimento(MaxLengthNumber(10000, parseInt(e.target.value)))
                                 }
                                 required={false}
+                                textAlign={true}
                             />
                         </div>
                         <div className="col-3">
@@ -150,6 +171,7 @@ export function AdministradoraCartaoCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDesconto(MaxLengthNumber(9999999999.99, parseFloat(e.target.value)))
                                 }
+                                textAlign={true}
                                 required={false}
                             />
                         </div>
@@ -220,24 +242,25 @@ export function AdministradoraCartaoCreate() {
                         <div className="col-5">
                             <CustomDropDown
                                 data={fornecedores}
-                                title={t('textGeneric.selecioneFornecedor')}
+                                title={nomeFornecedor ? nomeFornecedor : "Selecione o fornecedor"}
                                 filter="nomeFornecedor"
                                 label={t('fornecedor.fornecedor')}
-                                Select={(Id) => setFornecedorId(Id)}
+                                Select={(Id, nome) => { setFornecedorId(Id); setNomeFornecedor(nome) }}
                             />
                         </div>
                         <div className="col-5">
                             <CustomDropDown
                                 data={planoDeContas}
-                                title={t('textGeneric.selecionePlanoDeContas')}
+                                title={nomePlano ? nomePlano : "Selecione o plano de contas"}
                                 filter="descricao"
                                 label={t('planoDeContas.planoDeContas')}
-                                Select={(Id) => setPlanoDeConta(Id)}
+                                Select={(Id, descricao) => { setPlanoDeConta(Id); setNomePlano(descricao) }}
                             />
                         </div>
                     </div>
                     <p className="text-danger-erro">{erro}</p>
                 </Container>
+                
                 <LabelObrigatorio />
                 <div className="row">
                     <div className="col-6">

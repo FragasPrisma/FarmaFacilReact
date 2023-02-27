@@ -7,13 +7,16 @@ export const CustomDropDownContainer = styled(Dropdown)`
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     width: 100% !important;
-
-    .error{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 400;
-        color: red;
-        font-size: 0.8rem;
-        height: .2rem;
+    background-color: #ececec;
+    border-bottom: 3px solid black;
+    .container-button{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 2.5rem;
+        svg{
+            margin-right: .5rem;
+        }
     }
 
     button{
@@ -24,12 +27,13 @@ export const CustomDropDownContainer = styled(Dropdown)`
         justify-content: space-between;
         height: 2.5rem;
         margin-top: -3px;
-        width: 100% !important;
+        //width: 100% !important;
+        width: 80%;
     }
 
     button:hover{
         background-color: #ececec;
-        border-bottom: 3px solid black;
+        //border-bottom: 3px solid black;
     }
 
     .show{
@@ -42,7 +46,7 @@ export const CustomDropDownContainer = styled(Dropdown)`
 
     .show , button{
         background-color: #ececec;
-        border-bottom: 3px solid black;
+        //border-bottom: 3px solid black;
     }
 
     button:disabled{
@@ -77,6 +81,16 @@ export const CustomFormControlContainer = styled(FormControl)`
     }
     background-color: transparent;
     width: 100% !important;
+`
+
+export const MessageError = styled.p`
+
+    color: #cf0209;
+    font-size: .9rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+
 `
 
 export const ContainerSuperiorDropDown = styled.div`

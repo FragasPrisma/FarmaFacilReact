@@ -5,7 +5,6 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
@@ -20,9 +19,7 @@ export function BannerCreate() {
 
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-    const navigate = useNavigate();
     const { t } = useTranslation();
-
     const [descricao, setDescricao] = useState("");
     const [link, setLink] = useState("");
     const [acaoLink, setAcaoLink] = useState(0);
@@ -32,12 +29,13 @@ export function BannerCreate() {
     const [imagemBanner, setImagemBanner] = useState("");
     const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
     const [ativo, setAtivo] = useState(false);
-
     const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
     const [erroPosicao, setErroPosicao] = useState("");
     const [erroImagem, setErroImagem] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [banners, setBanners] = useState([] as IBanner[]);
+    const [focus, setFocus] = useState(true);
+    const [erroRequest, setErroRequest] = useState("");
 
     useEffect(() => {
 
@@ -81,6 +79,8 @@ export function BannerCreate() {
     async function submit() {
 
         setErros({ erro: false, index: 0, erroNome: "" });
+        setErroPosicao("")
+        setErroImagem("")
         setIsLoading(true);
 
         if (!ValidString(descricao.trim(), 1)
@@ -112,20 +112,52 @@ export function BannerCreate() {
             return;
         }
 
-        const resp = await postFormAll("AdicionarBanner", data);
+        try {
 
-        if (resp.status == 200) {
-            setIsOpenSuccess(true);
-            setTimeout(() => {
-                navigate("/banner");
-            }, 2000)
-        } else {
+            const resp = await postFormAll("AdicionarBanner", data);
+
+            if (resp.status == 200) {
+
+                setFocus(true);
+
+                setIsOpenSuccess(true);
+                setTimeout(() => {
+                    
+                    setDescricao("");
+                    setLink("");
+                    setAcaoLink(0);
+                    setPosicao(0);
+                    setDataInicio("");
+                    setDataFim("");
+                    setImagem("")
+                    setAtivo(false);
+                    setIsOpenSuccess(false);
+                    setIsLoading(false);
+                    
+                }, 2000)
+            } else {
+
+                var error = JSON.parse(resp.request.response)
+                setErroRequest(error.message)
+                setIsOpenFail(true);
+                setIsLoading(false);
+                setTimeout(() => {
+                    setIsOpenFail(false);
+                }, 2000)
+            }
+
+        } catch (error: any) {
+
+            setErroRequest(error.request.data)
             setIsOpenFail(true);
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
+
         }
+
+
     }
 
     const updateImgModel = (value: string | ArrayBuffer | null) => {
@@ -154,6 +186,7 @@ export function BannerCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setDescricao(e.target.value)
                                 }
+                                focusParam={focus}
                                 required={true}
                             />
                         </div>
@@ -198,6 +231,7 @@ export function BannerCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setPosicao(MaxLengthNumber(999, parseInt(e.target.value)))
                                 }
+                                textAlign={true}
                                 required={true}
                             />
                         </div>
@@ -229,7 +263,7 @@ export function BannerCreate() {
                         </div>
                     </div>
 
-                    <UploadImagem onUpdate={updateImgModel} text={t('banner.propriedade.imagem')} requerid={true} onDelete={onDelete} />
+                    <UploadImagem onUpdate={updateImgModel} text={t('banner.propriedade.imagem')} requerid={true} onDelete={onDelete} img={imagem ? "data:image/png;base64," + imagem : ""} />
                     <div className="row mt-5">
                         <div className="col-3">
                             <CheckboxCustom
@@ -251,7 +285,7 @@ export function BannerCreate() {
                     </div>
                 </Container>
                 <SuccessModal show={isOpenSuccess} />
-                <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
+                <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={erroRequest} />
             </div>
         </>
     );

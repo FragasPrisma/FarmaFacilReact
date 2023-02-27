@@ -11,6 +11,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { ICategoria } from "../../Interfaces/Categoria/ICategoria";
+import { useTranslation } from "react-i18next";
 
 export function CategoriaCreate() {
 
@@ -22,6 +23,7 @@ export function CategoriaCreate() {
     const [categoriaAtivo, setCategoriaAtivo] = useState(false);
     const [erroNome, setErroNome] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const { t } = useTranslation();
 
     const [categorias, setCategorias] = useState([] as ICategoria []);
 
@@ -53,7 +55,7 @@ export function CategoriaCreate() {
 
         if (!nome.trim()) {
             setIsOpenFail(true);
-            setErroNome("Campo nome é obrigatório !")
+            setErroNome(t('erros.campoObrigatorio').toString())
             setIsLoading(false);
             return;
         }
@@ -76,15 +78,15 @@ export function CategoriaCreate() {
 
     return (
         <>
-            <HeaderMainContent title="ADICIONAR CATEGORIA" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title={t('categoria.title')} IncludeButton={false} ReturnButton={false} />
             <div className="form-group">
                 <Container>
                     <div className="row">
                         <div className="col-6">
                             <CustomInput
-                                label="Nome"
+                                label={t('textGeneric.nome')}
                                 type="text"
-                                placeholder="Digite o nome"
+                                placeholder={t('textGeneric.digiteNome').toString()}
                                 value={nome}
                                 maxLength={50}
                                 erro={erroNome}
@@ -99,16 +101,16 @@ export function CategoriaCreate() {
                         <div className="col-6">
                             <CustomDropDown
                                 data={categorias}
-                                title="Selecione a Categoria Pai"
+                                title={t('categoria.propriedades.title')}
                                 filter="nome"
-                                label="Categoria Pai"
+                                label={t('categoria.propriedades.categoriaPai')}
                                 Select={(categoriaPaiId) => setCategoriaPaiId(categoriaPaiId)} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-3">
                             <CheckboxCustom options={[
-                                "Categoria Ativa"
+                                t('categoria.propriedades.ativa')
                             ]}
                                 check={categoriaAtivo}
                                 onClickOptions={(e) => setCategoriaAtivo(e.target.checked)}
@@ -122,7 +124,7 @@ export function CategoriaCreate() {
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess} textCustom="Categoria adicionada com " />
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>

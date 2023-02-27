@@ -15,7 +15,7 @@ export const ContainerInput = styled.div`
         border: none;
         border-bottom: 3px solid black;
         border-radius: 4px;
-        height: 50px;
+        height: 59px;
         background-color: #ECECEC;
     }
 

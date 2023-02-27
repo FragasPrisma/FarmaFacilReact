@@ -7,5 +7,9 @@ export interface RootState {
         id: 0
         key: ""
         label: ""
+    };
+    search:{
+        searchSelect:string,
+        location:string
     }
 }

@@ -5,20 +5,21 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { IBairro } from "../../Interfaces/Bairro/IBairro";
 import { useTranslation } from "react-i18next";
 
 export function BairroEdit() {
+
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
-  const navigate = useNavigate();
   const [erroNome, setErroNome] = useState("");
   const [nome, setNome] = useState("");
   const [bairroId, setBairroId] = useState(0);
   const { id } = useParams();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
@@ -58,6 +59,7 @@ export function BairroEdit() {
     const resp = await postFormAll("EditarBairro", data);
 
     if (resp.status == 200) {
+
       setIsOpenSuccess(true);
       setTimeout(() => {
         navigate("/bairro");
@@ -74,7 +76,7 @@ export function BairroEdit() {
 
   return (
     <>
-      <HeaderMainContent title={`${t('bairro.title')}`} IncludeButton={false} ReturnButton={false} />
+      <HeaderMainContent title={`${t('bairro.titleEdit')}`} IncludeButton={false} ReturnButton={false} />
       <div className="form-group">
         <Container>
           <div className="row">
@@ -89,6 +91,7 @@ export function BairroEdit() {
                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setNome(e.target.value)
                 }
+                focusParam={true}
                 required={true}
               />
             </div>
@@ -100,7 +103,7 @@ export function BairroEdit() {
             </div>
           </div>
         </Container>
-        <SuccessModal show={isOpenSuccess} textCustom="Registro editado com" />
+        <SuccessModal show={isOpenSuccess} textCustom={t('textGeneric.registroEditado').toString()} />
         <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
       </div>
     </>

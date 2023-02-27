@@ -61,7 +61,12 @@ export const deleteDetail = async (
   try {
     return await api.post(url, payload);
   } catch (error: any) {
-    throw new Error(`Erro ao Deletar dado ${url}. Erro: ${error.message}`);
+    if(error.response.data){
+      return error.response.data
+    }else{
+      throw new Error(`Erro ao Deletar dado ${url}. Erro: ${error.message}`);
+    }
+    
   }
 };
 /**
