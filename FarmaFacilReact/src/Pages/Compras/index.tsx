@@ -27,11 +27,12 @@ export function Compras() {
             <SearchContentScreens 
                 text="Compras"
                 data={data}
-                filter={"nome"} 
+                filter={"nome"}
                 headerTable={["id", "data", "tipo", "curva", "total", "status"]}
                 headerTableView={["ID", "Data", "Tipo", "Curva", "Total", "Status Pedido/Cotação"]}
-                iconOptions={true} 
-                itensExtraButton={filtros}
+                iconOptions={true}
+                itensExtraButton={filtros} 
+                urlSearch={"ListaPaginacaoCompras"}            
             />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)}/>
         </>

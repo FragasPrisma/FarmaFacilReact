@@ -1,10 +1,7 @@
 import { CustomInput } from "../../../Components/Inputs/CustomInput";
 import { Container } from "../styles";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
-import { MaskCpf } from "../../../Mask/MaskCpf";
-import { MaskCnpj } from "../../../Mask/MaskCnpj";
-import { MaskIe } from "../../../Mask/MaskIe";
-import { MaskCep } from "../../../Mask/MaskCep";
+import { MaskCpf, MaskCnpj, MaskIe, MaskCep, MaskTelefone } from "../../../Mask/Mask";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 
 interface IData {

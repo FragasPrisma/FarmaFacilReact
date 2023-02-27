@@ -25,7 +25,7 @@ export function FormaFarmaceutica() {
     return (
         <>
             <HeaderMainContent title="FORMA FARMACÊUTICA" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Forma Farmacêutica" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Forma Farmacêutica" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoFormaFarmaceutica"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

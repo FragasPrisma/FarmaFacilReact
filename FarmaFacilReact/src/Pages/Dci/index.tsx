@@ -22,7 +22,7 @@ export function Dci() {
     return (
         <>
             <HeaderMainContent title="DCI" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="DCI" data={data} filter={"codigoDci"} headerTable={["id","codigoDci", "descricao"]} headerTableView={["ID","Código DCI", "Descrição"]} />
+            <SearchContentScreens text="DCI" data={data} filter={"codigoDci"} headerTable={["id", "codigoDci", "descricao"]} headerTableView={["ID", "Código DCI", "Descrição"]} urlSearch={"ListaPaginacaoDci"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

@@ -22,7 +22,7 @@ export function Estado() {
     return (
         <>
             <HeaderMainContent title="ESTADO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Estado" data={data} filter={"nome"} headerTable={["id", "nome", "aliquotaIcmsEstado"]} headerTableView={["ID", "Nome", "Aliquota ICMS Estado"]} />
+            <SearchContentScreens text="Estado" data={data} filter={"nome"} headerTable={["id", "nome", "aliquotaIcmsEstado"]} headerTableView={["ID", "Nome", "Aliquota ICMS Estado"]} urlSearch={"ListaPaginacaoEstado"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

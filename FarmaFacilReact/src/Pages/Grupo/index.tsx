@@ -25,7 +25,7 @@ export function Grupo() {
     return (
         <>
             <HeaderMainContent title="GRUPO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Grupo" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Grupo" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoGrupo"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

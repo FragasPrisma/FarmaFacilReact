@@ -24,7 +24,7 @@ export function Unidade() {
     return (
         <>
             <HeaderMainContent title="UNIDADE" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Unidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Unidade" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoUnidade"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

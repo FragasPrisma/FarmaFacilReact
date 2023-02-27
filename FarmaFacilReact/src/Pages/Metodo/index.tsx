@@ -22,7 +22,7 @@ export function Metodo() {
     return (
         <>
             <HeaderMainContent title="MÉTODO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Método" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Método" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoMetodo"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

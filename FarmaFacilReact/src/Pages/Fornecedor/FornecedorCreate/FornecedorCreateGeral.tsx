@@ -4,16 +4,12 @@ import { Container } from "../styles";
 import { useState, ChangeEvent, useEffect } from 'react';
 import { getAll } from "../../../Services/Api";
 import { IFornecedorGeral } from "../../../Interfaces/Fornecedor/IFornecedor";
-import { MaskCpf } from "../../../Mask/MaskCpf";
-import { MaskCnpj } from "../../../Mask/MaskCnpj";
-import { MaskIe } from "../../../Mask/MaskIe";
-import { MaskCep } from "../../../Mask/MaskCep";
+import { MaskCpf, MaskCnpj, MaskIe, MaskCep, MaskTelefone } from "../../../Mask/Mask";
 import { ViaCep } from "../../../helper/ViaCep";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IBairro } from "../../../Interfaces/Bairro/IBairro";
 import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
-import { MaskTelefone } from "../../../Mask/MaskTelefone";
 
 export let sigla = ""; 
 

@@ -22,7 +22,7 @@ export function Portador() {
     return (
         <>
             <HeaderMainContent title="PORTADOR" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Portador" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Portador" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoPortador"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

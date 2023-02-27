@@ -22,7 +22,7 @@ export function EspecificacaoCapsula() {
     return (
         <>
             <HeaderMainContent title="ESPECIFICAÇÃO CÁPSULA" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Especificação Cápsula" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Especificação Cápsula" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoEspecificacaoCapsula"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

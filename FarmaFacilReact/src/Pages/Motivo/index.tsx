@@ -22,7 +22,7 @@ export function Motivo() {
     return (
         <>
             <HeaderMainContent title="MOTIVO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Motivo" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Motivo" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoMotivo"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

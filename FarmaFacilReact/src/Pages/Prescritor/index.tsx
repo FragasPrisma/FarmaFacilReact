@@ -24,7 +24,7 @@ export function Prescritor() {
     return (
         <>
             <HeaderMainContent title="PRESCRITOR" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Prescritor" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Prescritor" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoPrescritor"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

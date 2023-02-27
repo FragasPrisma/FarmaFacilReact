@@ -21,8 +21,8 @@ import Box from '@mui/material/Box';
 import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
 import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { ThemeProvider } from '@mui/material/styles';
-import { setTheme } from "../../helper/GridsTranslate/setTheme";
-import { setTranslate } from "../../helper/GridsTranslate/setTranslate";
+import { setTheme } from "../../helper/GridsTranslate/TranslateFunctions";
+import { setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
 
 export function ManutencaoCompras() {
 

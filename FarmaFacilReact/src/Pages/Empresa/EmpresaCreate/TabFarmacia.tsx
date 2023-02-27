@@ -10,13 +10,13 @@ import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
-import { MaskCnpj } from "../../../Mask/MaskCnpj";
-import { MaskIe } from "../../../Mask/MaskIe";
-import { MaskCep } from "../../../Mask/MaskCep";
+import { MaskCnpj } from "../../../Mask/Mask";
+import { MaskIe } from "../../../Mask/Mask";
+import { MaskCep } from "../../../Mask/Mask";
 import { ViaCep } from "../../../helper/ViaCep";
-import { MaskCpf } from "../../../Mask/MaskCpf";
-import { MaskIm } from "../../../Mask/MaskIm";
-import { MaskTelefone } from "../../../Mask/MaskTelefone";
+import { MaskCpf } from "../../../Mask/Mask";
+import { MaskIm } from "../../../Mask/Mask";
+import { MaskTelefone } from "../../../Mask/Mask";
 
 interface IData {
   erros: {

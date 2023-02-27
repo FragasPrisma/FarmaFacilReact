@@ -23,7 +23,7 @@ export function Contabilista() {
     return (
         <>
             <HeaderMainContent title="CONTABILISTA" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Contabilista" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Contabilista" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoContabilista"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

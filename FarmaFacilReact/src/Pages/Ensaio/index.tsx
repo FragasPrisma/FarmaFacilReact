@@ -22,7 +22,7 @@ export function Ensaio() {
     return (
         <>
             <HeaderMainContent title="ENSAIO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Ensaio" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="Ensaio" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoEnsaio"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

@@ -22,7 +22,7 @@ export function Laboratorio() {
   return (
     <>
       <HeaderMainContent title="LABORATÓRIO" IncludeButton={true} ReturnButton={false} />
-      <SearchContentScreens text="Laboratório" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+      <SearchContentScreens text="Laboratório" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoLaboratorio"} />
       <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
     </>
   );

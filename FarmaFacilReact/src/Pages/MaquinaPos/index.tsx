@@ -31,7 +31,8 @@ export function MaquinaPos() {
         data={data}
         filter={"descricao"}
         headerTable={["id", "descricao", "serialPos"]}
-        headerTableView={["ID", "Descrição", "Serial PÓS"]}
+        headerTableView={["ID", "Descrição", "Serial PÓS"]} 
+        urlSearch={"ListaPaginacaoMaquinaPos"}      
       />
       <Paginations
         pagina={pagina}

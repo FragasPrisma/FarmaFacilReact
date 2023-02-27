@@ -22,7 +22,7 @@ export function Dcb() {
     return (
         <>
             <HeaderMainContent title="DCB" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Dcb" data={data} filter={"codigoDcb"} headerTable={["codigoDcb", "descricao"]} headerTableView={["Código DCB", "Descrição"]} />
+            <SearchContentScreens text="Dcb" data={data} filter={"codigoDcb"} headerTable={["codigoDcb", "descricao"]} headerTableView={["Código DCB", "Descrição"]} urlSearch={"ListaPaginacaoDcb"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

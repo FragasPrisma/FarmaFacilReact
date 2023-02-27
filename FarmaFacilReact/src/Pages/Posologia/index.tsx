@@ -22,7 +22,7 @@ export function Posologia() {
     return (
         <>
             <HeaderMainContent title="POSOLOGIA" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Posologia" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} />
+            <SearchContentScreens text="Posologia" data={data} filter={"descricao"} headerTable={["id", "descricao"]} headerTableView={["ID", "Descrição"]} urlSearch={"ListaPaginacaoPosologia"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

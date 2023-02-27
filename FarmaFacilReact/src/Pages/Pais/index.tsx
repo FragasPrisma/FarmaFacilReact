@@ -22,7 +22,7 @@ export function Pais() {
     return (
         <>
             <HeaderMainContent title="PAÍS" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="País" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} />
+            <SearchContentScreens text="País" data={data} filter={"nome"} headerTable={["id", "nome"]} headerTableView={["ID", "Nome"]} urlSearch={"ListaPaginacaoPais"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );

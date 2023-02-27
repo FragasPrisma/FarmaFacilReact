@@ -26,7 +26,7 @@ export function Turno() {
     return (
         <>
             <HeaderMainContent title="TURNO" IncludeButton={true} ReturnButton={false} />
-            <SearchContentScreens text="Turno" data={data} filter={"horaInicial"} headerTable={["id", "horaInicial", "horaFinal"]} headerTableView={["ID", "Hora Inicial", "Hora Final"]} />
+            <SearchContentScreens text="Turno" data={data} filter={"horaInicial"} headerTable={["id", "horaInicial", "horaFinal"]} headerTableView={["ID", "Hora Inicial", "Hora Final"]} urlSearch={"ListaPaginacaoTurno"} />
             <Paginations pagina={pagina} qtdPagina={qtdPagina} Reload={(paginaAtual) => setPagina(paginaAtual)} />
         </>
     );
