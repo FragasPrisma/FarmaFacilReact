@@ -14,8 +14,8 @@ import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
-import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
-import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
+import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
+import { IManutencaoCompras } from "../../Interfaces/Compras/IFiltroCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
@@ -84,7 +84,7 @@ export function ManutencaoComprasEdit() {
 
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
-    
+
 
     useEffect(() => {
 
@@ -115,7 +115,7 @@ export function ManutencaoComprasEdit() {
         //     const response = await getAll("ListaProduto");
         //     setProdutos(response.data);
         // }
-        
+
         Init();
         loadDataFornecedores();
         loadDataLaboratorios();
@@ -159,7 +159,7 @@ export function ManutencaoComprasEdit() {
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
-        } else if (tipo == "Encomendas/Faltas"){
+        } else if (tipo == "Encomendas/Faltas") {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
@@ -176,7 +176,7 @@ export function ManutencaoComprasEdit() {
         }
     }, [tipo])
 
-    useEffect (() => {
+    useEffect(() => {
         if (tipoValor == 2) {
             setReadonlyAPartirDe(false);
         } else {
@@ -231,14 +231,14 @@ export function ManutencaoComprasEdit() {
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">
-                        <SelectInput 
-                            options={["","Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
+                        <SelectInput
+                            options={["", "Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
                             label="Tipo"
                             Select={(select) => setTipo(select)}
                         />
                     </div>
                     <div className="col-2">
-                        { tipo == "Demanda" &&
+                        {tipo == "Demanda" &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}
@@ -295,7 +295,7 @@ export function ManutencaoComprasEdit() {
                         />
                     </div>
                     <div className="col-1 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Tempo de Rep"
                             type="number"
                             value={tempoDeRep}
@@ -306,7 +306,7 @@ export function ManutencaoComprasEdit() {
                         />
                     </div>
                     <div className="col-1 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Quantidade de dias"
                             type="number"
                             value={quantidadeDias}
@@ -319,7 +319,7 @@ export function ManutencaoComprasEdit() {
                 </div>
                 <div className="row">
                     <div className="col-2">
-                        <SelectInput 
+                        <SelectInput
                             options={["Geral", "A", "B", "C"]}
                             label="Curva Abc"
                             Select={(select) => setCurvaAbc(select)}
@@ -376,7 +376,7 @@ export function ManutencaoComprasEdit() {
                     <div className="col-4 mt-4">
                         <MultiSelect
                             label="Grupos"
-                            title="Grupos" 
+                            title="Grupos"
                             data={grupos}
                             isMultiple={true}
                             Select={(gruposIds) => setGruposIds(gruposIds)}
@@ -384,9 +384,9 @@ export function ManutencaoComprasEdit() {
                         />
                     </div>
                     <div className="col-4 mt-4">
-                        <MultiSelect 
+                        <MultiSelect
                             label="Fornecedores"
-                            title="Fornecedores" 
+                            title="Fornecedores"
                             data={fornecedores}
                             isMultiple={true}
                             Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
@@ -395,7 +395,7 @@ export function ManutencaoComprasEdit() {
                     </div>
                 </div>
                 <div className="row">
-                    
+
                     <div className="col-4">
                         {/* <MultiSelect 
                             label="Produtos"
@@ -426,7 +426,7 @@ export function ManutencaoComprasEdit() {
             </div>
             <div className="row">
                 <div className="col-4 mb-2">
-                    <ButtonConfirm onCLick={submit} isLoading={isLoading} /> 
+                    <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                 </div>
             </div>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />

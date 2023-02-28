@@ -14,7 +14,6 @@ export function Bairro() {
                 headerTable={["id", "nome"]}
                 headerTableView={[t('bairro.id'), t('bairro.nome')]}
                 urlSearch={`ListaPaginacaoBairro`}
-                
             />
         </>
     );

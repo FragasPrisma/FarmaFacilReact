@@ -1,4 +1,5 @@
 export interface IFiltroRelatorioCompras {
+    idcompra: number;
     fornecedoresIds: number[],
     contato: string,
     dataLimite: string,
