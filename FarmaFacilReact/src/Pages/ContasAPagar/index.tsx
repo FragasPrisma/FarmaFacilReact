@@ -86,7 +86,7 @@ export function ContasAPagar() {
                 onClick={(check) => Check(check)}
             />
             <SearchContentScreens
-                urlSearch="ListaPaginacaoContasAPagar"
+               // urlSearch="ListaPaginacaoContasAPagar"
                 urlParamBool={true}
                 text="Contas a Pagar"
                 headerTable={aPagar == true ? ["numeroFatura", "observacao", "dataVencimento", "dataPagamento", "valorPago"]

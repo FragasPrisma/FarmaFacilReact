@@ -60,7 +60,7 @@ export function UltimasCompras() {
                     </FieldsetCustom>
                 </div>
                 <div className="row mt-2">
-                    <FieldsetCustom legend="Últimas Compras">
+                    {/* <FieldsetCustom legend="Últimas Compras">
                         <SearchContentScreens 
                             text="Últimas Compras" 
                             data={data}
@@ -69,7 +69,7 @@ export function UltimasCompras() {
                             headerTable={["", "", "", "", "", "", "", "", "", "", "", "", "", ""]} 
                             headerTableView={["Emissão", "Fornecedor", "Lote", "Entrada", "Validade", "Nota", "Série", "Qtde", "Un", "Vlr Unitário", "Vlr IPI", "Valor Frete", "Vlr Diversos", "Vlr Total"]} 
                         />
-                    </FieldsetCustom>
+                    </FieldsetCustom> */}
                 </div>
             </Container>
         </>
