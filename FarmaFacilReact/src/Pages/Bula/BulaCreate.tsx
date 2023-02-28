@@ -1,7 +1,7 @@
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,12 @@ import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { CustomTextArea } from "../../Components/Inputs/CustomTextArea";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { IBula } from "../../Interfaces/Bula/IBula";
+import { contentEditor, EditorCustom } from "../../Components/Others/Editor";
 //import { Editor } from "../../Components/Others/Editor";
 
 export function BulaCreate() {
 
+    const [editorValue,setEditorValue]=useState({ops : []} as any);
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -26,13 +28,9 @@ export function BulaCreate() {
     const [erroTipo, setErroTipo] = useState("");
 
     const navigate = useNavigate();
-
-    const data: IBula = {
-        id: 0,
-        descricao: descricao.trim(),
-        limitacaoVisual: limitacaoVisual,
-        tipo: tipo
-    };
+    useEffect(() => {
+        setEditorValue(contentEditor)
+    },[contentEditor])
 
     async function submit() {
 
@@ -40,17 +38,31 @@ export function BulaCreate() {
         setErroTipo("")
         setIsLoading(true);
 
-        if (!descricao.trim()) {
-            setErroDescricao("Campo Texto Bula é obrigatório !")
-            setIsLoading(false);
-            return;
-        }
+        // if (!descricao.trim()) {
+        //     setErroDescricao("Campo Texto Bula é obrigatório !")
+        //     setIsLoading(false);
+        //     return;
+        // }
 
         if (tipo < 0) {
             setErroTipo("Campo tipo é obrigatório !")
             setIsLoading(false);
             return;
         }
+
+        const data: IBula = {
+            id: 0,
+            descricao: "",
+            limitacaoVisual: limitacaoVisual,
+            tipo: tipo
+        };
+
+        editorValue.ops.map((x : any) => 
+            console.log(x)
+        )
+
+        console.log(data)
+        return
 
         const resp = await postFormAll("AdicionarBula", data);
 
@@ -94,10 +106,7 @@ export function BulaCreate() {
                         </div>
                     </div>
                     <div className="row mb-3">
-                        {/* <Editor
-                            OnChange={(text) => { setDescricao(text) }}
-                            width={800}
-                        /> */}
+                        <EditorCustom/>
                     </div>
                     <div className="row">
                         <div className="col-6">
