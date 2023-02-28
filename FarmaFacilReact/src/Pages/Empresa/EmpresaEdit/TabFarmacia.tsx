@@ -10,7 +10,7 @@ import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
-import { MaskCep, MaskCnpj, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
+import { MaskCep, MaskCnpj, MaskCpf, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
 import { useParams } from "react-router-dom";
 import { ViaCep } from "../../../helper/ViaCep";
 
@@ -123,38 +123,39 @@ export const TabFarmacia = ({ erros }: IData) => {
   
 
  const dataEdit : typeof Farmacia = {
-  Id: idObject,
-  razaoSocial: razaoSocial,
-  nomeFantasia: nomeFantasia,
-  cnpj: cnpj.replace(/[-/.]/g, ""),
-  inscricaoEstadual: inscricaoEstadual.replace(/\.|-/gm, ''),
-  inscricaoMunicipal: inscricaoMunicipal,
-  regimeTributario: regimeTributario,
-  ddd: ddd,
-  dddCelular: dddCelular,
-  dddWhatsApp: dddWhatsApp,
-  telefone: telefone,
-  celular: celular,
-  email: email,
-  whatsApp: whatsApp,
-  cep: cep.replace(/\.|-/gm, ''),
-  logradouro: logradouro,
-  numero: numero,
-  complemento: complemento,
-  cidadeId: cidadeId,
-  estadoId: estadoId,
-  bairroId: bairroId,
-  nomeFarmaceutico: nomeFarmaceutico,
-  crf: crf,
-  cpfRespSNGPC: cpfRespSNGPC,
-  usuarioSNGPC: usuarioSNGPC,
-  senhaSNGPC: senhaSNGPC,
-  ativo: true,
-  licencaFunc: licencaFunc,
-  autoridadeSanitaria: autoridadeSanitaria,
-  licencaMapa: licencaMapa,
-  fornecedorInternoId: fornecedorInternoId
-}
+   Id: idObject,
+   razaoSocial: razaoSocial,
+   nomeFantasia: nomeFantasia,
+   cnpj: cnpj.replace(/[-/.]/g, ""),
+   inscricaoEstadual: inscricaoEstadual.replace(/\.|-/gm, ''),
+   inscricaoMunicipal: inscricaoMunicipal,
+   regimeTributario: regimeTributario,
+   ddd: ddd,
+   dddCelular: dddCelular,
+   dddWhatsApp: dddWhatsApp,
+   telefone: telefone,
+   celular: celular,
+   email: email,
+   whatsApp: whatsApp,
+   cep: cep.replace(/\.|-/gm, ''),
+   logradouro: logradouro,
+   numero: numero,
+   complemento: complemento,
+   cidadeId: cidadeId,
+   estadoId: estadoId,
+   bairroId: bairroId,
+   nomeFarmaceutico: nomeFarmaceutico,
+   crf: crf,
+   cpfRespSNGPC: cpfRespSNGPC,
+   usuarioSNGPC: usuarioSNGPC,
+   senhaSNGPC: senhaSNGPC,
+   ativo: true,
+   licencaFunc: licencaFunc,
+   autoridadeSanitaria: autoridadeSanitaria,
+   licencaMapa: licencaMapa,
+   fornecedorInternoId: fornecedorInternoId,
+
+ }
 
   
   

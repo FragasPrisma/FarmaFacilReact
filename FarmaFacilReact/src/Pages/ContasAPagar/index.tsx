@@ -96,7 +96,7 @@ export function ContasAPagar() {
                 itensExtraButton={[filtros]}
                 btnsEditExcluir={aPagar}
                 openModal={aPagar}
-                openModalFunction={(id) => CancelarPagamento(id)} 
+                openModalFunction={(id) => CancelarPagamento(id)}
                 urlSearch={"ListaPaginacaoContasAPagar"}            
             />
             <ModalGeneric object={duplicata} textInformationModal="Confirma o cancelamento?" url="EditarDuplicataContasAPagar" openModal={openModal} onClose={closeModal} />
