@@ -10,7 +10,7 @@ import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
-import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
+import { IFiltroCompras } from "../../Interfaces/Compras/IFiltroCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
@@ -18,7 +18,7 @@ import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
 import Box from '@mui/material/Box';
-import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
+import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
 import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { ThemeProvider } from '@mui/material/styles';
 import { setTheme } from "../../helper/GridsTranslate/TranslateFunctions";
@@ -63,9 +63,9 @@ export function ManutencaoCompras() {
     //const [filiais, setFiliais] = useState([] as IFilial[]); 
     //const [produtos, setProdutos] = useState([] as IProduto[]);
 
-    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompras[]);
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
 
-    const data: IManutencaoCompras = {
+    const data: IFiltroCompras = {
         tipo: "",
         tipoDemanda: null,
         vendaDe: "",
@@ -447,7 +447,7 @@ export function ManutencaoCompras() {
                         <section>
                             <ThemeProvider theme={setTheme()}>
                                 <Box sx={{ height: 400, mt: 1 }}>
-                                    <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} localeText={setTranslate()}/>
+                                    <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} localeText={setTranslate()} />
                                 </Box>
                             </ThemeProvider>
                         </section>

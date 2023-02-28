@@ -86,8 +86,9 @@ export function ContasAPagar() {
                 onClick={(check) => Check(check)}
             />
             <SearchContentScreens
-                text="Duplicatas"
-                // data={data} filter={"numeroFatura"}
+               // urlSearch="ListaPaginacaoContasAPagar"
+                urlParamBool={true}
+                text="Contas a Pagar"
                 headerTable={aPagar == true ? ["numeroFatura", "observacao", "dataVencimento", "dataPagamento", "valorPago"]
                     : ["numeroFatura", "observacao", "dataVencimento", "valor"]}
                 headerTableView={aPagar == true ? ["Fatura", "Observação", "Vencimento", "Pagamento", "Valor Pago"]
@@ -96,8 +97,8 @@ export function ContasAPagar() {
                 itensExtraButton={[filtros]}
                 btnsEditExcluir={aPagar}
                 openModal={aPagar}
-                openModalFunction={(id) => CancelarPagamento(id)}
-                urlSearch={"ListaPaginacaoContasAPagar"}            
+                openModalFunction={(id) => CancelarPagamento(id)} 
+                urlSearch={"ListaPaginacaoDuplicatas"}            
             />
             <ModalGeneric object={duplicata} textInformationModal="Confirma o cancelamento?" url="EditarDuplicataContasAPagar" openModal={openModal} onClose={closeModal} />
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde." />

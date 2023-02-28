@@ -8,8 +8,8 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
-import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompras";
-import { IManutencaoCompras } from "../../Interfaces/Compras/IManutencaoCompras";
+import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompra";
+import { IManutencaoCompras } from "../../Interfaces/Compras/IFiltroCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { GetId } from "../../Services/Api";
@@ -45,7 +45,7 @@ export function ManutencaoComprasDetails() {
             </GridToolbarContainer>
         );
     }
-    
+
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
 
@@ -58,15 +58,15 @@ export function ManutencaoComprasDetails() {
                 if (response.data.laboratorio) {
                     setDescricaoLaboratorio(response.data.laboratorio.descricao)
                 }
-    
+
                 // if (response.data.fornecedores.length > 0) {
                 //     setFornecedores(SetDataMultiSelect(response.data.fornecedores, "nomeFornecedor"))
                 // }
-    
+
                 // if (response.data.grupos.length > 0) {
                 //     setFornecedores(SetDataMultiSelect(response.data.grupos, "descricao"))
                 // }
-    
+
                 // if (response.data.produtos.length > 0) {
                 //     setProdutos(SetDataMultiSelect(response.data.produtos, "nome"))
                 // }
@@ -82,9 +82,9 @@ export function ManutencaoComprasDetails() {
         <>
             <HeaderMainContent title="Visualizar Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
             <Container>
-            <div className="row">
+                <div className="row">
                     <div className="col-2 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Tipo"
                             type="text"
                             value={filtro.tipo}
@@ -92,7 +92,7 @@ export function ManutencaoComprasDetails() {
                         />
                     </div>
                     <div className="col-2">
-                        { filtro.tipo == "Demanda" &&
+                        {filtro.tipo == "Demanda" &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}
@@ -135,7 +135,7 @@ export function ManutencaoComprasDetails() {
                         />
                     </div>
                     <div className="col-1 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Tempo de Rep"
                             type="number"
                             value={filtro.tempoDeRep}
@@ -143,7 +143,7 @@ export function ManutencaoComprasDetails() {
                         />
                     </div>
                     <div className="col-1 mt-4">
-                        <CustomInput 
+                        <CustomInput
                             label="Quantidade de dias"
                             type="number"
                             value={filtro.quantidadeDias}
@@ -164,7 +164,7 @@ export function ManutencaoComprasDetails() {
 
                     </div>
                     <div className="col-2">
-                        <CustomInput 
+                        <CustomInput
                             label="Laboratório"
                             type="text"
                             value={descricaoLaboratorio}
@@ -226,7 +226,7 @@ export function ManutencaoComprasDetails() {
                     </div>
                 </div>
                 <div className="row">
-                    
+
                     <div className="col-4">
                         {/* <MultiSelect 
                             label="Produtos"
@@ -239,16 +239,16 @@ export function ManutencaoComprasDetails() {
                     </div>
                 </div>
                 <div className="row">
-                <div className="col-12 mt-4">
-                    <FieldsetCustom legend="Itens Compra">
-                        <section>
-                            <Box sx={{ height: 400, mt: 1 }}>
-                                <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} />
-                            </Box>
-                        </section>
-                    </FieldsetCustom>
+                    <div className="col-12 mt-4">
+                        <FieldsetCustom legend="Itens Compra">
+                            <section>
+                                <Box sx={{ height: 400, mt: 1 }}>
+                                    <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} />
+                                </Box>
+                            </section>
+                        </FieldsetCustom>
+                    </div>
                 </div>
-            </div>
             </Container>
         </>
     )

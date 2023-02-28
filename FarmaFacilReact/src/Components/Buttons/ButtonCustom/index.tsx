@@ -4,7 +4,7 @@ interface IData {
     text: string;
     onCLick: () => void;
     width: number;
-    height: number
+    height: number;
 }
 
 export function ButtonCustomIncluir({ text, onCLick, width, height }: IData) {

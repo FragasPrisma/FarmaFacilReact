@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
+import { ButtonCustomIncluir } from "../../Components/Buttons/ButtonCustom";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { MultiSelect } from "../../Components/Inputs/MultiSelect";
@@ -8,9 +8,12 @@ import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
+import { InverterDate } from "../../helper/InverterDate";
 import { IFiltroRelatorioCompras } from "../../Interfaces/Compras/IFiltroRelatorioCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
-import { getAll, GetId } from "../../Services/Api";
+import { IReport } from "../../Interfaces/Report/IReport";
+import { ReportContasPagas } from "../../Reports/ReportContasPagas";
+import { getAll, GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 
 export function RelatorioCompras() {
@@ -34,13 +37,15 @@ export function RelatorioCompras() {
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
 
+    let dadosReport = [] as string[][]
+
     useEffect(() => {
         async function Init() {
-            // const response = await GetId("RetornaCompraPorId", idParams)
+            const response = await GetId("RetornaCompraPorId", idParams)
 
-            // if (response.status === 200) {
+            if (response.status === 200) {
 
-            // }
+            }
         }
 
         const loadDataFornecedores = async () => {
@@ -48,7 +53,7 @@ export function RelatorioCompras() {
             setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
         }
 
-        loadDataFornecedores();
+        //loadDataFornecedores();
         Init();
     }, [])
 
@@ -60,9 +65,7 @@ export function RelatorioCompras() {
         }
     }, [tipoEnvio])
 
-    async function submit() {
-        setIsLoading(true);
-
+    async function enviarEmail() {
         filtro.fornecedoresIds = fornecedoresIds;
         filtro.contato = contato;
         filtro.dataLimite = dataLimite;
@@ -71,21 +74,56 @@ export function RelatorioCompras() {
         filtro.tipoEnvio = tipoEnvio ? tipoEnvio : -1;
         filtro.modoEnvio = modoEnvio ? modoEnvio : null;
 
-        // var response = await postFormAll("", filtro)
+        var response = await postFormAll("", filtro)
 
-        // if (response.status === 200 ) {
-        //     GerarPdf(response.data);
-        //     setIsLoading(false);
-        // } else {
-        //     setIsLoading(false);
-        //     setIsOpenFail(true);
-        // }
+        if (response.status === 200 ) {
+            console.log(response);
+        } else {
+            setIsOpenFail(true);
+        }
+    }
 
-        setIsLoading(false);
+    async function gerarRelatorio() {
+        filtro.idcompra = parseInt(idParams);
+        filtro.fornecedoresIds = [1, 5, 6];
+        filtro.contato = contato;
+        filtro.dataLimite = dataLimite;
+        filtro.para = para;
+        filtro.cc = cc;
+        filtro.tipoEnvio = tipoEnvio ? tipoEnvio : -1;
+        filtro.modoEnvio = modoEnvio ? modoEnvio : null;
+
+        var response = await postFormAll("ManutencaoCompras/MontaFiltroRelatorioCompras", filtro)
+
+        if (response.status === 200 ) {
+            console.log(response.data.result);
+            GerarPdf(response.data.result);
+        } else {
+            setIsOpenFail(true);
+        }
     }
 
     function GerarPdf(data: any[]) {
+        data.map((item: any) => {
+            dadosReport.push(
+                [
+                    item.codigogrupo.toString(),
+                    item.codigoproduto.toString(),
+                    item.descricaoproduto,
+                ]
+            )
+        })
+        
+        let dataReport: IReport = {
+            title: "Relatório de Compras",
+            nomeEmpresa: "Concept Pharma",
+            perido: { dataInicial: dataLimite, dataFinal: dataLimite },
+            cabecalho: ["Grupo","Produto", "Descrição"],
+            widths: ["15%","15%","70%"],
+            dados: dadosReport
+        }
 
+        ReportContasPagas(dataReport)
     }
 
     return (
@@ -177,8 +215,11 @@ export function RelatorioCompras() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-4 mt-2">
-                        <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                    <div className="col-2 mt-2">
+                        <ButtonCustomIncluir onCLick={enviarEmail} text="Enviar e-mail" height={3} width={7}/>
+                    </div>
+                    <div className="col-2 mt-2">
+                        <ButtonCustomIncluir onCLick={gerarRelatorio} text="Gerar pdf" height={3} width={7}/>
                     </div>
                 </div>
             </Container>
