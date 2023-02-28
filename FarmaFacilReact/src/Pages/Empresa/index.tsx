@@ -10,25 +10,25 @@ export function Empresa() {
     const [qtdPagina, setQtdPagina] = useState(0);
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        const loadDataTableEmpresa = async () => {
-            const response = await getAll(`ListaPaginacaoEmpresa/${pagina}`);
-            setQtdPagina(response.data.total);
-            setData(response.data.listGroup);
-            console.log(response.data);
-        }
+    // useEffect(() => {
+    //     const loadDataTableEmpresa = async () => {
+    //         const response = await getAll(`ListaPaginacaoEmpresa/${pagina}`);
+    //         setQtdPagina(response.data.total);
+    //         setData(response.data.listGroup);
+    //         console.log(response.data);
+    //     }
 
-        loadDataTableEmpresa()
-    }, [pagina]);
+    //     loadDataTableEmpresa()
+    // }, [pagina]);
 
-    useEffect(() => {
-        const Init = async () => {
-            const response = await getAll("RetornaEmpresaPorId/1")
-            console.log(response.data);
-        }
+    // useEffect(() => {
+    //     const Init = async () => {
+    //         const response = await getAll("RetornaEmpresaPorId/1")
+    //         console.log(response.data);
+    //     }
         
-        Init();
-    }, [])
+    //     Init();
+    // }, [])
 
     return (
         <>

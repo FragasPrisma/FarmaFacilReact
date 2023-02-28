@@ -50,7 +50,7 @@ export function DeleteModal({
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s/g, '')}`, payload);
+        .replace(/\s/g, '')}/${idItem}`);
 
       if (resp.status == 200) {
         closeModal();

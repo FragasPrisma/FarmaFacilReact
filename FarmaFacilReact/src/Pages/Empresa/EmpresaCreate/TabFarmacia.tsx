@@ -10,7 +10,7 @@ import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
-import { MaskCep, MaskCnpj, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
+import { MaskCep, MaskCnpj, MaskCpf, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
 import { useParams } from "react-router-dom";
 import { ViaCep } from "../../../helper/ViaCep";
 

@@ -27,16 +27,54 @@ export const namesItemsMenu = [
       { titulo: "Compras", link: "/compras"}
     ]
   },
+  // {
+  //   img: "",
+  //   titulo: "Contas a Pagar",
+  //   hasSubMenu: true,
+  //   subMenu: [
+  //     { titulo: "Contas a Pagar", link: "/contasapagar" },
+  //     { titulo: "Pagas", link: "/contaspagas"},
+  //     { titulo: "Pagar", link: "/contaspagar"},
+  //   ],
+  // },
+
   {
     img: "",
     titulo: "Contas a Pagar",
     hasSubMenu: true,
     subMenu: [
-      { titulo: "Contas a Pagar", link: "/contasapagar" },
-      { titulo: "Pagas", link: "/contaspagas"},
-      { titulo: "Pagar", link: "/contaspagar"},
+      { 
+        hasSubSubMenu: true, 
+        titulo: "Movimento", 
+        //link: "/contasapagar",
+        subSubMenu: [
+          { titulo: "Contas a pagar", link: "/contasapagar"},
+        ],
+      },
+      {
+        hasSubSubMenu: true,
+        titulo: "Relatório",
+        link: "/contaspagas",
+        subSubMenu: [
+          { titulo: "Pagas", link: "/contaspagas"},
+          { titulo: "Pagar", link: "/contaspagar"},
+        ],
+      },
     ],
   },
+  
+
+
+
+
+
+
+
+
+
+
+
+
   {
     img: "",
     titulo: "Estoque",
