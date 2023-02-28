@@ -10,7 +10,7 @@ import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
 import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
-import { MaskCep, MaskCnpj, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
+import { MaskCep, MaskCnpj, MaskCpf, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
 import { useParams } from "react-router-dom";
 import { ViaCep } from "../../../helper/ViaCep";
 
@@ -22,6 +22,7 @@ interface IData {
     index: number
   }
 }
+
 
 export const TabFarmacia = ({ erros }: IData) => {
 
@@ -107,12 +108,7 @@ export const TabFarmacia = ({ erros }: IData) => {
         setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
         setLicencaFunc(response.data.farmacia.licencaFunc)
         setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
-        setLicencaMapa(response.data.farmacia.licencaMapa)
-
-
-
-        
-        
+        setLicencaMapa(response.data.farmacia.licencaMapa) 
         
       }
     }
@@ -122,7 +118,7 @@ export const TabFarmacia = ({ erros }: IData) => {
 
   
 
- const dataEdit : typeof Farmacia = {
+  const dataEdit: typeof Farmacia = {
   Id: idObject,
   razaoSocial: razaoSocial,
   nomeFantasia: nomeFantasia,
