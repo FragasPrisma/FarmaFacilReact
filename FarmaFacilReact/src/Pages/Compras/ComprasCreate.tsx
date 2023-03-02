@@ -16,26 +16,31 @@ import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
+import { DataGrid, GridCellParams, GridEditCellPropsParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, GridValueGetterParams } from '@mui/x-data-grid'
 import Box from '@mui/material/Box';
 import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
+import { ICompra } from "../../Interfaces/Compras/ICompra";
 import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { ThemeProvider } from '@mui/material/styles';
 import { setTheme } from "../../helper/GridsTranslate/TranslateFunctions";
 import { setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
+import { optionCSS } from "react-select/dist/declarations/src/components/Option";
+import { IProduto } from "../../Interfaces/Produto/IProduto";
+import { IEmpresa } from "../../Interfaces/Empresa/IEmpresa";
 
 export function ManutencaoCompras() {
 
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingFilter, setIsLoadingFilter] = useState(false);
 
-    const [tipo, setTipo] = useState("");
+    const [tipo, setTipo] = useState(0);
     const [tipoDemanda, setTipoDemanda] = useState(0);
     const [vendaDe, setVendaDe] = useState("");
     const [vendaDeHora, setVendaDeHora] = useState("");
     const [vendaAte, setVendaAte] = useState("");
     const [vendaAteHora, setVendaAteHora] = useState("");
-    const [curvaAbc, setCurvaAbc] = useState("Geral");
+    const [curvaAbc, setCurvaAbc] = useState(0);
     const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(true);
     const [tempoDeRep, setTempoDeRep] = useState(0);
     const [quantidadeDias, setQuantidadeDias] = useState(0);
@@ -46,8 +51,8 @@ export function ManutencaoCompras() {
     const [gruposIds, setGruposIds] = useState([] as number[]);
     const [produtosIds, setProdutosIds] = useState([] as number[]);
     const [laboratorioId, setLaboratorioId] = useState(0);
-    const [filialId, setFilialId] = useState(0);
-    const [considerarApenasFilialSelecionada, setConsiderarApenasFilialSelecionada] = useState(false);
+    const [empresaId, setEmpresaId] = useState(0);
+    const [considerarApenasEmpresaSelecionada, setConsiderarApenasEmpresaSelecionada] = useState(false);
 
     const [readonlyVendaDe, setReadonlyVendaDe] = useState(false);
     const [readonlyVendaDeHora, setReadonlyVendaDeHora] = useState(false);
@@ -60,19 +65,25 @@ export function ManutencaoCompras() {
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
-    //const [filiais, setFiliais] = useState([] as IFilial[]); 
-    //const [produtos, setProdutos] = useState([] as IProduto[]);
+    const [empresas, setEmpresas] = useState([] as IEmpresa[]); 
+    const [produtos, setProdutos] = useState([] as IProduto[]);
 
-    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
+    const [itemsCompras, setItemsCompras] = useState([
+        { id: 1, grupoId: 1, laboratorioId: 1, produtoId: 1, comprar: true, curva: "Geral", estoque: 100, estoqueMinimo: 1000, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 100, siglaUnidade: "g", quantidadeTotal: 1100, valorTotal: 0, valorUnitario: 0.50, valorVendido: 100, consumoDiario: 1, estoqueMaximo: 1200},
+        { id: 2, grupoId: 2, laboratorioId: 2, produtoId: 2, comprar: false, curva: "Geral", estoque: 200, estoqueMinimo: 1100, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 200, siglaUnidade: "g", quantidadeTotal: 1200, valorTotal: 0, valorUnitario: 0.60, valorVendido: 200, consumoDiario: 2, estoqueMaximo: 1300},
+        { id: 3, grupoId: 3, laboratorioId: 3, produtoId: 3, comprar: true, curva: "Geral", estoque: 300, estoqueMinimo: 1200, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 300, siglaUnidade: "g", quantidadeTotal: 1300, valorTotal: 0, valorUnitario: 0.70, valorVendido: 300, consumoDiario: 3, estoqueMaximo: 1400},
+        { id: 4, grupoId: 4, laboratorioId: 4, produtoId: 4, comprar: false, curva: "Geral", estoque: 400, estoqueMinimo: 1300, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 400, siglaUnidade: "g", quantidadeTotal: 1400, valorTotal: 0, valorUnitario: 0.80, valorVendido: 400, consumoDiario: 4, estoqueMaximo: 1500},
+        { id: 5, grupoId: 5, laboratorioId: 5, produtoId: 5, comprar: true, curva: "Geral", estoque: 500, estoqueMinimo: 1400, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 500, siglaUnidade: "g", quantidadeTotal: 1500, valorTotal: 0, valorUnitario: 0.90, valorVendido: 500, consumoDiario: 5, estoqueMaximo: 1600}
+    ] as IItemsCompra[]);
 
-    const data: IFiltroCompras = {
-        tipo: "",
+    const dataFiltro: IFiltroCompras = {
+        tipo: 0,
         tipoDemanda: null,
         vendaDe: "",
         vendaDeHora: "",
         vendaAte: "",
         vendaAteHora: "",
-        curvaAbc: "",
+        curvaAbc: 0,
         consideraEncomendaFaltas: true,
         tempoDeRep: 0,
         quantidadeDias: 0,
@@ -83,19 +94,113 @@ export function ManutencaoCompras() {
         fornecedoresIds: [],
         gruposIds: [],
         produtosIds: [],
-        filialId: 0,
-        considerarApenasFilialSelecionada: false,
+        empresaId: null,
+        considerarApenasEmpresaSelecionada: false,
+    }
+
+    const data: ICompra = {
+        id: 0,
+        data: Date.now().toString(),
+        listaItems: [],
+        totalCompra: 0,
+        status: 1,
+        tempoReposicaoMaximo: 0,
+        tipo: 0,
+        tipoDemanda: null,
+        vendaDe: "",
+        vendaDeHora: "",
+        vendaAte: "",
+        vendaAteHora: "",
+        curvaAbc: 0,
+        consideraEncomendaFaltas: true,
+        tempoDeRep: 0,
+        quantidadeDias: 0,
+        tipoValor: 0,
+        aPartirDe: "",
+        saldoQuantidadeComprometida: false,
+        laboratorioId: 0,
+        fornecedoresIds: [],
+        gruposIds: [],
+        produtosIds: [],
+        empresaId: null,
+        considerarApenasEmpresaSelecionada: false,
     }
 
     const columns = [
-        { field: "id", headerName: "Id", width: 60 },
-        { field: "codigogrupo", headerName: "Código Grupo", width: 150 },
-        { field: "estoque", headerName: "Estoque", width: 200 },
-        { field: "descricaoproduto", headerName: "Descrição Produto", width: 200 },
-        { field: "nomelaboratorio", headerName: "Nome Laboratório", width: 200 },
-        { field: "curvaabcproduto", headerName: "Curva Abc Produto", width: 200 },
-        { field: "estoqueminimoproduto", headerName: "Estoque Minimo Produto", width: 200 },
-        { field: "estoquemaximoproduto", headerName: "Estoque Máximo Produto", width: 200 },
+        {   field: "id", 
+            headerName: "Id", 
+            width: 60 
+        },
+        {   field: "grupoId", 
+            headerName: "Grupo", 
+            width: 150 
+        },
+        {   field: "produtoId", 
+            headerName: "Produto", 
+            width: 200 
+        },
+        {   field: "siglaUnidade", 
+            headerName: "Unidade", 
+            width: 200 
+        },
+        {   field: "curva", 
+            headerName: "Curva", 
+            width: 200 
+        },
+        {   field: "estoqueMinimo", 
+            headerName: "Estoque Minimo", 
+            width: 200 
+        },
+        {   field: "estoqueMaximo", 
+            headerName: "Estoque Máximo", 
+            width: 200 
+        },
+        {   field: "quantidadeVendida", 
+            headerName: "Quantidade Vendida", 
+            width: 200 
+        },
+        {   field: "valorVendido", 
+            headerName: "Valor Vendido", 
+            width: 200 
+        },
+        {   field: "estoque", 
+            headerName: "Estoque", 
+            width: 200 
+        },
+        {   field: "quantidadeCompra", 
+            headerName: "Quantidade Compra", 
+            width: 200,
+            type: "number",
+            editable: true,
+        },
+        {   field: "quantidadeTotal", 
+            headerName: "Quantidade Total", 
+            width: 200 
+        },
+        {   field: "consumoDiario", 
+            headerName: "Consumo Diario", 
+            width: 200 
+        },
+        {   field: "valorUnitario", 
+            headerName: "Valor Unitario", 
+            width: 200 
+        },
+        {   field: "valorTotal", 
+            headerName: "Valor Total", 
+            width: 200 
+        },
+        { 
+            field: "comprar", 
+            headerName: "Comprar", 
+            width: 200, 
+            type: 'boolean', 
+            editable: true,
+        },
+        { 
+            field: "laboratorioId", 
+            headerName: "Estoque", 
+            width: 200 
+        },
     ];
 
     function CustomToolbar() {
@@ -107,76 +212,86 @@ export function ManutencaoCompras() {
         );
     }
 
+    function handleEditCellChange(params: GridEditCellPropsParams) {
+        const updatedRows = itemsCompras.map((row) => {
+          if (row.id === params.id) {
+            return { ...row, [params.field]: params.props.value };
+          }
+          return row;
+        });
+        setItemsCompras(updatedRows);
+    }
+
     useEffect(() => {
-        // const loadDataFornecedores = async () => {
-        //     const response = await getAll("ListaFornecedor");
-        //     setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
-        // }
+        const loadDataFornecedores = async () => {
+            const response = await getAll("ListaFornecedor");
+            setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
+        }
 
-        // const loadDataLaboratorios = async () => {
-        //     const response = await getAll("ListaLaboratorio");
-        //     setLaboratorios(response.data);
-        // }
+        const loadDataLaboratorios = async () => {
+            const response = await getAll("ListaLaboratorio");
+            setLaboratorios(response.data);
+        }
 
-        // const loadDataGrupos = async () => {
-        //     const response = await getAll("ListaGrupo");
-        //     setGrupos(SetDataMultiSelect(response.data, "descricao"));
-        // }
+        const loadDataGrupos = async () => {
+            const response = await getAll("ListaGrupo");
+            setGrupos(SetDataMultiSelect(response.data, "descricao"));
+        }
 
-        // const loadDataProdutos = async () => {
-        //     const response = await getAll("ListaProduto");
-        //     setProdutos(response.data);
-        // }
+        const loadDataProdutos = async () => {
+            const response = await getAll("ListaProduto");
+            setProdutos(SetDataMultiSelect(response.data, "dad"));
+        }
 
-        // const loadDataFiliais = async () => {
-        //     const response = await getAll("ListaFilial");
-        //     setFiliais(response.data);
-        // }
+        const loadDataEmpresas = async () => {
+            const response = await getAll("ListaEmpresa");
+            setEmpresas(response.data);
+        }
 
-        // loadDataFornecedores();
-        // loadDataLaboratorios();
-        // loadDataGrupos();
-        //loadDataProdutos();
-        //loadDataFilial();
+        loadDataFornecedores();
+        loadDataLaboratorios();
+        loadDataGrupos();
+        loadDataProdutos();
+        loadDataEmpresas();
     }, [])
 
     useEffect(() => {
-        if (tipo == "Venda") {
+        if (tipo == 1) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Demanda") {
+        } else if (tipo == 2) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Estoque Mínimo") {
+        } else if (tipo == 3) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(true);
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Estoque Máximo") {
+        } else if (tipo == 4) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Consumo") {
+        } else if (tipo == 5) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(false);
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
-        } else if (tipo == "Encomendas/Faltas") {
+        } else if (tipo == 6) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
@@ -201,11 +316,50 @@ export function ManutencaoCompras() {
         }
     }, [tipoValor])
 
+    async function filtrar() {
+        setIsLoadingFilter(true);
+
+        dataFiltro.tipo = tipo;
+        dataFiltro.tipoDemanda = tipo == 2 ? tipoDemanda : null;
+        dataFiltro.vendaDe = readonlyVendaDe == false ? vendaAte : "";
+        dataFiltro.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
+        dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : "";
+        dataFiltro.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : "";
+        dataFiltro.curvaAbc = curvaAbc;
+        dataFiltro.consideraEncomendaFaltas = consideraEncomendaFaltas;
+        dataFiltro.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
+        dataFiltro.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
+        dataFiltro.tipoValor = tipoValor;
+        dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : "";
+        dataFiltro.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
+        dataFiltro.laboratorioId = laboratorioId;
+        dataFiltro.fornecedoresIds = fornecedoresIds;
+        dataFiltro.gruposIds = gruposIds;
+        dataFiltro.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
+        dataFiltro.empresaId = empresaId;
+        dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
+
+        // const response = await postFormAll("ManutencaoCompras/MontaFiltro", dataFiltro);
+
+        // if (response.status === 200) {
+        //     setIsLoading(false);
+        //     setItemsCompras(response.data.result);
+        // } else {
+        //     setIsOpenFail(true);
+        //     setIsLoading(false);
+        //     setTimeout(() => {
+        //         setIsOpenFail(false);
+        //     }, 2000)
+        // }
+    }
+
     async function submit() {
         setIsLoading(true);
 
+        data.id = 0;
+        data.listaItems = itemsCompras;
         data.tipo = tipo;
-        data.tipoDemanda = tipo == "Demanda" ? tipoDemanda : null;
+        data.tipoDemanda = tipo == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
         data.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
         data.vendaAte = readonlyVendaAte == false ? vendaAte : "";
@@ -221,14 +375,13 @@ export function ManutencaoCompras() {
         data.fornecedoresIds = fornecedoresIds;
         data.gruposIds = gruposIds;
         data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
-        data.filialId = filialId;
-        data.considerarApenasFilialSelecionada = considerarApenasFilialSelecionada;
+        data.empresaId = empresaId;
+        data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
 
-        const response = await postFormAll("ManutencaoCompras/MontaFiltro", data);
+        const response = await postFormAll("", data);
 
         if (response.status === 200) {
             setIsLoading(false);
-            setItemsCompras(response.data.result);
         } else {
             setIsOpenFail(true);
             setIsLoading(false);
@@ -248,10 +401,11 @@ export function ManutencaoCompras() {
                             options={["", "Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
                             label="Tipo"
                             Select={(select) => setTipo(select)}
+                            selectString={false}
                         />
                     </div>
                     <div className="col-2">
-                        {tipo == "Demanda" &&
+                        {tipo == 2 &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}
@@ -336,6 +490,7 @@ export function ManutencaoCompras() {
                             options={["Geral", "A", "B", "C"]}
                             label="Curva Abc"
                             Select={(select) => setCurvaAbc(select)}
+                            selectString={false}
                         />
                     </div>
                     <div className="col-2">
@@ -409,35 +564,35 @@ export function ManutencaoCompras() {
                 </div>
                 <div className="row">
                     <div className="col-4">
-                        {/* <MultiSelect 
+                        { <MultiSelect 
                             label="Produtos"
                             title="Produtos"
                             data={produtos}
                             isMultiple={true}
-                            Select={(produtosIds) => SetProdutosIds)}
+                            Select={(produtosIds) => setProdutosIds(produtosIds)}
                             placeholder="Selecione o(s) produto(s)"
-                        /> */}
+                        /> }
                     </div>
                     <div className="col-4">
-                        {/* <CustomDropDown
-                            data={filiais}
-                            title="Selecione a Filial"
+                        {/* { <CustomDropDown
+                            data={empresas}
+                            title="Selecione a Empresa"
                             filter="nome"
-                            label="Filial"
-                            Select={(filialId) => setLaboratorioId(filialId)}
-                        /> */}
+                            label="Empresa"
+                            Select={(empresaId) => setEmpresaId(empresaId)}
+                        /> } */}
                     </div>
                     <div className="col-3">
                         <CheckboxCustom
-                            options={["Considerar apenas filial selecionada"]}
-                            check={considerarApenasFilialSelecionada}
-                            onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConsiderarApenasFilialSelecionada(e.target.checked)}
+                            options={["Considerar apenas empresa selecionada"]}
+                            check={considerarApenasEmpresaSelecionada}
+                            onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConsiderarApenasEmpresaSelecionada(e.target.checked)}
                         />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-4 mt-2">
-                        <ButtonFilter onCLick={submit} isLoading={isLoading} />
+                        <ButtonFilter onCLick={filtrar} isLoading={isLoadingFilter} />
                     </div>
                 </div>
             </Container>
@@ -447,7 +602,7 @@ export function ManutencaoCompras() {
                         <section>
                             <ThemeProvider theme={setTheme()}>
                                 <Box sx={{ height: 400, mt: 1 }}>
-                                    <DataGrid rows={itemsCompras} columns={columns} editMode="row" components={{ Toolbar: CustomToolbar }} localeText={setTranslate()} />
+                                    <DataGrid rows={itemsCompras} columns={columns} onEditCellPropsChange={handleEditCellChange} editMode="row" components={{ Toolbar: CustomToolbar }} localeText={setTranslate()} />
                                 </Box>
                             </ThemeProvider>
                         </section>

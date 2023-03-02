@@ -24,7 +24,7 @@ export const namesItemsMenu = [
     titulo: "Compras",
     hasSubMenu: true,
     subMenu: [
-      //{ titulo: "Compras", link: "/compras"}
+      { titulo: "Compras", link: "/compras"}
     ]
   },
   {

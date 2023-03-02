@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { ContainerInput, CustomSelectContainer, LabelRequired } from './styles';
 
 interface Props {
@@ -8,10 +8,11 @@ interface Props {
     erro?: string;
     Select: (string: any) => void
     valueEdit?: string;
+    selectString?: boolean
 }
 
-export function SelectInput({ options, label, required, Select, erro, valueEdit}: Props) {
-    const [selectedOption, setSelectedOption] = useState<string>("");
+export function SelectInput({ options, label, required, Select, erro, valueEdit, selectString = true }: Props) {
+    const [selectedOption, setSelectedOption] = useState<string | number>();
 
     useEffect(() => {
         if (valueEdit) {
@@ -19,7 +20,7 @@ export function SelectInput({ options, label, required, Select, erro, valueEdit}
         };
     });
 
-    function onSelect(selected: string) {
+    function onSelect(selected: string | number) {
         setSelectedOption(selected)
         Select(selected);
     }
@@ -33,13 +34,20 @@ export function SelectInput({ options, label, required, Select, erro, valueEdit}
                         <LabelRequired>*</LabelRequired>
                     }
                 </div>
-                
+
                 <CustomSelectContainer value={selectedOption} onChange={e => onSelect(e.target.value)}>
-                    {options.map(option => (
-                        <option key={option} value={option}>
-                            {option}
-                        </option>
-                    ))}
+                    {selectString ?
+                        options.map((option) => (
+                            <option key={option} value={option} >
+                                {option}
+                            </option>
+                        )) :
+                        options.map((option, index) => (
+                            <option key={option} value={index} >
+                                {option}
+                            </option>
+                        ))
+                    }
                 </CustomSelectContainer>
             </div>
             {erro &&

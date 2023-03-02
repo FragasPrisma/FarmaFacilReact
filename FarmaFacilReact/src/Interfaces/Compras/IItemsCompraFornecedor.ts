@@ -1,0 +1,22 @@
+export interface IItemsCompraFornecedor {
+    id: number;                                     // ID
+    contaId: number;                                // ContaID
+    integracaoId: number;                           // IntegracaoID
+    grupoId: number;                                // codigoGrupo
+    produtoId: number;                              // codigoProduto
+    comprar: boolean;                               // comprar
+    dataValidade: string;                           // dataValidade
+    descricaoProduto: string;                       // descricaoProduto
+    comprasFornecedorId: number;                    // idComprasFornecedor
+    quantidadeCompra: number;                       // qtdeCompra
+    siglaUnidade: string;                           // siglaUnidade
+    valorTotal: number;                             // valorTotal
+    valorUnitario: number;                          // valorUnitario
+    quantidadeCompraUnidadeEstoque: number;         // qtdeCompraUe
+    valorUnitarioUnidadeEstoque: number;            // valorUnitarioUe
+    siglaUnidadeEstoque: number;                    // siglaUnidadeDeEstoque
+    numeroNota: number;                             // numeroNota
+    serieNota: string;                              // serieNota
+    statusItemPedido: number;                       // statusItemPedido
+    selecionadoGerar: string;                       // selecionadoGerar
+}
