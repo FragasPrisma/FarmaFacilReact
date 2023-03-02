@@ -14,6 +14,7 @@ import { LabelObrigatorio } from "../../../Components/Others/LabelMensagemObriga
 import { Farmacia } from "../../../Interfaces/Empresa/IFarmacia";
 import { IEmpresa } from "../../../Interfaces/Empresa/IEmpresa";
 import { getAll, postFormAll } from "../../../Services/Api";
+import { ButtonCancel } from "../../../Components/Buttons/ButtonCancel";
 
 export function EmpresaCreate() {
     const navigate = useNavigate();
@@ -160,6 +161,7 @@ export function EmpresaCreate() {
                 <div className="row">
                     <div className="col-6 mt-2">
                         <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                        <ButtonCancel to="empresa" />
                     </div>
                 </div>
             </div>

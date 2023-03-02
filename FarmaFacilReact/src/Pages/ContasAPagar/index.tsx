@@ -78,7 +78,7 @@ export function ContasAPagar() {
     return (
         <>
             <HeaderMainContent
-                title="Contas a pagar"
+                title="Duplicatas"
                 IncludeButton={true}
                 ReturnButton={false}
                 IncludeSwitch={true}
@@ -92,7 +92,7 @@ export function ContasAPagar() {
                 headerTable={aPagar == true ? ["numeroFatura", "observacao", "dataVencimento", "dataPagamento", "valorPago"]
                     : ["numeroFatura", "observacao", "dataVencimento", "valor"]}
                 headerTableView={aPagar == true ? ["Fatura", "Observação", "Vencimento", "Pagamento", "Valor Pago"]
-                    : ["Fatura", "Observação", "Vencimento", "Valor"]}
+                    : ["N° do documento", "Observação", "Vencimento", "Valor (R$)"]}
                 iconOptions={true}
                 itensExtraButton={[filtros]}
                 btnsEditExcluir={aPagar}

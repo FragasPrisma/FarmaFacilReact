@@ -1,35 +1,36 @@
-export {}
+import { useState, useRef, useEffect } from "react";
+import { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { Container } from "./styles";
 
-// import { useState, useRef } from "react"
-// import JoditEditor from "jodit-react";
+export let contentEditor = {};
 
-// interface EditorProps {
-//     OnChange?: (text: string) => void;
-//     width?: number;
-// }
+export function EditorCustom() {
 
-// export function Editor({ OnChange, width }: EditorProps) {
+    const [content, setContent] = useState({ops : []} as any);
+    const editorRef = useRef(null);
 
-//     const widthConfig = width ? width : 600;
-//     const editor = useRef(null);
-//     const [content, setContent] = useState('');
-//     const config = {
-//         width: widthConfig
-//     }
+    contentEditor = content;
 
-//     const handleChange = (text: string) => {
-//         setContent(text)
-//         if (OnChange) {
-//             OnChange(text)
-//         }
-//     }
+    useEffect(() => {
+        contentEditor = content;
+    },[content])
 
-//     return (
-//         <JoditEditor
-//             ref={editor}
-//             value={content}
-//             config={config}
-//             onBlur={newContent => handleChange(newContent)}
-//         />
-//     );
-// }
+    useEffect(() => {
+        if (editorRef.current) {
+            const editor = new Quill(editorRef.current, {
+                theme: 'snow'
+            });
+            editor.on('text-change', () => {
+                return setContent(editor.getContents());
+            });
+        }
+
+    }, []);
+
+    return (
+        <Container>
+            <div ref={editorRef}></div>
+        </Container>
+    )
+}
