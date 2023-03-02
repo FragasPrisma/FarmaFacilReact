@@ -36,22 +36,22 @@ export function ManutencaoCompras() {
 
     const [tipo, setTipo] = useState(0);
     const [tipoDemanda, setTipoDemanda] = useState(0);
-    const [vendaDe, setVendaDe] = useState("");
-    const [vendaDeHora, setVendaDeHora] = useState("");
-    const [vendaAte, setVendaAte] = useState("");
-    const [vendaAteHora, setVendaAteHora] = useState("");
+    const [vendaDe, setVendaDe] = useState<string | null>(null);
+    const [vendaDeHora, setVendaDeHora] = useState<string | null>(null);
+    const [vendaAte, setVendaAte] = useState<string | null>(null);
+    const [vendaAteHora, setVendaAteHora] = useState<string | null>(null);
     const [curvaAbc, setCurvaAbc] = useState(0);
     const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(true);
     const [tempoDeRep, setTempoDeRep] = useState(0);
     const [quantidadeDias, setQuantidadeDias] = useState(0);
     const [tipoValor, setTipoValor] = useState(0);
-    const [aPartirDe, setAPartirDe] = useState("");
+    const [aPartirDe, setAPartirDe] = useState<string | null>("");
     const [fornecedoresIds, setFornecedoresIds] = useState([] as number[]);
     const [saldoQuantidadeComprometida, setSaldoQuantidadeComprometida] = useState(false);
     const [gruposIds, setGruposIds] = useState([] as number[]);
     const [produtosIds, setProdutosIds] = useState([] as number[]);
-    const [laboratorioId, setLaboratorioId] = useState(0);
-    const [empresaId, setEmpresaId] = useState(0);
+    const [laboratorioId, setLaboratorioId] = useState<number | null>(null);
+    const [empresaId, setEmpresaId] = useState<number | null>(null);
     const [considerarApenasEmpresaSelecionada, setConsiderarApenasEmpresaSelecionada] = useState(false);
 
     const [readonlyVendaDe, setReadonlyVendaDe] = useState(false);
@@ -68,16 +68,10 @@ export function ManutencaoCompras() {
     const [empresas, setEmpresas] = useState([] as IEmpresa[]); 
     const [produtos, setProdutos] = useState([] as IProduto[]);
 
-    const [itemsCompras, setItemsCompras] = useState([
-        { id: 1, grupoId: 1, laboratorioId: 1, produtoId: 1, comprar: true, curva: "Geral", estoque: 100, estoqueMinimo: 1000, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 100, siglaUnidade: "g", quantidadeTotal: 1100, valorTotal: 0, valorUnitario: 0.50, valorVendido: 100, consumoDiario: 1, estoqueMaximo: 1200},
-        { id: 2, grupoId: 2, laboratorioId: 2, produtoId: 2, comprar: false, curva: "Geral", estoque: 200, estoqueMinimo: 1100, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 200, siglaUnidade: "g", quantidadeTotal: 1200, valorTotal: 0, valorUnitario: 0.60, valorVendido: 200, consumoDiario: 2, estoqueMaximo: 1300},
-        { id: 3, grupoId: 3, laboratorioId: 3, produtoId: 3, comprar: true, curva: "Geral", estoque: 300, estoqueMinimo: 1200, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 300, siglaUnidade: "g", quantidadeTotal: 1300, valorTotal: 0, valorUnitario: 0.70, valorVendido: 300, consumoDiario: 3, estoqueMaximo: 1400},
-        { id: 4, grupoId: 4, laboratorioId: 4, produtoId: 4, comprar: false, curva: "Geral", estoque: 400, estoqueMinimo: 1300, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 400, siglaUnidade: "g", quantidadeTotal: 1400, valorTotal: 0, valorUnitario: 0.80, valorVendido: 400, consumoDiario: 4, estoqueMaximo: 1500},
-        { id: 5, grupoId: 5, laboratorioId: 5, produtoId: 5, comprar: true, curva: "Geral", estoque: 500, estoqueMinimo: 1400, compraId: 0, quantidadeCompra: 0, quantidadeVendida: 500, siglaUnidade: "g", quantidadeTotal: 1500, valorTotal: 0, valorUnitario: 0.90, valorVendido: 500, consumoDiario: 5, estoqueMaximo: 1600}
-    ] as IItemsCompra[]);
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
 
     const dataFiltro: IFiltroCompras = {
-        tipo: 0,
+        tipoCompra: 0,
         tipoDemanda: null,
         vendaDe: "",
         vendaDeHora: "",
@@ -319,18 +313,18 @@ export function ManutencaoCompras() {
     async function filtrar() {
         setIsLoadingFilter(true);
 
-        dataFiltro.tipo = tipo;
+        dataFiltro.tipoCompra = tipo;
         dataFiltro.tipoDemanda = tipo == 2 ? tipoDemanda : null;
-        dataFiltro.vendaDe = readonlyVendaDe == false ? vendaAte : "";
-        dataFiltro.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
-        dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : "";
-        dataFiltro.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : "";
+        dataFiltro.vendaDe = readonlyVendaDe == false ? vendaDe : null;
+        dataFiltro.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : null;
+        dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : null;
+        dataFiltro.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : null;
         dataFiltro.curvaAbc = curvaAbc;
         dataFiltro.consideraEncomendaFaltas = consideraEncomendaFaltas;
         dataFiltro.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
         dataFiltro.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
         dataFiltro.tipoValor = tipoValor;
-        dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : "";
+        dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
         dataFiltro.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
         dataFiltro.laboratorioId = laboratorioId;
         dataFiltro.fornecedoresIds = fornecedoresIds;
@@ -338,19 +332,19 @@ export function ManutencaoCompras() {
         dataFiltro.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
         dataFiltro.empresaId = empresaId;
         dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
+        console.log(dataFiltro)
+        const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
-        // const response = await postFormAll("ManutencaoCompras/MontaFiltro", dataFiltro);
-
-        // if (response.status === 200) {
-        //     setIsLoading(false);
-        //     setItemsCompras(response.data.result);
-        // } else {
-        //     setIsOpenFail(true);
-        //     setIsLoading(false);
-        //     setTimeout(() => {
-        //         setIsOpenFail(false);
-        //     }, 2000)
-        // }
+        if (response.status === 200) {
+            setIsLoading(false);
+            setItemsCompras(response.data);
+        } else {
+            setIsOpenFail(true);
+            setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
+        }   
     }
 
     async function submit() {
@@ -377,7 +371,7 @@ export function ManutencaoCompras() {
         data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
-
+        
         const response = await postFormAll("", data);
 
         if (response.status === 200) {
@@ -400,7 +394,7 @@ export function ManutencaoCompras() {
                         <SelectInput
                             options={["", "Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
                             label="Tipo"
-                            Select={(select) => setTipo(select)}
+                            Select={(select) => setTipo(parseInt(select))}
                             selectString={false}
                         />
                     </div>
@@ -489,7 +483,7 @@ export function ManutencaoCompras() {
                         <SelectInput
                             options={["Geral", "A", "B", "C"]}
                             label="Curva Abc"
-                            Select={(select) => setCurvaAbc(select)}
+                            Select={(select) => setCurvaAbc(parseInt(select))}
                             selectString={false}
                         />
                     </div>

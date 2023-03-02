@@ -1,5 +1,5 @@
 export interface IFiltroCompras {
-    tipo: number,                                           // Tipo
+    tipoCompra: number,                                           // Tipo
     tipoDemanda: number | null,                             // EstoqueMáximo e Minimo
     vendaDe: string | null,                                 // DataInicial
     vendaDeHora: string | null,                             // HoraInicial
@@ -12,7 +12,7 @@ export interface IFiltroCompras {
     tipoValor: number,                                      // TipoValor
     aPartirDe: string | null,                               // DataReferencia
     saldoQuantidadeComprometida: boolean,                   // Somente na tela
-    laboratorioId: number,                                  // Laboratorio
+    laboratorioId: number | null,                                  // Laboratorio
     fornecedoresIds: number[],                              // Fornecedor
     gruposIds: number[],                                    // Grupo
     produtosIds: number[],                                  // Produto

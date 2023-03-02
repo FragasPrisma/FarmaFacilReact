@@ -12,18 +12,18 @@ export interface ICompra {
     // Parte de IFiltroCompra
     tipo: number,                                           // Tipo
     tipoDemanda: number | null,                             // EstoqueMáximo e Minimo
-    vendaDe: string,                                        // DataInicial
-    vendaDeHora: string,                                    // HoraInicial
-    vendaAte: string,                                       // DataFinal
-    vendaAteHora: string,                                   // HoraFinal
+    vendaDe: string | null,                                        // DataInicial
+    vendaDeHora: string | null,                                    // HoraInicial
+    vendaAte: string | null,                                       // DataFinal
+    vendaAteHora: string | null,                                   // HoraFinal
     curvaAbc: number,                                       // CurvaAbc
     consideraEncomendaFaltas: boolean,                      // Encomenda
     tempoDeRep: number,                                     // TempoReposicao
     quantidadeDias: number,                                 // PedidoPara
     tipoValor: number,                                      // TipoValor
-    aPartirDe: string,                                      // DataReferencia
+    aPartirDe: string | null,                                      // DataReferencia
     saldoQuantidadeComprometida: boolean,                   // Somente na tela
-    laboratorioId: number,                                  // Laboratorio
+    laboratorioId: number | null,                                  // Laboratorio
     fornecedoresIds: number[],                              // Fornecedor
     gruposIds: number[],                                    // Grupo
     produtosIds: number[],                                  // Produto
