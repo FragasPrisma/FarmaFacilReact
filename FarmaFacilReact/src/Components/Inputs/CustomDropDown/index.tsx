@@ -15,7 +15,7 @@ interface Search {
 }
 
 export function CustomDropDown({ data, title, filter, label, error, required, readonly, Select, titleEdit }: Search) {
-  
+
   const [titleSelect, setTitleSelect] = useState(title)
   const [value, setValue] = useState("");
 
@@ -27,18 +27,18 @@ export function CustomDropDown({ data, title, filter, label, error, required, re
     }
   }, [data, value, filter]);
 
-    useEffect(() => {
-      
+  useEffect(() => {
+
     if (titleEdit != titleSelect && titleEdit && title != titleSelect) {
       setTitleSelect(titleEdit)
       Select(null, titleEdit);
       return;
     }
-    if(title != titleSelect && !titleEdit){
+    if (title != titleSelect && !titleEdit) {
       setTitleSelect(title)
       Select(null, title);
     }
-  }, [title,titleEdit])
+  }, [title, titleEdit])
 
 
   function SelectDropDown(number: any, select: any) {

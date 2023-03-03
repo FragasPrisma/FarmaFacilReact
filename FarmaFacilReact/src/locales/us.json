@@ -124,7 +124,8 @@
             "confirmar": "Confirm",
             "cancelar": "Cancel",
             "voltar": "Back",
-            "filtrar": "Filter"
+            "filtrar": "Filter",
+            "RemoverItens": "Remove Items"
         },
         "header": {
             "desconectar": "Disconnect"

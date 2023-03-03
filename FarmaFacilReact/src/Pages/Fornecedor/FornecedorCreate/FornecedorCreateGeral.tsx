@@ -11,7 +11,7 @@ import { IBairro } from "../../../Interfaces/Bairro/IBairro";
 import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 
-export let sigla = ""; 
+export let sigla = "";
 
 export let fornecedorGeral: IFornecedorGeral = {
     id: 0,
@@ -47,7 +47,7 @@ interface IData {
     textParameter: string
 }
 
-export function FornecedorCreateGeral({ erros , textParameter}: IData) {
+export function FornecedorCreateGeral({ erros, textParameter }: IData) {
 
     useEffect(() => { setErrosParameters(erros) }, [erros])
 
@@ -80,7 +80,7 @@ export function FornecedorCreateGeral({ erros , textParameter}: IData) {
         setNomeCidade("Selecione a Cidade")
         setNomeBairro("Selecione o Bairro")
 
-    },[textParameter])
+    }, [textParameter])
 
     const [nomeFornecedor, setNomeFornecedor] = useState(textParameter);
     const [nomeFantasia, setNomeFantasia] = useState(textParameter);
@@ -349,10 +349,11 @@ export function FornecedorCreateGeral({ erros , textParameter}: IData) {
                         error={erroEstadoId}
                         required={true}
                         Select={(estadoId, select) => {
-                            console.log(estadoId)
-                            setEstadoId(estadoId)
-                            setSiglaEstado(select)
-                            setNomeEstado(select)
+                            if (estadoId != null) {
+                                setEstadoId(estadoId)
+                                setSiglaEstado(select)
+                                setNomeEstado(select)
+                            }
                         }}
                     />
                 </div>
@@ -362,7 +363,12 @@ export function FornecedorCreateGeral({ erros , textParameter}: IData) {
                         title={nomeCidade}
                         filter="nome"
                         label="Cidade"
-                        Select={(cidadeId, select) => {setCidadeId(cidadeId), setNomeCidade(select)}}
+                        Select={(cidadeId, select) => {
+                            if (cidadeId != null) {
+                                setCidadeId(cidadeId)
+                                setNomeCidade(select)
+                            }
+                        }}
                     />
                 </div>
                 <div className="col-3">
@@ -371,7 +377,12 @@ export function FornecedorCreateGeral({ erros , textParameter}: IData) {
                         title={nomeBairro}
                         filter="nome"
                         label="Bairro"
-                        Select={(bairroId, select) => {setBairroId(bairroId) , setNomeBairro(select)}}
+                        Select={(bairroId, select) => {
+                            if (bairroId != null) {
+                                setBairroId(bairroId)
+                                setNomeBairro(select)
+                            }
+                        }}
                     />
                 </div>
             </div>

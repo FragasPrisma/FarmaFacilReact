@@ -15,7 +15,7 @@ import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 import { getAll, postFormAll } from "../../Services/Api";
-import { Container } from "./styles";
+import { Container, FooterGridTotal } from "./styles";
 import { DataGrid, GridCellParams, GridEditCellPropsParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, GridValueGetterParams } from '@mui/x-data-grid'
 import Box from '@mui/material/Box';
 import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
@@ -27,12 +27,16 @@ import { setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
 import { optionCSS } from "react-select/dist/declarations/src/components/Option";
 import { IProduto } from "../../Interfaces/Produto/IProduto";
 import { IEmpresa } from "../../Interfaces/Empresa/IEmpresa";
+import { ButtonRemoveItems } from "../../Components/Buttons/ButtonRemoveItems";
+import { ConfirmModal } from "../../Components/Modals/ConfirmModal";
 
 export function ManutencaoCompras() {
-
+    const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingFilter, setIsLoadingFilter] = useState(false);
+    const [isLoadingRemoveItems, setIsLoadingRemoveItems] = useState(false);
+    
 
     const [tipo, setTipo] = useState(0);
     const [tipoDemanda, setTipoDemanda] = useState(0);
@@ -73,6 +77,8 @@ export function ManutencaoCompras() {
     const [empresas, setEmpresas] = useState([] as IEmpresa[]);
     const [produtos, setProdutos] = useState([] as IProduto[]);
 
+    const [valorTotal, setValorTotal] = useState(0);
+
     const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
 
     const dataFiltro: IFiltroCompras = {
@@ -99,12 +105,12 @@ export function ManutencaoCompras() {
 
     const data: ICompra = {
         id: 0,
-        data: Date.now().toString(),
-        listaItems: [],
+        dataCadastro: null,
+        itensCompras: [],
         totalCompra: 0,
-        status: 1,
-        tempoReposicaoMaximo: 0,
-        tipo: 0,
+        statusCompra: 1,
+        tempoDeReposicaoMaxima: 0,
+        tipoCompra: 0,
         tipoDemanda: null,
         vendaDe: "",
         vendaDeHora: "",
@@ -112,7 +118,7 @@ export function ManutencaoCompras() {
         vendaAteHora: "",
         curvaAbc: 0,
         consideraEncomendaFaltas: true,
-        tempoDeRep: 0,
+        tempoDeReposicao: 0,
         quantidadeDias: 0,
         tipoValor: 0,
         aPartirDe: "",
@@ -255,6 +261,19 @@ export function ManutencaoCompras() {
         });
         setItemsCompras(updatedRows);
     }
+
+    useEffect(() => {
+        let valorTotaldasCompras: number = 0;
+        itemsCompras.map((item) => {
+            item.valorTotal = item.quantidadeCompra * item.valorUnitario;
+
+            if (item.comprar == true) {
+                valorTotaldasCompras += item.valorTotal;
+            }
+        })
+
+        setValorTotal(valorTotaldasCompras);
+    }, [itemsCompras])
 
     useEffect(() => {
         const loadDataFornecedores = async () => {
@@ -419,8 +438,8 @@ export function ManutencaoCompras() {
         setIsLoading(true);
 
         data.id = 0;
-        data.listaItems = itemsCompras;
-        data.tipo = tipo;
+        data.itensCompras = itemsCompras;
+        data.tipoCompra = tipo;
         data.tipoDemanda = tipo == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
         data.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
@@ -428,7 +447,7 @@ export function ManutencaoCompras() {
         data.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : "";
         data.curvaAbc = curvaAbc;
         data.consideraEncomendaFaltas = consideraEncomendaFaltas;
-        data.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
+        data.tempoDeReposicao = readonlyTempoDeRep == false ? tempoDeRep : 0;
         data.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
         data.tipoValor = tipoValor;
         data.aPartirDe = readonlyAPartirDe == false ? aPartirDe : "";
@@ -436,7 +455,7 @@ export function ManutencaoCompras() {
         data.laboratorioId = laboratorioId;
         data.fornecedoresIds = fornecedoresIds;
         data.gruposIds = gruposIds;
-        data.produtosIds = produtosIds; //Preencher com dados mocados, ainda não temos componente
+        data.produtosIds = produtosIds;
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
 
@@ -451,6 +470,16 @@ export function ManutencaoCompras() {
         //         setIsOpenFail(false);
         //     }, 2000)
         // }
+    }
+
+    function removerItems(confirmation: boolean)  {
+        if (confirmation) {
+            setItemsCompras([]);
+            setIsOpenConfirmModal(false);
+            return
+        }
+
+        setIsOpenConfirmModal(false);
     }
 
     return (
@@ -653,8 +682,11 @@ export function ManutencaoCompras() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-4 mt-2">
+                    <div className="col-3 mt-2">
                         <ButtonFilter onCLick={filtrar} isLoading={isLoadingFilter} />
+                    </div>
+                    <div className="col-3 mt-2">
+                        <ButtonRemoveItems onCLick={() => setIsOpenConfirmModal(true)} isLoading={isLoadingRemoveItems}/>
                     </div>
                 </div>
             </Container>
@@ -669,7 +701,9 @@ export function ManutencaoCompras() {
                                         columns={columns}
                                         onEditCellPropsChange={handleEditCellChange}
                                         editMode="row"
-                                        components={{ Toolbar: CustomToolbar }}
+                                        components={{ 
+                                            Toolbar: CustomToolbar, 
+                                        }}
                                         localeText={setTranslate()}
                                         columnVisibilityModel={{
                                             id: false,
@@ -679,6 +713,7 @@ export function ManutencaoCompras() {
                                             consumoDiario: hideConsumoDiario,
                                         }}
                                     />
+                                    <FooterGridTotal>Valor total: {valorTotal}</FooterGridTotal>
                                 </Box>
                             </ThemeProvider>
                         </section>
@@ -686,11 +721,12 @@ export function ManutencaoCompras() {
                 </div>
             </div>
             <div className="row">
-                <div className="col-4 mb-2">
+                <div className="col-4 mb-2 mt-2">
                     <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                 </div>
             </div>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
+            <ConfirmModal openModal={isOpenConfirmModal} onClose={(confirmation: boolean) => removerItems(confirmation)} text="Confirmar exclusão da lista de produtos?"/>
         </>
     )
 }

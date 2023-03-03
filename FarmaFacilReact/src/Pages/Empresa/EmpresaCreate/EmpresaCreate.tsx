@@ -3,7 +3,6 @@ import { Container } from "../styles";
 import { TabFarmacia } from "./TabFarmacia";
 import "../ArquivoConfig";
 import { itemsHandles, itemsHandlesChildrenAcabado, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao } from "../../../Enum/ItemsParametro";
-import TabsParametro from "../../../Components/Others/TabsParametro";
 import TabsEmpresa from "../../../Components/Others/TabsEmpresa";
 import { ButtonConfirm } from "../../../Components/Buttons/ButtonConfirm";
 import { useEffect, useState } from "react";
@@ -103,7 +102,7 @@ export function EmpresaCreate() {
 
     useEffect(() => {
         const loadDataEmpresa = async () => {
-            const request = await getAll("ListaFornecedor");
+            const request = await getAll("ListaEmpresa");
             setEmpresas(request.data)
         }
         loadDataEmpresa()
@@ -124,11 +123,11 @@ export function EmpresaCreate() {
         setError({ erro: false, erroNome: "", index: 0 })
         setIsLoading(true);
 
-
-
         let data: IEmpresa = {
             Farmacia: Farmacia
         }
+
+        console.log(data)
 
         const resp = await postFormAll("AdicionarEmpresa", data);
 

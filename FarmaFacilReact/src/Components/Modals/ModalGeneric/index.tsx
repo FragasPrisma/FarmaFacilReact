@@ -1,3 +1,4 @@
+import { X } from "phosphor-react";
 import { useState } from "react";
 import { Modal, ModalBody } from "react-bootstrap";
 import { postFormAll } from "../../../Services/Api";
@@ -50,7 +51,7 @@ export function ModalGeneric({ textInformationModal, url, object, openModal , on
                     <Container>
                         <div className="div_text">
                             <div className="div_btn">
-                                <CloseButton onClick={closeModal}>{"X"}</CloseButton>
+                                <CloseButton onClick={closeModal}><X size={32} color="#d34545" weight="duotone"/></CloseButton>
                             </div>
                             <MensageDefault>
                                 {textInformationModal}

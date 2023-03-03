@@ -325,7 +325,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nome"
             label="Bairro"
             required={true}
-            Select={(bairroId) => setBairroId(bairroId)}
+            Select={(bairroId) => {
+              if (bairroId != null) {
+                setBairroId(bairroId)
+              }
+            }}
           />
         </div>
         <div className="col-3">
@@ -335,7 +339,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nome"
             label="Cidade"
             required={true}
-            Select={(cidadeId) => setCidadeId(cidadeId)}
+            Select={(cidadeId) => {
+              if (cidadeId != null) {
+                setCidadeId(cidadeId)
+              }
+            }}
           />
         </div>
         <div className="col-3">
@@ -345,7 +353,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nome"
             label="Estado"
             required={true}
-            Select={(estadoId) => setEstadoId(estadoId)}
+            Select={(estadoId) => {
+              if (estadoId != null) {
+                setEstadoId(estadoId)
+              }
+            }}
           />
         </div>
       </div>
