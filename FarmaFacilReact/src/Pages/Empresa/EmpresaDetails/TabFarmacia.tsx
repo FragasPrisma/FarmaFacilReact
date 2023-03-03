@@ -66,7 +66,6 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="text"
             maxLength={50}
             value={tabFarmaciaModel.razaoSocial}
-            placeholder="Prismafive Tecnologia"
             index={1}
             readonly={true}
           />
@@ -77,7 +76,6 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="text"
             maxLength={50}
             value={tabFarmaciaModel.nomeFantasia}
-            placeholder="Prisma5"
             index={2}
             readonly={true}
           />

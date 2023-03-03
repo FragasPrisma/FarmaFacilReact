@@ -23,6 +23,7 @@ interface IData {
   }
 }
 
+
 export const TabFarmacia = ({ erros }: IData) => {
 
   useEffect(() => { setErrosParameters(erros) }, [erros])
@@ -107,12 +108,7 @@ export const TabFarmacia = ({ erros }: IData) => {
         setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
         setLicencaFunc(response.data.farmacia.licencaFunc)
         setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
-        setLicencaMapa(response.data.farmacia.licencaMapa)
-
-
-
-        
-        
+        setLicencaMapa(response.data.farmacia.licencaMapa) 
         
       }
     }
@@ -122,40 +118,39 @@ export const TabFarmacia = ({ erros }: IData) => {
 
   
 
- const dataEdit : typeof Farmacia = {
-   Id: idObject,
-   razaoSocial: razaoSocial,
-   nomeFantasia: nomeFantasia,
-   cnpj: cnpj.replace(/[-/.]/g, ""),
-   inscricaoEstadual: inscricaoEstadual.replace(/\.|-/gm, ''),
-   inscricaoMunicipal: inscricaoMunicipal,
-   regimeTributario: regimeTributario,
-   ddd: ddd,
-   dddCelular: dddCelular,
-   dddWhatsApp: dddWhatsApp,
-   telefone: telefone,
-   celular: celular,
-   email: email,
-   whatsApp: whatsApp,
-   cep: cep.replace(/\.|-/gm, ''),
-   logradouro: logradouro,
-   numero: numero,
-   complemento: complemento,
-   cidadeId: cidadeId,
-   estadoId: estadoId,
-   bairroId: bairroId,
-   nomeFarmaceutico: nomeFarmaceutico,
-   crf: crf,
-   cpfRespSNGPC: cpfRespSNGPC,
-   usuarioSNGPC: usuarioSNGPC,
-   senhaSNGPC: senhaSNGPC,
-   ativo: true,
-   licencaFunc: licencaFunc,
-   autoridadeSanitaria: autoridadeSanitaria,
-   licencaMapa: licencaMapa,
-   fornecedorInternoId: fornecedorInternoId,
-
- }
+  const dataEdit: typeof Farmacia = {
+  Id: idObject,
+  razaoSocial: razaoSocial,
+  nomeFantasia: nomeFantasia,
+  cnpj: cnpj.replace(/[-/.]/g, ""),
+  inscricaoEstadual: inscricaoEstadual.replace(/\.|-/gm, ''),
+  inscricaoMunicipal: inscricaoMunicipal,
+  regimeTributario: regimeTributario,
+  ddd: ddd,
+  dddCelular: dddCelular,
+  dddWhatsApp: dddWhatsApp,
+  telefone: telefone,
+  celular: celular,
+  email: email,
+  whatsApp: whatsApp,
+  cep: cep.replace(/\.|-/gm, ''),
+  logradouro: logradouro,
+  numero: numero,
+  complemento: complemento,
+  cidadeId: cidadeId,
+  estadoId: estadoId,
+  bairroId: bairroId,
+  nomeFarmaceutico: nomeFarmaceutico,
+  crf: crf,
+  cpfRespSNGPC: cpfRespSNGPC,
+  usuarioSNGPC: usuarioSNGPC,
+  senhaSNGPC: senhaSNGPC,
+  ativo: true,
+  licencaFunc: licencaFunc,
+  autoridadeSanitaria: autoridadeSanitaria,
+  licencaMapa: licencaMapa,
+  fornecedorInternoId: fornecedorInternoId
+}
 
   
   

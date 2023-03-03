@@ -1,23 +1,6 @@
+//import Flat from "../assets/img/bench.png";
 
-// {
-  //   img: Archive,
-  //   titulo: "Arquivo",
-  //   hasSubMenu: true,
-  //   subMenu: [
-    //     {
-      //       titulo: "Bairro",
-      //       link: "/bairro",
-      //       hasSubSubMenu: [
-        //         { titulo: "Lista de Clientes", link: "/lista-clientes" },
-        //       ],
-        //     },
-        //     { titulo: "Lista de Clientes", link: "/lista-clientes" },
-        //   ],
-        // },
-        
-import Flat from "../assets/img/bench.png";
-
-export const namesItemsMenu = [
+export const arquivo = [
 
   {
     img: "",
@@ -27,54 +10,6 @@ export const namesItemsMenu = [
       { titulo: "Compras", link: "/compras"}
     ]
   },
-  // {
-  //   img: "",
-  //   titulo: "Contas a Pagar",
-  //   hasSubMenu: true,
-  //   subMenu: [
-  //     { titulo: "Contas a Pagar", link: "/contasapagar" },
-  //     { titulo: "Pagas", link: "/contaspagas"},
-  //     { titulo: "Pagar", link: "/contaspagar"},
-  //   ],
-  // },
-
-  {
-    img: "",
-    titulo: "Contas a Pagar",
-    hasSubMenu: true,
-    subMenu: [
-      { 
-        hasSubSubMenu: true, 
-        titulo: "Movimento", 
-        //link: "/contasapagar",
-        subSubMenu: [
-          { titulo: "Contas a pagar", link: "/contasapagar"},
-        ],
-      },
-      {
-        hasSubSubMenu: true,
-        titulo: "Relatório",
-        link: "/contaspagas",
-        subSubMenu: [
-          { titulo: "Pagas", link: "/contaspagas"},
-          { titulo: "Pagar", link: "/contaspagar"},
-        ],
-      },
-    ],
-  },
-  
-
-
-
-
-
-
-
-
-
-
-
-
   {
     img: "",
     titulo: "Estoque",
@@ -159,8 +94,8 @@ export const namesItemsMenu = [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
       { img: "", titulo: "Estado", link: "/estado" },
-      //{ img: "", titulo: "Empresa", link: "/empresa" }, 
-      { img: "", titulo: "Parametro", link: "/parametro" },
+      { img: "", titulo: "Empresa", link: "/empresa" }, 
+      //{ img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
@@ -178,4 +113,25 @@ export const namesItemsMenu = [
       
     ],
   }
+];
+
+export const aPagar = [
+  
+  {
+    img: "",
+    titulo: "Movimento",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Contas a Pagar", link: "/contasapagar" },
+    ],
+  },
+  {
+    img: "",
+    titulo: "Relatório",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Pagas", link: "/contaspagas"},
+      { titulo: "Pagar", link: "/contaspagar"},
+    ],
+  },
 ];
