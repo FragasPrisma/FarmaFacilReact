@@ -176,6 +176,7 @@ export const TabFarmacia = ({ erros }: IData) => {
             erros={errosParameter}
             index={1}
             required={true}
+            focusParam={true}
             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
               setRazaoSocial(e.target.value)
             }

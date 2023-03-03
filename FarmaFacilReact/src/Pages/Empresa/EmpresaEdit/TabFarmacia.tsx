@@ -24,9 +24,45 @@ interface IData {
 }
 
 
-export const TabFarmacia = ({ erros }: IData) => {
+export let dataEdit: typeof Farmacia = {
+  Id: 0,
+  razaoSocial: "",
+  nomeFantasia: "",
+  cnpj: "",
+  inscricaoEstadual: "",
+  inscricaoMunicipal: "",
+  regimeTributario: 0,
+  ddd: "",
+  dddCelular: "",
+  dddWhatsApp: "",
+  telefone: "",
+  celular: "",
+  email: "",
+  whatsApp: "",
+  cep: "",
+  logradouro: "",
+  numero: "",
+  complemento: "",
+  cidadeId: 0,
+  estadoId: 0,
+  bairroId: 0,
+  nomeFarmaceutico: "",
+  crf: 0,
+  cpfRespSNGPC: "",
+  usuarioSNGPC: "",
+  senhaSNGPC: "",
+  ativo: true,
+  licencaFunc: "",
+  autoridadeSanitaria: "",
+  licencaMapa: "",
+  fornecedorInternoId: 0
+}
 
+
+export const TabFarmacia = ({ erros }: IData) => { 
   useEffect(() => { setErrosParameters(erros) }, [erros])
+ 
+  const { id } = useParams();
   const [idObject, setIdObject] = useState(0);
   const [razaoSocial, setRazaoSocial] = useState("");
   const [nomeFantasia, setNomeFantasia] = useState("");
@@ -71,10 +107,8 @@ export const TabFarmacia = ({ erros }: IData) => {
   
   
   const [errosParameter, setErrosParameters] = useState(erros)
- 
   const [tabFarmaciaModel, setTabFarmaciaModel] = useState({} as IFarmacia);
-  const { id } = useParams();
-
+  
   let idParams = !id ? "0" : id.toString();
 
   useEffect(() => {
@@ -83,32 +117,33 @@ export const TabFarmacia = ({ erros }: IData) => {
       const response = await GetId("RetornaEmpresaPorId", idParams);
       if (response.status == 200) {
         setIdObject(response.data.farmacia.id)
-        
-        setRazaoSocial(response.data.farmacia.razaoSocial)
-        setNomeFantasia(response.data.farmacia.nomeFantasia)
-        setCnpj(MaskCnpj(response.data.farmacia.cnpj))
-        setInscricaoEstadual(MaskIe(response.data.farmacia.inscricaoEstadual))
-        setInscricaoMunicipal(MaskIm(response.data.farmacia.inscricaoMunicipal))
-        setRegimeTributario(response.data.farmacia.regimeTributario)
-        setDddCelular(response.data.farmacia.dddCelular)
-        setDdd(response.data.farmacia.ddd)
-        setTelefone(MaskTelefone(response.data.farmacia.telefone))
-        setcelular(MaskTelefone(response.data.farmacia.celular))
-        setEmail(response.data.farmacia.email)
-        setWhatsApp(MaskTelefone(response.data.farmacia.whatsApp))
-        setDddWhatsApp(response.data.farmacia.dddWhatsApp)
-        setCep(MaskCep(response.data.farmacia.cep))
-        setLogradouro(response.data.farmacia.logradouro)
-        setNumero(response.data.farmacia.numero)
-        setComplemento(response.data.farmacia.complemento)
-        setNomeFarmaceutico(response.data.farmacia.nomeFarmaceutico)
-        setCRF(response.data.farmacia.crf)
-        setCpfRespSNGPC(response.data.farmacia.cpfRespSNGPC)
-        setUsuarioSNGPC(response.data.farmacia.usuarioSNGPC)
-        setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
-        setLicencaFunc(response.data.farmacia.licencaFunc)
-        setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
-        setLicencaMapa(response.data.farmacia.licencaMapa) 
+
+        setTabFarmaciaModel(response.data)
+        // setRazaoSocial(response.data.farmacia.razaoSocial)
+        // setNomeFantasia(response.data.farmacia.nomeFantasia)
+        // setCnpj(MaskCnpj(response.data.farmacia.cnpj))
+        // setInscricaoEstadual(MaskIe(response.data.farmacia.inscricaoEstadual))
+        // setInscricaoMunicipal(MaskIm(response.data.farmacia.inscricaoMunicipal))
+        // setRegimeTributario(response.data.farmacia.regimeTributario)
+        // setDddCelular(response.data.farmacia.dddCelular)
+        // setDdd(response.data.farmacia.ddd)
+        // setTelefone(MaskTelefone(response.data.farmacia.telefone))
+        // setcelular(MaskTelefone(response.data.farmacia.celular))
+        // setEmail(response.data.farmacia.email)
+        // setWhatsApp(MaskTelefone(response.data.farmacia.whatsApp))
+        // setDddWhatsApp(response.data.farmacia.dddWhatsApp)
+        // setCep(MaskCep(response.data.farmacia.cep))
+        // setLogradouro(response.data.farmacia.logradouro)
+        // setNumero(response.data.farmacia.numero)
+        // setComplemento(response.data.farmacia.complemento)
+        // setNomeFarmaceutico(response.data.farmacia.nomeFarmaceutico)
+        // setCRF(response.data.farmacia.crf)
+        // setCpfRespSNGPC(response.data.farmacia.cpfRespSNGPC)
+        // setUsuarioSNGPC(response.data.farmacia.usuarioSNGPC)
+        // setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
+        // setLicencaFunc(response.data.farmacia.licencaFunc)
+        // setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
+        // setLicencaMapa(response.data.farmacia.licencaMapa) 
         
       }
     }
@@ -116,43 +151,39 @@ export const TabFarmacia = ({ erros }: IData) => {
     loadFarmacia()
   }, [])
 
-  
+  dataEdit.Id =  idObject,
+  dataEdit.razaoSocial =  razaoSocial,
+  dataEdit.nomeFantasia =  nomeFantasia,
+  dataEdit.cnpj =  cnpj.replace(/[-/.]/g, ""),
+  dataEdit.inscricaoEstadual =  inscricaoEstadual.replace(/\.|-/gm, ''),
+  dataEdit.inscricaoMunicipal =  inscricaoMunicipal,
+  dataEdit.regimeTributario =  regimeTributario,
+  dataEdit.ddd =  ddd,
+  dataEdit.dddCelular =  dddCelular,
+  dataEdit.dddWhatsApp =  dddWhatsApp,
+  dataEdit.telefone =  telefone,
+  dataEdit.celular =  celular,
+  dataEdit.email =  email,
+  dataEdit.whatsApp =  whatsApp,
+  dataEdit.cep =  cep.replace(/\.|-/gm, ''),
+  dataEdit.logradouro =  logradouro,
+  dataEdit.numero =  numero,
+  dataEdit.complemento =  complemento,
+  dataEdit.cidadeId =  cidadeId,
+  dataEdit.estadoId =  estadoId,
+  dataEdit.bairroId =  bairroId,
+  dataEdit.nomeFarmaceutico =  nomeFarmaceutico,
+  dataEdit.crf =  crf,
+  dataEdit.cpfRespSNGPC =  cpfRespSNGPC,
+  dataEdit.usuarioSNGPC =  usuarioSNGPC,
+  dataEdit.senhaSNGPC =  senhaSNGPC,
+  dataEdit.ativo =  true,
+  dataEdit.licencaFunc =  licencaFunc,
+  dataEdit.autoridadeSanitaria =  autoridadeSanitaria,
+  dataEdit.licencaMapa =  licencaMapa,
+  dataEdit.fornecedorInternoId =  fornecedorInternoId
 
-  const dataEdit: typeof Farmacia = {
-  Id: idObject,
-  razaoSocial: razaoSocial,
-  nomeFantasia: nomeFantasia,
-  cnpj: cnpj.replace(/[-/.]/g, ""),
-  inscricaoEstadual: inscricaoEstadual.replace(/\.|-/gm, ''),
-  inscricaoMunicipal: inscricaoMunicipal,
-  regimeTributario: regimeTributario,
-  ddd: ddd,
-  dddCelular: dddCelular,
-  dddWhatsApp: dddWhatsApp,
-  telefone: telefone,
-  celular: celular,
-  email: email,
-  whatsApp: whatsApp,
-  cep: cep.replace(/\.|-/gm, ''),
-  logradouro: logradouro,
-  numero: numero,
-  complemento: complemento,
-  cidadeId: cidadeId,
-  estadoId: estadoId,
-  bairroId: bairroId,
-  nomeFarmaceutico: nomeFarmaceutico,
-  crf: crf,
-  cpfRespSNGPC: cpfRespSNGPC,
-  usuarioSNGPC: usuarioSNGPC,
-  senhaSNGPC: senhaSNGPC,
-  ativo: true,
-  licencaFunc: licencaFunc,
-  autoridadeSanitaria: autoridadeSanitaria,
-  licencaMapa: licencaMapa,
-  fornecedorInternoId: fornecedorInternoId
-}
 
-  
   
   useEffect(() => {
     async function PesquisaCep() {
@@ -238,6 +269,7 @@ export const TabFarmacia = ({ erros }: IData) => {
             erros={errosParameter}
             index={1}
             required={true}
+            focusParam={true}
             OnChange={(e: ChangeEvent<HTMLInputElement>) => setRazaoSocial(e.target.value)}
           />
         </div>

@@ -35,11 +35,9 @@ export const TabFarmacia = ({ erros }: IData) => {
   const [celular, setCelular] = useState('');
 
   const { id } = useParams();
-
   let idParams = !id ? "0" : id.toString();
 
   useEffect(() => {
-
     async function loadFarmacia() {
       const response = await GetId("RetornaEmpresaPorId", idParams);
       if (response.status == 200) {
@@ -124,7 +122,7 @@ export const TabFarmacia = ({ erros }: IData) => {
           />
         </div>
         <div className="col-2">
-        <CustomInput // nao to achando fornecedor
+        <CustomInput
            label="Fornecedor"
            type="text"
            value={tabFarmaciaModel.fornecedorInterno?.nomeFornecedor}
@@ -175,7 +173,7 @@ export const TabFarmacia = ({ erros }: IData) => {
       </div>
       <div className="row">
         <div className="col-3">
-        <CustomInput //ver
+        <CustomInput  
            label="Bairro"
            type="text"
            value={tabFarmaciaModel.bairro?.nome}
@@ -183,7 +181,7 @@ export const TabFarmacia = ({ erros }: IData) => {
           />
         </div>
         <div className="col-3">
-        <CustomInput //ver
+        <CustomInput  
            label="Cidade"
            type="text"
            value={tabFarmaciaModel.cidade?.nome}
@@ -191,7 +189,7 @@ export const TabFarmacia = ({ erros }: IData) => {
           />
         </div>
         <div className="col-3">
-          <CustomInput //ver
+          <CustomInput  
            label="Estados"
            type="text"
            value={tabFarmaciaModel.estado?.sigla}

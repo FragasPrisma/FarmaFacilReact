@@ -1,5 +1,5 @@
 import { HeaderMainContent } from "../../../Components/Headers/HeaderMainContent";
-import { TabFarmacia } from "./TabFarmacia";
+import { dataEdit, TabFarmacia } from "./TabFarmacia";
 import "../ArquivoConfig";
 import { itemsHandles, itemsHandlesChildrenAcabado, itemsHandlesChildrenGeral, itemsHandlesChildrenManipulacao } from "../../../Enum/ItemsParametro";
 import TabsEmpresa from "../../../Components/Others/TabsEmpresa";
@@ -121,11 +121,13 @@ export function EmpresaEdit() {
     //     setError({ erro: false, erroNome: "", index: 0 })
     //     setIsLoading(true);
 
-
-
         let data: IEmpresa = {
             Farmacia: Farmacia
         }
+
+        // let data: IEmpresa = {
+        //    dataEdit
+        // }
 
         const resp = await postFormAll("EditarEmpresa", data);
 
