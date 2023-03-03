@@ -1,7 +1,7 @@
 import { CaretDown, CaretRight, CaretUp, ListPlus, X } from "phosphor-react";
 import { MenuSidebar, NavLinkCustom } from "./styles";
 import { SetStateAction, useState } from "react";
-import { namesItemsMenu, namesItemsMenu01 } from "../../../Enum/namesItemsMenu";
+import { arquivo, aPagar } from "../../../Enum/namesItemsMenu";
 
 export function Sidebar() {
   const [stateArrow, setStateArrow] = useState(false);
@@ -65,7 +65,7 @@ export function Sidebar() {
       {stateArrow && (
         <div className="container_items_menu">
           <ul className="ul_menu">
-            {namesItemsMenu.map((item) => (
+            {arquivo.map((item) => (
               <li key={item.titulo} className="li_itens">
                 {item.hasSubMenu && (
                   <div className="container_itens_menu" onClick={() => handleSubMenuClick(item.titulo)}>
@@ -121,7 +121,7 @@ export function Sidebar() {
       {stateArrowPagar && (
         <div className="container_items_menu">
           <ul className="ul_menu">
-            {namesItemsMenu01.map((item) => (
+            {aPagar.map((item) => (
               <li key={item.titulo} className="li_itens">
                 {item.hasSubMenu && (
                   <div className="container_itens_menu" onClick={() => handleSubMenuClickPagar(item.titulo)}>
