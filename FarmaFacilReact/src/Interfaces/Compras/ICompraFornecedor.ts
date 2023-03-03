@@ -3,7 +3,7 @@ export interface ICompraFornecedor {
     contaId: number;                    // ContaID
     integracaoId: number;               // IntegracaoID
     grupoId: number;                    // CodigoGrupo
-    dataGerado: string;                 // dataGerado
+    dataCadastro: string;                 // dataGerado
     compraId: number;                   // IdCompra
     observacao: string;                 // observacao
     statusCotacao: number;              // statusCotacao

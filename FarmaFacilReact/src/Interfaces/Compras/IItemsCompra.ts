@@ -24,6 +24,11 @@ export interface IItemsCompra {
     consumoDiario: number;                                  // consumoDiario
     estoqueMaximo: number;                                  // EstoqueMaximo
     //quantidadeCompraMaxima: number;                       // quantidadeCompraMaxima (Não aparece no grid, é feito calculo baseado no tipo da compra)
+    //fornecedorId: number;
+    //nomeFornecedor: string;
+    //codigoCas: string;
+    //codigoDcb: string;
+    //codigoBarra: string;
 }
 
 

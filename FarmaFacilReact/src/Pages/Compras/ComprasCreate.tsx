@@ -62,10 +62,15 @@ export function ManutencaoCompras() {
     const [readonlyQuantidadeDias, setReadonlyQuantidadeDias] = useState(false);
     const [readonlyAPartirDe, setReadonlyAPartirDe] = useState(false);
 
+    const [hideUnidade, setHideUnidade] = useState(false);
+    const [hideQuantidadeTotal, setHideQuantidadeTotal] = useState(false);
+    const [hideConsumoDiario, setHideConsumoDiario] = useState(false);
+    const [hideLaboratorio, setHideLaboratorio] = useState(true);
+
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
-    const [empresas, setEmpresas] = useState([] as IEmpresa[]); 
+    const [empresas, setEmpresas] = useState([] as IEmpresa[]);
     const [produtos, setProdutos] = useState([] as IProduto[]);
 
     const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
@@ -121,80 +126,115 @@ export function ManutencaoCompras() {
     }
 
     const columns = [
-        {   field: "id", 
-            headerName: "Id", 
-            width: 60 
+        {
+            field: "id",
+            headerName: "Id",
+            width: 60,
         },
-        {   field: "grupoId", 
-            headerName: "Grupo", 
-            width: 150 
+        {
+            field: "grupoId",
+            headerName: "Grupo",
+            width: 150
         },
-        {   field: "produtoId", 
-            headerName: "Produto", 
-            width: 200 
+        {
+            field: "produtoId",
+            headerName: "Produto",
+            width: 200
         },
-        {   field: "siglaUnidade", 
-            headerName: "Unidade", 
-            width: 200 
+        {
+            field: "laboratorioId",
+            headerName: "Laboratorio",
+            width: 200
         },
-        {   field: "curva", 
-            headerName: "Curva", 
-            width: 200 
+        {
+            field: "siglaUnidade",
+            headerName: "Unidade",
+            width: 200
         },
-        {   field: "estoqueMinimo", 
-            headerName: "Estoque Minimo", 
-            width: 200 
+        {
+            field: "curva",
+            headerName: "Curva",
+            width: 200
         },
-        {   field: "estoqueMaximo", 
-            headerName: "Estoque Máximo", 
-            width: 200 
+        {
+            field: "estoqueMinimo",
+            headerName: "Estoque Minimo",
+            width: 200
         },
-        {   field: "quantidadeVendida", 
-            headerName: "Quantidade Vendida", 
-            width: 200 
+        {
+            field: "estoqueMaximo",
+            headerName: "Estoque Máximo",
+            width: 200
         },
-        {   field: "valorVendido", 
-            headerName: "Valor Vendido", 
-            width: 200 
+        {
+            field: "quantidadeVendida",
+            headerName: "Quantidade Vendida",
+            width: 200
         },
-        {   field: "estoque", 
-            headerName: "Estoque", 
-            width: 200 
+        {
+            field: "valorVendido",
+            headerName: "Valor Vendido",
+            width: 200
         },
-        {   field: "quantidadeCompra", 
-            headerName: "Quantidade Compra", 
+        {
+            field: "estoque",
+            headerName: "Estoque",
+            width: 200
+        },
+        {
+            field: "quantidadeCompra",
+            headerName: "Quantidade Compra",
             width: 200,
             type: "number",
             editable: true,
         },
-        {   field: "quantidadeTotal", 
-            headerName: "Quantidade Total", 
-            width: 200 
+        {
+            field: "quantidadeTotal",
+            headerName: "Quantidade Total",
+            width: 200
         },
-        {   field: "consumoDiario", 
-            headerName: "Consumo Diario", 
-            width: 200 
+        {
+            field: "consumoDiario",
+            headerName: "Consumo Diario",
+            width: 200
         },
-        {   field: "valorUnitario", 
-            headerName: "Valor Unitario", 
-            width: 200 
+        {
+            field: "valorUnitario",
+            headerName: "Valor Unitario",
+            width: 200
         },
-        {   field: "valorTotal", 
-            headerName: "Valor Total", 
-            width: 200 
+        {
+            field: "valorTotal",
+            headerName: "Valor Total",
+            width: 200
         },
-        { 
-            field: "comprar", 
-            headerName: "Comprar", 
-            width: 200, 
-            type: 'boolean', 
+        {
+            field: "comprar",
+            headerName: "Comprar",
+            width: 200,
+            type: 'boolean',
             editable: true,
         },
-        { 
-            field: "laboratorioId", 
-            headerName: "Estoque", 
-            width: 200 
+        {
+            field: "fornecedorUltimaCompra",
+            headerName: "Fornecedor Ultima Compra",
+            width: 200,
         },
+        {
+            field: "codigoCas",
+            headerName: "Código CAS",
+            width: 200,
+        },
+        {
+            field: "codigoDcb",
+            headerName: "Código DCB",
+            width: 200,
+        },
+        {
+            field: "codigoBarra",
+            headerName: "Código Barra",
+            width: 200,
+        }
     ];
 
     function CustomToolbar() {
@@ -208,10 +248,10 @@ export function ManutencaoCompras() {
 
     function handleEditCellChange(params: GridEditCellPropsParams) {
         const updatedRows = itemsCompras.map((row) => {
-          if (row.id === params.id) {
-            return { ...row, [params.field]: params.props.value };
-          }
-          return row;
+            if (row.id === params.id) {
+                return { ...row, [params.field]: params.props.value };
+            }
+            return row;
         });
         setItemsCompras(updatedRows);
     }
@@ -233,8 +273,8 @@ export function ManutencaoCompras() {
         }
 
         const loadDataProdutos = async () => {
-            const response = await getAll("ListaProduto");
-            setProdutos(SetDataMultiSelect(response.data, "dad"));
+            const response = await getAll("ListaProdutos");
+            setProdutos(SetDataMultiSelect(response.data, "descricao"));
         }
 
         const loadDataEmpresas = async () => {
@@ -257,6 +297,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
+            setHideLaboratorio(true);
+            setHideUnidade(false);
+            setHideQuantidadeTotal(false);
+            setHideConsumoDiario(false);
         } else if (tipo == 2) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(false);
@@ -264,6 +308,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(true);
+            setHideLaboratorio(true);
+            setHideUnidade(false);
+            setHideQuantidadeTotal(false);
+            setHideConsumoDiario(false);
         } else if (tipo == 3) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(false);
@@ -271,6 +319,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
+            setHideLaboratorio(true);
+            setHideUnidade(false);
+            setHideQuantidadeTotal(false);
+            setHideConsumoDiario(false);
         } else if (tipo == 4) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
@@ -278,6 +330,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
+            setHideLaboratorio(true);
+            setHideUnidade(false);
+            setHideQuantidadeTotal(false);
+            setHideConsumoDiario(false);
         } else if (tipo == 5) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(true);
@@ -285,6 +341,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
+            setHideLaboratorio(false);
+            setHideUnidade(true);
+            setHideQuantidadeTotal(true);
+            setHideConsumoDiario(true);
         } else if (tipo == 6) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
@@ -292,6 +352,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
+            setHideLaboratorio(true);
+            setHideUnidade(false);
+            setHideQuantidadeTotal(false);
+            setHideConsumoDiario(false);
         } else {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(false);
@@ -299,6 +363,10 @@ export function ManutencaoCompras() {
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(false);
+            setHideLaboratorio(true);
+            setHideUnidade(false);
+            setHideQuantidadeTotal(false);
+            setHideConsumoDiario(false);
         }
     }, [tipo])
 
@@ -332,7 +400,7 @@ export function ManutencaoCompras() {
         dataFiltro.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
         dataFiltro.empresaId = empresaId;
         dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
-        console.log(dataFiltro)
+
         const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
         if (response.status === 200) {
@@ -344,7 +412,7 @@ export function ManutencaoCompras() {
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
-        }   
+        }
     }
 
     async function submit() {
@@ -368,21 +436,21 @@ export function ManutencaoCompras() {
         data.laboratorioId = laboratorioId;
         data.fornecedoresIds = fornecedoresIds;
         data.gruposIds = gruposIds;
-        data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
+        data.produtosIds = produtosIds; //Preencher com dados mocados, ainda não temos componente
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
-        
-        const response = await postFormAll("", data);
 
-        if (response.status === 200) {
-            setIsLoading(false);
-        } else {
-            setIsOpenFail(true);
-            setIsLoading(false);
-            setTimeout(() => {
-                setIsOpenFail(false);
-            }, 2000)
-        }
+        //const response = await postFormAll("", data);
+
+        // if (response.status === 200) {
+        //     setIsLoading(false);
+        // } else {
+        //     setIsOpenFail(true);
+        //     setIsLoading(false);
+        //     setTimeout(() => {
+        //         setIsOpenFail(false);
+        //     }, 2000)
+        // }
     }
 
     return (
@@ -558,14 +626,14 @@ export function ManutencaoCompras() {
                 </div>
                 <div className="row">
                     <div className="col-4">
-                        { <MultiSelect 
+                        {<MultiSelect
                             label="Produtos"
                             title="Produtos"
                             data={produtos}
                             isMultiple={true}
                             Select={(produtosIds) => setProdutosIds(produtosIds)}
                             placeholder="Selecione o(s) produto(s)"
-                        /> }
+                        />}
                     </div>
                     <div className="col-4">
                         {/* { <CustomDropDown
@@ -596,7 +664,21 @@ export function ManutencaoCompras() {
                         <section>
                             <ThemeProvider theme={setTheme()}>
                                 <Box sx={{ height: 400, mt: 1 }}>
-                                    <DataGrid rows={itemsCompras} columns={columns} onEditCellPropsChange={handleEditCellChange} editMode="row" components={{ Toolbar: CustomToolbar }} localeText={setTranslate()} />
+                                    <DataGrid
+                                        rows={itemsCompras}
+                                        columns={columns}
+                                        onEditCellPropsChange={handleEditCellChange}
+                                        editMode="row"
+                                        components={{ Toolbar: CustomToolbar }}
+                                        localeText={setTranslate()}
+                                        columnVisibilityModel={{
+                                            id: false,
+                                            laboratorioId: hideLaboratorio,
+                                            siglaUnidade: hideUnidade,
+                                            quantidadeTotal: hideQuantidadeTotal,
+                                            consumoDiario: hideConsumoDiario,
+                                        }}
+                                    />
                                 </Box>
                             </ThemeProvider>
                         </section>
