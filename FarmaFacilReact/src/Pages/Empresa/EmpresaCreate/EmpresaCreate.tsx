@@ -20,11 +20,8 @@ export function EmpresaCreate() {
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
     const [error, setError] = useState({ erro: true, index: 0, erroNome: "" })
-
     const [errorRequest, setErrorRequest] = useState("");
-
     const [empresas ,setEmpresas] = useState([] as IEmpresa[]);
 
     let componentsOfTabsGeral: any = [];
@@ -108,14 +105,14 @@ export function EmpresaCreate() {
         loadDataEmpresa()
     }, [])
 
-    function ValidString(text: string, index: number) {
-        if (!text.trim()) {
-            setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: index })
-            return false
-        }
+    // function ValidString(text: string, index: number) {
+    //     if (!text.trim()) {
+    //         setError({ erro: true, erroNome: "Campo de preenchimento obrigatório.", index: index })
+    //         return false
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     async function submit() {
 
