@@ -99,12 +99,11 @@ export function ManutencaoCompras() {
 
     const data: ICompra = {
         id: 0,
-        data: Date.now().toString(),
-        listaItems: [],
+        dataCadastro: null,
         totalCompra: 0,
-        status: 1,
-        tempoReposicaoMaximo: 0,
-        tipo: 0,
+        statusCompra: 1,
+        tempoDeReposicaoMaxima: 0,
+        tipoCompra: 0,
         tipoDemanda: null,
         vendaDe: "",
         vendaDeHora: "",
@@ -112,7 +111,7 @@ export function ManutencaoCompras() {
         vendaAteHora: "",
         curvaAbc: 0,
         consideraEncomendaFaltas: true,
-        tempoDeRep: 0,
+        tempoDeReposicao: 0,
         quantidadeDias: 0,
         tipoValor: 0,
         aPartirDe: "",
@@ -123,6 +122,7 @@ export function ManutencaoCompras() {
         produtosIds: [],
         empresaId: null,
         considerarApenasEmpresaSelecionada: false,
+        itensCompras: [] as IItemsCompra[],
     }
 
     const columns = [
@@ -216,7 +216,7 @@ export function ManutencaoCompras() {
             editable: true,
         },
         {
-            field: "fornecedorUltimaCompra",
+            field: "nomeFornecedor",
             headerName: "Fornecedor Ultima Compra",
             width: 200,
         },
@@ -404,11 +404,17 @@ export function ManutencaoCompras() {
         const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
         if (response.status === 200) {
-            setIsLoading(false);
-            setItemsCompras(response.data);
+
+            response.data.value.map((x :{fornecedorId : number}) => {
+                fornecedoresIds.push(x.fornecedorId)
+            })
+
+            setFornecedoresIds([...fornecedoresIds])
+            setIsLoadingFilter(false);
+            setItemsCompras(response.data.value);
         } else {
             setIsOpenFail(true);
-            setIsLoading(false);
+            setIsLoadingFilter(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
@@ -419,38 +425,38 @@ export function ManutencaoCompras() {
         setIsLoading(true);
 
         data.id = 0;
-        data.listaItems = itemsCompras;
-        data.tipo = tipo;
+        data.tipoCompra = tipo;
         data.tipoDemanda = tipo == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
-        data.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
+        data.vendaDeHora = "";//readonlyVendaDeHora == false ? vendaDeHora : "";
         data.vendaAte = readonlyVendaAte == false ? vendaAte : "";
-        data.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : "";
+        data.vendaAteHora = "";//readonlyVendaAteHora == false ? vendaAteHora : "";
         data.curvaAbc = curvaAbc;
         data.consideraEncomendaFaltas = consideraEncomendaFaltas;
-        data.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
+        data.tempoDeReposicao = readonlyTempoDeRep == false ? tempoDeRep : 0;
         data.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
         data.tipoValor = tipoValor;
-        data.aPartirDe = readonlyAPartirDe == false ? aPartirDe : "";
+        data.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
         data.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
-        data.laboratorioId = laboratorioId;
-        data.fornecedoresIds = fornecedoresIds;
+        data.laboratorioId = laboratorioId ? laboratorioId : null;
+        data.fornecedoresIds = fornecedoresIds.filter(x => x > 0);
         data.gruposIds = gruposIds;
         data.produtosIds = produtosIds; //Preencher com dados mocados, ainda não temos componente
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
+        data.itensCompras = itemsCompras.filter(x => x.laboratorioId > 0);
+        
+        const response = await postFormAll("AdicionarCompra", data);
 
-        //const response = await postFormAll("", data);
-
-        // if (response.status === 200) {
-        //     setIsLoading(false);
-        // } else {
-        //     setIsOpenFail(true);
-        //     setIsLoading(false);
-        //     setTimeout(() => {
-        //         setIsOpenFail(false);
-        //     }, 2000)
-        // }
+        if (response.status === 200) {
+            setIsLoading(false);
+        } else {
+            setIsOpenFail(true);
+            setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
+        }
     }
 
     return (
