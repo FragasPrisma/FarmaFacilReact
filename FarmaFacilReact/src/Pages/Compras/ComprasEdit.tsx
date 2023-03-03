@@ -15,7 +15,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
 import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
-import { IManutencaoCompras } from "../../Interfaces/Compras/IFiltroCompras";
+import { IFiltroCompras } from "../../Interfaces/Compras/IFiltroCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
@@ -26,10 +26,10 @@ export function ManutencaoComprasEdit() {
     const [isOpenFail, setIsOpenFail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [filtro, setFiltro] = useState({} as IManutencaoCompras);
-    const [data, setData] = useState({} as IManutencaoCompras);
+    const [filtro, setFiltro] = useState({} as IFiltroCompras);
+    const [data, setData] = useState({} as IFiltroCompras);
 
-    const [tipo, setTipo] = useState(filtro.tipo);
+    const [tipoCompra, setTipoCompra] = useState(filtro.tipoCompra);
     const [tipoDemanda, setTipoDemanda] = useState(filtro.tipoDemanda);
     const [vendaDe, setVendaDe] = useState(filtro.vendaDe);
     const [vendaDeHora, setVendaDeHora] = useState(filtro.vendaDeHora);
@@ -60,7 +60,7 @@ export function ManutencaoComprasEdit() {
     const [grupos, setGrupos] = useState([] as IGrupo[]);
     //const [produtos, setProdutos] = useState([] as IProduto[])
 
-    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompras[]);
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
 
     const columns = [
         { field: "id", headerName: "Id", width: 60 },
@@ -124,42 +124,42 @@ export function ManutencaoComprasEdit() {
     }, [])
 
     useEffect(() => {
-        if (tipo == "Venda") {
+        if (tipoCompra == 1) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Demanda") {
+        } else if (tipoCompra == 2) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Estoque Mínimo") {
+        } else if (tipoCompra == 3) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(true);
             setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Estoque Máximo") {
+        } else if (tipoCompra == 4) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
-        } else if (tipo == "Consumo") {
+        } else if (tipoCompra == 5) {
             setReadonlyVendaDe(false);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(false);
             setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
-        } else if (tipo == "Encomendas/Faltas") {
+        } else if (tipoCompra == 6) {
             setReadonlyVendaDe(true);
             setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
@@ -174,7 +174,7 @@ export function ManutencaoComprasEdit() {
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(false);
         }
-    }, [tipo])
+    }, [tipoCompra])
 
     useEffect(() => {
         if (tipoValor == 2) {
@@ -187,8 +187,8 @@ export function ManutencaoComprasEdit() {
     async function filter() {
         setIsLoading(true);
 
-        data.tipo = tipo;
-        data.tipoDemanda = tipo == "Demanda" ? tipoDemanda : null;
+        data.tipoCompra = tipoCompra;
+        data.tipoDemanda = tipoCompra == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
         data.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
         data.vendaAte = readonlyVendaAte == false ? vendaAte : "";
@@ -234,11 +234,11 @@ export function ManutencaoComprasEdit() {
                         <SelectInput
                             options={["", "Venda", "Demanda", "Estoque Mínimo", "Estoque Máximo", "Consumo", "Encomendas/Faltas"]}
                             label="Tipo"
-                            Select={(select) => setTipo(select)}
+                            Select={(select) => setTipoCompra(select)}
                         />
                     </div>
                     <div className="col-2">
-                        {tipo == "Demanda" &&
+                        {tipoCompra == 2 &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}
