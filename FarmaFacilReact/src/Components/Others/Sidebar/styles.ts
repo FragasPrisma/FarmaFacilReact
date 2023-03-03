@@ -53,6 +53,20 @@ export const MenuSidebar = styled.aside`
     -webkit-box-pack: center;
     justify-content: center;
   }
+
+  .container_menu_estoque{
+    border-top: 1px solid rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    width: 80%;
+    height: 3rem;
+    margin-top: 0.2rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
     
   .title_menu {
     margin-top: 1.75rem;
@@ -125,7 +139,7 @@ export const MenuSidebar = styled.aside`
   
   `;
 
-  export const NavLinkCustom = styled(NavLink)`
+export const NavLinkCustom = styled(NavLink)`
   
     color: #fff;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

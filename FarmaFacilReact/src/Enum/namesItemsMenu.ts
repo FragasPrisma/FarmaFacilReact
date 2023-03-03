@@ -1,15 +1,6 @@
 //import Flat from "../assets/img/bench.png";
 
 export const arquivo = [
-
-  {
-    img: "",
-    titulo: "Compras",
-    hasSubMenu: true,
-    subMenu: [
-      { titulo: "Compras", link: "/compras"}
-    ]
-  },
   {
     img: "",
     titulo: "Estoque",
@@ -43,7 +34,7 @@ export const arquivo = [
       { img: "", titulo: "Tabela Floral", link: "/tabelafloral" },
       { img: "", titulo: "Tipo Contato", link: "/tipocontato" },
       { img: "", titulo: "Tipo Justificativa", link: "/tipojustificativa" },
-      { img: "", titulo: "Posologia",link: "/posologia"  },
+      { img: "", titulo: "Posologia", link: "/posologia" },
       { img: "", titulo: "Visitador", link: "/visitador" },
       { img: "", titulo: "Turno", link: "/turno" },
       { img: "", titulo: "Convênio", link: "/convenio" },
@@ -94,7 +85,7 @@ export const arquivo = [
       { img: "", titulo: "Bairro", link: "/bairro" },
       { img: "", titulo: "Cidade", link: "/cidade" },
       { img: "", titulo: "Estado", link: "/estado" },
-      { img: "", titulo: "Empresa", link: "/empresa" }, 
+      { img: "", titulo: "Empresa", link: "/empresa" },
       //{ img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
@@ -110,13 +101,24 @@ export const arquivo = [
       { img: "", titulo: "Transportador", link: "/transportador" },
       { img: "", titulo: "Contabilista", link: "/contabilista" },
       { img: "", titulo: "Plano de Contas", link: "/planodecontas" },
-      
+
     ],
   }
 ];
 
+export const Estoque = [
+  {
+    img: "",
+    titulo: "Movimento",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Compras", link: "/compras" }
+    ]
+  },
+]
+
 export const aPagar = [
-  
+
   {
     img: "",
     titulo: "Movimento",
@@ -130,8 +132,8 @@ export const aPagar = [
     titulo: "Relatório",
     hasSubMenu: true,
     subMenu: [
-      { titulo: "Pagas", link: "/contaspagas"},
-      { titulo: "Pagar", link: "/contaspagar"},
+      { titulo: "Pagas", link: "/contaspagas" },
+      { titulo: "Pagar", link: "/contaspagar" },
     ],
   },
 ];
