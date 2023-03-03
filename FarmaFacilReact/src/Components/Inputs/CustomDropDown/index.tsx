@@ -11,10 +11,10 @@ interface Search {
   required?: boolean;
   readonly?: boolean;
   Select: (number: any, select: any) => void;
-  titleEdit?: string;
+  RemoveSelect?: () => void
 }
 
-export function CustomDropDown({ data, title, filter, label, error, required, readonly, Select, titleEdit }: Search) {
+export function CustomDropDown({ data, title, filter, label, error, required, readonly, Select, RemoveSelect }: Search) {
 
   const [titleSelect, setTitleSelect] = useState(title)
   const [value, setValue] = useState("");
@@ -27,18 +27,7 @@ export function CustomDropDown({ data, title, filter, label, error, required, re
     }
   }, [data, value, filter]);
 
-  useEffect(() => {
-
-    if (titleEdit != titleSelect && titleEdit && title != titleSelect) {
-      setTitleSelect(titleEdit)
-      Select(null, titleEdit);
-      return;
-    }
-    if (title != titleSelect && !titleEdit) {
-      setTitleSelect(title)
-      Select(null, title);
-    }
-  }, [title, titleEdit])
+  useEffect(() => { setTitleSelect(title) }, [title])
 
 
   function SelectDropDown(number: any, select: any) {
@@ -47,13 +36,9 @@ export function CustomDropDown({ data, title, filter, label, error, required, re
   };
 
   function DeleteDropDown() {
-    if (titleEdit) {
-      setTitleSelect(titleEdit)
-      Select(null, titleEdit);
-      return;
+    if (RemoveSelect) {
+      RemoveSelect()
     }
-    setTitleSelect(title)
-    Select(null, title);
   }
 
   return (

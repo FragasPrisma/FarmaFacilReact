@@ -128,11 +128,9 @@ export function FornecedorCreateGeral({ erros, textParameter }: IData) {
                 setComplemento(request.complemento)
                 setDdd(request.ddd)
                 setDddCelular(request.ddd)
-
                 const estado = estados.filter(x =>
                     x.sigla == request.uf
                 )
-
                 if (estado.length > 0) {
                     setNomeEstado(request.uf)
                     setSiglaEstado(request.uf)
@@ -355,6 +353,11 @@ export function FornecedorCreateGeral({ erros, textParameter }: IData) {
                                 setNomeEstado(select)
                             }
                         }}
+                        RemoveSelect={() => {
+                            setEstadoId(0)
+                            setSiglaEstado("")
+                            setNomeEstado("Selecione o estado")
+                        }}
                     />
                 </div>
                 <div className="col-4">
@@ -368,6 +371,11 @@ export function FornecedorCreateGeral({ erros, textParameter }: IData) {
                                 setCidadeId(cidadeId)
                                 setNomeCidade(select)
                             }
+                        }
+                        }
+                        RemoveSelect={() => {
+                            setCidadeId(0)
+                            setNomeCidade("Selecione a cidade")
                         }}
                     />
                 </div>
@@ -382,6 +390,11 @@ export function FornecedorCreateGeral({ erros, textParameter }: IData) {
                                 setBairroId(bairroId)
                                 setNomeBairro(select)
                             }
+                        }
+                        }
+                        RemoveSelect={() => {
+                            setBairroId(0)
+                            setNomeBairro("Selecione o bairro")
                         }}
                     />
                 </div>

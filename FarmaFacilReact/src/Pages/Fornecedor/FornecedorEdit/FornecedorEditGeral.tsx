@@ -9,6 +9,7 @@ import { IEstado } from "../../../Interfaces/Estado/IEstado";
 import { ICidade } from "../../../Interfaces/Cidade/ICidade";
 import { IBairro } from "../../../Interfaces/Bairro/IBairro";
 import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
+import { ViaCep } from "../../../helper/ViaCep";
 
 export let siglaEdit = "";
 
@@ -44,15 +45,18 @@ interface IData {
         index: number
     },
     fornecedorModel: IFornecedor,
-    nomeEstado: string,
-    nomeCidade: string,
-    nomeBairro: string
+    nomeEstadoParam: string,
+    nomeCidadeParam: string,
+    nomeBairroParam: string
 }
 
-export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCidade, nomeEstado }: IData) {
+export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairroParam, nomeCidadeParam, nomeEstadoParam }: IData) {
 
     useEffect(() => { setErrosParameters(erros) }, [erros]);
 
+    const [nomeEstado, setNomeEstado] = useState(nomeEstadoParam);
+    const [nomeCidade, setNomeCidade] = useState(nomeCidadeParam);
+    const [nomeBairro, setNomeBairro] = useState(nomeBairroParam);
     const [nomeFornecedor, setNomeFornecedor] = useState(fornecedorModel.nomeFornecedor);
     const [nomeFantasia, setNomeFantasia] = useState(fornecedorModel.nomeFantasia);
     const [cnpj, setCnpj] = useState(fornecedorModel.cnpj);
@@ -83,16 +87,53 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
 
     siglaEdit = siglaEstado;
 
-    function AdcionarEstado(id: any, select: any) {
-        setEstadoId(id)
-        setSiglaEstado(select)
-    }
-
     useEffect(() => {
         if (erros.index == 6) {
             setErroEstadoId("Selecione um Estado !");
         }
     }, [erros])
+
+    useEffect(() => {
+        async function PesquisaCep() {
+
+            if (cep.length == 9) {
+
+                const request = await ViaCep(cep.replace(/\.|-/gm, ''))
+
+                setEndereco(request.logradouro)
+                setComplemento(request.complemento)
+                setDdd(request.ddd)
+                setDddCelular(request.ddd)
+                const estado = estados.filter(x =>
+                    x.sigla == request.uf
+                )
+                if (estado.length > 0) {
+                    setNomeEstado(request.uf)
+                    setSiglaEstado(request.uf)
+                    setEstadoId(estado[0].id)
+                }
+
+                const cidade = cidades.filter(x =>
+                    x.nome == request.localidade
+                )
+
+                if (cidade.length > 0) {
+                    setNomeCidade(request.localidade)
+                    setCidadeId(cidade[0].id)
+                }
+
+                const bairro = bairros.filter(x =>
+                    x.nome == request.bairro
+                )
+
+                if (bairro.length > 0) {
+                    setNomeBairro(request.bairro)
+                    setBairroId(bairro[0].id)
+                }
+            }
+        }
+        PesquisaCep()
+    }, [cep])
 
     fornecedorGeralEdit.id = 0;
     fornecedorGeralEdit.nomeFornecedor = nomeFornecedor;
@@ -273,33 +314,61 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairro, nomeCi
                 <div className="col-2">
                     <CustomDropDown
                         data={estados}
-                        title={nomeEstado ? nomeEstado : "Selecione o Estado"}
+                        title={nomeEstado ? nomeEstado : "Selecione o estado"}
                         filter="sigla"
                         label="Estado"
                         error={erroEstadoId}
                         required={true}
-                        Select={(estadoId, select) => AdcionarEstado(estadoId, select)}
-                        titleEdit="Selecione o estado"
+                        Select={(estadoId, select) => {
+                            if (estadoId != null) {
+                                setEstadoId(estadoId)
+                                setSiglaEstado(select)
+                                setNomeEstado(select)
+                            }
+                        }}
+                        RemoveSelect={() => {
+                            setEstadoId(0)
+                            setSiglaEstado("")
+                            setNomeEstado("Selecione o estado")
+                        }}
                     />
                 </div>
                 <div className="col-4">
                     <CustomDropDown
                         data={cidades}
-                        title={nomeCidade ? nomeCidade : "Selecione a Cidade"}
+                        title={nomeCidade ? nomeCidade : "Selecione a cidade"}
                         filter="nome"
                         label="Cidade"
-                        Select={(cidadeId) => setCidadeId(cidadeId)}
-                        titleEdit="Selecione a cidade"
+                        Select={(cidadeId, select) => {
+                            if (cidadeId != null) {
+                                setCidadeId(cidadeId)
+                                setNomeCidade(select)
+                            }
+                        }
+                        }
+                        RemoveSelect={() => {
+                            setCidadeId(0)
+                            setNomeCidade("Selecione a cidade")
+                        }}
                     />
                 </div>
                 <div className="col-3">
                     <CustomDropDown
                         data={bairros}
-                        title={nomeBairro ? nomeBairro : "Selecione o Bairro"}
+                        title={nomeBairro ? nomeBairro : "Selecione o bairro"}
                         filter="nome"
                         label="Bairro"
-                        Select={(bairroId) => setBairroId(bairroId)}
-                        titleEdit="Selecione o bairro"
+                        Select={(bairroId, select) => {
+                            if (bairroId != null) {
+                                setBairroId(bairroId)
+                                setNomeBairro(select)
+                            }
+                        }
+                        }
+                        RemoveSelect={() => {
+                            setBairroId(0)
+                            setNomeBairro("Selecione o bairro")
+                        }}
                     />
                 </div>
             </div>
