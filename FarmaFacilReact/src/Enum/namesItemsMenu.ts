@@ -95,7 +95,7 @@ export const arquivo = [
       { img: "", titulo: "Cidade", link: "/cidade" },
       { img: "", titulo: "Estado", link: "/estado" },
       { img: "", titulo: "Empresa", link: "/empresa" }, 
-      { img: "", titulo: "Parametro", link: "/parametro" },
+      //{ img: "", titulo: "Parametro", link: "/parametro" },
       { img: "", titulo: "Unidade", link: "/unidade" },
       { img: "", titulo: "Máquina Pós", link: "/maquinapos" },
       { img: "", titulo: "País", link: "/pais" },
