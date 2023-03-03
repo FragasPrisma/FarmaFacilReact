@@ -184,16 +184,16 @@ export const namesItemsMenu = [
       { titulo: "Compras", link: "/compras"}
     ]
   },
-  {
-    img: "",
-    titulo: "Contas a Pagar",
-    hasSubMenu: true,
-    subMenu: [
-      { titulo: "Contas a Pagar", link: "/contasapagar" },
-      { titulo: "Pagas", link: "/contaspagas"},
-      { titulo: "Pagar", link: "/contaspagar"},
-    ],
-  },
+  // {
+  //   img: "",
+  //   titulo: "Contas a Pagar",
+  //   hasSubMenu: true,
+  //   subMenu: [
+  //     { titulo: "Contas a Pagar", link: "/contasapagar" },
+  //     { titulo: "Pagas", link: "/contaspagas"},
+  //     { titulo: "Pagar", link: "/contaspagar"},
+  //   ],
+  // },
   {
     img: "",
     titulo: "Estoque",
@@ -297,4 +297,29 @@ export const namesItemsMenu = [
       
     ],
   }
+];
+
+
+
+
+export const namesItemsMenu01 = [
+  
+  {
+    img: "",
+    titulo: "Movimento",
+    hasSubMenu: true,
+    subMenu: [
+      { titulo: "Contas a Pagar", link: "/contasapagar" },
+    ],
+  },
+  {
+    img: "",
+    titulo: "Relatório",
+    hasSubMenu: true,
+    subMenu: [
+      //{ titulo: "Contas a Pagar", link: "/contasapagar" },
+      { titulo: "Pagas", link: "/contaspagas"},
+      { titulo: "Pagar", link: "/contaspagar"},
+    ],
+  },
 ];
