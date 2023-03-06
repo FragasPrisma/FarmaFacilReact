@@ -14,18 +14,27 @@ import { MaskCep, MaskCnpj, MaskCpf, MaskIe, MaskIm, MaskTelefone } from "../../
 import { useParams } from "react-router-dom";
 import { ViaCep } from "../../../helper/ViaCep";
 
-
+export let sigla = "";
 interface IData {
   erros: {
     erro: boolean,
     erroNome: string,
     index: number
-  }
+  },
+  textParameter: string;
 }
 
 
-export let dataEdit: typeof Farmacia = {
-  Id: 0,
+export let dataEdit = {
+  id: 0,
+  farmaciaId: 0,
+
+  farmacia: {
+  id: 0,
+  fornecedorInternoId: 0,
+  cidadeId: 0,
+  estadoId: 0,
+  bairroId: 0,
   razaoSocial: "",
   nomeFantasia: "",
   cnpj: "",
@@ -43,9 +52,6 @@ export let dataEdit: typeof Farmacia = {
   logradouro: "",
   numero: "",
   complemento: "",
-  cidadeId: 0,
-  estadoId: 0,
-  bairroId: 0,
   nomeFarmaceutico: "",
   crf: 0,
   cpfRespSNGPC: "",
@@ -55,51 +61,56 @@ export let dataEdit: typeof Farmacia = {
   licencaFunc: "",
   autoridadeSanitaria: "",
   licencaMapa: "",
-  fornecedorInternoId: 0
+  }
 }
 
 
-export const TabFarmacia = ({ erros }: IData) => { 
-  useEffect(() => { setErrosParameters(erros) }, [erros])
+export const TabFarmacia = ({ erros, textParameter }: IData) => { 
+  useEffect(() => {
+    setErrosParameters(erros);
+  }, [erros]);
  
   const { id } = useParams();
   const [idObject, setIdObject] = useState(0);
-  const [razaoSocial, setRazaoSocial] = useState("");
-  const [nomeFantasia, setNomeFantasia] = useState("");
-  const [cnpj, setCnpj] = useState("");
-  const [inscricaoEstadual, setInscricaoEstadual] = useState("");
-  const [inscricaoMunicipal, setInscricaoMunicipal] = useState("");
-  const [dddCelular, setDddCelular] = useState("");
-  const [ddd, setDdd] = useState("");
-  const [dddWhatsApp, setDddWhatsApp] = useState("");
+  const [razaoSocial, setRazaoSocial] = useState(textParameter);
+  const [nomeFantasia, setNomeFantasia] = useState(textParameter);
+  const [cnpj, setCnpj] = useState(textParameter);
+  const [inscricaoEstadual, setInscricaoEstadual] = useState(textParameter);
+  const [inscricaoMunicipal, setInscricaoMunicipal] = useState(textParameter);
   const [regimeTributario, setRegimeTributario] = useState(0);
-  const [telefone, setTelefone] = useState("");
-  const [celular, setcelular] = useState("");
-  const [email, setEmail] = useState("");
-  const [whatsApp, setWhatsApp] = useState("");
-  const [cep, setCep] = useState("");
-  const [logradouro, setLogradouro] = useState("");
-  const [numero, setNumero] = useState("");
-  const [complemento, setComplemento] = useState("");
-  const [nomeFarmaceutico, setNomeFarmaceutico] = useState("");
-  const [crf, setCRF] = useState(0);
-  const [cpfRespSNGPC, setCpfRespSNGPC] = useState("");
-  const [usuarioSNGPC, setUsuarioSNGPC] = useState("");
-  const [senhaSNGPC, setSenhaSNGPC] = useState("");
-  const [licencaFunc, setLicencaFunc] = useState("");
-  const [autoridadeSanitaria, setAutoridadeSanitaria] = useState("");
-  const [licencaMapa, setLicencaMapa] = useState("");
-
-
-
+  const [ddd, setDdd] = useState(textParameter);
+  const [telefone, setTelefone] = useState(textParameter);
+  const [celular, setcelular] = useState(textParameter);
+  const [email, setEmail] = useState(textParameter);
+  const [dddWhatsApp, setDddWhatsApp] = useState(textParameter);
+  const [dddCelular, setDddCelular] = useState(textParameter);
+  const [whatsApp, setWhatsApp] = useState(textParameter);
+  const [cep, setCep] = useState(textParameter);
+  const [logradouro, setLogradouro] = useState(textParameter);
+  const [numero, setNumero] = useState(textParameter);
+  const [complemento, setComplemento] = useState(textParameter);
   const [cidadeId, setCidadeId] = useState(0);
   const [estadoId, setEstadoId] = useState(0);
   const [bairroId, setBairroId] = useState(0);
+  const [nomeFarmaceutico, setNomeFarmaceutico] = useState(textParameter);
+  const [crf, setCRF] = useState(0);
+  const [cpfRespSNGPC, setCpfRespSNGPC] = useState(textParameter);
+  const [usuarioSNGPC, setUsuarioSNGPC] = useState(textParameter);
+  const [senhaSNGPC, setSenhaSNGPC] = useState(textParameter);
   const [ativo, setAtivo] = useState(true);
-  const [fornecedorInternoId, setFornecedorInternoId] = useState(0); 
+  const [licencaFunc, setLicencaFunc] = useState("");
+  const [autoridadeSanitaria, setAutoridadeSanitaria] = useState("");
+  const [licencaMapa, setLicencaMapa] = useState("");
+  const [fornecedorInternoId, setFornecedorInternoId] = useState(0);
+  const [siglaEstado, setSiglaEstado] = useState(textParameter);
+
+  const [farmaciaId, setFarmaciaId] = useState(0);
+
   const [nomeEstado, setNomeEstado] = useState("Selecione o Estado")
   const [nomeCidade, setNomeCidade] = useState("Selecione a Cidade")
   const [nomeBairro, setNomeBairro] = useState("Selecione o Bairro")
+  const [nomeFornecedorInterno, setNomeFornecedorInterno] = useState("Selecione um Fornecedor");
+
   const [bairros, setBairros] = useState([] as IBairro[]);
   const [cidades, setCidades] = useState([] as ICidade[]);
   const [estados, setEstados] = useState([] as IEstado[]);
@@ -108,6 +119,11 @@ export const TabFarmacia = ({ erros }: IData) => {
   
   const [errosParameter, setErrosParameters] = useState(erros)
   const [tabFarmaciaModel, setTabFarmaciaModel] = useState({} as IFarmacia);
+
+  const [erroEstadoId, setErroEstadoId] = useState(textParameter);
+  const [erroCidadeId, setErroCidadeId] = useState(textParameter);
+  const [erroBairroId, setErroBairroId] = useState(textParameter);
+  const [erroFornecedorInternoId, setErroFornecedorInternoId] = useState(textParameter);
   
   let idParams = !id ? "0" : id.toString();
 
@@ -116,34 +132,35 @@ export const TabFarmacia = ({ erros }: IData) => {
     async function loadFarmacia() {
       const response = await GetId("RetornaEmpresaPorId", idParams);
       if (response.status == 200) {
-        setIdObject(response.data.farmacia.id)
+        setFarmaciaId(response.data.farmaciaId)
+        setTabFarmaciaModel(response.data.farmacia)
+        setIdObject(response.data.id)
 
-        setTabFarmaciaModel(response.data)
-        // setRazaoSocial(response.data.farmacia.razaoSocial)
-        // setNomeFantasia(response.data.farmacia.nomeFantasia)
-        // setCnpj(MaskCnpj(response.data.farmacia.cnpj))
-        // setInscricaoEstadual(MaskIe(response.data.farmacia.inscricaoEstadual))
-        // setInscricaoMunicipal(MaskIm(response.data.farmacia.inscricaoMunicipal))
-        // setRegimeTributario(response.data.farmacia.regimeTributario)
-        // setDddCelular(response.data.farmacia.dddCelular)
-        // setDdd(response.data.farmacia.ddd)
-        // setTelefone(MaskTelefone(response.data.farmacia.telefone))
-        // setcelular(MaskTelefone(response.data.farmacia.celular))
-        // setEmail(response.data.farmacia.email)
-        // setWhatsApp(MaskTelefone(response.data.farmacia.whatsApp))
-        // setDddWhatsApp(response.data.farmacia.dddWhatsApp)
-        // setCep(MaskCep(response.data.farmacia.cep))
-        // setLogradouro(response.data.farmacia.logradouro)
-        // setNumero(response.data.farmacia.numero)
-        // setComplemento(response.data.farmacia.complemento)
-        // setNomeFarmaceutico(response.data.farmacia.nomeFarmaceutico)
-        // setCRF(response.data.farmacia.crf)
-        // setCpfRespSNGPC(response.data.farmacia.cpfRespSNGPC)
-        // setUsuarioSNGPC(response.data.farmacia.usuarioSNGPC)
-        // setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
-        // setLicencaFunc(response.data.farmacia.licencaFunc)
-        // setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
-        // setLicencaMapa(response.data.farmacia.licencaMapa) 
+        setRazaoSocial(response.data.farmacia.razaoSocial)
+        setNomeFantasia(response.data.farmacia.nomeFantasia)
+        setCnpj(MaskCnpj(response.data.farmacia.cnpj))
+        setInscricaoEstadual(MaskIe(response.data.farmacia.inscricaoEstadual))
+        setInscricaoMunicipal(MaskIm(response.data.farmacia.inscricaoMunicipal))
+        setRegimeTributario(response.data.farmacia.regimeTributario)
+        setDddCelular(response.data.farmacia.dddCelular)
+        setDdd(response.data.farmacia.ddd)
+        setTelefone(MaskTelefone(response.data.farmacia.telefone))
+        setcelular(MaskTelefone(response.data.farmacia.celular))
+        setEmail(response.data.farmacia.email)
+        setWhatsApp(MaskTelefone(response.data.farmacia.whatsApp))
+        setDddWhatsApp(response.data.farmacia.dddWhatsApp)
+        setCep(MaskCep(response.data.farmacia.cep))
+        setLogradouro(response.data.farmacia.logradouro)
+        setNumero(response.data.farmacia.numero)
+        setComplemento(response.data.farmacia.complemento)
+        setNomeFarmaceutico(response.data.farmacia.nomeFarmaceutico)
+        setCRF(response.data.farmacia.crf)
+        setCpfRespSNGPC(response.data.farmacia.cpfRespSNGPC)
+        setUsuarioSNGPC(response.data.farmacia.usuarioSNGPC)
+        setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
+        setLicencaFunc(response.data.farmacia.licencaFunc)
+        setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
+        setLicencaMapa(response.data.farmacia.licencaMapa) 
         
       }
     }
@@ -151,83 +168,81 @@ export const TabFarmacia = ({ erros }: IData) => {
     loadFarmacia()
   }, [])
 
-  dataEdit.Id =  idObject,
-  dataEdit.razaoSocial =  razaoSocial,
-  dataEdit.nomeFantasia =  nomeFantasia,
-  dataEdit.cnpj =  cnpj.replace(/[-/.]/g, ""),
-  dataEdit.inscricaoEstadual =  inscricaoEstadual.replace(/\.|-/gm, ''),
-  dataEdit.inscricaoMunicipal =  inscricaoMunicipal,
-  dataEdit.regimeTributario =  regimeTributario,
-  dataEdit.ddd =  ddd,
-  dataEdit.dddCelular =  dddCelular,
-  dataEdit.dddWhatsApp =  dddWhatsApp,
-  dataEdit.telefone =  telefone,
-  dataEdit.celular =  celular,
-  dataEdit.email =  email,
-  dataEdit.whatsApp =  whatsApp,
-  dataEdit.cep =  cep.replace(/\.|-/gm, ''),
-  dataEdit.logradouro =  logradouro,
-  dataEdit.numero =  numero,
-  dataEdit.complemento =  complemento,
-  dataEdit.cidadeId =  cidadeId,
-  dataEdit.estadoId =  estadoId,
-  dataEdit.bairroId =  bairroId,
-  dataEdit.nomeFarmaceutico =  nomeFarmaceutico,
-  dataEdit.crf =  crf,
-  dataEdit.cpfRespSNGPC =  cpfRespSNGPC,
-  dataEdit.usuarioSNGPC =  usuarioSNGPC,
-  dataEdit.senhaSNGPC =  senhaSNGPC,
-  dataEdit.ativo =  true,
-  dataEdit.licencaFunc =  licencaFunc,
-  dataEdit.autoridadeSanitaria =  autoridadeSanitaria,
-  dataEdit.licencaMapa =  licencaMapa,
-  dataEdit.fornecedorInternoId =  fornecedorInternoId
+  sigla = siglaEstado;
+
+  dataEdit.id =  idObject,
+  dataEdit.farmaciaId = farmaciaId,
+
+  dataEdit.farmacia.id = Number(farmaciaId),
+  dataEdit.farmacia.fornecedorInternoId =  fornecedorInternoId,
+  dataEdit.farmacia.cidadeId =  cidadeId,
+  dataEdit.farmacia.estadoId =  Number(estadoId),
+  dataEdit.farmacia.bairroId =  bairroId,
+  dataEdit.farmacia.razaoSocial =  razaoSocial,
+  dataEdit.farmacia.nomeFantasia =  nomeFantasia,
+  dataEdit.farmacia.cnpj =  cnpj.replace(/[-/.]/g, ""),
+  dataEdit.farmacia.inscricaoEstadual =  inscricaoEstadual.replace(/\.|-/gm, ''),
+  dataEdit.farmacia.inscricaoMunicipal =  inscricaoMunicipal,
+  dataEdit.farmacia.regimeTributario =  regimeTributario,
+  dataEdit.farmacia.ddd =  ddd,
+  dataEdit.farmacia.telefone =  telefone,
+  dataEdit.farmacia.dddCelular =  dddCelular,
+  dataEdit.farmacia.celular =  celular,
+  dataEdit.farmacia.email =  email,
+  dataEdit.farmacia.dddWhatsApp =  dddWhatsApp,
+  dataEdit.farmacia.whatsApp =  whatsApp,
+  dataEdit.farmacia.cep =  cep.replace(/\.|-/gm, ''),
+  dataEdit.farmacia.logradouro =  logradouro,
+  dataEdit.farmacia.numero =  numero,
+  dataEdit.farmacia.complemento =  complemento,
+  dataEdit.farmacia.nomeFarmaceutico =  nomeFarmaceutico,
+  dataEdit.farmacia.crf =  crf,
+  dataEdit.farmacia.cpfRespSNGPC =  cpfRespSNGPC,
+  dataEdit.farmacia.usuarioSNGPC =  usuarioSNGPC,
+  dataEdit.farmacia.senhaSNGPC =  senhaSNGPC,
+  dataEdit.farmacia.ativo =  true,
+  dataEdit.farmacia.licencaFunc =  licencaFunc,
+  dataEdit.farmacia.autoridadeSanitaria =  autoridadeSanitaria,
+  dataEdit.farmacia.licencaMapa =  licencaMapa,
 
 
   
   useEffect(() => {
     async function PesquisaCep() {
-      
       if (cep.length == 9) {
-        
-        const request = await ViaCep(cep.replace(/\.|-/gm, ''))
-        
-        setLogradouro(request.logradouro)
-       // setComplemento(request.complemento)
-        setDdd(request.ddd)
-        setDddCelular(request.ddd)
+        const request = await ViaCep(cep.replace(/\.|-/gm, ""));
 
-        const estado = estados.filter(x =>
-          x.sigla == request.uf
-        )
+        setLogradouro(request.logradouro);
+        setComplemento(request.complemento);
+        setDdd(request.ddd);
+        setDddCelular(request.ddd);
+        setDddWhatsApp(request.ddd);
+
+        const estado = estados.filter((x) => x.sigla == request.uf);
 
         if (estado.length > 0) {
-          setNomeEstado(request.uf)
-          setEstadoId(estado[0].id)
+          setNomeEstado(request.uf);
+          setSiglaEstado(request.uf)
+          setEstadoId(estado[0].id);
         }
 
-        const cidade = cidades.filter(x =>
-          x.nome == request.localidade
-        )
+        const cidade = cidades.filter((x) => x.nome == request.localidade);
 
         if (cidade.length > 0) {
-          setNomeCidade(request.localidade)
-          setCidadeId(cidade[0].id)
+          setNomeCidade(request.localidade);
+          setCidadeId(cidade[0].id);
         }
 
-        const bairro = bairros.filter(x =>
-          x.nome == request.bairro
-        )
+        const bairro = bairros.filter((x) => x.nome == request.bairro);
 
         if (bairro.length > 0) {
-          setNomeBairro(request.bairro)
-          setBairroId(bairro[0].id)
+          setNomeBairro(request.bairro);
+          setBairroId(bairro[0].id);
         }
-
       }
     }
-    PesquisaCep()
-  }, [cep])
+    PesquisaCep();
+  }, [cep]);
 
   useEffect(() => {
     const loadDataBairros = async () => {
@@ -256,6 +271,33 @@ export const TabFarmacia = ({ erros }: IData) => {
     loadDataFornecedores();
   }, [])
 
+  useEffect(() => {
+
+    if (erros.index == 20) {
+      setErroEstadoId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroEstadoId("");
+    }
+
+    if (erros.index == 21) {
+      setErroCidadeId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroCidadeId("");
+    }
+
+    if (erros.index == 22) {
+      setErroBairroId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroBairroId("");
+    }
+
+    if (erros.index == 23) {
+      setErroFornecedorInternoId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroFornecedorInternoId("");
+    }
+  }, [erros])
+
   return (
     <Container>
       <div className="row">
@@ -270,7 +312,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             index={1}
             required={true}
             focusParam={true}
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setRazaoSocial(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setRazaoSocial(e.target.value)
+            }
           />
         </div>
         <div className="col-4 mt-4">
@@ -283,7 +327,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             erros={errosParameter}
             index={2}
             required={true}
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setNomeFantasia(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNomeFantasia(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -295,7 +341,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             ]}
             name={"Regime Tributário"}
             titleComponet="Regime Tributário"
-            onClickOptions={(regimeTributario) => setRegimeTributario(regimeTributario)}
+            onClickOptions={(regimeTributario) =>
+              setRegimeTributario(regimeTributario)
+            }
             value={regimeTributario}
           />
         </div>
@@ -309,8 +357,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             value={MaskCnpj(cnpj)}
             required={true}
             index={3}
+            erros={errosParameter}
             placeholder="00.000.000/0000-00"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setCnpj(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCnpj(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -318,9 +369,13 @@ export const TabFarmacia = ({ erros }: IData) => {
             label="Inc. Est."
             type="text"
             maxLength={20}
+            index={24}
+            erros={errosParameter}
             value={MaskIe(inscricaoEstadual)}
             placeholder="000.000.000000000-00"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setInscricaoEstadual(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setInscricaoEstadual(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -330,7 +385,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={20}
             value={MaskIm(inscricaoMunicipal)}
             placeholder="000/000-000000000000"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setInscricaoMunicipal(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setInscricaoMunicipal(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -340,7 +397,18 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nomeFornecedor"
             label="Fornecedor Interno"
             required={true}
-            Select={(fornecedorId) => setFornecedorInternoId(fornecedorId)}
+            error={erroFornecedorInternoId}
+            Select={(fornecedorInternoId, select) => {
+              if (fornecedorInternoId != null) {
+                setFornecedorInternoId(fornecedorInternoId)
+                setNomeFornecedorInterno(select)
+              }
+            }
+            }
+            RemoveSelect={() => {
+              setFornecedorInternoId(0)
+              setNomeFornecedorInterno("Selecione um Fornecedor")
+            }}
           />
         </div>
       </div>
@@ -352,8 +420,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             value={logradouro}
             required={true}
             index={4}
+            erros={errosParameter}
             placeholder="Digite um valor para o endereço"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setLogradouro(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setLogradouro(e.target.value)
+            }
           />
         </div>
         <div className="col-1">
@@ -364,8 +435,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             value={numero}
             index={5}
             required={true}
+            erros={errosParameter}
             placeholder={"000"}
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setNumero(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNumero(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -376,8 +450,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             value={MaskCep(cep)}
             required={true}
             index={6}
+            erros={errosParameter}
             placeholder={"00000-000"}
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setCep(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCep(e.target.value)
+            }
           />
         </div>
         <div className="col-3">
@@ -387,7 +464,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={20}
             value={complemento}
             placeholder="Digite um valor para o complemento"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setComplemento(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setComplemento(e.target.value)
+            }
           />
         </div>
       </div>
@@ -399,7 +478,17 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nome"
             label="Bairro"
             required={true}
-            Select={(bairroId) => setBairroId(bairroId)}
+            error={erroBairroId}
+            Select={(bairroId, select) => {
+              if (bairroId != null) {
+                setBairroId(bairroId)
+                setNomeEstado(select)
+              }
+            }}
+            RemoveSelect={() => {
+              setBairroId(0);
+              setNomeBairro("Selecione o bairro")
+            }}
           />
         </div>
         <div className="col-3">
@@ -409,7 +498,18 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nome"
             label="Cidade"
             required={true}
-            Select={(cidadeId) => setCidadeId(cidadeId)}
+            error={erroCidadeId}
+            Select={(cidadeId, select) => {
+              if (cidadeId != null) {
+                setCidadeId(cidadeId)
+                setNomeCidade(select)
+              }
+            }
+            }
+            RemoveSelect={() => {
+              setCidadeId(0)
+              setNomeCidade("Selecione a cidade")
+            }}
           />
         </div>
         <div className="col-3">
@@ -419,7 +519,19 @@ export const TabFarmacia = ({ erros }: IData) => {
             filter="nome"
             label="Estado"
             required={true}
-            Select={(estadoId) => setEstadoId(estadoId)}
+            error={erroEstadoId}
+            Select={(estadoId, select) => {
+              if (estadoId != null) {
+                setEstadoId(estadoId)
+                setSiglaEstado(select)
+                setNomeEstado(select)
+              }
+            }}
+            RemoveSelect={() => {
+              setEstadoId(0)
+              setSiglaEstado("")
+              setNomeEstado("Selecione o estado")
+            }}
           />
         </div>
       </div>
@@ -432,8 +544,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             value={ddd}
             required={true}
             index={7}
+            erros={errosParameter}
             placeholder="47"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setDdd(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setDdd(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -444,8 +559,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             value={MaskTelefone(telefone)}
             required={true}
             index={8}
+            erros={errosParameter}
             placeholder="00000-0000"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setTelefone(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setTelefone(e.target.value)
+            }
           />
         </div>
         <div className="col-1">
@@ -455,7 +573,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={4}
             value={dddCelular}
             placeholder="47"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setDddCelular(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setDddCelular(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -465,7 +585,9 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={20}
             value={MaskTelefone(celular)}
             placeholder="00000-0000"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setcelular(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setcelular(e.target.value)
+            }
           />
         </div>
         <div className="col-1">
@@ -473,9 +595,14 @@ export const TabFarmacia = ({ erros }: IData) => {
             label="DDD"
             type="text"
             maxLength={4}
+            required={true}
             value={dddWhatsApp}
+            index={9}
+            erros={errosParameter}
             placeholder="47"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setDddWhatsApp(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setDddWhatsApp(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -484,10 +611,13 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="text"
             maxLength={20}
             value={MaskTelefone(whatsApp)}
-            index={9}
+            index={10}
+            erros={errosParameter}
             required={true}
             placeholder="00000-0000"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setWhatsApp(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setWhatsApp(e.target.value)
+            }
           />
         </div>
       </div>
@@ -499,9 +629,12 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={60}
             value={email}
             required={true}
-            index={10}
+            index={11}
+            erros={errosParameter}
             placeholder="prismafive@prismafive.com.br"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
           />
         </div>
         <div className="col-3">
@@ -511,9 +644,12 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={50}
             value={nomeFarmaceutico}
             required={true}
-            index={11}
+            index={12}
+            erros={errosParameter}
             placeholder="Digite um valor para o nome do farmaceutico"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setNomeFarmaceutico(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNomeFarmaceutico(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -522,8 +658,11 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="number"
             value={crf}
             required={true}
-            index={12}
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setCRF(parseFloat(e.target.value))}
+            index={13}
+            erros={errosParameter}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCRF(parseFloat(e.target.value))
+            }
           />
         </div>
       </div>
@@ -535,9 +674,12 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={14}
             value={MaskCpf(cpfRespSNGPC)}
             required={true}
-            index={13}
+            index={14}
+            erros={errosParameter}
             placeholder="000.000.000-00"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setCpfRespSNGPC(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCpfRespSNGPC(e.target.value)
+            }
           />
         </div>
         <div className="col-3">
@@ -546,10 +688,13 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="text"
             maxLength={100}
             value={usuarioSNGPC}
-            index={14}
+            index={15}
+            erros={errosParameter}
             required={true}
             placeholder="Digite um valor para o usuario"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setUsuarioSNGPC(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setUsuarioSNGPC(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -558,10 +703,13 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="password"
             maxLength={50}
             value={senhaSNGPC}
-            index={15}
+            index={16}
+            erros={errosParameter}
             required={true}
             placeholder="Digite um valor para a senha"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setSenhaSNGPC(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSenhaSNGPC(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -570,10 +718,13 @@ export const TabFarmacia = ({ erros }: IData) => {
             type="text"
             maxLength={50}
             value={licencaFunc}
-            index={16}
+            index={17}
+            erros={errosParameter}
             required={true}
             placeholder="Digite um valor para a licença"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaFunc(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setLicencaFunc(e.target.value)
+            }
           />
         </div>
       </div>
@@ -586,9 +737,12 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={50}
             value={autoridadeSanitaria}
             required={true}
-            index={17}
+            index={18}
+            erros={errosParameter}
             placeholder="Digite um valor para a autoridade sanitária"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setAutoridadeSanitaria(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setAutoridadeSanitaria(e.target.value)
+            }
           />
         </div>
         <div className="col-2">
@@ -598,9 +752,12 @@ export const TabFarmacia = ({ erros }: IData) => {
             maxLength={50}
             value={licencaMapa}
             required={true}
-            index={18}
+            index={19}
+            erros={errosParameter}
             placeholder="Digite um valor para a licença do mapa"
-            OnChange={(e: ChangeEvent<HTMLInputElement>) => setLicencaMapa(e.target.value)}
+            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setLicencaMapa(e.target.value)
+            }
           />
         </div>
       </div>
