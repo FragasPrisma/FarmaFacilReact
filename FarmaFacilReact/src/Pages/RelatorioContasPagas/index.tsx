@@ -23,6 +23,7 @@ export function RelatorioContasPagas() {
     const [dataInicio, setDataInicio] = useState("");
     const [dataFim, setDataFim] = useState("");
     const [fornecedorId, setFornecedorId] = useState(0);
+    const [nomeFornecedor, setNomeFornecedor] = useState("Selecione o fornecedor")
 
     const [erroDataInicio, setErroDataInicio] = useState("");
     const [erroDataFim, setErroDataFim] = useState("");
@@ -138,11 +139,11 @@ export function RelatorioContasPagas() {
                         InverterDate(x.dataVencimento),
                         nomeFornecedor.slice(0, 15),
                         InverterDate(dataPagamento),
-                        x.observacao,
+                        x.observacao.slice(0, 25),
                         x.valor.toString(),
                         x.valorPago.toString(),
                         (dataPgto - dataVcto).toString(),
-                        (x.valorPago - x.valor).toString()
+                        (x.valorPago - x.valor).toFixed(2).toString()
                     ]
                 )
             })
@@ -152,8 +153,8 @@ export function RelatorioContasPagas() {
             title: classificacao == 1 ? "Duplicatas Pagas Por Vencimento" : "Duplicatas Pagas Por Pagamento",
             nomeEmpresa: "Concept Pharma",
             perido: { dataInicial: dataInicio, dataFinal: dataFim },
-            cabecalho: ["Vcto", "Fornecedor", "Pgto", "Observação", "Valor", "Vlr Pago", "Dias", "Dif. Pgto"],
-            widths: ["11%", "15%", "11,5%", "23,5%", "8%", "12,5%", "6%", "12,5%"],
+            cabecalho: ["Venc", "Fornecedor", "Pgto", "Observação", "Valor(R$)", "Valor pago (R$)", "Dias", "Dif. Pgto(R$)"],
+            widths: ["11%", "15%", "11,5%", "23,5%", "8%", "13,5%", "5%", "12,5%"],
             dados: dadosReport
         }
 
@@ -162,7 +163,7 @@ export function RelatorioContasPagas() {
 
     return (
         <>
-            <HeaderMainContent title="Relatório Contas Pagas" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Relatório Pagas" IncludeButton={false} ReturnButton={false} />
             <Container>
                 <div className="row mt-4">
                     <FieldsetCustom legend="Classificação" borderAll={true} numberCols={2}>
@@ -181,17 +182,24 @@ export function RelatorioContasPagas() {
                             <div className="col-12 mt-2 mb-2">
                                 <CustomDropDown
                                     data={fornecedores}
-                                    title="Selecione o Fornecedor"
+                                    title={nomeFornecedor}
                                     filter="nomeFornecedor"
                                     label="Fornecedor"
-                                    Select={(fornecedorId) => setFornecedorId(fornecedorId)}
+                                    Select={(fornecedorId, nome) => {
+                                        setFornecedorId(fornecedorId)
+                                        setNomeFornecedor(nome)
+                                    }}
+                                    RemoveSelect={() => {
+                                        setFornecedorId(0)
+                                        setNomeFornecedor("Selecione o fornecedor")
+                                    }}
                                 />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-6 mb-2">
                                 <CustomInput
-                                    label="Data Inicio"
+                                    label="Data inicial"
                                     type="date"
                                     erro={erroDataInicio}
                                     index={1}
@@ -204,7 +212,7 @@ export function RelatorioContasPagas() {
                             </div>
                             <div className="col-6 mb-2">
                                 <CustomInput
-                                    label="Data Fim"
+                                    label="Data final"
                                     type="date"
                                     index={2}
                                     erro={erroDataFim}

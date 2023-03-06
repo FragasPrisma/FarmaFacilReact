@@ -27,10 +27,9 @@ interface IDataSearch {
   openModal?: boolean;
   openModalFunction?: (id: string) => void;
   urlSearch: string;
-  urlParamBool?: boolean
 }
 
-export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false, openModalFunction, urlSearch, urlParamBool = false }: IDataSearch) {
+export function SearchContentScreens({ text, data, filter, headerTable, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false, openModalFunction, urlSearch }: IDataSearch) {
 
 
   const searchInitial = useSelector((state: RootState) => state.search.searchSelect);
@@ -65,7 +64,7 @@ export function SearchContentScreens({ text, data, filter, headerTable, iconOpti
       try {
 
         let valueParam = urlLocation != locationInitial ? "" : value
-        let url = urlParamBool ? `${urlSearch}/${paginaRequest}/${urlParamBool}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "")}` : `${urlSearch}/${paginaRequest}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "")}`
+        let url = `${urlSearch}/${paginaRequest}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "")}`
 
         const response = await getAll(url);
 
@@ -74,44 +73,8 @@ export function SearchContentScreens({ text, data, filter, headerTable, iconOpti
         setPaginaRequest(paginaRequest > response.data.count ? 1 : paginaRequest)
 
         setQtdPaginaRequest(response.data.count);
-
-        if (urlParamBool) {
-
-          response.data.lista.map((x: any) => {
-            let viewContasAPagar = {
-              id: 0,
-              observacao: "",
-              dataVencimento: "",
-              dataPagamento: "",
-              valor: 0,
-              valorPago: 0,
-              numeroFatura: "",
-              numeroParcela: 0,
-              ContasAPagarId: 0,
-              nomeFornecedor: x.fornecedor.nomeFornecedor
-            }
-
-            x.duplicatasContasAPagar.map((y :any) => {
-              viewContasAPagar.id = y.id
-              viewContasAPagar.observacao = y.observacao
-              viewContasAPagar.dataVencimento = y.dataVencimento
-              viewContasAPagar.dataPagamento = y.dataPagamento
-              viewContasAPagar.valor = y.valor
-
-              viewContasAPagar.valorPago = y.valorPago
-              viewContasAPagar.numeroFatura = y.numeroFatura
-              viewContasAPagar.numeroParcela = y.numeroParcela
-              viewContasAPagar.ContasAPagarId = y.contasAPagarId
-            })
-
-            search.push(viewContasAPagar)
-
-          })
-          console.log(search)
-          setSearch([...search])
-        } else {
-          setSearch(response.data.lista);
-        }
+        setSearch(response.data.lista);
+        
 
       } catch (error: any) {
         console.log(error)

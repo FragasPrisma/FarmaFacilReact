@@ -32,9 +32,9 @@ export function ContasAPagarEdit() {
     const [bancos, setBancos] = useState([] as IBanco[]);
     const [duplicata, setDuplicata] = useState({} as IDuplicatasContasAPagar)
     const [nomeFornecedor, setNomeFornecedor] = useState("")
-    const [nomePlanoDeContas, setNomePlanoDeContas] = useState("")
-    const [nomePortador, setNomePortador] = useState("")
-    const [nomeBanco, setNomeBanco] = useState("");
+    const [nomePlanoDeContas, setNomePlanoDeContas] = useState("Selecione o plano de contas")
+    const [nomePortador, setNomePortador] = useState("Selecione o portador")
+    const [nomeBanco, setNomeBanco] = useState("Selecione o banco");
     const [observacaoDuplicata, setObservacaoDuplicata] = useState("");
     const [vencimentoDuplicata, setVencimentoDuplicata] = useState("");
     const [valorDuplicata, setValorDuplicata] = useState(0)
@@ -186,10 +186,17 @@ export function ContasAPagarEdit() {
                             <div className="col-6">
                                 <CustomDropDown
                                     data={planoDeContas}
-                                    title={nomePlanoDeContas ? nomePlanoDeContas : "Selecione o plano de contas"}
+                                    title={nomePlanoDeContas}
                                     filter="descricao"
                                     label="Plano de Contas"
-                                    Select={(idPlano) => setPlanoDeContaId(idPlano)}
+                                    Select={(idPlano, nomePlano) => {
+                                        setPlanoDeContaId(idPlano)
+                                        setNomePlanoDeContas(nomePlano)
+                                    }}
+                                    RemoveSelect={() => {
+                                        setPlanoDeContaId(null)
+                                        setNomePlanoDeContas("Selecione o plano de contas")
+                                    }}
                                 />
                             </div>
                         </div>
@@ -197,10 +204,17 @@ export function ContasAPagarEdit() {
                             <div className="col-6">
                                 <CustomDropDown
                                     data={portadores}
-                                    title={nomePortador ? nomePortador : "Selecione o portador"}
+                                    title={nomePortador}
                                     filter="nome"
                                     label="Portador"
-                                    Select={(idPortador) => setPortadorId(idPortador)}
+                                    Select={(idPortador,nomePortador) => {
+                                        setPortadorId(idPortador)
+                                        setNomePortador(nomePortador)
+                                    }}
+                                    RemoveSelect={() => {
+                                        setPortadorId(null)
+                                        setNomePortador("Selecione o portador")
+                                    }}
                                 />
                             </div>
                         </div>
@@ -208,10 +222,17 @@ export function ContasAPagarEdit() {
                             <div className="col-6">
                                 <CustomDropDown
                                     data={bancos}
-                                    title={nomeBanco ? nomeBanco : "Selecione o banco"}
+                                    title={nomeBanco}
                                     filter="nome"
                                     label="Banco"
-                                    Select={(idBanco) => setBancoId(idBanco)}
+                                    Select={(idBanco, nomeBanco) => {
+                                        setBancoId(idBanco)
+                                        setNomeBanco(nomeBanco)
+                                    }}
+                                    RemoveSelect={() => {
+                                        setBancoId(null)
+                                        setNomeBanco("Selecione o banco")
+                                    }}
                                 />
                             </div>
                         </div>
@@ -252,6 +273,7 @@ export function ContasAPagarEdit() {
                                     }
                                     erro={erroValor}
                                     required={true}
+                                    textAlign={true}
                                 />
                             </div>
                         </div>
