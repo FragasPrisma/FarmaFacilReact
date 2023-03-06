@@ -21,7 +21,7 @@ export const TabFarmacia = ({ erros }: IData) => {
 
   const [tabFarmaciaModel, setTabFarmaciaModel] = useState({} as IFarmacia);
  
-  const [cnpj, setCnpj] = useState('');
+  const [cnpj, setCnpj] = useState("");
   const [inscEst, setInscEst] = useState('');
   const [inscMun, setInscMun] = useState('');
   const [cep, setCep] = useState('');

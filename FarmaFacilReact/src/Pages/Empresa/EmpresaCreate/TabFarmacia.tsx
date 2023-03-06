@@ -124,7 +124,7 @@ export const TabFarmacia = ({ erros, textParameter }: IData) => {
 
   sigla = siglaEstado;
 
-  Farmacia.Id = 0;
+  Farmacia.id = 0;
   Farmacia.razaoSocial = razaoSocial;
   Farmacia.nomeFantasia = nomeFantasia;
   Farmacia.cnpj = cnpj.replace(/[-/.]/g, "");
