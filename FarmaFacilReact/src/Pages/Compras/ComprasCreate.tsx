@@ -474,8 +474,6 @@ export function ManutencaoCompras() {
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
         data.itensCompras = itemsComprasConfirmadas;
-
-        console.log(data)
         
         const response = await postFormAll("AdicionarCompra", data);
 
