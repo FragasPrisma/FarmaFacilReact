@@ -81,6 +81,8 @@ export function ManutencaoCompras() {
 
     const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
 
+    const [itemsComprasConfirmadas, setItemsComprasConfirmadas] = useState([] as IItemsCompra[]);
+
     const dataFiltro: IFiltroCompras = {
         tipoCompra: 0,
         tipoDemanda: null,
@@ -259,10 +261,12 @@ export function ManutencaoCompras() {
             }
             return row;
         });
+
         setItemsCompras(updatedRows);
     }
 
     useEffect(() => {
+        let itemsConfirmados = [] as IItemsCompra[];
         let valorTotaldasCompras: number = 0;
         itemsCompras.map((item) => {
             item.valorTotal = item.quantidadeCompra * item.valorUnitario;
@@ -270,9 +274,14 @@ export function ManutencaoCompras() {
             if (item.comprar == true) {
                 valorTotaldasCompras += item.valorTotal;
             }
+
+            if (item.comprar == true) {
+                itemsConfirmados.push(item)
+            }
         })
 
         setValorTotal(valorTotaldasCompras);
+        setItemsComprasConfirmadas(itemsConfirmados);
     }, [itemsCompras])
 
     useEffect(() => {
@@ -464,7 +473,7 @@ export function ManutencaoCompras() {
         data.produtosIds = produtosIds;
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
-        data.itensCompras = itemsCompras.filter(x => x.laboratorioId > 0);
+        data.itensCompras = itemsComprasConfirmadas;
         
         const response = await postFormAll("AdicionarCompra", data);
 
