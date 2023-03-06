@@ -50,6 +50,8 @@ export function ContasAPagarPagar() {
                     if (x.id == parseInt(id)) {
                         setDuplicata(x)
                         setObservacao(x.observacao)
+                        setValorPago(x.valor)
+                        setDataPagamento(new Date(Date.now()).toISOString().slice(0,10))
                     }
                 })
             }
@@ -204,7 +206,7 @@ export function ContasAPagarPagar() {
                         <div className="row mb-4">
                             <div className="col-3">
                                 <CustomInput
-                                    label="Data de Pagamento"
+                                    label="Data de pagamento"
                                     type="date"
                                     value={dataPagamento}
                                     required={true}
@@ -216,7 +218,7 @@ export function ContasAPagarPagar() {
                             </div>
                             <div className="col-3">
                                 <CustomInput
-                                    label="Valor Pago (R$)"
+                                    label="Valor pago (R$)"
                                     type="number"
                                     value={valorPago}
                                     required={true}

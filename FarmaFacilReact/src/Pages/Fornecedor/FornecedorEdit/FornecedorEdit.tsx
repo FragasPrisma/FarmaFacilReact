@@ -81,7 +81,7 @@ export function FornecedorEdit() {
         fornecedorModel.id > 0 &&
             arrayTab.push(
 
-                < FornecedorEditGeral fornecedorModel={fornecedorModel} erros={error} nomeBairro={dataBairro} nomeCidade={dataCidade} nomeEstado={dataEstado} />,
+                < FornecedorEditGeral fornecedorModel={fornecedorModel} erros={error} nomeBairroParam={dataBairro} nomeCidadeParam={dataCidade} nomeEstadoParam={dataEstado} />,
                 <FornecedorEditComplemento fornecedorModel={fornecedorModel} nomeBanco={dataBanco} nomePLanoDeConta={dataPlanoConta} />
 
             )

@@ -1,5 +1,7 @@
+import { Question } from "phosphor-react";
 import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 interface IInput {
     label: string;
@@ -16,12 +18,12 @@ interface IInput {
     erros?: { erro: Boolean, index: number, erroNome: string };
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     focusParam?: boolean;
-    textAlign?:boolean
+    textAlign?: boolean
 }
 
 export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign }: IInput) {
 
-    let aligRight = textAlign ? ".5rem" : "0"
+    //let aligRight = textAlign ? ".5rem" : "0"
     const [erroParameter, setErroParameter] = useState(erro)
     const [errosParameter, setErrosParameter] = useState(erros)
     const [focus] = useState(focusParam);
@@ -43,21 +45,36 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                         <LabelRequired>*</LabelRequired>
                     }
                 </div>
-                <InputCustomized
-                    type={type}
-                    step={step}
-                    placeholder={placeholder}
-                    name={name}
-                    value={value}
-                    readOnly={readonly}
-                    maxLength={maxLength}
-                    onChange={OnChange}
-                    autoFocus={focus}
-                    style={{
-                        textAlign: textAlign ? "end" : "left",
-                        paddingRight:textAlign ? ".5rem" : "0"
-                    }}
-                />
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", height: "calc(100% - 0.8rem)" }}>
+                    <InputCustomized
+                        type={type}
+                        step={step}
+                        placeholder={placeholder}
+                        name={name}
+                        value={value}
+                        readOnly={readonly}
+                        maxLength={maxLength}
+                        onChange={OnChange}
+                        autoFocus={focus}
+                        style={{
+                            textAlign: textAlign ? "end" : "left",
+                            paddingRight: textAlign ? ".5rem" : "0"
+                        }}
+                    />
+                    {readonly &&
+                        <OverlayTrigger
+                            key={1}
+                            overlay={
+                                <Tooltip id={`tooltip-top`}>
+                                    {"Campo não editavel"}
+                                </Tooltip>
+                            }
+                        >
+                            <Button variant=""><label><Question size={18} style={{ marginRight: ".5rem", cursor: "pointer" }} /></label></Button>
+                        </OverlayTrigger>
+
+                    }
+                </div>
             </div>
             {errosParameter?.erro && errosParameter.index == index &&
                 <div className="row divError">

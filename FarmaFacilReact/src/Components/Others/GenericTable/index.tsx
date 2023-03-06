@@ -8,10 +8,11 @@ interface Props {
     onDelete?: (index: number) => void;
     onEdit?: (object: any) => void;
     deleteButton?: boolean;
-    editButton?: boolean
+    editButton?: boolean;
+    headerView?:string[]
 }
 
-export function GenericTable({ data = [], header, onDelete, deleteButton = true, editButton = false, onEdit }: Props) {
+export function GenericTable({ data = [], header, onDelete, deleteButton = true, editButton = false, onEdit , headerView}: Props) {
     const { t } = useTranslation();
     function OnClickDelete(index: number) {
         if (onDelete) {
@@ -30,7 +31,7 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true,
             <thead>
                 <TrCustom>
                     {header.map((head, index) => (
-                        <th key={index}>{head[0].toUpperCase() + head.substring(1)}</th>
+                        <th key={index}>{headerView ? headerView[index] : head[0].toUpperCase() + head.substring(1)}</th>
                     ))}
                     {deleteButton &&
                         <th className="col-1">{t('tableDefault.excluir')}</th>
@@ -44,7 +45,10 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true,
                 {data.map((data, index) => (
                     <TrCustom key={index}>
                         {header.map((header, index) => (
-                            <td key={index}>{data[header]}</td>
+                            <td key={index}>{
+                                typeof data[header] == "number" ? data[header].toLocaleString('pt-BR') : data[header]
+                            }
+                            </td>
                         ))}
                         {deleteButton &&
                             <td className="col-1">

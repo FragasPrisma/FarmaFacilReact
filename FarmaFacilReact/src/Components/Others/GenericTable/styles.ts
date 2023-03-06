@@ -33,6 +33,7 @@ export const TrCustom = styled.tr`
     border: none;
     color: #5b6873;
     font-weight: 500;
+    text-align: center;
   }
 
   background-color: rgba(91, 104, 115, 0.09411764705882353);
@@ -42,6 +43,7 @@ export const TrCustom = styled.tr`
   tr,
   td
   {
+    text-align: center;
     color: #cf0209;
   }
 `;

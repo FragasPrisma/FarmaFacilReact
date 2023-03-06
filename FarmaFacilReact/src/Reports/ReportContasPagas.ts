@@ -10,12 +10,12 @@ export function ReportContasPagas(report: IReport) {
     
     const stylesParameters: StyleDictionary = {
         headerTable: {
-            fontSize: 10,
+            fontSize: 7,
             bold: true,
             alignment: 'left',
         },
         bodyTable: {
-            fontSize: 8,
+            fontSize: 5,
             bold: false,
             alignment: 'left',
         },
