@@ -56,6 +56,7 @@ export const InputCustomized = styled.input`
         font-size: 0.8rem;
         font-style: italic;
     }
+
     background-color: transparent;
     border: none;
     width: calc(100% - 0.8rem);

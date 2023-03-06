@@ -11,5 +11,8 @@ export interface RootState {
     search:{
         searchSelect:string,
         location:string
+    };
+    aPagar:{
+        paga:boolean
     }
 }

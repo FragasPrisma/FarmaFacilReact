@@ -20,7 +20,7 @@ interface Props {
 export function TableDefault({ data = [], header, path, iconOptions = false, itensExtraButton, actionsButtons = false, btnsEditExcluir = false, btnVisualizar = false, headerTableView, openModal = false, openModalFunction }: Props) {
 
   const { t } = useTranslation();
-  const widths = ["8%", "50%"]
+  const widths = ["8%", "45%"]
 
   return (
     <TableCustom>

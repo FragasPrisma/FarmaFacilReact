@@ -7,33 +7,89 @@ import { IDuplicatasContasAPagar } from "../../Interfaces/DuplicatasContasAPagar
 import { InverterDate } from "../../helper/InverterDate";
 import { ModalGeneric } from "../../Components/Modals/ModalGeneric";
 import { FailModal } from "../../Components/Modals/FailModal";
+import { ContainerSearch } from "../../Components/Others/SearchContentScreens/styles";
+import Lupa from "../../assets/img/Lupa.png";
+import { X } from "phosphor-react";
+import { TableDefault } from "../../Components/Others/TableDefault";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { RootState } from "../../store/IRootState";
+import { changeSearch } from "../../store/Search";
+import { IDuplicatasView } from "../../Interfaces/DuplicatasContasAPagar/IDuplicatasView";
+import { changeApagar } from "../../store/Apagar";
+
 
 export function ContasAPagar() {
-    
-    const [pagina, setPagina] = useState(1);
-    const [qtdPagina, setQtdPagina] = useState(0);
-    const [data, setData] = useState([]);
-    const [aPagar, setAPagar] = useState(false);
+
+
+    const aPagarInitial = useSelector((state : RootState) => state.aPagar.paga)
+    const [aPagar, setAPagar] = useState(aPagarInitial);
     const [duplicata, setDuplicata] = useState({} as IDuplicatasContasAPagar);
     const [openModal, setOpenModal] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false)
+    const searchInitial = useSelector((state: RootState) => state.search.searchSelect);
+    const locationInitial = useSelector((state: RootState) => state.search.location);
+    const [urlLocation] = useState(window.location.pathname)
+    const [searchOptions, setSearchOptions] = useState(false);
+    const [value, setValue] = useState(searchInitial);
+    const [duplicatas, setDuplicatas] = useState([] as IDuplicatasView[]);
+    const { t } = useTranslation();
+    const [paginaRequest, setPaginaRequest] = useState(1);
+    const [qtdPaginaRequest, setQtdPaginaRequest] = useState(0);
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     const loadDataTable = async () => {
-    //         const response = await getAll(`ListaPaginacaoDuplicatas/${pagina}/${aPagar}`);
+    const searchOptionsFechar = () => {
+        setValue("")
+        setSearchOptions(!searchOptions);
+    };
 
-    //         if (response.data.listGroup) {
-    //             response.data.listGroup.map(function (x: IDuplicatasContasAPagar) {
-    //                 x.dataPagamento = x.dataPagamento ? InverterDate(x.dataPagamento) : ""
-    //                 x.dataVencimento = InverterDate(x.dataVencimento)
-    //             })
-    //             setQtdPagina(response.data.total);
-    //             setData(response.data.listGroup);
-    //         }
-    //     }
+    useEffect(() => {
+        //Resetar a pesquisa 
+        if (urlLocation != locationInitial) {
+            dispatch(changeSearch({ value: "", location: urlLocation }))
+            dispatch(changeApagar({paga : false}))
+            setValue("")
+            setPaginaRequest(1)
+        }
 
-    //     loadDataTable()
-    // }, [pagina, aPagar]);
+    }, [])
+
+    useEffect(() => {
+
+        const loadDataTable = async () => {
+            try {
+
+                let valueParam = urlLocation != locationInitial ? "" : value
+                let url = `ListaPaginacaoDuplicatas/${paginaRequest}/${aPagar}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "")}`
+
+                const response = await getAll(url);
+                dispatch(changeApagar(aPagar))
+                dispatch(changeSearch({ value, location: urlLocation }))
+
+                setPaginaRequest(paginaRequest > response.data.count ? 1 : paginaRequest)
+                
+                response.data.lista.map((x: { dataVencimento: string }) => InverterDate(x.dataVencimento))
+
+                setQtdPaginaRequest(response.data.count);
+                response.data.lista.map((x: { dataVencimento: string ,dataPagamento : string, valor : number | string, valorPago : number | string}) => {
+                    x.dataVencimento = InverterDate(x.dataVencimento)
+                    x.valor = x.valor.toLocaleString("pt-Br")
+                    if(aPagar){
+                        x.valorPago = x.valorPago.toLocaleString("pt-Br")
+                        x.dataPagamento = InverterDate(x.dataPagamento)
+                    }
+                })
+                setDuplicatas(response.data.lista);
+
+
+            } catch (error: any) {
+                console.log(error)
+            }
+
+        }
+
+        loadDataTable()
+    }, [paginaRequest, value, aPagar])
 
     let filtros = { title: "Pagar", path: "/duplicatascontasapagar/pagar/" }
     let labelSwitch = "Duplicatas a Pagar";
@@ -46,14 +102,14 @@ export function ContasAPagar() {
 
     function Check(check: boolean) {
         setAPagar(check)
-        setPagina(1)
+        setPaginaRequest(1)
 
     }
 
     async function CancelarPagamento(id: string) {
 
         const response = await GetId("RetornaDuplicatasContasAPagarPorId", id);
-       
+
         if (response.status == 200) {
             duplicata.id = response.data.id;
             duplicata.valor = response.data.valor;
@@ -65,43 +121,56 @@ export function ContasAPagar() {
             duplicata.valorPago = 0;
             duplicata.dataPagamento = null;
             setOpenModal(true)
-        }else{
+        } else {
             setIsOpenFail(true)
         }
 
     }
 
-    function closeModal(){
+    function closeModal() {
         setOpenModal(false)
     }
 
     return (
         <>
             <HeaderMainContent
-                title="Duplicatas"
+                title="Contas a pagar"
                 IncludeButton={true}
                 ReturnButton={false}
                 IncludeSwitch={true}
                 TextSwitch={labelSwitch}
                 onClick={(check) => Check(check)}
+                checked={aPagar}
             />
-            <SearchContentScreens
-               // urlSearch="ListaPaginacaoContasAPagar"
-                urlParamBool={true}
-                text="Contas a Pagar"
-                headerTable={aPagar == true ? ["numeroFatura", "observacao", "dataVencimento", "dataPagamento", "valorPago"]
-                    : ["numeroFatura", "observacao", "dataVencimento", "valor"]}
-                headerTableView={aPagar == true ? ["Fatura", "Observação", "Vencimento", "Pagamento", "Valor Pago"]
-                    : ["N° do documento", "Observação", "Vencimento", "Valor (R$)"]}
-                iconOptions={true}
-                itensExtraButton={[filtros]}
-                btnsEditExcluir={aPagar}
-                openModal={aPagar}
-                openModalFunction={(id) => CancelarPagamento(id)} 
-                urlSearch={"ListaPaginacaoDuplicatas"}            
-            />
+
+            <ContainerSearch className="">
+                <span className="title_search">{t('search.pesquisa')} Contas a pagar</span>
+                <div className="container_search">
+
+                    <img src={Lupa} />
+
+                    <input type="text" onChange={(e) => setValue(e.target.value)} value={value ? value : ""} />
+
+                    {value && <X size={15} cursor="pointer" onClick={searchOptionsFechar} />}
+                </div>
+                <TableDefault
+                    header={aPagar == true ? ["numeroFatura", "nomeFornecedor", "dataPagamento", "valor"]
+                        : ["numeroFatura", "nomeFornecedor", "dataVencimento", "valor"]}
+                    data={duplicatas}
+                    path={"duplicatascontasapagar"}
+                    iconOptions={true}
+                    itensExtraButton={[filtros]}
+                    btnsEditExcluir={aPagar}
+                    headerTableView={aPagar == true ? ["N° do documento", "Fornecedor", "Data pagamento", "Pagamento (R$)", "Valor pago"]
+                        : ["N° do documento", "Fornecedor", "Vencimento", "Valor (R$)"]}
+                    openModal={aPagar}
+                    openModalFunction={(id) => CancelarPagamento(id)}
+                />
+            </ContainerSearch>
+            <Paginations pagina={paginaRequest} qtdPagina={qtdPaginaRequest} Reload={(paginaAtual) => setPaginaRequest(paginaAtual)} />
             <ModalGeneric object={duplicata} textInformationModal="Confirma o cancelamento?" url="EditarDuplicataContasAPagar" openModal={openModal} onClose={closeModal} />
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde." />
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde." /> 
+
         </>
     );
 }

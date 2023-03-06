@@ -5,7 +5,6 @@ import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { ChangeEvent, useState, useEffect } from "react";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
-import { useNavigate } from "react-router-dom";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { IContasAPagar } from "../../Interfaces/ContasAPagar/IContasAPagar";
@@ -21,12 +20,12 @@ import { GerarVencimento } from "../../helper/GerarVencimento";
 import { InverterDate } from "../../helper/InverterDate";
 import { InvertDateJSON } from "../../helper/InvertDateJSON";
 import { ButtonCustomIncluir } from "../../Components/Buttons/ButtonCustom";
+import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
 
 export function ContasAPagarCreate() {
 
     const [isOpenSuccess, setIsOpenSuccess] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
-    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const [observacao, setObservacao] = useState("");
@@ -51,6 +50,34 @@ export function ContasAPagarCreate() {
     const [erroDate, setErroDate] = useState("")
     const [erroDataEmissao, setErroDataEmissao] = useState("")
     const [itemDuplicataEdit, setItemDuplicataEdit] = useState({} as IDuplicatasContasAPagar)
+
+    const [nomeFornecedor, setNomeFornecdor] = useState("Selecione o fornecedor");
+    const [nomePlanoDeContas, setNomePlanoDeContas] = useState("Selecione o plano de contas")
+    const [nomePortador, setNomePortador] = useState("Selecione o portador")
+    const [nomeBanco, setNomeBanco] = useState("Selecione o banco")
+
+    function ResetarCadastros(){
+        setObservacao("")
+        setDataEmissao("")
+        setNumeroFatura(0)
+        setFornecedorId(0)
+        setPlanoDeContaId(null)
+        setBancoId(null)
+        setPortadorId(null)
+        setValor(0)
+        setQuantidadeParcela(0)
+        setPrimeiroVcto("")
+        duplicatas.length = 0
+        setNomeFornecdor("Selecione o fornecedor")
+        setNomePlanoDeContas("Selecione o plano de contas")
+        setNomePortador("Selecione o portador")
+        setNomeBanco("Selecione o banco")
+        setErroDataEmissao("");
+        setErroFornecedor("");
+        setErroValor("");
+        setErros({ erro: true, index: 0, erroNome: "" })
+        setIsLoading(false)
+    }
 
     useEffect(() => {
         const loadDataFornecedor = async () => {
@@ -79,7 +106,7 @@ export function ContasAPagarCreate() {
         let emissaoNumber = parseInt(dataEmissao.replaceAll("-", ""));
         let primeiroVencimentoNumber = parseInt(primeiroVcto.replaceAll("-", ""));
         if (primeiroVencimentoNumber < emissaoNumber) {
-            setErroDate("A data de emissão não pode ser menor que a primeira data de vencimento")
+            setErroDate("A data do primeiro vencimento não pode ser menor que a data de emissão")
             setIsLoading(false);
         } else {
             setErroDate("")
@@ -122,8 +149,6 @@ export function ContasAPagarCreate() {
         }
 
         if (!ValidNumber(numeroFatura, 1)
-            || !ValidNumber(valor, 2)
-            || !ValidNumber(quantidadeParcela, 3)
         ) {
             setIsLoading(false)
             return
@@ -133,6 +158,13 @@ export function ContasAPagarCreate() {
             setErroDataEmissao("Campo de preenchimento obrigatório.")
             setIsLoading(false);
             return;
+        }
+
+        if (!ValidNumber(valor, 2)
+            || !ValidNumber(quantidadeParcela, 3)
+        ) {
+            setIsLoading(false)
+            return
         }
 
         data.duplicatasContasAPagar.map((item) => {
@@ -154,8 +186,9 @@ export function ContasAPagarCreate() {
         if (resp.status == 200) {
             setIsOpenSuccess(true);
             setTimeout(() => {
-                navigate("/contasapagar");
+                setIsOpenSuccess(false);
             }, 2000)
+            ResetarCadastros();
         } else {
             setIsOpenFail(true);
             setIsLoading(false);
@@ -244,6 +277,10 @@ export function ContasAPagarCreate() {
 
     function EditDuplicata(item: IDuplicatasContasAPagar, valorNovo: number, dataVencimentoNova: string) {
 
+        if (valorNovo < 0) {
+            return;
+        }
+
         let index = 0;
 
         if (!valorNovo) valorNovo = 0
@@ -272,12 +309,19 @@ export function ContasAPagarCreate() {
                         <div className="col-6">
                             <CustomDropDown
                                 data={fornecedores}
-                                title="Selecione o fornecedor"
+                                title={nomeFornecedor}
                                 filter="nomeFornecedor"
                                 label="Fornecedor"
                                 required={true}
-                                Select={(idFornecedor) => setFornecedorId(idFornecedor)}
+                                Select={(idFornecedor, nomeFornecedor) => {
+                                    setNomeFornecdor(nomeFornecedor)
+                                    setFornecedorId(idFornecedor)
+                                }}
                                 error={erroFornecedor}
+                                RemoveSelect={() => {
+                                    setFornecedorId(0)
+                                    setNomeFornecdor("Selecione o fornecedor")
+                                }}
                             />
                         </div>
                         <div className="col-3">
@@ -287,11 +331,12 @@ export function ContasAPagarCreate() {
                                 placeholder="Digite o documento"
                                 value={numeroFatura}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setNumeroFatura(parseInt(e.target.value))
+                                    setNumeroFatura(MaxLengthNumber(999999999999999, parseInt(e.target.value)))
                                 }
                                 erros={error}
                                 index={1}
                                 required={true}
+                                textAlign={true}
                             />
                         </div>
                     </div>
@@ -299,10 +344,17 @@ export function ContasAPagarCreate() {
                         <div className="col-6">
                             <CustomDropDown
                                 data={planoDeContas}
-                                title="Selecione o plano de contas"
+                                title={nomePlanoDeContas}
                                 filter="descricao"
                                 label="Plano de Contas"
-                                Select={(idPlano) => setPlanoDeContaId(idPlano)}
+                                Select={(idPlano, nomePlano) => {
+                                    setPlanoDeContaId(idPlano)
+                                    setNomePlanoDeContas(nomePlano)
+                                }}
+                                RemoveSelect={() => {
+                                    setPlanoDeContaId(null)
+                                    setNomePlanoDeContas("Selecione o plano de contas")
+                                }}
                             />
                         </div>
                     </div>
@@ -310,10 +362,17 @@ export function ContasAPagarCreate() {
                         <div className="col-6">
                             <CustomDropDown
                                 data={portadores}
-                                title="Selecione o portador"
+                                title={nomePortador}
                                 filter="nome"
                                 label="Portador"
-                                Select={(idPlano) => setPortadorId(idPlano)}
+                                Select={(idPortador, nomePortador) => {
+                                    setPortadorId(idPortador)
+                                    setNomePortador(nomePortador)
+                                }}
+                                RemoveSelect={() => {
+                                    setPortadorId(null)
+                                    setNomePortador("Selecione o portador")
+                                }}
                             />
                         </div>
                     </div>
@@ -321,10 +380,17 @@ export function ContasAPagarCreate() {
                         <div className="col-6">
                             <CustomDropDown
                                 data={bancos}
-                                title="Selecione o banco"
+                                title={nomeBanco}
                                 filter="nome"
                                 label="Banco"
-                                Select={(idPlano) => setBancoId(idPlano)}
+                                Select={(idBanco, nomeBanco) => {
+                                    setBancoId(idBanco)
+                                    setNomeBanco(nomeBanco)
+                                }}
+                                RemoveSelect={() => {
+                                    setBancoId(null)
+                                    setNomeBanco("Selecione o banco")
+                                }}
                             />
                         </div>
                     </div>
@@ -335,7 +401,7 @@ export function ContasAPagarCreate() {
                                 type="text"
                                 placeholder="Digite a observação"
                                 value={observacao}
-                                maxLength={50}
+                                maxLength={100}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setObservacao(e.target.value)
                                 }
@@ -348,9 +414,10 @@ export function ContasAPagarCreate() {
                                 label="Emissão"
                                 type="date"
                                 value={dataEmissao}
-                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    if (e.target.value.length > 10) return
                                     setDataEmissao(e.target.value)
-                                }
+                                }}
                                 required={true}
                                 erro={erroDataEmissao}
                             />
@@ -361,11 +428,12 @@ export function ContasAPagarCreate() {
                                 type="number"
                                 value={valor}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setValor(parseFloat(e.target.value))
+                                    setValor(MaxLengthNumber(9999999999.99,parseFloat(e.target.value)))
                                 }
                                 required={true}
                                 erros={error}
                                 index={2}
+                                textAlign={true}
                             />
                         </div>
                         <div className="col-2">
@@ -379,24 +447,26 @@ export function ContasAPagarCreate() {
                                 required={true}
                                 erros={error}
                                 index={3}
+                                textAlign={true}
                             />
                         </div>
                         <div className="col-2">
                             <CustomInput
-                                label="Primeiro Vencimento"
+                                label="Primeiro vencimento"
                                 type="date"
                                 value={primeiroVcto}
-                                OnChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                OnChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    if (e.target.value.length > 10) return
                                     setPrimeiroVcto(e.target.value)
-                                }
+                                }}
                             />
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className="row mt-4">
+                        <div className="row mt-5 mb-5">
                             <div className="col-auto mb-3">
-                                <ButtonCustomIncluir text="Gerar Parcelas" onCLick={() => GerarParcelas()} width={8} height={2.1}/>
+                                <ButtonCustomIncluir text="Gerar parcelas" onCLick={() => GerarParcelas()} width={8} height={2.1} />
                             </div>
                             {erroValor &&
                                 <span className="text-danger mb-3">{erroValor}</span>
@@ -408,6 +478,7 @@ export function ContasAPagarCreate() {
                         <FieldsetCustom legend="Duplicatas" borderAll={true} numberCols={6}>
                             <div className="col-12">
                                 <GenericTable
+                                    headerView={["N. fatura", "Data vencimento", "Valor (R$)"]}
                                     data={duplicatas}
                                     header={["numeroFatura", "dataVencimento", "valor"]}
                                     onDelete={(index) => ExcluirDuplicatas(index)}
@@ -416,7 +487,7 @@ export function ContasAPagarCreate() {
                                 />
                             </div>
                         </FieldsetCustom>
-                        {itemDuplicataEdit.valor > 0 &&
+                        {itemDuplicataEdit.valor >= 0 &&
                             <FieldsetCustom legend="Editar Duplicata" borderAll={true} numberCols={3}>
                                 <div className="col-12 mt-3">
                                     <CustomInput
@@ -457,14 +528,14 @@ export function ContasAPagarCreate() {
                             </FieldsetCustom>
                         }
                     </div>
-                    <div className="row">
+                    <div className="row mt-5">
                         <div className="col-6">
                             <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                             <ButtonCancel to="contasapagar" />
                         </div>
                     </div>
                 </Container>
-                <SuccessModal show={isOpenSuccess}/>
+                <SuccessModal show={isOpenSuccess} />
                 <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
             </div>
         </>
