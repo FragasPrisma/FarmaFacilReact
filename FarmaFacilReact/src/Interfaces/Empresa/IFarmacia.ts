@@ -35,10 +35,10 @@ export interface IFarmacia {
   licencaMapa: string;
   fornecedorInternoId: number;
 
-  fornecedorInterno: IFornecedor;
-  bairro: IBairro;
-  cidade: ICidade;
-  estado: IEstado;
+  // fornecedorInterno: IFornecedor;
+  // bairro: IBairro;
+  // cidade: ICidade;
+  // estado: IEstado;
 
   //FarmaceuticosAutorizados: number;
   //FilialPagamentoId: number;
