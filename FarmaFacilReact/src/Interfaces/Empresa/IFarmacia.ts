@@ -1,9 +1,5 @@
-import { IFornecedor } from "./../Fornecedor/IFornecedor";
-import { IBairro } from "./../Bairro/IBairro";
-import { ICidade } from "./../Cidade/ICidade";
-import { IEstado } from "./../Estado/IEstado";
 export interface IFarmacia {
-  Id: number;
+  id: number;
   razaoSocial: string;
   nomeFantasia: string;
   cnpj: string;
@@ -34,18 +30,10 @@ export interface IFarmacia {
   autoridadeSanitaria: string;
   licencaMapa: string;
   fornecedorInternoId: number;
-
-  // fornecedorInterno: IFornecedor;
-  // bairro: IBairro;
-  // cidade: ICidade;
-  // estado: IEstado;
-
-  //FarmaceuticosAutorizados: number;
-  //FilialPagamentoId: number;
 }
 
 export let Farmacia = {
-  Id: 0,
+  id: 0,
   razaoSocial: "",
   nomeFantasia: "",
   cnpj: "",

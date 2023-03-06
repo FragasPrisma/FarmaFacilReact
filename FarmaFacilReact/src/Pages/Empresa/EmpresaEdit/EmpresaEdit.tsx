@@ -197,22 +197,22 @@ export function EmpresaEdit() {
             }
         }
 
-        // empresas.map(x => {
-        //     if (x.dataEdit.farmacia.cnpj == dataEdit.farmacia.cnpj && dataEdit.farmacia.cnpj) {
-        //         setError({ erro: true, erroNome: "Cnpj já cadastrado!", index: 3 });
-        //         setIsLoading(false);
-        //         erroCpfCnpj = true;
-        //     }
-        //     if (x.dataEdit.farmacia.inscricaoEstadual == dataEdit.farmacia.inscricaoEstadual) {
-        //         setError({ erro: true, erroNome: "Inscrição Estadual já cadastrada!", index: 24 })
-        //         setIsLoading(false);
-        //         erroCpfCnpj = true;
-        //     }
-        // })
+        empresas.map(x => {
+            if (x.farmacia.cnpj == dataEdit.farmacia.cnpj && dataEdit.farmacia.cnpj && x.farmacia.id != dataEdit.farmaciaId) {
+                setError({ erro: true, erroNome: "Cnpj já cadastrado!", index: 3 });
+                setIsLoading(false);
+                erroCpfCnpj = true;
+            }
+            if (x.farmacia.inscricaoEstadual == dataEdit.farmacia.inscricaoEstadual && dataEdit.farmacia.inscricaoEstadual && x.farmacia.id != dataEdit.farmacia.id) {
+                setError({ erro: true, erroNome: "Inscrição Estadual já cadastrada!", index: 24 })
+                setIsLoading(false);
+                erroCpfCnpj = true;
+            }
+        })
 
-        // if (erroCpfCnpj) {
-        //     return;
-        // }
+        if (erroCpfCnpj) {
+            return;
+        }
 
         let data = dataEdit
 

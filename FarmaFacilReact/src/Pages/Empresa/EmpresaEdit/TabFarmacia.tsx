@@ -160,8 +160,18 @@ export const TabFarmacia = ({ erros, textParameter }: IData) => {
         setSenhaSNGPC(response.data.farmacia.senhaSNGPC)
         setLicencaFunc(response.data.farmacia.licencaFunc)
         setAutoridadeSanitaria(response.data.farmacia.autoridadeSanitaria)
-        setLicencaMapa(response.data.farmacia.licencaMapa) 
+        setLicencaMapa(response.data.farmacia.licencaMapa)
         
+        setNomeCidade(response.data.farmacia.cidade.nome)
+        setNomeFornecedorInterno(response.data.farmacia.fornecedorInterno.nomeFornecedor)
+
+        setFornecedorInternoId(response.data.farmacia.fornecedorInterno.id)
+        setBairroId(response.data.farmacia.bairro.id)
+        setCidadeId(response.data.farmacia.cidade.id)
+        setEstadoId(response.data.farmacia.estado.id)
+        
+
+
       }
     }
 
@@ -207,34 +217,92 @@ export const TabFarmacia = ({ erros, textParameter }: IData) => {
 
 
   
+  
+  useEffect(() => {
+    const loadDataBairros = async () => {
+      const response = await getAll("ListaBairro");
+      setBairros(response.data);
+    }
+    
+    const loadDataCidades = async () => {
+      const response = await getAll("ListaCidade");
+      setCidades(response.data);
+    }
+    
+    const loadDataEstados = async () => {
+      const response = await getAll("ListaEstado");
+      setEstados(response.data);
+    }
+    
+    const loadDataFornecedores = async () => {
+      const response = await getAll("ListaFornecedor");
+      setFornecedores(response.data);
+    }
+    
+    loadDataBairros();
+    loadDataCidades();
+    loadDataEstados();
+    loadDataFornecedores();
+  }, [])
+
+  useEffect(() => {
+    
+    if (erros.index == 20) {
+      setErroEstadoId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroEstadoId("");
+    }
+    
+    if (erros.index == 21) {
+      setErroCidadeId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroCidadeId("");
+    }
+    
+    if (erros.index == 22) {
+      setErroBairroId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroBairroId("");
+    }
+    
+    if (erros.index == 23) {
+      setErroFornecedorInternoId("Campo de preenchimento obrigatório.");
+    } else {
+      setErroFornecedorInternoId("");
+    }
+  }, [erros])
+  
+  
+  
+  
   useEffect(() => {
     async function PesquisaCep() {
       if (cep.length == 9) {
         const request = await ViaCep(cep.replace(/\.|-/gm, ""));
-
+        
         setLogradouro(request.logradouro);
         setComplemento(request.complemento);
         setDdd(request.ddd);
         setDddCelular(request.ddd);
         setDddWhatsApp(request.ddd);
-
+        
         const estado = estados.filter((x) => x.sigla == request.uf);
-
+        
         if (estado.length > 0) {
           setNomeEstado(request.uf);
           setSiglaEstado(request.uf)
           setEstadoId(estado[0].id);
         }
-
+        
         const cidade = cidades.filter((x) => x.nome == request.localidade);
-
+        
         if (cidade.length > 0) {
           setNomeCidade(request.localidade);
           setCidadeId(cidade[0].id);
         }
-
+        
         const bairro = bairros.filter((x) => x.nome == request.bairro);
-
+        
         if (bairro.length > 0) {
           setNomeBairro(request.bairro);
           setBairroId(bairro[0].id);
@@ -244,60 +312,7 @@ export const TabFarmacia = ({ erros, textParameter }: IData) => {
     PesquisaCep();
   }, [cep]);
 
-  useEffect(() => {
-    const loadDataBairros = async () => {
-      const response = await getAll("ListaBairro");
-      setBairros(response.data);
-    }
-
-    const loadDataCidades = async () => {
-      const response = await getAll("ListaCidade");
-      setCidades(response.data);
-    }
-
-    const loadDataEstados = async () => {
-      const response = await getAll("ListaEstado");
-      setEstados(response.data);
-    }
-
-    const loadDataFornecedores = async () => {
-      const response = await getAll("ListaFornecedor");
-      setFornecedores(response.data);
-    }
-
-    loadDataBairros();
-    loadDataCidades();
-    loadDataEstados();
-    loadDataFornecedores();
-  }, [])
-
-  useEffect(() => {
-
-    if (erros.index == 20) {
-      setErroEstadoId("Campo de preenchimento obrigatório.");
-    } else {
-      setErroEstadoId("");
-    }
-
-    if (erros.index == 21) {
-      setErroCidadeId("Campo de preenchimento obrigatório.");
-    } else {
-      setErroCidadeId("");
-    }
-
-    if (erros.index == 22) {
-      setErroBairroId("Campo de preenchimento obrigatório.");
-    } else {
-      setErroBairroId("");
-    }
-
-    if (erros.index == 23) {
-      setErroFornecedorInternoId("Campo de preenchimento obrigatório.");
-    } else {
-      setErroFornecedorInternoId("");
-    }
-  }, [erros])
-
+  
   return (
     <Container>
       <div className="row">
@@ -390,10 +405,10 @@ export const TabFarmacia = ({ erros, textParameter }: IData) => {
             }
           />
         </div>
-        <div className="col-2">
+        <div className="col-4">
           <CustomDropDown
             data={fornecedores}
-            title="Selecione um Fornecedor"
+            title={nomeFornecedorInterno}
             filter="nomeFornecedor"
             label="Fornecedor Interno"
             required={true}

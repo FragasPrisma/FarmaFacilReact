@@ -5,11 +5,6 @@ import { RadioCustom } from "../../../Components/Inputs/RadioCustom";
 import { Farmacia, IFarmacia } from "../../../Interfaces/Empresa/IFarmacia";
 import { ChangeEvent, useEffect, useState } from "react";
 import { getAll, GetId } from "../../../Services/Api";
-import { IBairro } from "../../../Interfaces/Bairro/IBairro";
-import { ICidade } from "../../../Interfaces/Cidade/ICidade";
-import { IEstado } from "../../../Interfaces/Estado/IEstado";
-import { IFornecedor } from "../../../Interfaces/Fornecedor/IFornecedor";
-import { CustomDropDown } from "../../../Components/Inputs/CustomDropDown";
 import { MaskCep, MaskCnpj, MaskIe, MaskIm, MaskTelefone } from "../../../Mask/Mask";
 import { useParams } from "react-router-dom";
 
@@ -34,7 +29,12 @@ export const TabFarmacia = ({ erros }: IData) => {
   const [telefone, setTelefone] = useState('');
   const [celular, setCelular] = useState('');
 
-  const { id } = useParams();
+  const [nomeCidade, setNomeCidade] = useState('');
+  const [nomeBairro, setNomeBairro] = useState('');
+  const [nomeFornecedorInterno, setNomeFornecedorInterno] = useState('');
+  const [nomeEstado, setNomeEstado] = useState('');
+
+const { id } = useParams();
   let idParams = !id ? "0" : id.toString();
 
   useEffect(() => {
@@ -49,6 +49,11 @@ export const TabFarmacia = ({ erros }: IData) => {
         setWhatsApp(MaskTelefone(response.data.farmacia.whatsApp))
         setTelefone(MaskTelefone(response.data.farmacia.telefone))
         setCelular(MaskTelefone(response.data.farmacia.celular))
+
+        setNomeCidade(response.data.farmacia.cidade.nome)
+        setNomeFornecedorInterno(response.data.farmacia.fornecedorInterno.nomeFornecedor)
+        setNomeEstado(response.data.farmacia.estado.nome)
+        setNomeBairro(response.data.farmacia.bairro.nome)
       }
     }
 
@@ -125,7 +130,7 @@ export const TabFarmacia = ({ erros }: IData) => {
         <CustomInput
            label="Fornecedor"
            type="text"
-           value={tabFarmaciaModel.fornecedorInterno?.nomeFornecedor}
+           value={nomeFornecedorInterno}
            readonly={true}
           />
         </div>
@@ -176,7 +181,7 @@ export const TabFarmacia = ({ erros }: IData) => {
         <CustomInput  
            label="Bairro"
            type="text"
-           value={tabFarmaciaModel.bairro?.nome}
+           value={nomeBairro}
            readonly={true}
           />
         </div>
@@ -184,7 +189,7 @@ export const TabFarmacia = ({ erros }: IData) => {
         <CustomInput  
            label="Cidade"
            type="text"
-           value={tabFarmaciaModel.cidade?.nome}
+           value={nomeCidade}
            readonly={true}
           />
         </div>
@@ -192,7 +197,7 @@ export const TabFarmacia = ({ erros }: IData) => {
           <CustomInput  
            label="Estados"
            type="text"
-           value={tabFarmaciaModel.estado?.sigla}
+           value={nomeEstado}
            readonly={true}
           />
         </div>
