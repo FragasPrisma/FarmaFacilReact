@@ -1,5 +1,4 @@
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
-import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { useEffect, useState } from "react";
 import { getAll, GetId } from "../../Services/Api";
 import Paginations from "../../Components/Others/Pagination";
@@ -8,7 +7,7 @@ import { InverterDate } from "../../helper/InverterDate";
 import { ModalGeneric } from "../../Components/Modals/ModalGeneric";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { ContainerSearch } from "../../Components/Others/SearchContentScreens/styles";
-import Lupa from "../../assets/img/Lupa.png";
+import Lupa from "../../assets/img/lupa.png";
 import { X } from "phosphor-react";
 import { TableDefault } from "../../Components/Others/TableDefault";
 import { useDispatch, useSelector } from "react-redux";
