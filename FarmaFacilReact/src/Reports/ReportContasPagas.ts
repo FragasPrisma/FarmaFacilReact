@@ -19,6 +19,11 @@ export function ReportContasPagas(report: IReport) {
             bold: false,
             alignment: 'left',
         },
+        bodyTableBold: {
+            fontSize: 7,
+            bold: true,
+            alignment: 'left',
+        },
         header: {
             fontSize: 12,
             bold: true,
@@ -65,7 +70,7 @@ export function ReportContasPagas(report: IReport) {
             layout: 'lightHorizontalLines',
             table: {
                 headerRows: 1,
-                style: "tableExample",
+                style:"tableExample",
                 widths: [...report.widths.map(x => {
                     return x
                 })],
@@ -79,6 +84,14 @@ export function ReportContasPagas(report: IReport) {
                     })],
 
                     ...report.dados.map(row => row.map((cell: any) => {
+                        
+                        if(!row[1]){
+                            return {
+                                text: cell,
+                                style: 'bodyTableBold'
+                            }    
+                        }
+
                         return {
                             text: cell,
                             style: 'bodyTable'

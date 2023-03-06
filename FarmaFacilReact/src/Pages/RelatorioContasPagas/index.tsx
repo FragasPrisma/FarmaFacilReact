@@ -6,6 +6,8 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
+import { MessageErro } from "../../Components/Others/MessageError";
 import { InverterDate } from "../../helper/InverterDate";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IFiltroContasPagas } from "../../Interfaces/RelatorioContasPagas/IFiltroContasPagas";
@@ -24,6 +26,7 @@ export function RelatorioContasPagas() {
     const [dataFim, setDataFim] = useState("");
     const [fornecedorId, setFornecedorId] = useState(0);
     const [nomeFornecedor, setNomeFornecedor] = useState("Selecione o fornecedor")
+    const [messageError, setMessageError] = useState("");
 
     const [erroDataInicio, setErroDataInicio] = useState("");
     const [erroDataFim, setErroDataFim] = useState("");
@@ -48,9 +51,25 @@ export function RelatorioContasPagas() {
     }, []);
 
     async function submit() {
+
         setErroDataInicio("");
         setErroDataFim("");
         setIsLoading(true);
+        setMessageError("")
+
+        let dataInicioNumber = parseInt(dataInicio.replaceAll("-", ""));
+        let dataFimNumber = parseInt(dataFim.replaceAll("-", ""));
+
+        if (dataFimNumber < dataInicioNumber) {
+            setIsOpenFail(true);
+            setIsLoading(false);
+            setMessage("Erro ao gerar o relatório, verifique os campos obrigatórios !");
+            setTimeout(() => {
+                setIsOpenFail(false);
+                setMessageError("A data final não poder ser menor que a data inicial.");
+            }, 2000)
+            return;
+        }
 
         if (dataInicio == "") {
             setIsOpenFail(true);
@@ -117,9 +136,39 @@ export function RelatorioContasPagas() {
 
 
     function GerarPdf(data: any[]) {
+
+        let dataPgto: number;
+        let index = 0;
+        let totalValor = 0;
+        let totalPago = 0;
+        let totalDiferenca = 0;
+        let primeiroDia;
+        let totalGeral = 0;
+        let totalGeralPago = 0;
+        let totalGeralDif = 0;
+
         data.map((item: { duplicatasContasAPagar: any[]; fornecedor: { nomeFornecedor: string } }) => {
 
             item.duplicatasContasAPagar.map((x: { dataPagamento: string; dataVencimento: string; observacao: string; valor: number; valorPago: number }) => {
+
+                primeiroDia = parseInt(x.dataPagamento.replaceAll("-", ""))
+
+                if (index > 0 && dataPgto != primeiroDia) {
+                    dadosReport.push([
+                        "Total do dia",
+                        "",
+                        "",
+                        "",
+                        totalValor.toFixed(2),
+                        totalPago.toFixed(2),
+                        "",
+                        totalDiferenca.toFixed(2)
+                    ])
+
+                    totalValor = 0;
+                    totalPago = 0;
+                    totalDiferenca = 0;
+                }
 
                 let nomeFornecedor = "";
                 let dataPagamento = "";
@@ -128,11 +177,12 @@ export function RelatorioContasPagas() {
                     nomeFornecedor = item.fornecedor.nomeFornecedor
                 }
                 if (x.dataPagamento) {
-                    dataPagamento = x.dataPagamento
+                    dataPagamento = x.dataPagamento.slice(0, 10)
                 }
 
-                let dataVcto = parseInt(x.dataVencimento.replaceAll("-", ""));
-                let dataPgto = parseInt(dataPagamento.replaceAll("-", ""));
+
+                let dataVcto = parseInt(x.dataVencimento.slice(0, 10).replaceAll("-", ""));
+                dataPgto = parseInt(dataPagamento.replaceAll("-", ""));
 
                 dadosReport.push(
                     [
@@ -146,8 +196,39 @@ export function RelatorioContasPagas() {
                         (x.valorPago - x.valor).toFixed(2).toString()
                     ]
                 )
+                totalGeral += x.valor;
+                totalGeralPago += x.valorPago;  
+                totalGeralDif += (x.valorPago - x.valor);
+                totalValor += x.valor;
+                totalPago += x.valorPago;
+                totalDiferenca += (x.valorPago - x.valor);
+
+                index += 1;
             })
+
         })
+
+        dadosReport.push([
+            "Total do dia",
+            "",
+            "",
+            "",
+            totalValor.toFixed(2),
+            totalPago.toFixed(2),
+            "",
+            totalDiferenca.toFixed(2)
+        ])
+
+        dadosReport.push([
+            "Total Geral",
+            "",
+            "",
+            "",
+            totalGeral.toFixed(2),
+            totalGeralPago.toFixed(2),
+            "",
+            totalGeralDif.toFixed(2)
+        ])
 
         let dataReport: IReport = {
             title: classificacao == 1 ? "Duplicatas Pagas Por Vencimento" : "Duplicatas Pagas Por Pagamento",
@@ -177,7 +258,7 @@ export function RelatorioContasPagas() {
                     </FieldsetCustom>
                 </div>
                 <div className="row mt-2">
-                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={4}>
+                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={5}>
                         <div className="row">
                             <div className="col-12 mt-2 mb-2">
                                 <CustomDropDown
@@ -225,6 +306,8 @@ export function RelatorioContasPagas() {
                             </div>
                         </div>
                     </FieldsetCustom>
+                    <MessageErro message={messageError} />
+                    <LabelObrigatorio />
                 </div>
                 <div className="row">
                     <div className="col-6">

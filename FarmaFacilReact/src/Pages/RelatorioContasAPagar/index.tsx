@@ -6,6 +6,8 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
+import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
+import { MessageErro } from "../../Components/Others/MessageError";
 import { InverterDate } from "../../helper/InverterDate";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
@@ -27,9 +29,13 @@ export function RelatorioContasAPagar() {
 
     const [erroDataInicio, setErroDataInicio] = useState("");
     const [erroDataFim, setErroDataFim] = useState("");
-
+    const [messageError, setMessageError] = useState("");
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [planoDeContas, setPlanoDeContas] = useState([] as IPlanoDeconta[]);
+    const [message, setMessage] = useState("");
+
+    const [nomeFornecedor, setNomeFornecedor] = useState("Selecione o fornecedor")
+    const [nomePlano, setNomePlano] = useState("Selecione o plano de contas")
 
     const filtroData: IFiltroContasAPagar = {
         fornecedorId: 0,
@@ -57,9 +63,24 @@ export function RelatorioContasAPagar() {
     }, []);
 
     async function submit() {
+
         setErroDataInicio("");
         setErroDataFim("");
         setIsLoading(true);
+        setMessageError("")
+
+        let dataInicioNumber = parseInt(dataInicio.replaceAll("-", ""));
+        let dataFimNumber = parseInt(dataFim.replaceAll("-", ""));
+
+        if (dataFimNumber < dataInicioNumber) {
+            setIsOpenFail(true);
+            setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+                setMessageError("A data final não poder ser menor que a data inicial.");
+            }, 2000)
+            return;
+        }
 
         if (dataInicio == "") {
             setIsOpenFail(true);
@@ -90,27 +111,44 @@ export function RelatorioContasAPagar() {
         if (filtroData.classificacao == 0) {
             const response = await postFormAll("RelatorioContasAPagarPorPlanoDeContas", filtroData);
             if (response.status === 200) {
-                GerarPdf(response.data);
-                setIsLoading(false);
+                if (response.data.length > 0) {
+                    GerarPdf(response.data);
+                } else {
+                    setMessage("Nenhuma ocorrência para Duplicatas Pagas !")
+                    setIsOpenFail(true);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setIsOpenFail(false);
+                    }, 2000)
+                }
             }
             setIsLoading(false);
         } else {
             const response = await postFormAll("RelatorioContasAPagarPorFornecedor", filtroData);
             if (response.status === 200) {
-                GerarPdf(response.data);
-                setIsLoading(false);
+                if (response.data.length > 0) {
+                    GerarPdf(response.data);
+                } else {
+                    setMessage("Nenhuma ocorrência para Duplicatas Pagas !")
+                    setIsOpenFail(true);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setIsOpenFail(false);
+                    }, 2000)
+                }
             }
             setIsLoading(false);
         }
     }
 
     function GerarPdf(data: any[]) {
+        
         data.map((item: { duplicatasContasAPagar: any[]; fornecedor: { nomeFornecedor: string } }) => {
 
             item.duplicatasContasAPagar.map((x: { dataVencimento: string; numeroFatura: string; valor: number }) => {
 
                 let nomeFornecedor = "";
-                
+
                 if (item.fornecedor) {
                     nomeFornecedor = item.fornecedor.nomeFornecedor
                 }
@@ -126,11 +164,11 @@ export function RelatorioContasAPagar() {
         })
 
         let dataReport: IReport = {
-            title: classificacao == 1 ? "Duplicatas Pagas Por Vencimento" : "Duplicatas Pagas Por Pagamento",
+            title: classificacao == 1 ? "Duplicatas a Pagar Fornecedor" : "Duplicatas a Pagar",
             nomeEmpresa: "Concept Pharma",
             perido: { dataInicial: dataInicio, dataFinal: dataFim },
-            cabecalho: ["Vcto","Duplicata", "Fornecedor","Valor"],
-            widths: ["15%","15%","50%","20%"],
+            cabecalho: ["Venc", "Duplicata", "Fornecedor", "Valor(R$)"],
+            widths: ["15%", "15%", "50%", "20%"],
             dados: dadosReport
         }
 
@@ -139,7 +177,7 @@ export function RelatorioContasAPagar() {
 
     return (
         <>
-            <HeaderMainContent title="Relatório Contas a Pagar" IncludeButton={false} ReturnButton={false} />
+            <HeaderMainContent title="Relatório A Pagar" IncludeButton={false} ReturnButton={false} />
             <Container>
                 <div className="row mt-4">
                     <FieldsetCustom legend="Classificação" borderAll={true} numberCols={2}>
@@ -153,33 +191,36 @@ export function RelatorioContasAPagar() {
                     </FieldsetCustom>
                 </div>
                 <div className="row mt-2">
-                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={4}>
+                    <FieldsetCustom legend="Seleção" borderAll={true} numberCols={5}>
                         <div className="row">
                             <div className="col-12 mt-2 mb-2">
-                                {classificacao == 1 &&
-                                    <CustomDropDown
-                                        data={fornecedores}
-                                        title="Selecione o Fornecedor"
-                                        filter="nomeFornecedor"
-                                        label="Fornecedor"
-                                        Select={(fornecedorId) => setFornecedorId(fornecedorId)}
-                                    />
-                                }
-                                {classificacao == 0 &&
-                                    <CustomDropDown
-                                        data={planoDeContas}
-                                        title="Selecione o Plano de Contas"
-                                        filter="descricao"
-                                        label="Plano de Contas"
-                                        Select={(planoDeContasId) => setPlanoDeContasId(planoDeContasId)}
-                                    />
-                                }
+                                <CustomDropDown
+                                    data={classificacao == 1 ? fornecedores : planoDeContas}
+                                    title={classificacao == 1 ? nomeFornecedor : nomePlano}
+                                    filter={classificacao == 1 ? "nomeFornecedor" : "descricao"}
+                                    label={classificacao == 1 ? "Fornecedor" : "Plano de contas"}
+                                    Select={(id, nome) => {
+                                        if (classificacao == 1) {
+                                            setFornecedorId(id)
+                                            setNomeFornecedor(nome)
+                                        } else {
+                                            setPlanoDeContasId(id)
+                                            setNomePlano(nome)
+                                        }
+                                    }}
+                                    RemoveSelect={() => {
+                                        setFornecedorId(0)
+                                        setNomeFornecedor("Selecione o fornecedor")
+                                        setPlanoDeContasId(0)
+                                        setNomePlano("Selecione o plano de contas")
+                                    }}
+                                />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-6 mb-2">
                                 <CustomInput
-                                    label="Data Inicio"
+                                    label="Data inicial"
                                     type="date"
                                     erro={erroDataInicio}
                                     index={1}
@@ -192,7 +233,7 @@ export function RelatorioContasAPagar() {
                             </div>
                             <div className="col-6 mb-2">
                                 <CustomInput
-                                    label="Data Fim"
+                                    label="Data final"
                                     type="date"
                                     index={2}
                                     erro={erroDataFim}
@@ -205,6 +246,8 @@ export function RelatorioContasAPagar() {
                             </div>
                         </div>
                     </FieldsetCustom>
+                    <MessageErro message={messageError} />
+                    <LabelObrigatorio />
                 </div>
                 <div className="row">
                     <div className="col-6">
@@ -212,7 +255,7 @@ export function RelatorioContasAPagar() {
                     </div>
                 </div>
             </Container>
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Erro ao gerar relatório confira os campos do filtro" />
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={message} />
         </>
     )
 }
