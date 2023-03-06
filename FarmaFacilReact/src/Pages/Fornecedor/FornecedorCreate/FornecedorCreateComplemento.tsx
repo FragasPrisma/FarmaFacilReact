@@ -124,6 +124,7 @@ export function FornecedorCreateComplemento({ textParam }: IData) {
                         filter="nome"
                         label="Banco"
                         Select={(bancoId, select) => { setBancoId(bancoId), setNomeBanco(select) }}
+                        RemoveSelect={() => {setBancoId(null), setNomeBanco("Selecione o banco")}}
                     />
                 </div>
                 <div className="col-2">
@@ -245,6 +246,7 @@ export function FornecedorCreateComplemento({ textParam }: IData) {
                         filter="descricao"
                         label="Plano de Contas"
                         Select={(planoId, select) => { setPlanoDeContaId(planoId), setNomePlano(select) }}
+                        RemoveSelect={() => {setPlanoDeContaId(null), setNomePlano("Selecione o plano de contas")}}
                     />
                 </div>
             </div>

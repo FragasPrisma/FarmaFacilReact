@@ -54,7 +54,9 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
     const [observacoes, setObservacoes] = useState(fornecedorModel.observacoes);
     const [host, setHost] = useState(fornecedorModel.hostFornecedor);
     const [usuario, setUsuario] = useState(fornecedorModel.usuarioFornecedor);
-    const [senha, setSenha] = useState(fornecedorModel.senhaFornecedor)
+    const [senha, setSenha] = useState(fornecedorModel.senhaFornecedor);
+    const [nomeBancoTitle,setNomeBancoTitle]=useState(nomeBanco ? nomeBanco : "Selecione o banco");
+    const [nomePlano,setNomePlano]=useState(nomePLanoDeConta ? nomePLanoDeConta : "Selecione o plano de contas");
     const [bancos, setBancos] = useState([] as IBanco []);
     const [contas, setContas] = useState([] as IPlanoDeconta []);
 
@@ -98,11 +100,17 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                 <div className="col-4">
                     <CustomDropDown
                         data={bancos}
-                        title={nomeBanco ? nomeBanco : "Selecione o Banco"}
+                        title={nomeBancoTitle}
                         filter="nome"
                         label="Banco"
-                        Select={(bancoId) => setBancoId(bancoId)}
-                        titleEdit="Selecione o banco"
+                        Select={(bancoId,nomeBanco) => {
+                            setBancoId(bancoId)
+                            setNomeBancoTitle(nomeBanco)
+                        }}
+                        RemoveSelect={() => {
+                            setBancoId(null)
+                            setNomeBancoTitle("Selecione o banco")
+                        }}
                     />
                 </div>
                 <div className="col-2">
@@ -220,11 +228,17 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                 <div className="col-4">
                     <CustomDropDown
                         data={contas}
-                        title={nomePLanoDeConta ? nomePLanoDeConta : "Selecione o plano de contas"}
+                        title={nomePlano}
                         filter="descricao"
                         label="Plano de Contas"
-                        Select={(planoId) => setPlanoDeContaId(planoId)}
-                        titleEdit="Selecione o plano de contas"
+                        Select={(planoId, nomePLanoDeContas) => {
+                            setPlanoDeContaId(planoId)
+                            setNomePlano(nomePLanoDeContas)
+                        }}
+                        RemoveSelect={() => {
+                            setPlanoDeContaId(null)
+                            setNomePlano("Selecione o plano de contas")
+                        }}
                     />
                 </div>
             </div>

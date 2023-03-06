@@ -141,7 +141,7 @@ export function FornecedorEditGeral({ erros, fornecedorModel, nomeBairroParam, n
     fornecedorGeralEdit.cnpj = cnpj.replace(/[-/.]/g, "");
     fornecedorGeralEdit.cpf = cpf.replace(/[-/.]/g, "");
     fornecedorGeralEdit.inscricaoEstadual = inscricaoEstadual.replace(/[-/.]/g, "");
-    fornecedorGeralEdit.cep = cep.replace(/[-/.]/g, "");
+    fornecedorGeralEdit.cep = cep ? cep.replace(/[-/.]/g, "") : "";
     fornecedorGeralEdit.endereco = endereco;
     fornecedorGeralEdit.numeroEndereco = numeroEndereco;
     fornecedorGeralEdit.complemento = complemento;
