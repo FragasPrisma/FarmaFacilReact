@@ -16,7 +16,7 @@ import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container, FooterGridTotal } from "./styles";
-import { DataGrid, GridCellParams, GridEditCellPropsParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, GridValueGetterParams } from '@mui/x-data-grid'
+import { DataGrid, GridEditCellPropsParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
 import Box from '@mui/material/Box';
 import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
 import { ICompra } from "../../Interfaces/Compras/ICompra";
@@ -24,7 +24,6 @@ import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { ThemeProvider } from '@mui/material/styles';
 import { setTheme } from "../../helper/GridsTranslate/TranslateFunctions";
 import { setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
-import { optionCSS } from "react-select/dist/declarations/src/components/Option";
 import { IProduto } from "../../Interfaces/Produto/IProduto";
 import { IEmpresa } from "../../Interfaces/Empresa/IEmpresa";
 import { ButtonRemoveItems } from "../../Components/Buttons/ButtonRemoveItems";
@@ -36,7 +35,8 @@ export function ManutencaoCompras() {
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingFilter, setIsLoadingFilter] = useState(false);
     const [isLoadingRemoveItems, setIsLoadingRemoveItems] = useState(false);
-    
+
+    const [textFail, setTextFail] = useState("");
 
     const [tipo, setTipo] = useState(0);
     const [tipoDemanda, setTipoDemanda] = useState(0);
@@ -407,45 +407,113 @@ export function ManutencaoCompras() {
     }, [tipoValor])
 
     async function filtrar() {
+        let validation = false;
         setIsLoadingFilter(true);
 
-        dataFiltro.tipoCompra = tipo;
-        dataFiltro.tipoDemanda = tipo == 2 ? tipoDemanda : null;
-        dataFiltro.vendaDe = readonlyVendaDe == false ? vendaDe : null;
-        dataFiltro.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : null;
-        dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : null;
-        dataFiltro.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : null;
-        dataFiltro.curvaAbc = curvaAbc;
-        dataFiltro.consideraEncomendaFaltas = consideraEncomendaFaltas;
-        dataFiltro.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
-        dataFiltro.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
-        dataFiltro.tipoValor = tipoValor;
-        dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
-        dataFiltro.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
-        dataFiltro.laboratorioId = laboratorioId;
-        dataFiltro.fornecedoresIds = fornecedoresIds;
-        dataFiltro.gruposIds = gruposIds;
-        dataFiltro.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
-        dataFiltro.empresaId = empresaId;
-        dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
+        switch (tipo) {
+            case 0:
+                setTextFail("Escolha um tipo para realizar a sugestão de compra!");
+                setIsOpenFail(true);
+                setIsLoadingFilter(false);
+                break;
+            case 1:
+                if (vendaDe == null || vendaDe == "" || vendaAte == null || vendaAte == "") {
+                    setTextFail("Para o tipo Venda é obrigatório informar a data inicial e final!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if (vendaDeHora == null || vendaDeHora == "" || vendaAteHora == null || vendaAteHora == "") {
+                    setTextFail("Para o tipo Venda é obrigatório informar a hora inicial e final!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
+                break;
+            case 2:
+                if (vendaDeHora == null || vendaDeHora == "" || vendaAteHora == null || vendaAteHora == "") {
+                    setTextFail("Para o tipo Demanda é obrigatório informar a hora inicial e final!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if (tempoDeRep <= 0) {
+                    setTextFail("Para o tipo Demanda é obrigatório informar o tempo de reposição!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if ((vendaDe == null || vendaDe == "") && (vendaAte == null || vendaAte == "")) {
+                    setTextFail("Para o tipo Demanda o intervalo de data deve ser maior que um dia!")
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
+                break;
+            case 3:
+                validation = true;
+                break;
+            case 4:
+                validation = true;
+                break;
+            case 5:
+                if (vendaDe == null || vendaDe == "" || vendaAte == null || vendaAte == "") {
+                    setTextFail("Para o tipo Consumo é obrigatório informar a data inicial e final!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if (gruposIds.length == 0) {
+                    setTextFail("Para o tipo Consumo é obrigatório informar o código do grupo!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if (quantidadeDias == 0) {
+                    setTextFail("Para o tipo Consumo é obrigatório informar quantidade de dias!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
+                break;
+            case 6:
+                validation = true;
+                break;
+        }
 
-        const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
+        if (validation) {
+            dataFiltro.tipoCompra = tipo;
+            dataFiltro.tipoDemanda = tipo == 2 ? tipoDemanda : null;
+            dataFiltro.vendaDe = readonlyVendaDe == false ? vendaDe : null;
+            dataFiltro.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : null;
+            dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : null;
+            dataFiltro.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : null;
+            dataFiltro.curvaAbc = curvaAbc;
+            dataFiltro.consideraEncomendaFaltas = consideraEncomendaFaltas;
+            dataFiltro.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
+            dataFiltro.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
+            dataFiltro.tipoValor = tipoValor;
+            dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
+            dataFiltro.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
+            dataFiltro.laboratorioId = laboratorioId;
+            dataFiltro.fornecedoresIds = fornecedoresIds;
+            dataFiltro.gruposIds = gruposIds;
+            dataFiltro.produtosIds = produtosIds;
+            dataFiltro.empresaId = empresaId;
+            dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
 
-        if (response.status === 200) {
+            const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
-            response.data.value.map((x :{fornecedorId : number}) => {
-                fornecedoresIds.push(x.fornecedorId)
-            })
+            if (response.status === 200) {
 
-            setFornecedoresIds([...fornecedoresIds])
-            setIsLoadingFilter(false);
-            setItemsCompras(response.data.value);
-        } else {
-            setIsOpenFail(true);
-            setIsLoadingFilter(false);
-            setTimeout(() => {
-                setIsOpenFail(false);
-            }, 2000)
+                response.data.value.map((x: { fornecedorId: number }) => {
+                    fornecedoresIds.push(x.fornecedorId)
+                })
+
+                setFornecedoresIds([...fornecedoresIds])
+                setIsLoadingFilter(false);
+                setItemsCompras(response.data.value);
+            } else {
+                setTextFail("Ops! Tivemos um problema em gerar as sugestões de compra!");
+                setIsOpenFail(true);
+                setIsLoadingFilter(false);
+                setTimeout(() => {
+                    setIsOpenFail(false);
+                }, 2000)
+            }
         }
     }
 
@@ -474,7 +542,7 @@ export function ManutencaoCompras() {
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
         data.itensCompras = itemsComprasConfirmadas;
-        
+
         const response = await postFormAll("AdicionarCompra", data);
 
         if (response.status === 200) {
@@ -488,7 +556,7 @@ export function ManutencaoCompras() {
         }
     }
 
-    function removerItems(confirmation: boolean)  {
+    function removerItems(confirmation: boolean) {
         if (confirmation) {
             setItemsCompras([]);
             setIsOpenConfirmModal(false);
@@ -702,7 +770,7 @@ export function ManutencaoCompras() {
                         <ButtonFilter onCLick={filtrar} isLoading={isLoadingFilter} />
                     </div>
                     <div className="col-3 mt-2">
-                        <ButtonRemoveItems onCLick={() => setIsOpenConfirmModal(true)} isLoading={isLoadingRemoveItems}/>
+                        <ButtonRemoveItems onCLick={() => setIsOpenConfirmModal(true)} isLoading={isLoadingRemoveItems} />
                     </div>
                 </div>
             </Container>
@@ -717,8 +785,8 @@ export function ManutencaoCompras() {
                                         columns={columns}
                                         onEditCellPropsChange={handleEditCellChange}
                                         editMode="row"
-                                        components={{ 
-                                            Toolbar: CustomToolbar, 
+                                        components={{
+                                            Toolbar: CustomToolbar,
                                         }}
                                         localeText={setTranslate()}
                                         columnVisibilityModel={{
@@ -741,8 +809,8 @@ export function ManutencaoCompras() {
                     <ButtonConfirm onCLick={submit} isLoading={isLoading} />
                 </div>
             </div>
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
-            <ConfirmModal openModal={isOpenConfirmModal} onClose={(confirmation: boolean) => removerItems(confirmation)} text="Confirmar exclusão da lista de produtos?"/>
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={textFail} />
+            <ConfirmModal openModal={isOpenConfirmModal} onClose={(confirmation: boolean) => removerItems(confirmation)} text="Confirmar exclusão da lista de produtos?" />
         </>
     )
 }
