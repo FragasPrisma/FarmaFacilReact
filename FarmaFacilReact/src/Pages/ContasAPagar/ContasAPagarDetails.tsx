@@ -81,6 +81,7 @@ export function ContasAPagarDetails() {
                                     value={duplicata.numeroFatura}
                                     readonly={true}
                                     required={true}
+                                    textAlign={true}
                                 />
                             </div>
                         </div>
@@ -141,6 +142,7 @@ export function ContasAPagarDetails() {
                                     value={duplicata.valor}
                                     required={true}
                                     readonly={true}
+                                    textAlign={true}
                                 />
                             </div>
                         </div>
@@ -162,6 +164,7 @@ export function ContasAPagarDetails() {
                                         value={duplicata.valorPago}
                                         required={true}
                                         readonly={true}
+                                        textAlign={true}
                                     />
                                 </div>
                             </div>

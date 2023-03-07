@@ -27,7 +27,7 @@ export function ReportContasPagas(report: IReport) {
         header: {
             fontSize: 12,
             bold: true,
-            alignment: 'left',
+            alignment: 'center',
             margin: [0, 10, 0, 5],
         },
         subheader: {
@@ -48,28 +48,16 @@ export function ReportContasPagas(report: IReport) {
 
     const details = [
         {
-            style: ['header', 'quote'],
-            
-            table:{
-                
-                widths: [300, 185],
-                heights: [30, 30],
-                body:[
-                    [report.nomeEmpresa,`Data:${new Date().toLocaleDateString()}`],
-                    [{stack:[report.title]},{stack:[`Hora: ${new Date().toLocaleTimeString()}`]}]
-                ],
-
-            }
-            // columns: [
-            //     {
-            //         text: `${report.nomeEmpresa} \n\n ${report.title} \n\n`,
-            //         style: ['header', 'quote']
-            //     },
-            //     {
-            //         text: `Data:${new Date().toLocaleDateString()} \n\n Hora: ${new Date().toLocaleTimeString()} \n\n`,
-            //         style: ['subheader']
-            //     }
-            // ]
+            columns: [
+                {
+                    text: `${report.nomeEmpresa} \n\n ${report.title} \n\n`,
+                    style: ['header', 'quote']
+                },
+                {
+                    text: `Data:${new Date().toLocaleDateString()} \n\n Hora: ${new Date().toLocaleTimeString()} \n\n`,
+                    style: ['subheader']
+                }
+            ]
         },
         {
             columns: [

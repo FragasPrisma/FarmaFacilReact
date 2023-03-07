@@ -21,6 +21,7 @@ import { InverterDate } from "../../helper/InverterDate";
 import { InvertDateJSON } from "../../helper/InvertDateJSON";
 import { ButtonCustomIncluir } from "../../Components/Buttons/ButtonCustom";
 import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
+import { MessageErro } from "../../Components/Others/MessageError";
 
 export function ContasAPagarCreate() {
 
@@ -172,8 +173,8 @@ export function ContasAPagarCreate() {
             valorTotal = parseFloat((valorTotal + item.valor).toFixed(2));
         })
 
-        if (valorTotal > valor) {
-            setErroValor(`O valor do documento R$ ${valor} não confere com total das duplicatas R$ ${valorTotal}`)
+        if (valorTotal != valor) {
+            setErroValor(`O valor do documento de R$ ${valor} não confere com total das duplicatas R$ ${valorTotal} .`)
             data.duplicatasContasAPagar.map((item) => {
                 item.dataVencimento = InverterDate(item.dataVencimento)
             })
@@ -469,10 +470,10 @@ export function ContasAPagarCreate() {
                                 <ButtonCustomIncluir text="Gerar parcelas" onCLick={() => GerarParcelas()} width={8} height={2.1} />
                             </div>
                             {erroValor &&
-                                <span className="text-danger mb-3">{erroValor}</span>
+                                <MessageErro message={erroValor}/>
                             }
                             {erroDate &&
-                                <span className="text-danger mb-3">{erroDate}</span>
+                                <MessageErro message={erroDate} />
                             }
                         </div>
                         <FieldsetCustom legend="Duplicatas" borderAll={true} numberCols={6}>
