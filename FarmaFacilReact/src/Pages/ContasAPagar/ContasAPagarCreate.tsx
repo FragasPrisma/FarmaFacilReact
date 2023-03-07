@@ -294,7 +294,7 @@ export function ContasAPagarCreate() {
         item.valor = valorNovo;
         item.dataVencimento = dataVencimentoNova;
 
-        duplicatas[index].valor = item.valor;
+        duplicatas[index].valor = MaxLengthNumber(9999999999.99,item.valor);
         duplicatas[index].dataVencimento = InverterDate(dataVencimentoNova);
 
         setDuplicatas([...duplicatas])
@@ -508,6 +508,7 @@ export function ContasAPagarCreate() {
                                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                             EditDuplicata(itemDuplicataEdit, parseFloat(e.target.value), InvertDateJSON(itemDuplicataEdit.dataVencimento))
                                         }
+                                        textAlign={true}
                                     />
                                 </div>
                                 <div className="col-6">
