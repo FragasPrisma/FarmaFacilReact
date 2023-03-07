@@ -8,15 +8,15 @@ import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
-import { IItemsCompras } from "../../Interfaces/Compras/IItemsCompra";
-import { IManutencaoCompras } from "../../Interfaces/Compras/IFiltroCompras";
+import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
+import { IFiltroCompras } from "../../Interfaces/Compras/IFiltroCompras";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { GetId } from "../../Services/Api";
 import { Container } from "./styles";
 
 export function ManutencaoComprasDetails() {
-    const [filtro, setFiltro] = useState({} as IManutencaoCompras)
+    const [filtro, setFiltro] = useState({} as IFiltroCompras)
 
     const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
@@ -24,7 +24,7 @@ export function ManutencaoComprasDetails() {
 
     const [descricaoLaboratorio, setDescricaoLaboratorio] = useState(0);
 
-    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompras[]);
+    const [itemsCompras, setItemsCompras] = useState([] as IItemsCompra[]);
 
     const columns = [
         { field: "id", headerName: "Id", width: 60 },
@@ -87,12 +87,12 @@ export function ManutencaoComprasDetails() {
                         <CustomInput
                             label="Tipo"
                             type="text"
-                            value={filtro.tipo}
+                            value={filtro.tipoCompra}
                             readonly={true}
                         />
                     </div>
                     <div className="col-2">
-                        {filtro.tipo == "Demanda" &&
+                        {filtro.tipoCompra == 2 &&
                             <RadioCustom
                                 name="Tipo Demanda"
                                 options={["Estoque Mínimo", "Estoque Máximo"]}

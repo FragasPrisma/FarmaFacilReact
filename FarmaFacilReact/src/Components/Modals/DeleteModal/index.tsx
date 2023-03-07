@@ -1,3 +1,4 @@
+import { X } from "phosphor-react";
 import { useState } from "react";
 import { Modal, ModalBody } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -93,7 +94,7 @@ export function DeleteModal({
           <Container>
             <div className="div_text">
               <div className="div_btn">
-                <CloseButton onClick={closeModal}>{"X"}</CloseButton>
+                <CloseButton onClick={closeModal}><X size={32} color="#d34545" weight="duotone"/></CloseButton>
               </div>
               <MensageDefault>
                 {textInformationModal == null

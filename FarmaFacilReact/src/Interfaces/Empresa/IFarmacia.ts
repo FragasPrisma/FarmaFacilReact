@@ -1,9 +1,5 @@
-import { IFornecedor } from "./../Fornecedor/IFornecedor";
-import { IBairro } from "./../Bairro/IBairro";
-import { ICidade } from "./../Cidade/ICidade";
-import { IEstado } from "./../Estado/IEstado";
 export interface IFarmacia {
-  Id: number;
+  id: number;
   razaoSocial: string;
   nomeFantasia: string;
   cnpj: string;
@@ -34,18 +30,10 @@ export interface IFarmacia {
   autoridadeSanitaria: string;
   licencaMapa: string;
   fornecedorInternoId: number;
-
-  fornecedorInterno: IFornecedor;
-  bairro: IBairro;
-  cidade: ICidade;
-  estado: IEstado;
-
-  //FarmaceuticosAutorizados: number;
-  //FilialPagamentoId: number;
 }
 
 export let Farmacia = {
-  Id: 0,
+  id: 0,
   razaoSocial: "",
   nomeFantasia: "",
   cnpj: "",
@@ -76,72 +64,4 @@ export let Farmacia = {
   autoridadeSanitaria: "",
   licencaMapa: "",
   fornecedorInternoId: 0,
-
-  // fornecedorInterno: {
-  //   id: 0,
-  //   nomeFornecedor: "",
-  //   nomeFantasia: "",
-  //   cnpj: "",
-  //   cpf: "",
-  //   inscricaoEstadual: "",
-  //   cep: "",
-  //   endereco: "",
-  //   numeroEndereco: "",
-  //   complemento: "",
-  //   bairroId: 0,
-  //   cidadeId: 0,
-  //   estadoId: 0,
-  //   ddd: "",
-  //   telefone: "",
-  //   celular: "",
-  //   dddCelular: "",
-  //   email: "",
-  //   homePage: "",
-  //   contato: "",
-  //   telefoneContato: "",
-  //   bancoId: 0,
-  //   agencia: "",
-  //   contaCorrenteFornecedor: "",
-  //   responsavelTecnico: "",
-  //   alvaraSanitario: "",
-  //   autorizacaoFuncionamento: "",
-  //   autorizacaoEspecial: "",
-  //   licencaMapa: "",
-  //   cadastroFarmacia: "",
-  //   planoDeContaId: 0,
-  //   valorMinimoPedido: 0,
-  //   formaPagamento: "",
-  //   previsaoEntrega: 0,
-  //   frete: "",
-  //   observacoes: "",
-  //   usuarioFornecedor: "",
-  //   senhaFornecedor: "",
-  //   hostFornecedor: "",
-  //   contribuinte: 0,
-  // },
-  // bairro: {
-  //   id: 0,
-  //   nome: "",
-  // },
-  // cidade: {
-  //   id: 0,
-  //   nome: "",
-  //   codigoIbge: 0,
-  //   codigoCfpsId: 0,
-  //   codigoSiafi: 0,
-  // },
-  // estado: {
-  //   id: 0,
-  //   nome: "",
-  //   sigla: "",
-  //   aliquotaIcmsEstado: 0,
-  //   aliquotaFcpEstado: 0,
-  //   difalComCalculoPorDentro: true,
-  //   difalComCalculoDeIsento: true,
-  //   checagemContribuinteIsento: true,
-  //   paisId: 0,
-  // },
-
-  //FarmaceuticosAutorizados: 0,
-  //FilialPagamentoId: 0
 };

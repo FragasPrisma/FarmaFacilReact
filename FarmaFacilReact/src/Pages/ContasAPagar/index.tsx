@@ -7,7 +7,7 @@ import { InverterDate } from "../../helper/InverterDate";
 import { ModalGeneric } from "../../Components/Modals/ModalGeneric";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { ContainerSearch } from "../../Components/Others/SearchContentScreens/styles";
-import Lupa from "../../assets/img/Lupa.png";
+import Lupa from "../../assets/img/lupa.png";
 import { X } from "phosphor-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
