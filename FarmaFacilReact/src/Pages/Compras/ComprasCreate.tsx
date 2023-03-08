@@ -512,7 +512,7 @@ export function ManutencaoCompras() {
             dataFiltro.produtosIds = produtosIds;
             dataFiltro.empresaId = empresaId;
             dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
-
+            console.log(dataFiltro)
             const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
             if (response.status === 200) {
