@@ -197,6 +197,7 @@ export function ContasAPagarEdit() {
                                         setPlanoDeContaId(null)
                                         setNomePlanoDeContas("Selecione o plano de contas")
                                     }}
+                                    placeHolder="descrição"
                                 />
                             </div>
                         </div>

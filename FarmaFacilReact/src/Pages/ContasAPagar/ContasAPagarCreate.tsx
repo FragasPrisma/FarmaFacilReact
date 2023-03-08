@@ -323,6 +323,7 @@ export function ContasAPagarCreate() {
                                     setFornecedorId(0)
                                     setNomeFornecdor("Selecione o fornecedor")
                                 }}
+                                placeHolder="nome"
                             />
                         </div>
                         <div className="col-3">
@@ -356,6 +357,7 @@ export function ContasAPagarCreate() {
                                     setPlanoDeContaId(null)
                                     setNomePlanoDeContas("Selecione o plano de contas")
                                 }}
+                                placeHolder="descrição"
                             />
                         </div>
                     </div>
