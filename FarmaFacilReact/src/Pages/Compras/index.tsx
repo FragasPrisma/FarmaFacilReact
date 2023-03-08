@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
-import Paginations from "../../Components/Others/Pagination";
-import { SearchContentScreens } from "../../Components/Others/SearchContentScreens";
 import { setTheme, setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
-import { getAll, postFormAll } from "../../Services/Api";
+import { getAll} from "../../Services/Api";
 import { ThemeProvider } from '@mui/material/styles';
 import { Box } from "@mui/material";
 import FileCopyIcon from '@mui/icons-material/FileCopy';
@@ -15,7 +13,7 @@ import PlagiarismIcon from '@mui/icons-material/Plagiarism';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { DataGrid, GridActionsCellItem, GridRowId, GridRowParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from "@mui/x-data-grid";
 import React from "react";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getCurvaAbcString, getStatusCompraString, getTipoCompraString } from "../../helper/TransformaEnum";
 
 export function Compras() {
@@ -71,14 +69,14 @@ export function Compras() {
 
     const visualizarCompra = React.useCallback(
         (id: GridRowId) => () => {
-            navigate(`/compras/edit/${id}`)
+            navigate(`/compras/details/${id}`)
         },
         [],
     )
 
     const editarCompra = React.useCallback(
         (id: GridRowId) => () => {
-            navigate(`/compras/details/${id}`)
+            navigate(`/compras/edit/${id}`)
         },
         [],
     )
