@@ -205,7 +205,7 @@ export function ManutencaoComprasEdit() {
         data.gruposIds = gruposIds;
         data.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
 
-        console.log("Data:", data);
+       // console.log("Data:", data);
 
         //const response = await postFormAll("", data);
 

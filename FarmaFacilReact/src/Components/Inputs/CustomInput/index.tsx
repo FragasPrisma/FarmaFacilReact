@@ -38,14 +38,14 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
 
     return (
         <ContainerInput >
-            <div className="containerAbc">
-                <div className="container_sup">
+            <div className="containerAbc" style={{ backgroundColor: readonly ? "var(--readonly)" : "#ececec"}}>
+                <div className="container_sup" >
                     <label className="label_text">{label}</label>
                     {required &&
                         <LabelRequired>*</LabelRequired>
                     }
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", height: "calc(100% - 0.8rem)" }}>
+                
                     <InputCustomized
                         type={type}
                         step={step}
@@ -61,20 +61,8 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                             paddingRight: textAlign ? ".5rem" : "0"
                         }}
                     />
-                    {readonly &&
-                        <OverlayTrigger
-                            key={1}
-                            overlay={
-                                <Tooltip id={`tooltip-top`}>
-                                    {"Campo não editavel"}
-                                </Tooltip>
-                            }
-                        >
-                            <Button variant=""><label><Question size={18} style={{ marginRight: ".5rem", cursor: "pointer" }} /></label></Button>
-                        </OverlayTrigger>
-
-                    }
-                </div>
+                   
+            
             </div>
             {errosParameter?.erro && errosParameter.index == index &&
                 <div className="row divError">

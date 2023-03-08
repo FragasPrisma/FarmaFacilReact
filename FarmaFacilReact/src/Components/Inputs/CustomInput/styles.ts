@@ -16,7 +16,7 @@ export const ContainerInput = styled.div`
         border-bottom: 3px solid black;
         border-radius: 4px;
         height: 59px;
-        background-color: #ECECEC;
+       // background-color: #ECECEC;
     }
 
     .text-danger-erro{
@@ -38,7 +38,7 @@ export const ContainerInput = styled.div`
         height: 1rem;
         padding-top: 0.2rem;
         display: flex;
-        background-color: #ECECEC;
+      //  background-color: #ECECEC;
     }
 `
 

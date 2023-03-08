@@ -43,8 +43,8 @@ export function Compras() {
     }
 
     const consultarPedido = React.useCallback(
-        (id: GridRowId) => () => {
-            navigate(`/compras/pedidoCompra/${id}`)
+        () => () => {
+            navigate(`/compras/consultarPedido`)
         },
         [],
     )
@@ -143,7 +143,7 @@ export function Compras() {
                 />,
                 <GridActionsCellItem 
                     icon={<PlagiarismIcon />} 
-                    onClick={consultarPedido(params.id)} 
+                    onClick={consultarPedido()} 
                     label="Consultar Pedido"
                     showInMenu
                 />,
