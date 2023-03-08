@@ -27,7 +27,8 @@ export function ReportContasPagas(report: IReport) {
         header: {
             fontSize: 12,
             bold: true,
-            alignment: 'left',
+            alignment: 'center',
+            margin: [0, 10, 0, 5],
         },
         subheader: {
             fontSize: 8,

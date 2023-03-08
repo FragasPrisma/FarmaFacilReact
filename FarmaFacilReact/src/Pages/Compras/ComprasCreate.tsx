@@ -10,13 +10,11 @@ import { SelectInput } from "../../Components/Inputs/SelectInput";
 import { FailModal } from "../../Components/Modals/FailModal";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
-import { IFiltroCompras } from "../../Interfaces/Compras/IFiltroCompras";
-import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { ILaboratorio } from "../../Interfaces/Laboratorio/ILaboratorio";
 import { getAll, postFormAll } from "../../Services/Api";
 import { Container, FooterGridTotal } from "./styles";
-import { DataGrid, GridCellParams, GridEditCellPropsParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, GridValueGetterParams } from '@mui/x-data-grid'
+import { DataGrid, GridEditCellPropsParams, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from '@mui/x-data-grid'
 import Box from '@mui/material/Box';
 import { IItemsCompra } from "../../Interfaces/Compras/IItemsCompra";
 import { ICompra } from "../../Interfaces/Compras/ICompra";
@@ -24,11 +22,12 @@ import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { ThemeProvider } from '@mui/material/styles';
 import { setTheme } from "../../helper/GridsTranslate/TranslateFunctions";
 import { setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
-import { optionCSS } from "react-select/dist/declarations/src/components/Option";
 import { IProduto } from "../../Interfaces/Produto/IProduto";
 import { IEmpresa } from "../../Interfaces/Empresa/IEmpresa";
 import { ButtonRemoveItems } from "../../Components/Buttons/ButtonRemoveItems";
 import { ConfirmModal } from "../../Components/Modals/ConfirmModal";
+import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
+import { IFiltroCompras } from "../../Interfaces/Compras/IFiltroCompras";
 
 export function ManutencaoCompras() {
     const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
@@ -36,14 +35,13 @@ export function ManutencaoCompras() {
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingFilter, setIsLoadingFilter] = useState(false);
     const [isLoadingRemoveItems, setIsLoadingRemoveItems] = useState(false);
-    
+
+    const [textFail, setTextFail] = useState("");
 
     const [tipo, setTipo] = useState(0);
     const [tipoDemanda, setTipoDemanda] = useState(0);
     const [vendaDe, setVendaDe] = useState<string | null>(null);
-    const [vendaDeHora, setVendaDeHora] = useState<string | null>(null);
     const [vendaAte, setVendaAte] = useState<string | null>(null);
-    const [vendaAteHora, setVendaAteHora] = useState<string | null>(null);
     const [curvaAbc, setCurvaAbc] = useState(0);
     const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(true);
     const [tempoDeRep, setTempoDeRep] = useState(0);
@@ -59,9 +57,7 @@ export function ManutencaoCompras() {
     const [considerarApenasEmpresaSelecionada, setConsiderarApenasEmpresaSelecionada] = useState(false);
 
     const [readonlyVendaDe, setReadonlyVendaDe] = useState(false);
-    const [readonlyVendaDeHora, setReadonlyVendaDeHora] = useState(false);
     const [readonlyVendaAte, setReadonlyVendaAte] = useState(false);
-    const [readonlyVendaAteHora, setReadonlyVendaAteHora] = useState(false);
     const [readonlyTempoDeRep, setReadonlyTempoDeRep] = useState(false);
     const [readonlyQuantidadeDias, setReadonlyQuantidadeDias] = useState(false);
     const [readonlyAPartirDe, setReadonlyAPartirDe] = useState(false);
@@ -71,7 +67,8 @@ export function ManutencaoCompras() {
     const [hideConsumoDiario, setHideConsumoDiario] = useState(false);
     const [hideLaboratorio, setHideLaboratorio] = useState(true);
 
-    const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
+    const [fornecedoresIniciais, setFornecedoresIniciais] = useState([] as any[]);
+    const [fornecedores, setFornecedores] = useState([] as any[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
     const [empresas, setEmpresas] = useState([] as IEmpresa[]);
@@ -87,12 +84,10 @@ export function ManutencaoCompras() {
         tipoCompra: 0,
         tipoDemanda: null,
         vendaDe: "",
-        vendaDeHora: "",
         vendaAte: "",
-        vendaAteHora: "",
         curvaAbc: 0,
         consideraEncomendaFaltas: true,
-        tempoDeRep: 0,
+        tempoDeReposicao: 0,
         quantidadeDias: 0,
         tipoValor: 0,
         aPartirDe: "",
@@ -115,9 +110,7 @@ export function ManutencaoCompras() {
         tipoCompra: 0,
         tipoDemanda: null,
         vendaDe: "",
-        vendaDeHora: "",
         vendaAte: "",
-        vendaAteHora: "",
         curvaAbc: 0,
         consideraEncomendaFaltas: true,
         tempoDeReposicao: 0,
@@ -320,9 +313,7 @@ export function ManutencaoCompras() {
     useEffect(() => {
         if (tipo == 1) {
             setReadonlyVendaDe(false);
-            setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
-            setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
             setHideLaboratorio(true);
@@ -331,9 +322,7 @@ export function ManutencaoCompras() {
             setHideConsumoDiario(false);
         } else if (tipo == 2) {
             setReadonlyVendaDe(false);
-            setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
-            setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(true);
             setHideLaboratorio(true);
@@ -342,9 +331,7 @@ export function ManutencaoCompras() {
             setHideConsumoDiario(false);
         } else if (tipo == 3) {
             setReadonlyVendaDe(true);
-            setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(true);
-            setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
             setHideLaboratorio(true);
@@ -353,9 +340,7 @@ export function ManutencaoCompras() {
             setHideConsumoDiario(false);
         } else if (tipo == 4) {
             setReadonlyVendaDe(true);
-            setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
-            setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
             setHideLaboratorio(true);
@@ -364,9 +349,7 @@ export function ManutencaoCompras() {
             setHideConsumoDiario(false);
         } else if (tipo == 5) {
             setReadonlyVendaDe(false);
-            setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(false);
-            setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(false);
             setHideLaboratorio(false);
@@ -375,9 +358,7 @@ export function ManutencaoCompras() {
             setHideConsumoDiario(true);
         } else if (tipo == 6) {
             setReadonlyVendaDe(true);
-            setReadonlyVendaDeHora(true);
             setReadonlyVendaAte(true);
-            setReadonlyVendaAteHora(true);
             setReadonlyTempoDeRep(true);
             setReadonlyQuantidadeDias(true);
             setHideLaboratorio(true);
@@ -386,9 +367,7 @@ export function ManutencaoCompras() {
             setHideConsumoDiario(false);
         } else {
             setReadonlyVendaDe(false);
-            setReadonlyVendaDeHora(false);
             setReadonlyVendaAte(false);
-            setReadonlyVendaAteHora(false);
             setReadonlyTempoDeRep(false);
             setReadonlyQuantidadeDias(false);
             setHideLaboratorio(true);
@@ -406,60 +385,138 @@ export function ManutencaoCompras() {
         }
     }, [tipoValor])
 
+    const popularFornecedoresIniciais = () => {
+        if (fornecedores.length == 0 || fornecedoresIds.length == 0) {
+            return
+        }
+
+        var listaFornecedoresIniciais: any[] = [];
+
+        fornecedoresIds.map((item) => {
+            let dado = fornecedores.find(x => x.value == item);
+            listaFornecedoresIniciais.push(dado);
+        })
+
+        setFornecedoresIniciais(listaFornecedoresIniciais);
+    }
+
+
     async function filtrar() {
+        let validation = false;
         setIsLoadingFilter(true);
 
-        dataFiltro.tipoCompra = tipo;
-        dataFiltro.tipoDemanda = tipo == 2 ? tipoDemanda : null;
-        dataFiltro.vendaDe = readonlyVendaDe == false ? vendaDe : null;
-        dataFiltro.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : null;
-        dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : null;
-        dataFiltro.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : null;
-        dataFiltro.curvaAbc = curvaAbc;
-        dataFiltro.consideraEncomendaFaltas = consideraEncomendaFaltas;
-        dataFiltro.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
-        dataFiltro.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
-        dataFiltro.tipoValor = tipoValor;
-        dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
-        dataFiltro.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
-        dataFiltro.laboratorioId = laboratorioId;
-        dataFiltro.fornecedoresIds = fornecedoresIds;
-        dataFiltro.gruposIds = gruposIds;
-        dataFiltro.produtosIds = [] //Preencher com dados mocados, ainda não temos componente
-        dataFiltro.empresaId = empresaId;
-        dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
+        switch (tipo) {
+            case 0:
+                setTextFail("Escolha um tipo para realizar a sugestão de compra!");
+                setIsOpenFail(true);
+                setIsLoadingFilter(false);
+                break;
+            case 1:
+                if (vendaDe == null || vendaDe == "" || vendaAte == null || vendaAte == "") {
+                    setTextFail("Para o tipo Venda é obrigatório informar a data inicial e final!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
+                break;
+            case 2:
+                if (tempoDeRep <= 0) {
+                    setTextFail("Para o tipo Demanda é obrigatório informar o tempo de reposição!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if ((vendaDe == null || vendaDe == "") && (vendaAte == null || vendaAte == "")) {
+                    setTextFail("Para o tipo Demanda o intervalo de data deve ser maior que um dia!")
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
+                break;
+            case 3:
+                validation = true;
+                break;
+            case 4:
+                validation = true;
+                break;
+            case 5:
+                if (vendaDe == null || vendaDe == "" || vendaAte == null || vendaAte == "") {
+                    setTextFail("Para o tipo Consumo é obrigatório informar a data inicial e final!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if (gruposIds.length == 0) {
+                    setTextFail("Para o tipo Consumo é obrigatório informar o código do grupo!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else if (quantidadeDias == 0) {
+                    setTextFail("Para o tipo Consumo é obrigatório informar quantidade de dias!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
+                break;
+            case 6:
+                validation = true;
+                break;
+        }
 
-        const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
+        if (validation) {
+            dataFiltro.tipoCompra = tipo;
+            dataFiltro.tipoDemanda = tipo == 2 ? tipoDemanda : null;
+            dataFiltro.vendaDe = readonlyVendaDe == false ? vendaDe : null;
+            dataFiltro.vendaAte = readonlyVendaAte == false ? vendaAte : null;
+            dataFiltro.curvaAbc = curvaAbc;
+            dataFiltro.consideraEncomendaFaltas = consideraEncomendaFaltas;
+            dataFiltro.tempoDeReposicao = readonlyTempoDeRep == false ? tempoDeRep : 0;
+            dataFiltro.quantidadeDias = readonlyQuantidadeDias == false ? quantidadeDias : 0;
+            dataFiltro.tipoValor = tipoValor;
+            dataFiltro.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
+            dataFiltro.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
+            dataFiltro.laboratorioId = laboratorioId;
+            dataFiltro.fornecedoresIds = fornecedoresIds;
+            dataFiltro.gruposIds = gruposIds;
+            dataFiltro.produtosIds = produtosIds;
+            dataFiltro.empresaId = empresaId;
+            dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
+            console.log(dataFiltro)
+            const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
-        if (response.status === 200) {
+            if (response.status === 200) {
 
-            response.data.value.map((x :{fornecedorId : number}) => {
-                fornecedoresIds.push(x.fornecedorId)
-            })
+                response.data.map((x: { fornecedorId: number }) => {
 
-            setFornecedoresIds([...fornecedoresIds])
-            setIsLoadingFilter(false);
-            setItemsCompras(response.data.value);
-        } else {
-            setIsOpenFail(true);
-            setIsLoadingFilter(false);
-            setTimeout(() => {
-                setIsOpenFail(false);
-            }, 2000)
+                    if (x.fornecedorId != 0) {
+                        fornecedoresIds.push(x.fornecedorId)
+                    }
+                })
+
+                setFornecedoresIds(fornecedoresIds);
+                popularFornecedoresIniciais();
+                setIsLoadingFilter(false);
+                setItemsCompras(response.data);
+            } else {
+                setTextFail("Ops! Tivemos um problema em gerar as sugestões de compra!");
+                setIsOpenFail(true);
+                setIsLoadingFilter(false);
+                setTimeout(() => {
+                    setIsOpenFail(false);
+                }, 5000)
+            }
         }
     }
 
     async function submit() {
         setIsLoading(true);
 
+        const idsFornecedores = [...new Set(fornecedoresIds)];
+
         data.id = 0;
         data.itensCompras = itemsCompras;
         data.tipoCompra = tipo;
         data.tipoDemanda = tipo == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
-        data.vendaDeHora = "";//readonlyVendaDeHora == false ? vendaDeHora : "";
         data.vendaAte = readonlyVendaAte == false ? vendaAte : "";
-        data.vendaAteHora = "";//readonlyVendaAteHora == false ? vendaAteHora : "";
         data.curvaAbc = curvaAbc;
         data.consideraEncomendaFaltas = consideraEncomendaFaltas;
         data.tempoDeReposicao = readonlyTempoDeRep == false ? tempoDeRep : 0;
@@ -468,13 +525,13 @@ export function ManutencaoCompras() {
         data.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
         data.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
         data.laboratorioId = laboratorioId ? laboratorioId : null;
-        data.fornecedoresIds = fornecedoresIds.filter(x => x > 0);
+        data.fornecedoresIds = idsFornecedores;
         data.gruposIds = gruposIds;
         data.produtosIds = produtosIds;
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
         data.itensCompras = itemsComprasConfirmadas;
-        
+
         const response = await postFormAll("AdicionarCompra", data);
 
         if (response.status === 200) {
@@ -488,7 +545,7 @@ export function ManutencaoCompras() {
         }
     }
 
-    function removerItems(confirmation: boolean)  {
+    function removerItems(confirmation: boolean) {
         if (confirmation) {
             setItemsCompras([]);
             setIsOpenConfirmModal(false);
@@ -500,7 +557,7 @@ export function ManutencaoCompras() {
 
     return (
         <>
-            <HeaderMainContent title="Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
+            <HeaderMainContent title="Incluir Compra" IncludeButton={false} ReturnButton={false} />
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">
@@ -525,7 +582,7 @@ export function ManutencaoCompras() {
                     <div className="col-2 mt-4">
                         <CustomInput
                             label="Venda de"
-                            type="date"
+                            type="datetime-local"
                             value={vendaDe}
                             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setVendaDe(e.target.value)
@@ -533,22 +590,10 @@ export function ManutencaoCompras() {
                             readonly={readonlyVendaDe}
                         />
                     </div>
-                    <div className="col-1 mt-4">
-                        <CustomInput
-                            label="Hora"
-                            type="time"
-                            placeholder="00:00"
-                            value={vendaDeHora}
-                            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setVendaDeHora(e.target.value)
-                            }
-                            readonly={readonlyVendaDeHora}
-                        />
-                    </div>
                     <div className="col-2 mt-4">
                         <CustomInput
                             label="Venda até"
-                            type="date"
+                            type="datetime-local"
                             value={vendaAte}
                             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setVendaAte(e.target.value)
@@ -556,19 +601,7 @@ export function ManutencaoCompras() {
                             readonly={readonlyVendaAte}
                         />
                     </div>
-                    <div className="col-1 mt-4">
-                        <CustomInput
-                            label="Hora"
-                            type="time"
-                            placeholder="00:00"
-                            value={vendaAteHora}
-                            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setVendaAteHora(e.target.value)
-                            }
-                            readonly={readonlyVendaAteHora}
-                        />
-                    </div>
-                    <div className="col-1 mt-4">
+                    <div className="col-2 mt-4">
                         <CustomInput
                             label="Tempo de Rep"
                             type="number"
@@ -579,7 +612,7 @@ export function ManutencaoCompras() {
                             readonly={readonlyTempoDeRep}
                         />
                     </div>
-                    <div className="col-1 mt-4">
+                    <div className="col-2 mt-4">
                         <CustomInput
                             label="Quantidade de dias"
                             type="number"
@@ -603,27 +636,13 @@ export function ManutencaoCompras() {
                     <div className="col-2">
 
                     </div>
-                    <div className="col-2">
+                    <div className="col-4">
                         <CustomDropDown
                             data={laboratorios}
                             title="Selecione os Laboratorios"
                             filter="descricao"
                             label="Laboratório"
                             Select={(laboratorioId) => setLaboratorioId(laboratorioId)}
-                        />
-                    </div>
-                    <div className="col-2 mt-3">
-                        <CheckboxCustom
-                            options={["Considerar Encomenda/Faltas"]}
-                            check={consideraEncomendaFaltas}
-                            onClickOptions={(e) => setConsideraEncomendaFaltas(e.target.checked)}
-                        />
-                    </div>
-                    <div className="col-3 mt-3">
-                        <CheckboxCustom
-                            options={["Saldo com Quantidade Comprometida"]}
-                            check={saldoQuantidadeComprometida}
-                            onClickOptions={(e) => setSaldoQuantidadeComprometida(e.target.checked)}
                         />
                     </div>
                 </div>
@@ -648,24 +667,21 @@ export function ManutencaoCompras() {
                             readonly={readonlyAPartirDe}
                         />
                     </div>
-                    <div className="col-4 mt-4">
-                        <MultiSelect
-                            label="Grupos"
-                            title="Grupos"
-                            data={grupos}
-                            isMultiple={true}
-                            Select={(gruposIds) => setGruposIds(gruposIds)}
-                            placeholder="Selecione o(s) grupo(s)"
+                    <div className="col-4 mt-3">
+                        <CheckboxCustom
+                            options={["Considerar apenas empresa selecionada"]}
+                            check={considerarApenasEmpresaSelecionada}
+                            onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConsiderarApenasEmpresaSelecionada(e.target.checked)}
                         />
-                    </div>
-                    <div className="col-4 mt-4">
-                        <MultiSelect
-                            label="Fornecedores"
-                            title="Fornecedores"
-                            data={fornecedores}
-                            isMultiple={true}
-                            Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
-                            placeholder="Selecione o(s) fornecedor(es)"
+                        <CheckboxCustom
+                            options={["Considerar Encomenda/Faltas"]}
+                            check={consideraEncomendaFaltas}
+                            onClickOptions={(e) => setConsideraEncomendaFaltas(e.target.checked)}
+                        />
+                        <CheckboxCustom
+                            options={["Saldo com Quantidade Comprometida"]}
+                            check={saldoQuantidadeComprometida}
+                            onClickOptions={(e) => setSaldoQuantidadeComprometida(e.target.checked)}
                         />
                     </div>
                 </div>
@@ -681,6 +697,29 @@ export function ManutencaoCompras() {
                         />}
                     </div>
                     <div className="col-4">
+                        <MultiSelect
+                            label="Grupos"
+                            title="Grupos"
+                            data={grupos}
+                            isMultiple={true}
+                            Select={(gruposIds) => setGruposIds(gruposIds)}
+                            placeholder="Selecione o(s) grupo(s)"
+                        />
+                    </div>
+                    <div className="col-4">
+                        <MultiSelect
+                            label="Fornecedores"
+                            title="Fornecedores"
+                            data={fornecedores}
+                            isMultiple={true}
+                            inicialData={fornecedoresIniciais}
+                            Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
+                            placeholder="Selecione o(s) fornecedor(es)"
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-4">
                         {/* { <CustomDropDown
                             data={empresas}
                             title="Selecione a Empresa"
@@ -689,20 +728,11 @@ export function ManutencaoCompras() {
                             Select={(empresaId) => setEmpresaId(empresaId)}
                         /> } */}
                     </div>
-                    <div className="col-3">
-                        <CheckboxCustom
-                            options={["Considerar apenas empresa selecionada"]}
-                            check={considerarApenasEmpresaSelecionada}
-                            onClickOptions={(e: ChangeEvent<HTMLInputElement>) => setConsiderarApenasEmpresaSelecionada(e.target.checked)}
-                        />
-                    </div>
                 </div>
                 <div className="row">
-                    <div className="col-3 mt-2">
+                    <div className="col-4 mt-2">
                         <ButtonFilter onCLick={filtrar} isLoading={isLoadingFilter} />
-                    </div>
-                    <div className="col-3 mt-2">
-                        <ButtonRemoveItems onCLick={() => setIsOpenConfirmModal(true)} isLoading={isLoadingRemoveItems}/>
+                        <ButtonRemoveItems onCLick={() => setIsOpenConfirmModal(true)} isLoading={isLoadingRemoveItems} />
                     </div>
                 </div>
             </Container>
@@ -717,8 +747,8 @@ export function ManutencaoCompras() {
                                         columns={columns}
                                         onEditCellPropsChange={handleEditCellChange}
                                         editMode="row"
-                                        components={{ 
-                                            Toolbar: CustomToolbar, 
+                                        components={{
+                                            Toolbar: CustomToolbar,
                                         }}
                                         localeText={setTranslate()}
                                         columnVisibilityModel={{
@@ -739,10 +769,11 @@ export function ManutencaoCompras() {
             <div className="row">
                 <div className="col-4 mb-2 mt-2">
                     <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                    <ButtonCancel to="compras" />
                 </div>
             </div>
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
-            <ConfirmModal openModal={isOpenConfirmModal} onClose={(confirmation: boolean) => removerItems(confirmation)} text="Confirmar exclusão da lista de produtos?"/>
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={textFail} />
+            <ConfirmModal openModal={isOpenConfirmModal} onClose={(confirmation: boolean) => removerItems(confirmation)} text="Confirmar exclusão da lista de produtos?" />
         </>
     )
 }

@@ -1,13 +1,11 @@
 export interface IFiltroCompras {
-    tipoCompra: number,                                           // Tipo
+    tipoCompra: number,                                     // Tipo
     tipoDemanda: number | null,                             // EstoqueMáximo e Minimo
     vendaDe: string | null,                                 // DataInicial
-    vendaDeHora: string | null,                             // HoraInicial
     vendaAte: string | null,                                // DataFinal
-    vendaAteHora: string | null,                            // HoraFinal
     curvaAbc: number,                                       // CurvaAbc
     consideraEncomendaFaltas: boolean,                      // Encomenda
-    tempoDeRep: number,                                     // TempoReposicao
+    tempoDeReposicao: number,                               // TempoReposicao
     quantidadeDias: number,                                 // PedidoPara
     tipoValor: number,                                      // TipoValor
     aPartirDe: string | null,                               // DataReferencia

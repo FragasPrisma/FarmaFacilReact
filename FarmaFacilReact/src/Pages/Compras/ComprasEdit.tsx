@@ -32,9 +32,7 @@ export function ManutencaoComprasEdit() {
     const [tipoCompra, setTipoCompra] = useState(filtro.tipoCompra);
     const [tipoDemanda, setTipoDemanda] = useState(filtro.tipoDemanda);
     const [vendaDe, setVendaDe] = useState(filtro.vendaDe);
-    const [vendaDeHora, setVendaDeHora] = useState(filtro.vendaDeHora);
     const [vendaAte, setVendaAte] = useState(filtro.vendaAte);
-    const [vendaAteHora, setVendaAteHora] = useState(filtro.vendaAteHora);
     const [curvaAbc, setCurvaAbc] = useState(filtro.curvaAbc);
     const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(filtro.consideraEncomendaFaltas);
     const [tempoDeRep, setTempoDeRep] = useState(filtro.tempoDeRep);
@@ -190,9 +188,7 @@ export function ManutencaoComprasEdit() {
         data.tipoCompra = tipoCompra;
         data.tipoDemanda = tipoCompra == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
-        data.vendaDeHora = readonlyVendaDeHora == false ? vendaDeHora : "";
         data.vendaAte = readonlyVendaAte == false ? vendaAte : "";
-        data.vendaAteHora = readonlyVendaAteHora == false ? vendaAteHora : "";
         data.curvaAbc = curvaAbc;
         data.consideraEncomendaFaltas = consideraEncomendaFaltas;
         data.tempoDeRep = readonlyTempoDeRep == false ? tempoDeRep : 0;
@@ -227,7 +223,7 @@ export function ManutencaoComprasEdit() {
 
     return (
         <>
-            <HeaderMainContent title="Editar Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
+            <HeaderMainContent title="Editar Compra" IncludeButton={false} ReturnButton={true} to="compras" />
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">
@@ -259,18 +255,6 @@ export function ManutencaoComprasEdit() {
                             readonly={readonlyVendaDe}
                         />
                     </div>
-                    <div className="col-1 mt-4">
-                        <CustomInput
-                            label="Hora"
-                            type="time"
-                            placeholder="00:00"
-                            value={vendaDeHora}
-                            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setVendaDeHora(e.target.value)
-                            }
-                            readonly={readonlyVendaDeHora}
-                        />
-                    </div>
                     <div className="col-2 mt-4">
                         <CustomInput
                             label="Venda até"
@@ -280,18 +264,6 @@ export function ManutencaoComprasEdit() {
                                 setVendaAte(e.target.value)
                             }
                             readonly={readonlyVendaAte}
-                        />
-                    </div>
-                    <div className="col-1 mt-4">
-                        <CustomInput
-                            label="Hora"
-                            type="time"
-                            placeholder="00:00"
-                            value={vendaAteHora}
-                            OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setVendaAteHora(e.target.value)
-                            }
-                            readonly={readonlyVendaAteHora}
                         />
                     </div>
                     <div className="col-1 mt-4">
