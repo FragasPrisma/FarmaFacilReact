@@ -28,6 +28,7 @@ import { IProduto } from "../../Interfaces/Produto/IProduto";
 import { IEmpresa } from "../../Interfaces/Empresa/IEmpresa";
 import { ButtonRemoveItems } from "../../Components/Buttons/ButtonRemoveItems";
 import { ConfirmModal } from "../../Components/Modals/ConfirmModal";
+import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
 
 export function ManutencaoCompras() {
     const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
@@ -71,7 +72,8 @@ export function ManutencaoCompras() {
     const [hideConsumoDiario, setHideConsumoDiario] = useState(false);
     const [hideLaboratorio, setHideLaboratorio] = useState(true);
 
-    const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
+    const [fornecedoresIniciais, setFornecedoresIniciais] = useState([] as any[]);
+    const [fornecedores, setFornecedores] = useState([] as any[]);
     const [laboratorios, setLaboratorios] = useState([] as ILaboratorio[]);
     const [grupos, setGrupos] = useState([] as IGrupo[]);
     const [empresas, setEmpresas] = useState([] as IEmpresa[]);
@@ -406,6 +408,22 @@ export function ManutencaoCompras() {
         }
     }, [tipoValor])
 
+    const popularFornecedoresIniciais = () => {
+        if (fornecedores.length == 0 || fornecedoresIds.length == 0) {
+            return
+        }
+
+        var listaFornecedoresIniciais: any[] = [];
+
+        fornecedoresIds.map((item) => {
+            let dado = fornecedores.find(x => x.value == item);
+            listaFornecedoresIniciais.push(dado);
+        })
+
+        setFornecedoresIniciais(listaFornecedoresIniciais);
+    }
+
+
     async function filtrar() {
         let validation = false;
         setIsLoadingFilter(true);
@@ -499,26 +517,33 @@ export function ManutencaoCompras() {
 
             if (response.status === 200) {
 
-                response.data.value.map((x: { fornecedorId: number }) => {
-                    fornecedoresIds.push(x.fornecedorId)
+                response.data.map((x: { fornecedorId: number }) => {
+
+                    if (x.fornecedorId != 0) {
+                        fornecedoresIds.push(x.fornecedorId)
+                    }
                 })
 
-                setFornecedoresIds([...fornecedoresIds])
+                setFornecedoresIds(fornecedoresIds);
+                popularFornecedoresIniciais();
                 setIsLoadingFilter(false);
-                setItemsCompras(response.data.value);
+                console.log(response.data)
+                setItemsCompras(response.data);
             } else {
                 setTextFail("Ops! Tivemos um problema em gerar as sugestões de compra!");
                 setIsOpenFail(true);
                 setIsLoadingFilter(false);
                 setTimeout(() => {
                     setIsOpenFail(false);
-                }, 2000)
+                }, 5000)
             }
         }
     }
 
     async function submit() {
         setIsLoading(true);
+
+        const idsFornecedores = [...new Set(fornecedoresIds)];
 
         data.id = 0;
         data.itensCompras = itemsCompras;
@@ -536,12 +561,14 @@ export function ManutencaoCompras() {
         data.aPartirDe = readonlyAPartirDe == false ? aPartirDe : null;
         data.saldoQuantidadeComprometida = saldoQuantidadeComprometida;
         data.laboratorioId = laboratorioId ? laboratorioId : null;
-        data.fornecedoresIds = fornecedoresIds.filter(x => x > 0);
+        data.fornecedoresIds = idsFornecedores;
         data.gruposIds = gruposIds;
         data.produtosIds = produtosIds;
         data.empresaId = empresaId;
         data.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
         data.itensCompras = itemsComprasConfirmadas;
+
+        
 
         const response = await postFormAll("AdicionarCompra", data);
 
@@ -568,7 +595,7 @@ export function ManutencaoCompras() {
 
     return (
         <>
-            <HeaderMainContent title="Manutenção de Compra" IncludeButton={false} ReturnButton={true} to="compras" />
+            <HeaderMainContent title="Incluir Compra" IncludeButton={false} ReturnButton={false} />
             <Container>
                 <div className="row">
                     <div className="col-2 mt-4">
@@ -732,6 +759,7 @@ export function ManutencaoCompras() {
                             title="Fornecedores"
                             data={fornecedores}
                             isMultiple={true}
+                            inicialData={fornecedoresIniciais}
                             Select={(fornecedoresIds) => setFornecedoresIds(fornecedoresIds)}
                             placeholder="Selecione o(s) fornecedor(es)"
                         />
@@ -766,10 +794,8 @@ export function ManutencaoCompras() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-3 mt-2">
+                    <div className="col-4 mt-2">
                         <ButtonFilter onCLick={filtrar} isLoading={isLoadingFilter} />
-                    </div>
-                    <div className="col-3 mt-2">
                         <ButtonRemoveItems onCLick={() => setIsOpenConfirmModal(true)} isLoading={isLoadingRemoveItems} />
                     </div>
                 </div>
@@ -807,6 +833,7 @@ export function ManutencaoCompras() {
             <div className="row">
                 <div className="col-4 mb-2 mt-2">
                     <ButtonConfirm onCLick={submit} isLoading={isLoading} />
+                    <ButtonCancel to="compras" />
                 </div>
             </div>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={textFail} />
