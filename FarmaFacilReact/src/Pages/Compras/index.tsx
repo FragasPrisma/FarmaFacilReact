@@ -26,7 +26,6 @@ export function Compras() {
     useEffect(() => {
         const Init = async () => {
             const request = await getAll("ListaCompra");
-            console.log(request.data)
             setCompras(request.data);
         }
 

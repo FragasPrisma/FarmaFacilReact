@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Select, { MultiValue } from 'react-select'
 import makeAnimated from "react-select/animated";
 import { ContainerSuperiorDropDown, CustomDropDownContainer } from './styles';
@@ -23,7 +23,7 @@ export function MultiSelect(props: IProps) {
 
     useEffect(() => {
         if (props.inicialData && props.inicialData.length > 0) {
-            setItemsSelecionados(props.inicialData);
+            setItemsSelecionados([...props.inicialData]);
         }
     }, [props.inicialData]);
 
@@ -31,7 +31,7 @@ export function MultiSelect(props: IProps) {
         let listIds: number[] = [];
 
         itemsSelecionados.map((item: any) => {
-            listIds.push(item.value);
+            listIds.push(item?.value);
         })
 
         props.Select(listIds)

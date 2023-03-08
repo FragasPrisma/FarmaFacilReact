@@ -8,8 +8,7 @@ export const ButtonRemoveItemsMain = styled.button`
     height: 2.3rem;
     border: none;
     border-radius: 4px;
-
-    
+    margin-left: 1rem;
 
     .text_link {
     color: inherit;
