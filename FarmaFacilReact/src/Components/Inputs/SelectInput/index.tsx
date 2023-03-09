@@ -7,7 +7,7 @@ interface Props {
     required?: boolean;
     erro?: string;
     Select: (string: any) => void
-    valueEdit?: string;
+    valueEdit?: string | number;
     selectString?: boolean
 }
 

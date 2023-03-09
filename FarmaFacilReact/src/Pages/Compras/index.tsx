@@ -94,21 +94,21 @@ export function Compras() {
         },
         {   field: "tipoCompra", 
             headerName: "Tipo", 
-            width: 200, 
+            width: 150, 
             valueGetter: ({ row }: any) => {  
                 return getTipoCompraString(row.tipoCompra);
             },
         },
         {   field: "curvaAbc", 
             headerName: "Curva", 
-            width: 200,
+            width: 150,
             valueGetter: ({ row }: any) => {  
                 return getCurvaAbcString(row.curvaAbc);
             },
         },
         {   field: "totalCompra", 
             headerName: "Total", 
-            width: 200 
+            width: 150
         },
         {   field: "statusCompra", 
             headerName: "Status Pedido/Cotação",

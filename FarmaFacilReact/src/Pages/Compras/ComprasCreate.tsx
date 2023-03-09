@@ -43,7 +43,7 @@ export function ManutencaoCompras() {
     const [vendaDe, setVendaDe] = useState<string | null>(null);
     const [vendaAte, setVendaAte] = useState<string | null>(null);
     const [curvaAbc, setCurvaAbc] = useState(0);
-    const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(true);
+    const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(false);
     const [tempoDeRep, setTempoDeRep] = useState(0);
     const [quantidadeDias, setQuantidadeDias] = useState(0);
     const [tipoValor, setTipoValor] = useState(0);
@@ -512,7 +512,6 @@ export function ManutencaoCompras() {
         const idsFornecedores = [...new Set(fornecedoresIds)];
 
         data.id = 0;
-        data.itensCompras = itemsCompras;
         data.tipoCompra = tipo;
         data.tipoDemanda = tipo == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
