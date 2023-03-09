@@ -466,6 +466,10 @@ export function ManutencaoComprasEdit() {
                     setTextFail("Para o tipo Venda é obrigatório informar a data inicial e final!");
                     setIsOpenFail(true);
                     setIsLoadingFilter(false);
+                } else if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
                 } else {
                     validation = true;
                 }
@@ -479,15 +483,31 @@ export function ManutencaoComprasEdit() {
                     setTextFail("Para o tipo Demanda o intervalo de data deve ser maior que um dia!")
                     setIsOpenFail(true);
                     setIsLoadingFilter(false);
+                } else if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
                 } else {
                     validation = true;
                 }
                 break;
             case 3:
-                validation = true;
+                if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
                 break;
             case 4:
-                validation = true;
+                if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
                 break;
             case 5:
                 if (vendaDe == null || vendaDe == "" || vendaAte == null || vendaAte == "") {
@@ -502,12 +522,22 @@ export function ManutencaoComprasEdit() {
                     setTextFail("Para o tipo Consumo é obrigatório informar quantidade de dias!");
                     setIsOpenFail(true);
                     setIsLoadingFilter(false);
+                } else if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
                 } else {
                     validation = true;
                 }
                 break;
             case 6:
-                validation = true;
+                if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
                 break;
         }
 
