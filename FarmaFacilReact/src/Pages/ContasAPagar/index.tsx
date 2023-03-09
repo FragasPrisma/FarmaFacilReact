@@ -9,13 +9,13 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { ContainerSearch } from "../../Components/Others/SearchContentScreens/styles";
 import Lupa from "../../assets/img/lupa.png";
 import { X } from "phosphor-react";
-import { TableDefault } from "../../Components/Others/TableDefault";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../store/IRootState";
 import { changeSearch } from "../../store/Search";
 import { IDuplicatasView } from "../../Interfaces/DuplicatasContasAPagar/IDuplicatasView";
 import { changeApagar } from "../../store/Apagar";
+import { TableDefaultContasAPagar } from "../../Components/Others/TableDefaultContasAPagar";
 
 
 export function ContasAPagar() {
@@ -59,7 +59,7 @@ export function ContasAPagar() {
             try {
 
                 let valueParam = urlLocation != locationInitial ? "" : value
-                let url = `ListaPaginacaoDuplicatas/${paginaRequest}/${aPagar}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "")}`
+                let url = `ListaPaginacaoDuplicatas/${paginaRequest}/${aPagar}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll("/","-")}`
 
                 const response = await getAll(url);
                 dispatch(changeApagar(aPagar))
@@ -152,16 +152,12 @@ export function ContasAPagar() {
 
                     {value && <X size={15} cursor="pointer" onClick={searchOptionsFechar} />}
                 </div>
-                <TableDefault
-                    header={aPagar == true ? ["numeroFatura", "nomeFornecedor", "dataPagamento", "valor"]
-                        : ["numeroFatura", "nomeFornecedor", "dataVencimento", "valor"]}
+                <TableDefaultContasAPagar
                     data={duplicatas}
                     path={"duplicatascontasapagar"}
                     iconOptions={true}
                     itensExtraButton={[filtros]}
                     btnsEditExcluir={aPagar}
-                    headerTableView={aPagar == true ? ["N° do documento", "Fornecedor", "Data pagamento", "Pagamento (R$)", "Valor pago"]
-                        : ["N° do documento", "Fornecedor", "Vencimento", "Valor (R$)"]}
                     openModal={aPagar}
                     openModalFunction={(id) => CancelarPagamento(id)}
                 />

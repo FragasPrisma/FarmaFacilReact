@@ -15,10 +15,6 @@ export const TableCustom = styled(Table)`
 `;
 
 export const TrCustom = styled.tr`
-/* 
-  :first-child{
-    width: 10rem;
-  } */
 
   .label-editar {
     margin-right: .8rem;

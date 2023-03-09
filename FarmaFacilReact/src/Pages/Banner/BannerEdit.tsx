@@ -15,6 +15,7 @@ import { CheckboxCustom } from "../../Components/Inputs/CheckboxCustom";
 import { LabelObrigatorio } from "../../Components/Others/LabelMensagemObrigatorio";
 import { useTranslation } from "react-i18next";
 import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
+import { MessageErro } from "../../Components/Others/MessageError";
 
 export function BannerEdit() {
 
@@ -65,6 +66,7 @@ export function BannerEdit() {
             setDataInicio(response.data.dataInicio.slice(0, 10));
             setDataFim(response.data.dataFim.slice(0, 10));
             setImagem("data:image/png;base64," + response.data.imagem);
+            setAtivo(response.data.ativo)
         }
 
         Init()
@@ -219,7 +221,6 @@ export function BannerEdit() {
                                     label={t('banner.propriedade.posicao')}
                                     type="number"
                                     value={posicao}
-                                    erro={erroPosicao}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                         setPosicao(MaxLengthNumber(999, parseInt(e.target.value)))
                                     }
@@ -254,6 +255,7 @@ export function BannerEdit() {
                                 />
                             </div>
                         </div>
+                        <MessageErro  message={erroPosicao}/>
 
                         <UploadImagem onUpdate={updateImgModel} text={t('banner.propriedade.imagem')} requerid={true} onDelete={onDelete} img={imagem ? imagem : ""} />
                         <div className="row mt-5">
