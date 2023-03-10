@@ -7,18 +7,28 @@ import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { SetDataMultiSelect } from "../../helper/GerarDataMultiSelect";
 import { setTheme, setTranslate } from "../../helper/GridsTranslate/TranslateFunctions";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
-import { getAll } from "../../Services/Api";
+import { getAll, GetId, postFormAll } from "../../Services/Api";
 import { Container } from "./styles";
 import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { ThemeProvider } from '@mui/material/styles';
 import { Box } from "@mui/material";
 import { ICompraFornecedor } from "../../Interfaces/Compras/ICompraFornecedor";
+import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
+import { ICotacaoCompra } from "../../Interfaces/Compras/ICotacaoCompra";
+import { FailModal } from "../../Components/Modals/FailModal";
+import { useParams } from "react-router-dom";
+import { InvertDateJSON } from "../../helper/InvertDateJSON";
 
 export function CotacaoCompras() {
+    const [isLoadingFilter, setIsLoadingFilter] = useState(false);
+    const [isOpenFail, setIsOpenFail] = useState(false);
+
+    const [textFail, setTextFail] = useState("");
+
     const [auxilarLoadData, setAuxiliarLoadData] = useState(false);
 
-    const [dataEmissao, setDataEmissao] = useState("");
-    const [ate, setAte] = useState("");
+    const [dataEmissao, setDataEmissao] = useState<string | null>(null);
+    const [ate, setAte] = useState<string | null>(InvertDateJSON(new Date().toLocaleDateString()));
     const [aEmitir, setAEmitir] = useState(true);
     const [rejeitadas, setRejeitadas] = useState(true);
     const [emitidas, setEmitidas] = useState(true);
@@ -30,15 +40,43 @@ export function CotacaoCompras() {
 
     const [cotacoes, setCotacoes] = useState([]);
 
+    const { id } = useParams();
+    let idParams = !id ? "0" : id.toString();
+
+    const filtro: ICotacaoCompra = {
+        compraId: parseInt(idParams),
+        dataInicial: "",
+        dataFinal: "",
+        fornecedores: [],
+    }
+
     useEffect(() => {
+        const Init = async () => {
+            const request = await GetId("RetornaCompraPorId", idParams);
+
+            if (request.status === 200) {
+                console.log(request.data)
+                setDataEmissao(request.data.dataCadastro.slice(0,10));
+                setFornecedoresIds(request.data.fornecedoresIds);
+            } else {
+                setTextFail("Ops! Tivemos um problema com a filtragem inicial tente novamente através dos filtros!");
+                setIsOpenFail(true);
+                setTimeout(() => {
+                    setIsOpenFail(false);
+                }, 5000)
+            }
+
+            //const response = await postFormAll("", filtro);
+        }
+
         const loadDataFornecedores = async () => {
             const response = await getAll("ListaFornecedor");
             setFornecedores(SetDataMultiSelect(response.data, "nomeFornecedor"));
-            setFornecedoresIds([])
         }
 
         loadDataFornecedores();
-    }, [])
+        Init();
+    }, []);
 
     useEffect(() => {
         const popularFornecedoresIniciais = () => {
@@ -103,6 +141,42 @@ export function CotacaoCompras() {
         }
     ]
 
+    async function filtrar() {
+        setIsLoadingFilter(true)
+
+        if (dataEmissao == null || dataEmissao == "") {
+            setTextFail("Data emissão inválida!");
+            setIsOpenFail(true);
+            setIsLoadingFilter(false);
+        } else if (ate == null || ate == "") {
+            setTextFail("Data até inválida!");
+            setIsOpenFail(true);
+            setIsLoadingFilter(false);
+        } else if (fornecedoresIds.length == 0){
+            setTextFail("Você deve selecionar ao menos 1 fornecedor!");
+            setIsOpenFail(true);
+            setIsLoadingFilter(false);
+        }
+
+        filtro.dataInicial = dataEmissao;
+        filtro.dataFinal = ate;
+        filtro.fornecedores = fornecedoresIds;
+
+        const response = await postFormAll("",filtro);
+
+        if (response.status === 200) {
+            setCotacoes(response.data);
+            setIsLoadingFilter(false);
+        } else {
+            setTextFail("Ops! Tivemos um problema em gerar as sugestões de compra!");
+            setIsOpenFail(true);
+            setIsLoadingFilter(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 5000)
+        }
+    }
+
     return (
         <>
             <HeaderMainContent title="Cotação de Compras" IncludeButton={false} ReturnButton={true} to="compras" />
@@ -136,7 +210,7 @@ export function CotacaoCompras() {
 
                     </div>
                     {auxilarLoadData == true &&
-                        <div className="col-7">
+                        <div className="col-5">
                             <MultiSelect
                                 label="Fornecedores"
                                 title="Fornecedores"
@@ -148,6 +222,9 @@ export function CotacaoCompras() {
                             />
                         </div>
                     }
+                    <div className="col-2 mt-3">
+                        <ButtonFilter onCLick={filtrar} isLoading={isLoadingFilter} />
+                    </div>
                 </div>
                 <div className="row mt-2">
                     <FieldsetCustom legend="Cotações">
@@ -212,6 +289,7 @@ export function CotacaoCompras() {
                     </FieldsetCustom>
                 </div>
             </Container>
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={textFail} />
         </>
     )
 }
