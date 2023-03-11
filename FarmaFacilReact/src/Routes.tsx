@@ -228,6 +228,10 @@ import { EmpresaEdit } from "./Pages/Empresa/EmpresaEdit/EmpresaEdit";
 import { NegociacaoCompras } from "./Pages/Compras/NegociacaoCompras";
 import { UltimasCompras } from "./Pages/Compras/UltimasCompras";
 import { UltimasVendas } from "./Pages/Compras/UltimasVendas";
+import { FaltasEncomendas } from "./Pages/FaltasEncomendas";
+import { FaltasEncomendasCreate } from "./Pages/FaltasEncomendas/FaltasEncomendasCreate";
+import { FaltasEncomendasEdit } from "./Pages/FaltasEncomendas/FaltasEncomendasEdit";
+import { FaltasEncomendasDetails } from "./Pages/FaltasEncomendas/FaltasEncomendasDetails";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -562,6 +566,38 @@ export function AppRoutes() {
               element={
                 <Private>
                   <ContabilistaDetails />
+                </Private>
+              }
+            />
+            <Route 
+              path="/faltasencomendas"
+              element={
+                <Private>
+                  <FaltasEncomendas/>
+                </Private>
+              }
+            />
+            <Route 
+              path="/faltasencomendas/edit/:id"
+              element={
+                <Private>
+                  <FaltasEncomendasEdit/>
+                </Private>
+              }
+            />
+            <Route 
+              path="/faltasencomendas/details/:id"
+              element={
+                <Private>
+                  <FaltasEncomendasDetails/>
+                </Private>
+              }
+            />
+            <Route 
+              path="/faltasencomendas/create"
+              element={
+                <Private>
+                  <FaltasEncomendasCreate/>
                 </Private>
               }
             />

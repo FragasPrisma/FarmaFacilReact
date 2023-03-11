@@ -112,7 +112,8 @@ export const Estoque = [
     titulo: "Movimento",
     hasSubMenu: true,
     subMenu: [
-      { titulo: "Compras", link: "/compras" }
+      { titulo: "Compras", link: "/compras" },
+      { titulo: "Faltas/Encomendas", link: "/faltasencomendas" }
     ]
   },
 ]

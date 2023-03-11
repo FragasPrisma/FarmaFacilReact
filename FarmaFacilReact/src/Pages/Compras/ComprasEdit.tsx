@@ -116,8 +116,8 @@ export function ManutencaoComprasEdit() {
         tempoDeReposicaoMaxima: 0,
         tipoCompra: 0,
         tipoDemanda: null,
-        vendaDe: "",
-        vendaAte: "",
+        vendaDe: null,
+        vendaAte: null,
         curvaAbc: 0,
         consideraEncomendaFaltas: true,
         tempoDeReposicao: 0,
@@ -590,12 +590,11 @@ export function ManutencaoComprasEdit() {
         setIsLoading(true);
 
         const idsFornecedores = [...new Set(fornecedoresIds)];
-
         dataCompra.id = 0;
         dataCompra.tipoCompra = tipo;
         dataCompra.tipoDemanda = tipo == 2 ? tipoDemanda : null;
-        dataCompra.vendaDe = readonlyVendaDe == false ? vendaDe : "";
-        dataCompra.vendaAte = readonlyVendaAte == false ? vendaAte : "";
+        dataCompra.vendaDe = readonlyVendaDe == false ? vendaDe : null;
+        dataCompra.vendaAte = readonlyVendaAte == false ? vendaAte : null;
         dataCompra.curvaAbc = curvaAbc;
         dataCompra.consideraEncomendaFaltas = consideraEncomendaFaltas;
         dataCompra.tempoDeReposicao = readonlyTempoDeRep == false ? tempoDeRep : 0;
@@ -612,23 +611,23 @@ export function ManutencaoComprasEdit() {
         dataCompra.itensCompras = itemsComprasConfirmadas;
 
         const dataSubmit = {
-            compraAntiga: compraAntiga,
-            compraNova: dataCompra
+            compraNova: dataCompra,
+            compraAntiga: compraAntiga
         }
 
         console.log(dataSubmit);
 
-        // const response = await postFormAll("EditarCompra", dataSubmit);
+        const response = await postFormAll("EditarCompra", dataSubmit);
 
-        // if (response.status === 200) {
-        //     setIsLoading(false);
-        // } else {
-        //     setIsOpenFail(true);
-        //     setIsLoading(false);
-        //     setTimeout(() => {
-        //         setIsOpenFail(false);
-        //     }, 2000)
-        // }
+        if (response.status === 200) {
+            setIsLoading(false);
+        } else {
+            setIsOpenFail(true);
+            setIsLoading(false);
+            setTimeout(() => {
+                setIsOpenFail(false);
+            }, 2000)
+        }
         setIsLoading(false);
     }
 
@@ -684,7 +683,10 @@ export function ManutencaoComprasEdit() {
                             type="datetime-local"
                             value={vendaAte}
                             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setVendaAte(e.target.value)
+                                {
+                                    console.log(e.target.value)
+                                    setVendaAte(e.target.value)
+                                }
                             }
                             readonly={readonlyVendaAte}
                         />
