@@ -52,6 +52,23 @@ export const postFormAll = async (
   }
 };
 /**
+ 
+/**
+
+Envia dados para a url especificada com parametros sem payload
+@param url url do endpoint
+@param payload dados a serem enviados
+*/
+export const postFormById = async (
+  url: string
+): Promise<AxiosResponse> => {
+  try {
+    return await api.post(url);
+  } catch (error: any) {
+    return await error;
+  }
+};
+/**
 
 Deleta dados para a url especificada
 @param url url do endpoint

@@ -1,43 +1,52 @@
 import { SelectInput } from "../../Components/Inputs/SelectInput";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
 import { IFornecedor } from "../../Interfaces/Fornecedor/IFornecedor";
 import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { IProduto } from "../../Interfaces/Produto/IProduto";
-import { getAll, postFormAll } from "../../Services/Api";
+import { getAll, postFormAll, postFormById } from "../../Services/Api";
 import { Container } from "./styles";
 
+import { Check, Save } from "@mui/icons-material";
+import { Button, CircularProgress, Fab, gridClasses, Modal, TextField, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import {
   DataGrid,
-  GridActionsCellItem,
-  GridRowId,
   GridRowParams,
   GridToolbarContainer,
   GridToolbarDensitySelector,
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
+
 import {
   setTheme,
   setTranslate,
 } from "../../helper/GridsTranslate/TranslateFunctions";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
-import { Fornecedor } from './../Fornecedor/index';
-
+import { InverterDate } from "../../helper/InverterDate";
+import { grey } from "@mui/material/colors";
+import {} from "data-fns";
+import { InvertDateJSON } from "../../helper/InvertDateJSON";
+import { StatusCompra } from "../../Enum/StatusCompra";
+import { ModalGeneric } from './../../Components/Modals/ModalGeneric/index';
 
 export function ConsultarPedido() {
+  const [fornecedoresSelect, setFornecedoresSelect] = useState(
+    [] as IFornecedor[]
+  );
   const [fornecedores, setFornecedores] = useState([] as IFornecedor[]);
   const [grupos, setGrupos] = useState([] as IGrupo[]);
   const [produto, setProduto] = useState([] as IProduto[]);
 
   const [nomeProduto, setNomeProduto] = useState("Selecione o Produto");
-  const [nomeFornecedores, setNomeFornecedores] = useState("Selecione o Fornecedor");
+  const [nomeFornecedores, setNomeFornecedores] = useState(
+    "Selecione o Fornecedor"
+  );
   const [produtoId, setProdutoId] = useState(0);
   const [fornecedorId, setFornecedorId] = useState(0);
-
   const [emissaoInicial, setEmissaoInicial] = useState("");
   const [emissaoFinal, setEmissaoFinal] = useState("");
   const [grupo, setGrupo] = useState("");
@@ -45,13 +54,19 @@ export function ConsultarPedido() {
   const [status, setStatus] = useState("");
   const [ID, setID] = useState("");
   const [compras, setCompras] = useState([]);
-
   const [isLoadingFilter, setIsLoadingFilter] = useState(false);
+  const [rowId, setRowId] = useState(null);
+  const [rowProduto, setRowProduto] = useState(null);
+  const [loadingProduto, setLoadingProduto] = useState(false);
+  const [successProduto, setSuccessProduto] = useState(false);
+  const [successFornecedor, setSuccessFornecedor] = useState(false);
+  const [loadingFornecedor, setLoadingFornecedor] = useState(false);
+  const [params, setParams] = useState("");
 
   useEffect(() => {
     const loadDataFornecedores = async () => {
       const response = await getAll("ListaFornecedor");
-      setFornecedores(response.data);
+      setFornecedoresSelect(response.data);
     };
 
     const loadDataGrupos = async () => {
@@ -69,60 +84,309 @@ export function ConsultarPedido() {
     loadDataProdutos();
   }, []);
 
-  // table pedido
-  const columnsPedido = [
-    { field: "compraId", headerName: "Pedido", width: 100 },
-    {
-      field: "codFornecedor",
-      headerName: "Cod Fornecedor",
-      width: 150,
-    },
-    {
-      field: "nomeFornecedor",
-      headerName: "Nome Fornecedor",
-      width: 300,
-    },
-    {
-      field: "dataCadastro",
-      headerName: "Data Geração",
-      width: 200,
-    },
-    { field: "previsaoEntrega", headerName: "Prev Entrega", width: 100 },
-    {
-      field: "statusPedido",
-      headerName: "Status",
-      width: 200,
-    },
-    { field: "id", headerName: "ID", width: 100 },
-  ];
+  const handleSubmitFornecedor = async (event: any) => {
 
-  // table grupo
-  const columnsGrupo = [
-    { field: "grupo", headerName: "Grupo", width: 100 },
-    {
-      field: "produtoId",
-      headerName: "Produto",
-      width: 200,
-    },
-    {
-      field: "descricao",
-      headerName: "Descrição",
-      width: 200,
-    },
-    {
-      field: "unidade",
-      headerName: "Unidade",
-      width: 200,
-    },
-    { field: "qualidade", headerName: "Qualidade", width: 200 },
-    {
-      field: "valor",
-      headerName: "Valor",
-      width: 200,
-    },
-    { field: "validade", headerName: "Validade", width: 200 },
-    { field: "statusItem", headerName: "Status Item", width: 200 },
-  ];
+    setLoadingFornecedor(true);
+
+    const date = new Date(event.prevEntrega);
+    const formattedDate = `${date.getDate().toString().padStart(2, "0")}/${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${date.getFullYear().toString()}`;
+
+
+      let valueStatus: number;
+
+      switch (event.status) {
+        case "Todos":
+          valueStatus = 0;
+          break;
+        case "Em Aberto":
+          valueStatus = 1;
+          break;
+        case "Parcial":
+          valueStatus = 2;
+          break;
+        case "Completo":
+          valueStatus = 3;
+          break;
+        case "Cancelado":
+          valueStatus = 4;
+          break;
+        default:
+          valueStatus = 0;
+      }
+  
+
+    const editarFornecedor = await postFormById(
+      `EditarStatusCompraFornecedor/${event.id}/${InvertDateJSON(
+        formattedDate
+      )}/${valueStatus}`
+    );
+
+    if (editarFornecedor.status == 200) {
+      setSuccessFornecedor(true);
+      setRowId(event.id);
+    }
+
+    setLoadingFornecedor(false);
+  };
+
+
+  const handleSubmitProduto = async (event: any) => {
+    setLoadingProduto(true);
+
+    let valueStatus: number;
+
+    switch (event.statusItem) {
+      case "Todos":
+        valueStatus = 0;
+        break;
+      case "Em Aberto":
+        valueStatus = 1;
+        break;
+      case "Parcial":
+        valueStatus = 2;
+        break;
+      case "Completo":
+        valueStatus = 3;
+        break;
+      case "Cancelado":
+        valueStatus = 4;
+        break;
+      default:
+        valueStatus = 0;
+    }
+
+    const editarPedido = await postFormById(
+      `EditarStatusItensCompraFornecedor/${event.id}/${valueStatus}`
+    );
+
+    if (editarPedido.status == 200) {
+      setSuccessProduto(true);
+      setRowId(event.id);
+    }
+
+    setLoadingProduto(false);
+  };
+
+  // table forncedor
+  const columnsPedido = useMemo(
+    () => [
+      {
+        field: "compraId",
+        headerName: "Pedido",
+        width: 100,
+      },
+      {
+        field: "fornecedorId",
+        headerName: "Cod Fornecedor",
+        width: 100,
+      },
+      {
+        field: "nomeFornecedor",
+        headerName: "Nome Fornecedor",
+        width: 300,
+      },
+      {
+        field: "datageracao",
+        headerName: "Data Geração",
+        width: 150,
+        //type: "date"
+      },
+      {
+        field: "prevEntrega",
+        headerName: "Prev Entrega",
+        width: 150,
+        editable: true,
+        type: "date",
+      },
+      {
+        field: "status",
+        headerName: "status",
+        editable: true,
+        width: 200,
+
+        type: "singleSelect",
+        valueOptions: ["Todos",
+        "Em Aberto",
+        "Parcial",
+        "Completo",
+        "Cancelado",]
+      },
+      {
+        field: "id",
+        headerName: "ID",
+        width: 100,
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        type: "actions",
+        renderCell: (params: any) => (
+          <Box
+            sx={{
+              m: 1,
+              position: "relative",
+            }}
+          >
+            {successFornecedor && params.id === rowId ? (
+              <Fab
+                color="primary"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  bgcolor: "#048604",
+                  "&:hover": { bgcolor: "#008000" },
+                }}
+              >
+                <Check />
+              </Fab>
+            ) : (
+              <Fab
+                color="primary"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  bgcolor: params.id == rowId ? "#2196f3" : "#b1b1b1",
+                }}
+                disabled={params.id !== rowId || loadingFornecedor}
+                onMouseDown={() =>  handleSubmitFornecedor(params.row)}
+              >
+                <Save />
+              </Fab>
+            )}
+            {loadingFornecedor && (
+              <CircularProgress
+                size={52}
+                sx={{
+                  color: "#008000",
+                  position: "absolute",
+                  top: -6,
+                  left: -6,
+                  zIndex: 1,
+                }}
+              />
+            )}
+          </Box>
+        ),
+      },
+    ],
+
+    [loadingFornecedor, successFornecedor, rowId]
+  );
+
+  // table produtos
+  const columnsGrupo = useMemo(
+    () => [
+      {
+        field: "id",
+        headerName: "ID",
+        width: 100,
+      },
+      {
+        field: "grupo",
+        headerName: "Grupo",
+        width: 100,
+      },
+      {
+        field: "produtoId",
+        headerName: "Produto",
+        width: 100,
+      },
+      {
+        field: "descricao",
+        headerName: "Descrição",
+        width: 300,
+      },
+      {
+        field: "unidade",
+        headerName: "Unidade",
+        width: 100,
+      },
+      {
+        field: "quantidade",
+        headerName: "Quantidade",
+        width: 100,
+      },
+      {
+        field: "valor",
+        headerName: "Valor (R$)",
+        width: 200,
+      },
+      {
+        field: "validade",
+        headerName: "Validade",
+        width: 150,
+      },
+      {
+        field: "statusItem",
+        headerName: "Status Item",
+        width: 100,
+        editable: true,
+        type: "singleSelect",
+        valueOptions: ["Todos",
+        "Em Aberto",
+        "Parcial",
+        "Completo",
+        "Cancelado",]
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        type: "actions",
+        renderCell: (params: any) => (
+          <Box
+            sx={{
+              m: 1,
+              position: "relative",
+            }}
+          >
+            {successProduto && params.id === rowId ? (
+              <Fab
+                color="primary"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  bgcolor: "#048604",
+                  "&:hover": { bgcolor: "#008000" },
+                }}
+              >
+                <Check />
+              </Fab>
+            ) : (
+              <Fab
+                color="primary"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  bgcolor: params.id == rowProduto ? "#2196f3" : "#b1b1b1",
+                }}
+                disabled={params.id !== rowProduto || loadingProduto}
+                onMouseDown={() => handleSubmitProduto(params.row)}
+              >
+                <Save />
+              </Fab>
+            )}
+            {loadingProduto && (
+              <CircularProgress
+                size={52}
+                sx={{
+                  color: "#008000",
+                  position: "absolute",
+                  top: -6,
+                  left: -6,
+                  zIndex: 1,
+                }}
+              />
+            )}
+          </Box>
+        ),
+      },
+    ],
+    [loadingProduto, successProduto, rowProduto]
+  );
 
   function CustomToolbar() {
     return (
@@ -133,35 +397,132 @@ export function ConsultarPedido() {
     );
   }
 
- async function  Filtrar() {
+  async function Filtrar() {
     setIsLoadingFilter(true);
 
+    let valueStatus: number;
+
+    switch (status) {
+      case "Em Aberto":
+        valueStatus = 1;
+        break;
+      case "Parcial":
+        valueStatus = 2;
+        break;
+      case "Completo":
+        valueStatus = 3;
+        break;
+      case "Cancelado":
+        valueStatus = 4;
+        break;
+      default:
+        valueStatus = 0;
+    }
+
     const dataFiltro = {
-        fornecedorId: Number(fornecedorId),
-        grupoId: Number(grupo),
-        produtoId: Number(produtoId),
-        dataInicial: emissaoInicial,
-        dataFinal: emissaoFinal,
-        compraId: Number(pedido),
-        compraFornecedorId: Number(ID),
-        statusPedido: 0
+      fornecedorId: Number(fornecedorId),
+      grupoId: Number(grupo),
+      produtoId: Number(produtoId),
+      dataInicial: emissaoInicial,
+      dataFinal: emissaoFinal,
+      compraId: Number(pedido),
+      compraFornecedorId: Number(ID),
+      statusPedido: valueStatus,
+    };
+
+    const consultaPedido = await postFormAll(
+      "ConsultarCompraFornecedor",
+      dataFiltro
+    );
+
+    //primeira tabela
+    const modelFornecedor = consultaPedido.data.map(
+      (modelFornecedor: {
+        compraId: any;
+        fornecedorId: any;
+        itensCompraFornecedors: any;
+        fornecedor: { nomeFornecedor: any };
+        dataCadastro: any;
+        dataPreveEntrega: any;
+        statusPedido: any;
+        id: any;
+      }) => {
+        let valueStatus: string;
+
+        switch (modelFornecedor.statusPedido) {
+          case 0:
+            valueStatus = "Todos";
+            break;
+          case 1:
+            valueStatus = "Em Aberto";
+            break;
+          case 2:
+            valueStatus = "Parcial";
+            break;
+          case 3:
+            valueStatus = "Completo";
+            break;
+          case 4:
+            valueStatus = "Cancelado";
+            break;
+        }
+        return {
+          compraId: modelFornecedor.compraId,
+          fornecedorId: modelFornecedor.fornecedorId,
+          nomeFornecedor: modelFornecedor.fornecedor.nomeFornecedor,
+          itenCompraFornecedor: modelFornecedor.itensCompraFornecedors,
+          datageracao: InverterDate(modelFornecedor.dataCadastro),
+          prevEntrega: InverterDate(modelFornecedor.dataPreveEntrega),
+          status: valueStatus,
+          id: modelFornecedor.id,
+        };
       }
+    );
 
-    const consultaPedido = await postFormAll("ConsultarCompraFornecedor", dataFiltro)
-
-    const fornecedores = consultaPedido.data.map((x: { fornecedor: object; }) => x.fornecedor)
-    
-
-      setCompras(consultaPedido.data)
-
-      setFornecedores(fornecedores)
-
-     console.log(consultaPedido.data)
-
+    setFornecedores(modelFornecedor);
     setIsLoadingFilter(false);
   }
 
-  
+  function getValueRow(params: any) {
+    //segunda tabela
+    const modelProduto = params.itenCompraFornecedor.map((x: any) => {
+      let valueStatus: string;
+
+      switch (x.statusItemPedido) {
+        case 0:
+          valueStatus = "Todos";
+          break;
+        case 1:
+          valueStatus = "Em Aberto";
+          break;
+        case 2:
+          valueStatus = "Parcial";
+          break;
+        case 3:
+          valueStatus = "Completo";
+          break;
+        case 4:
+          valueStatus = "Cancelado";
+          break;
+      }
+      return {
+      id: x.id,
+      grupo: x.grupoId,
+      produtoId: x.produtoId,
+      descricao: !x.produto ? "pao de batata" : x.produto.descricao,
+      unidade: x.siglaUnidade, //validar se realmente é esse q tem que ser buscado
+      quantidade: x.quantidadeCompra, //validar se realmente é esse q tem que ser buscado
+      valor: x.valorUnitario, //validar se realmente é esse q tem que ser buscado
+      validade: InverterDate(x.dataValidade),
+      statusItem: valueStatus,
+  };
+}
+);
+
+    setParams(params);
+    setCompras(modelProduto);
+  }
+
 
   return (
     <>
@@ -176,11 +537,10 @@ export function ConsultarPedido() {
         <div className="row">
           <div className="col-4">
             <CustomDropDown
-              data={fornecedores}
+              data={fornecedoresSelect}
               title={nomeFornecedores}
               filter="nomeFornecedor"
               label="Fornecedor"
-              //error={erroFornecedor}
               Select={(fornecedorInternoId, select) => {
                 if (fornecedorInternoId != null) {
                   setFornecedorId(fornecedorInternoId);
@@ -248,7 +608,6 @@ export function ConsultarPedido() {
               title={nomeProduto}
               filter="descricao"
               label="Produto"
-              //error={erroFornecedorInternoId}
               Select={(produtoId, select) => {
                 if (produtoId != null) {
                   setProdutoId(produtoId);
@@ -294,9 +653,12 @@ export function ConsultarPedido() {
             <ThemeProvider theme={setTheme()}>
               <Box sx={{ height: 400, mt: 1 }}>
                 <DataGrid
-                  rows={fornecedores}
                   columns={columnsPedido}
-                  editMode="row"
+                  rows={fornecedores}
+                  onCellEditCommit={(params) => setRowId(params.id)}
+                  isRowSelectable={(params: GridRowParams) =>
+                    getValueRow(params.row)
+                  }
                   components={{ Toolbar: CustomToolbar }}
                   localeText={setTranslate()}
                 />
@@ -310,14 +672,13 @@ export function ConsultarPedido() {
                 <DataGrid
                   rows={compras}
                   columns={columnsGrupo}
-                  editMode="row"
+                  onCellEditCommit={(params) => setRowProduto(params.id)}
                   components={{ Toolbar: CustomToolbar }}
                   localeText={setTranslate()}
                 />
               </Box>
             </ThemeProvider>
           </section>
-
         </div>
       </Container>
 
