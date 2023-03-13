@@ -1,7 +1,5 @@
-import { Question } from "phosphor-react";
 import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { InputCustomized, LabelRequired, ContainerInput } from "./styles";
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 interface IInput {
     label: string;
