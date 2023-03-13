@@ -1,0 +1,15 @@
+export enum Cores {
+    Red = "#ef9a9a",
+    Roxo = "#ce93d8",
+    Azul = "#90caf9",
+    Verde = "#a5d6a7",
+    Amarelo = "#fff59d",
+    Laranja = "#ffcc80",
+    Rosa = "#f48fb1",
+    Indico = "#9fa8da",
+    Ciano = "#80deea",
+    Lima = "#e6ee9c",
+    Ambar = "#ffe082",
+    Marrom = "#bcaaa4",
+    Cerceta = "#80cbc4",
+}

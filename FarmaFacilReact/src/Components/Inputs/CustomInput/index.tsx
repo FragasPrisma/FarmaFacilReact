@@ -18,10 +18,11 @@ interface IInput {
     erros?: { erro: Boolean, index: number, erroNome: string };
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     focusParam?: boolean;
-    textAlign?: boolean
+    textAlign?: boolean;
+    color?: string;
 }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign, color}: IInput) {
 
     const [erroParameter, setErroParameter] = useState(erro)
     const [errosParameter, setErrosParameter] = useState(erros)
