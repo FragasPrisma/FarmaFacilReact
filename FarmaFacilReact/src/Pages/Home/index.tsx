@@ -14,12 +14,8 @@ export function Home() {
     <ContainerHeader>
       <ContainerLogo>
         <img src={logo} className="logo" />
-        
       </ContainerLogo>
-
       <UserCircle size={42} color="#CF0209" />
-
-
     </ContainerHeader>
   );
 }
