@@ -148,17 +148,13 @@ export function BannerCreate() {
             }
 
         } catch (error: any) {
-
             setErroRequest(error.request.data)
             setIsOpenFail(true);
             setIsLoading(false);
             setTimeout(() => {
                 setIsOpenFail(false);
             }, 2000)
-
         }
-
-
     }
 
     const updateImgModel = (value: string | ArrayBuffer | null) => {

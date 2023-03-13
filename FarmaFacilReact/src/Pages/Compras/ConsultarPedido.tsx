@@ -8,7 +8,6 @@ import { IGrupo } from "../../Interfaces/Grupo/IGrupo";
 import { IProduto } from "../../Interfaces/Produto/IProduto";
 import { getAll, postFormAll, postFormById } from "../../Services/Api";
 import { Container } from "./styles";
-
 import { Check, Save } from "@mui/icons-material";
 import {
   Button,
@@ -36,6 +35,7 @@ import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { InverterDate } from "../../helper/InverterDate";
 import {} from "data-fns";
 import { InvertDateJSON } from "../../helper/InvertDateJSON";
+import { t } from "i18next";
 
 export function ConsultarPedido() {
   const [fornecedoresSelect, setFornecedoresSelect] = useState(
@@ -105,9 +105,6 @@ export function ConsultarPedido() {
     let valueStatus: number;
 
     switch (paramsRowFornecedor?.status) {
-      case "Todos":
-        valueStatus = 0;
-        break;
       case "Em Aberto":
         valueStatus = 1;
         break;
@@ -121,7 +118,7 @@ export function ConsultarPedido() {
         valueStatus = 4;
         break;
       default:
-        valueStatus = 0;
+        valueStatus = 1;
     }
 
     const editarFornecedor = await postFormById(
@@ -223,7 +220,6 @@ export function ConsultarPedido() {
 
         type: "singleSelect",
         valueOptions: [
-          "Todos",
           "Em Aberto",
           "Parcial",
           "Completo",
@@ -308,9 +304,7 @@ export function ConsultarPedido() {
     let valueStatus: number;
 
     switch (paramsRowProduto?.statusItem) {
-      case "Todos":
-        valueStatus = 0;
-        break;
+
       case "Em Aberto":
         valueStatus = 1;
         break;
@@ -324,7 +318,7 @@ export function ConsultarPedido() {
         valueStatus = 4;
         break;
       default:
-        valueStatus = 0;
+        valueStatus = 1;
     }
 
     const editarPedido = await postFormById(
@@ -388,7 +382,6 @@ export function ConsultarPedido() {
         editable: true,
         type: "singleSelect",
         valueOptions: [
-          "Todos",
           "Em Aberto",
           "Parcial",
           "Completo",
@@ -470,6 +463,12 @@ export function ConsultarPedido() {
   }
 
   async function Filtrar() {
+
+    setErros({ erro: false, index: 0, erroNome: "" });
+
+    if (!ValidString(emissaoInicial.trim(), 1) || !ValidString(emissaoFinal.trim(), 2)) return;
+
+
     setIsLoadingFilter(true);
 
     let valueStatus: number;
@@ -488,7 +487,7 @@ export function ConsultarPedido() {
         valueStatus = 4;
         break;
       default:
-        valueStatus = 0;
+        valueStatus = 1;
     }
 
     const dataFiltro = {
@@ -522,9 +521,6 @@ export function ConsultarPedido() {
         let valueStatus: string;
 
         switch (modelFornecedor.statusPedido) {
-          case 0:
-            valueStatus = "Todos";
-            break;
           case 1:
             valueStatus = "Em Aberto";
             break;
@@ -537,7 +533,7 @@ export function ConsultarPedido() {
           case 4:
             valueStatus = "Cancelado";
             break;
-            default:  valueStatus = "Todos";
+            default:  valueStatus = "Em Aberto";
         }
         return {
           compraId: modelFornecedor.compraId,
@@ -562,9 +558,6 @@ export function ConsultarPedido() {
       let valueStatus: string;
 
       switch (x.statusItemPedido) {
-        case 0:
-          valueStatus = "Todos";
-          break;
         case 1:
           valueStatus = "Em Aberto";
           break;
@@ -578,7 +571,7 @@ export function ConsultarPedido() {
           valueStatus = "Cancelado";
           break;
         default:
-          valueStatus = "Todos";
+          valueStatus = "Em Aberto";
       }
       return {
         id: x.id,
@@ -596,6 +589,17 @@ export function ConsultarPedido() {
     setParams(params);
     setCompras(modelProduto);
   }
+
+  const [erros, setErros] = useState({ erro: false, index: 0, erroNome: "" })
+
+  function ValidString(texto: string, index: number) {
+    if (!texto.trim()) {
+        setErros({ erro: true, index: index, erroNome: t('erros.campoObrigatorio') })
+        return false;
+    } else {
+        return true;
+    }
+}
 
   return (
     <>
@@ -627,24 +631,28 @@ export function ConsultarPedido() {
             />
           </div>
 
-          <div className="col-2">
+          <div className="col-3">
             <CustomInput
               label="Emissão Inicial"
               type="date"
               required={true}
               value={emissaoInicial}
+              index={1}
+              erros={erros}
               OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setEmissaoInicial(e.target.value)
               }
             />
           </div>
 
-          <div className="col-2">
+          <div className="col-3">
             <CustomInput
               label="Emissão Final"
               type="date"
               required={true}
+              index={2}
               value={emissaoFinal}
+              erros={erros}
               OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setEmissaoFinal(e.target.value)
               }
