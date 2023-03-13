@@ -68,7 +68,7 @@ export function ContasAPagar() {
                 setPaginaRequest(paginaRequest > response.data.count ? 1 : paginaRequest)
 
                 response.data.lista.map((x: { dataVencimento: string }) => InverterDate(x.dataVencimento))
-                console.log(response.data)
+                
                 setQtdPaginaRequest(response.data.count);
                 response.data.lista.map((x: { dataVencimento: string, dataPagamento: string, valor: number | string, valorPago: number | string }) => {
                     x.dataVencimento = InverterDate(x.dataVencimento)
