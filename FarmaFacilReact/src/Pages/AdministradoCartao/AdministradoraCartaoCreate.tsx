@@ -157,7 +157,7 @@ export function AdministradoraCartaoCreate() {
                                 type="number"
                                 value={prazoDeRecebimento}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setPrazoDeRecebimento(MaxLengthNumber(10000, parseInt(e.target.value)))
+                                    setPrazoDeRecebimento(MaxLengthNumber(0,5, parseInt(e.target.value)))
                                 }
                                 required={false}
                                 textAlign={true}
@@ -169,7 +169,7 @@ export function AdministradoraCartaoCreate() {
                                 type="number"
                                 value={desconto}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setDesconto(MaxLengthNumber(9999999999.99, parseFloat(e.target.value)))
+                                    setDesconto(MaxLengthNumber(2,10, parseFloat(e.target.value)))
                                 }
                                 textAlign={true}
                                 required={false}

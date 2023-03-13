@@ -302,7 +302,7 @@ export function FornecedorCreateComplemento({ textParam }: IData) {
                         value={valorMinimoPedido}
                         maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setValorMinimoPedido(MaxLengthNumber(9999999999.99, parseFloat(e.target.value)))
+                            setValorMinimoPedido(MaxLengthNumber(2,10, parseFloat(e.target.value)))
                         }
                         textAlign={true}
                         required={false}
@@ -331,7 +331,7 @@ export function FornecedorCreateComplemento({ textParam }: IData) {
                         placeholder="Digite a previsão"
                         value={previsaoEntrega}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setPrevisaoEntrega(MaxLengthNumber(100, parseInt(e.target.value)))
+                            setPrevisaoEntrega(MaxLengthNumber(0,3, parseInt(e.target.value)))
                         }
                         step="1"
                         textAlign={true}

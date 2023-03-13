@@ -6,6 +6,7 @@ import { Container } from "../styles"
 import { useState, useEffect, ChangeEvent } from 'react'
 import { IBanco } from "../../../Interfaces/Banco/IBanco"
 import { IPlanoDeconta } from "../../../Interfaces/PlanoDeContas/IPlanoDeConta"
+import { MaxLengthNumber } from "../../../helper/MaxLengthNumber"
 
 export let fornecedorComplementoEdit: IFornecedorComplemento = {
 
@@ -294,7 +295,7 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         value={valorMinimoPedido}
                         maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setValorMinimoPedido(parseFloat(e.target.value))
+                            setValorMinimoPedido(MaxLengthNumber(2,10, parseFloat(e.target.value)))
                         }
                         required={false}
                         textAlign={true}
@@ -324,7 +325,7 @@ export function FornecedorEditComplemento({ fornecedorModel, nomeBanco, nomePLan
                         value={previsaoEntrega}
                         maxLength={50}
                         OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setPrevisaoEntrega(parseInt(e.target.value))
+                            setPrevisaoEntrega(MaxLengthNumber(0,3, parseInt(e.target.value)))
                         }
                         required={false}
                         textAlign={true}

@@ -82,7 +82,7 @@ export function GrupoCreateGeral({ erros }: Erros) {
                             placeholder="Digite a comissão"
                             value={comissao}
                             OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setComissao(MaxLengthNumber(12,parseFloat(e.target.value)))
+                                setComissao(MaxLengthNumber(2,10,parseFloat(e.target.value)))
                             }
                         />
                     </div>

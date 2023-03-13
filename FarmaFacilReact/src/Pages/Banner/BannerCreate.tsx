@@ -225,7 +225,7 @@ export function BannerCreate() {
                                 type="number"
                                 value={posicao}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setPosicao(MaxLengthNumber(999, parseInt(e.target.value)))
+                                    setPosicao(MaxLengthNumber(0,3, parseInt(e.target.value)))
                                 }
                                 textAlign={true}
                                 required={true}
