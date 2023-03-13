@@ -145,13 +145,14 @@ export function ConsultarPedido() {
     if (password !== senha) {
       setMessageError("Você não possui permissão");
     } else {
-      if (paramsRowProduto == null) {
+      //if (paramsRowProduto == null) {
         setModalAberta(false);
         handleSubmitFornecedor();
-      } else {
-        setModalAberta(false);
         handleSubmitProduto();
-      }
+      //} 
+      // else {
+      //   setModalAberta(false);
+      // }
     }
 
     // setModalAberta(false);
