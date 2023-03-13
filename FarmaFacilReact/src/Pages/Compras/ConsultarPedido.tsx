@@ -1,5 +1,5 @@
 import { SelectInput } from "../../Components/Inputs/SelectInput";
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, SetStateAction, useEffect, useMemo, useState } from "react";
 import { HeaderMainContent } from "../../Components/Headers/HeaderMainContent";
 import { CustomDropDown } from "../../Components/Inputs/CustomDropDown";
 import { CustomInput } from "../../Components/Inputs/CustomInput";
@@ -10,9 +10,16 @@ import { getAll, postFormAll, postFormById } from "../../Services/Api";
 import { Container } from "./styles";
 
 import { Check, Save } from "@mui/icons-material";
-import { Button, CircularProgress, Fab, gridClasses, Modal, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Fab,
+  Modal,
+  TextField,
+  Typography,
+  Box,
+} from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { Box } from "@mui/material";
 import {
   DataGrid,
   GridRowParams,
@@ -27,11 +34,8 @@ import {
 } from "../../helper/GridsTranslate/TranslateFunctions";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { InverterDate } from "../../helper/InverterDate";
-import { grey } from "@mui/material/colors";
 import {} from "data-fns";
 import { InvertDateJSON } from "../../helper/InvertDateJSON";
-import { StatusCompra } from "../../Enum/StatusCompra";
-import { ModalGeneric } from './../../Components/Modals/ModalGeneric/index';
 
 export function ConsultarPedido() {
   const [fornecedoresSelect, setFornecedoresSelect] = useState(
@@ -61,6 +65,7 @@ export function ConsultarPedido() {
   const [successProduto, setSuccessProduto] = useState(false);
   const [successFornecedor, setSuccessFornecedor] = useState(false);
   const [loadingFornecedor, setLoadingFornecedor] = useState(false);
+
   const [params, setParams] = useState("");
 
   useEffect(() => {
@@ -84,62 +89,22 @@ export function ConsultarPedido() {
     loadDataProdutos();
   }, []);
 
-  const handleSubmitFornecedor = async (event: any) => {
+  const [paramsRowFornecedor, setParamsRowFornecedor] = useState({} as any);
+  const [paramsRowProduto, setParamsRowProduto] = useState({} as any);
 
+  const handleSubmitFornecedor = async () => {
     setLoadingFornecedor(true);
 
-    const date = new Date(event.prevEntrega);
+    const date = new Date(paramsRowFornecedor?.prevEntrega);
     const formattedDate = `${date.getDate().toString().padStart(2, "0")}/${(
       date.getMonth() + 1
     )
       .toString()
       .padStart(2, "0")}/${date.getFullYear().toString()}`;
 
-
-      let valueStatus: number;
-
-      switch (event.status) {
-        case "Todos":
-          valueStatus = 0;
-          break;
-        case "Em Aberto":
-          valueStatus = 1;
-          break;
-        case "Parcial":
-          valueStatus = 2;
-          break;
-        case "Completo":
-          valueStatus = 3;
-          break;
-        case "Cancelado":
-          valueStatus = 4;
-          break;
-        default:
-          valueStatus = 0;
-      }
-  
-
-    const editarFornecedor = await postFormById(
-      `EditarStatusCompraFornecedor/${event.id}/${InvertDateJSON(
-        formattedDate
-      )}/${valueStatus}`
-    );
-
-    if (editarFornecedor.status == 200) {
-      setSuccessFornecedor(true);
-      setRowId(event.id);
-    }
-
-    setLoadingFornecedor(false);
-  };
-
-
-  const handleSubmitProduto = async (event: any) => {
-    setLoadingProduto(true);
-
     let valueStatus: number;
 
-    switch (event.statusItem) {
+    switch (paramsRowFornecedor?.status) {
       case "Todos":
         valueStatus = 0;
         break;
@@ -159,17 +124,65 @@ export function ConsultarPedido() {
         valueStatus = 0;
     }
 
-    const editarPedido = await postFormById(
-      `EditarStatusItensCompraFornecedor/${event.id}/${valueStatus}`
+    const editarFornecedor = await postFormById(
+      `EditarStatusCompraFornecedor/${paramsRowFornecedor?.id}/${InvertDateJSON(
+        formattedDate
+      )}/${valueStatus}`
     );
 
-    if (editarPedido.status == 200) {
-      setSuccessProduto(true);
-      setRowId(event.id);
+    if (editarFornecedor.status == 200) {
+      setSuccessFornecedor(true);
+      setRowId(paramsRowFornecedor?.id);
     }
 
-    setLoadingProduto(false);
+    setLoadingFornecedor(false);
   };
+
+  const [modalAberta, setModalAberta] = useState(false);
+  const [senha, setSenha] = useState("");
+  const [messageError, setMessageError] = useState("");
+
+  const handleSubmitSenha = () => {
+    const password = "prixpto";
+
+    if (password !== senha) {
+      setMessageError("Você não possui permissão");
+    } else {
+      if (paramsRowProduto == null) {
+        setModalAberta(false);
+        handleSubmitFornecedor();
+      } else {
+        setModalAberta(false);
+        handleSubmitProduto();
+      }
+    }
+
+    // setModalAberta(false);
+    // handleSubmitFornecedor()
+  };
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    backgroundColor: "background.paper",
+    borderRadius: "4px",
+    border: "2px solid #000",
+    //boxShadow: 24,
+    p: 4,
+  };
+
+  function handleMouseDownFornecedor(test: any) {
+    setModalAberta(true);
+    setParamsRowFornecedor(test);
+  }
+
+  function handleMouseDownProduto(test: any) {
+    setModalAberta(true);
+    setParamsRowProduto(test);
+  }
 
   // table forncedor
   const columnsPedido = useMemo(
@@ -209,11 +222,13 @@ export function ConsultarPedido() {
         width: 200,
 
         type: "singleSelect",
-        valueOptions: ["Todos",
-        "Em Aberto",
-        "Parcial",
-        "Completo",
-        "Cancelado",]
+        valueOptions: [
+          "Todos",
+          "Em Aberto",
+          "Parcial",
+          "Completo",
+          "Cancelado",
+        ],
       },
       {
         field: "id",
@@ -244,18 +259,21 @@ export function ConsultarPedido() {
                 <Check />
               </Fab>
             ) : (
-              <Fab
-                color="primary"
-                sx={{
-                  width: 40,
-                  height: 40,
-                  bgcolor: params.id == rowId ? "#2196f3" : "#b1b1b1",
-                }}
-                disabled={params.id !== rowId || loadingFornecedor}
-                onMouseDown={() =>  handleSubmitFornecedor(params.row)}
-              >
-                <Save />
-              </Fab>
+              <>
+                <Fab
+                  color="primary"
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    bgcolor: params.id == rowId ? "#2196f3" : "#b1b1b1",
+                  }}
+                  disabled={params.id !== rowId || loadingFornecedor}
+                  //onMouseDown={() =>  handleSubmitFornecedor(params.row)}
+                  onClick={() => handleMouseDownFornecedor(params.row)}
+                >
+                  <Save />
+                </Fab>
+              </>
             )}
             {loadingFornecedor && (
               <CircularProgress
@@ -274,9 +292,52 @@ export function ConsultarPedido() {
       },
     ],
 
-    [loadingFornecedor, successFornecedor, rowId]
+    [
+      loadingFornecedor,
+      successFornecedor,
+      rowId,
+      modalAberta,
+      senha,
+      messageError,
+    ]
   );
 
+  const handleSubmitProduto = async () => {
+    setLoadingProduto(true);
+
+    let valueStatus: number;
+
+    switch (paramsRowProduto?.statusItem) {
+      case "Todos":
+        valueStatus = 0;
+        break;
+      case "Em Aberto":
+        valueStatus = 1;
+        break;
+      case "Parcial":
+        valueStatus = 2;
+        break;
+      case "Completo":
+        valueStatus = 3;
+        break;
+      case "Cancelado":
+        valueStatus = 4;
+        break;
+      default:
+        valueStatus = 0;
+    }
+
+    const editarPedido = await postFormById(
+      `EditarStatusItensCompraFornecedor/${paramsRowProduto?.id}/${valueStatus}`
+    );
+
+    if (editarPedido.status == 200) {
+      setSuccessProduto(true);
+      setRowId(paramsRowProduto?.id);
+    }
+
+    setLoadingProduto(false);
+  };
   // table produtos
   const columnsGrupo = useMemo(
     () => [
@@ -326,11 +387,13 @@ export function ConsultarPedido() {
         width: 100,
         editable: true,
         type: "singleSelect",
-        valueOptions: ["Todos",
-        "Em Aberto",
-        "Parcial",
-        "Completo",
-        "Cancelado",]
+        valueOptions: [
+          "Todos",
+          "Em Aberto",
+          "Parcial",
+          "Completo",
+          "Cancelado",
+        ],
       },
       {
         field: "actions",
@@ -364,7 +427,8 @@ export function ConsultarPedido() {
                   bgcolor: params.id == rowProduto ? "#2196f3" : "#b1b1b1",
                 }}
                 disabled={params.id !== rowProduto || loadingProduto}
-                onMouseDown={() => handleSubmitProduto(params.row)}
+                //onMouseDown={() => handleSubmitProduto(params.row)}
+                onClick={() => handleMouseDownProduto(params.row)}
               >
                 <Save />
               </Fab>
@@ -385,7 +449,15 @@ export function ConsultarPedido() {
         ),
       },
     ],
-    [loadingProduto, successProduto, rowProduto]
+
+    [
+      loadingProduto,
+      successProduto,
+      rowProduto,
+      modalAberta,
+      senha,
+      messageError,
+    ]
   );
 
   function CustomToolbar() {
@@ -465,6 +537,7 @@ export function ConsultarPedido() {
           case 4:
             valueStatus = "Cancelado";
             break;
+            default:  valueStatus = "Todos";
         }
         return {
           compraId: modelFornecedor.compraId,
@@ -504,25 +577,25 @@ export function ConsultarPedido() {
         case 4:
           valueStatus = "Cancelado";
           break;
+        default:
+          valueStatus = "Todos";
       }
       return {
-      id: x.id,
-      grupo: x.grupoId,
-      produtoId: x.produtoId,
-      descricao: !x.produto ? "pao de batata" : x.produto.descricao,
-      unidade: x.siglaUnidade, //validar se realmente é esse q tem que ser buscado
-      quantidade: x.quantidadeCompra, //validar se realmente é esse q tem que ser buscado
-      valor: x.valorUnitario, //validar se realmente é esse q tem que ser buscado
-      validade: InverterDate(x.dataValidade),
-      statusItem: valueStatus,
-  };
-}
-);
+        id: x.id,
+        grupo: x.grupoId,
+        produtoId: x.produtoId,
+        descricao: !x.produto ? "Ex." : x.produto.descricao,
+        unidade: x.siglaUnidade, //validar se realmente é esse q tem que ser buscado
+        quantidade: x.quantidadeCompra, //validar se realmente é esse q tem que ser buscado
+        valor: x.valorUnitario, //validar se realmente é esse q tem que ser buscado
+        validade: InverterDate(x.dataValidade),
+        statusItem: valueStatus,
+      };
+    });
 
     setParams(params);
     setCompras(modelProduto);
   }
-
 
   return (
     <>
@@ -655,10 +728,8 @@ export function ConsultarPedido() {
                 <DataGrid
                   columns={columnsPedido}
                   rows={fornecedores}
-                  onCellEditCommit={(params) => setRowId(params.id)}
-                  isRowSelectable={(params: GridRowParams) =>
-                    getValueRow(params.row)
-                  }
+                  onCellEditCommit={(params) => setRowId(params.id as SetStateAction<any>)}
+                  isRowSelectable={(params: GridRowParams<any>) => Boolean(getValueRow(params.row)) }
                   components={{ Toolbar: CustomToolbar }}
                   localeText={setTranslate()}
                 />
@@ -672,7 +743,7 @@ export function ConsultarPedido() {
                 <DataGrid
                   rows={compras}
                   columns={columnsGrupo}
-                  onCellEditCommit={(params) => setRowProduto(params.id)}
+                  onCellEditCommit={(params) => setRowProduto(params.id as SetStateAction<any>)}
                   components={{ Toolbar: CustomToolbar }}
                   localeText={setTranslate()}
                 />
@@ -682,8 +753,40 @@ export function ConsultarPedido() {
         </div>
       </Container>
 
-      {/* <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} />
-            <ConfirmModal openModal={isOpenConfirmModal} onClose={(confirmation: boolean) => removerItems(confirmation)} text="Confirmar exclusão da lista de produtos?"/> */}
+      <Modal
+        open={modalAberta}
+        onClose={() => setModalAberta(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="spring-modal-description"
+            sx={{ mt: 2, mb: 2, fontSize: "1.3rem", fontWeight: "bold" }}
+          >
+            Senha para liberação
+          </Typography>
+
+          <TextField
+            label="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            type="password"
+            sx={{ width: "100%" }}
+          />
+          <h3
+            style={{
+              fontSize: "1.2rem",
+              color: "red",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            {messageError}
+          </h3>
+          <Button onClick={handleSubmitSenha}>Confirmar</Button>
+        </Box>
+      </Modal>
     </>
   );
 }
