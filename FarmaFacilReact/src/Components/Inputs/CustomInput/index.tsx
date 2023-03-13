@@ -18,10 +18,11 @@ interface IInput {
     erros?: { erro: Boolean, index: number, erroNome: string };
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     focusParam?: boolean;
-    textAlign?: boolean
+    textAlign?: boolean;
+    color?: string;
 }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign, color}: IInput) {
 
     //let aligRight = textAlign ? ".5rem" : "0"
     const [erroParameter, setErroParameter] = useState(erro)
@@ -58,7 +59,8 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                         autoFocus={focus}
                         style={{
                             textAlign: textAlign ? "end" : "left",
-                            paddingRight: textAlign ? ".5rem" : "0"
+                            paddingRight: textAlign ? ".5rem" : "0",
+                            backgroundColor: color
                         }}
                     />
                    

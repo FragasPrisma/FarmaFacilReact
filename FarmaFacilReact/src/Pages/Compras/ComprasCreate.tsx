@@ -43,7 +43,7 @@ export function ManutencaoCompras() {
     const [vendaDe, setVendaDe] = useState<string | null>(null);
     const [vendaAte, setVendaAte] = useState<string | null>(null);
     const [curvaAbc, setCurvaAbc] = useState(0);
-    const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(true);
+    const [consideraEncomendaFaltas, setConsideraEncomendaFaltas] = useState(false);
     const [tempoDeRep, setTempoDeRep] = useState(0);
     const [quantidadeDias, setQuantidadeDias] = useState(0);
     const [tipoValor, setTipoValor] = useState(0);
@@ -416,6 +416,10 @@ export function ManutencaoCompras() {
                     setTextFail("Para o tipo Venda é obrigatório informar a data inicial e final!");
                     setIsOpenFail(true);
                     setIsLoadingFilter(false);
+                } else if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
                 } else {
                     validation = true;
                 }
@@ -429,15 +433,31 @@ export function ManutencaoCompras() {
                     setTextFail("Para o tipo Demanda o intervalo de data deve ser maior que um dia!")
                     setIsOpenFail(true);
                     setIsLoadingFilter(false);
+                } else if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
                 } else {
                     validation = true;
                 }
                 break;
             case 3:
-                validation = true;
+                if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
                 break;
             case 4:
-                validation = true;
+                if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
                 break;
             case 5:
                 if (vendaDe == null || vendaDe == "" || vendaAte == null || vendaAte == "") {
@@ -452,12 +472,22 @@ export function ManutencaoCompras() {
                     setTextFail("Para o tipo Consumo é obrigatório informar quantidade de dias!");
                     setIsOpenFail(true);
                     setIsLoadingFilter(false);
+                } else if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
                 } else {
                     validation = true;
                 }
                 break;
             case 6:
-                validation = true;
+                if (tipoValor == 2 && (aPartirDe == null || aPartirDe == "")){
+                    setTextFail("A partir de é obrigatória para tipo valor melhor compra!");
+                    setIsOpenFail(true);
+                    setIsLoadingFilter(false);
+                } else {
+                    validation = true;
+                }
                 break;
         }
 
@@ -479,7 +509,7 @@ export function ManutencaoCompras() {
             dataFiltro.produtosIds = produtosIds;
             dataFiltro.empresaId = empresaId;
             dataFiltro.considerarApenasEmpresaSelecionada = considerarApenasEmpresaSelecionada;
-            console.log(dataFiltro)
+
             const response = await postFormAll("Compra/FiltroCompra", dataFiltro);
 
             if (response.status === 200) {
@@ -512,7 +542,6 @@ export function ManutencaoCompras() {
         const idsFornecedores = [...new Set(fornecedoresIds)];
 
         data.id = 0;
-        data.itensCompras = itemsCompras;
         data.tipoCompra = tipo;
         data.tipoDemanda = tipo == 2 ? tipoDemanda : null;
         data.vendaDe = readonlyVendaDe == false ? vendaAte : "";
