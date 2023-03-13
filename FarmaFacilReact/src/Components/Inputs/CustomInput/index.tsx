@@ -18,10 +18,11 @@ interface IInput {
     erros?: { erro: Boolean, index: number, erroNome: string };
     OnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     focusParam?: boolean;
-    textAlign?: boolean
+    textAlign?: boolean;
+    color?: string;
 }
 
-export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign }: IInput) {
+export function CustomInput({ label, placeholder, name, readonly, type, required, value, maxLength, erro, OnChange, step, erros, index, focusParam = false, textAlign, color}: IInput) {
 
     //let aligRight = textAlign ? ".5rem" : "0"
     const [erroParameter, setErroParameter] = useState(erro)
@@ -38,14 +39,14 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
 
     return (
         <ContainerInput >
-            <div className="containerAbc">
-                <div className="container_sup">
+            <div className="containerAbc" style={{backgroundColor: color}}>
+                <div className="container_sup" style={{backgroundColor: color}}>
                     <label className="label_text">{label}</label>
                     {required &&
                         <LabelRequired>*</LabelRequired>
                     }
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", height: "calc(100% - 0.8rem)" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", height: "calc(100% - 0.8rem)"}}>
                     <InputCustomized
                         type={type}
                         step={step}
@@ -58,7 +59,8 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
                         autoFocus={focus}
                         style={{
                             textAlign: textAlign ? "end" : "left",
-                            paddingRight: textAlign ? ".5rem" : "0"
+                            paddingRight: textAlign ? ".5rem" : "0",
+                            backgroundColor: color
                         }}
                     />
                     {readonly &&

@@ -16,10 +16,14 @@ import { ICompraFornecedor } from "../../Interfaces/Compras/ICompraFornecedor";
 import { ButtonFilter } from "../../Components/Buttons/ButtonFilter";
 import { ICotacaoCompra } from "../../Interfaces/Compras/ICotacaoCompra";
 import { FailModal } from "../../Components/Modals/FailModal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { InvertDateJSON } from "../../helper/InvertDateJSON";
+import { ButtonCustomIncluir } from "../../Components/Buttons/ButtonCustom";
+import React from "react";
 
 export function CotacaoCompras() {
+    const [selectedRows, setSelectedRows] = useState([]);
+
     const [isLoadingFilter, setIsLoadingFilter] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false);
 
@@ -40,6 +44,8 @@ export function CotacaoCompras() {
 
     const [cotacoes, setCotacoes] = useState([]);
 
+    const navigate = useNavigate();
+
     const { id } = useParams();
     let idParams = !id ? "0" : id.toString();
 
@@ -55,7 +61,6 @@ export function CotacaoCompras() {
             const request = await GetId("RetornaCompraPorId", idParams);
 
             if (request.status === 200) {
-                console.log(request.data)
                 setDataEmissao(request.data.dataCadastro.slice(0,10));
                 setFornecedoresIds(request.data.fornecedoresIds);
             } else {
@@ -177,6 +182,15 @@ export function CotacaoCompras() {
         }
     }
 
+    function chamaNegociacao(currentPath: string) {
+        const newPath = currentPath.replace(/([0-9]+)/, 'negociacaoCompras/$1');
+        navigate(newPath);
+    }
+
+    const handleRowSelection = (newSelection: any) => {
+        setSelectedRows(newSelection.rows);
+      };
+
     return (
         <>
             <HeaderMainContent title="Cotação de Compras" IncludeButton={false} ReturnButton={true} to="compras" />
@@ -282,11 +296,23 @@ export function CotacaoCompras() {
                         <section>
                             <ThemeProvider theme={setTheme()}>
                                 <Box sx={{ height: 400, mt: 1 }}>
-                                    <DataGrid rows={cotacoes} columns={columns} components={{ Toolbar: CustomToolbar }} localeText={setTranslate()} />
+                                    <DataGrid 
+                                        checkboxSelection 
+                                        onSelectionModelChange={handleRowSelection}
+                                        rows={cotacoes}
+                                        columns={columns}
+                                        components={{ Toolbar: CustomToolbar }} 
+                                        localeText={setTranslate()} 
+                                    />
                                 </Box>
                             </ThemeProvider>
                         </section>
                     </FieldsetCustom>
+                    <div className="row">
+                        <div className="col-2">
+                            <ButtonCustomIncluir text="Negociação" onCLick={() => chamaNegociacao(window.location.pathname)} width={8} height={2.5}/>
+                        </div>
+                    </div>
                 </div>
             </Container>
             <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={textFail} />
