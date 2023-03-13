@@ -88,7 +88,7 @@ export function FaltasEncomendasDetails() {
                                 <CustomInput
                                     label="Telefone"
                                     type="text"
-                                    placeholder="9999-9999"
+                                    placeholder=""
                                     maxLength={10}
                                     value={faltasEncomendas.telefone}
                                     readonly={true}
@@ -101,7 +101,7 @@ export function FaltasEncomendasDetails() {
                                 <CustomInput
                                     label="Observação"
                                     type="text"
-                                    placeholder="Digite a observação"
+                                    placeholder=""
                                     value={faltasEncomendas.observacao}
                                     readonly={true}
                                 />
@@ -113,7 +113,7 @@ export function FaltasEncomendasDetails() {
                                 <CustomInput
                                     label="Grupo"
                                     type="text"
-                                    placeholder="Grupo selecionado"
+                                    placeholder=""
                                     value={faltasEncomendas.grupoId}
                                     readonly={true}
                                     textAlign={true}

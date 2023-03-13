@@ -14,9 +14,11 @@ interface IProps {
     object: any;
     openModal: boolean;
     onClose: () => void;
+    textSucces: string;
+    textError: string
 }
 
-export function ModalGeneric({ textInformationModal, url, object, openModal , onClose }: IProps) {
+export function ModalGeneric({ textInformationModal, url, object, openModal, onClose, textSucces, textError }: IProps) {
 
     const [stateModalSucces, setStateModalSucces] = useState(false);
     const [isOpenFail, setIsOpenFail] = useState(false)
@@ -34,7 +36,7 @@ export function ModalGeneric({ textInformationModal, url, object, openModal , on
                 setStateModalSucces(false);
                 document.location.reload(); //refatorar usando refresh component
             }, 2000);
-        }else{
+        } else {
             setIsOpenFail(true)
         }
     }
@@ -51,7 +53,7 @@ export function ModalGeneric({ textInformationModal, url, object, openModal , on
                     <Container>
                         <div className="div_text">
                             <div className="div_btn">
-                                <CloseButton onClick={closeModal}><X size={32} color="#d34545" weight="duotone"/></CloseButton>
+                                <CloseButton onClick={closeModal}><X size={32} color="#d34545" weight="duotone" /></CloseButton>
                             </div>
                             <MensageDefault>
                                 {textInformationModal}
@@ -70,8 +72,8 @@ export function ModalGeneric({ textInformationModal, url, object, openModal , on
                     </Container>
                 </ModalBody>
             </Modal>
-            <SuccessModal show={stateModalSucces} textCustom="Cancelamento efetuado com " />
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde." />
+            <SuccessModal show={stateModalSucces} textCustom={textSucces} />
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text={textError} />
         </>
     );
 }

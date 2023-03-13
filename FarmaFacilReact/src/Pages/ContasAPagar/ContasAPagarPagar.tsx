@@ -11,6 +11,7 @@ import { FailModal } from "../../Components/Modals/FailModal";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import { ButtonConfirm } from "../../Components/Buttons/ButtonConfirm";
 import { ButtonCancel } from "../../Components/Buttons/ButtonCancel";
+import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
 
 export function ContasAPagarPagar() {
 
@@ -199,6 +200,7 @@ export function ContasAPagarPagar() {
                                     value={duplicata.valor}
                                     required={true}
                                     readonly={true}
+                                    textAlign={true}
                                 />
                             </div>
                         </div>
@@ -224,8 +226,9 @@ export function ContasAPagarPagar() {
                                     required={true}
                                     erro={erroValor}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                        setValorPago(parseFloat(e.target.value))
+                                        setValorPago(MaxLengthNumber(2,10,parseFloat(e.target.value)))
                                     }
+                                    textAlign={true}
                                 />
                             </div>
                         </div>

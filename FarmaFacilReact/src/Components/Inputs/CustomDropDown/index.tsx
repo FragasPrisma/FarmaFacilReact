@@ -12,14 +12,15 @@ interface Search {
   readonly?: boolean;
   Select: (number: any, select: any) => void;
   RemoveSelect?: () => void
+  titlePesquisa?:string
 }
 
-export function CustomDropDown({ data, title, filter, label, error, required, readonly, Select, RemoveSelect }: Search) {
+export function CustomDropDown({ data, title, filter, label, error, required, readonly, Select, RemoveSelect , titlePesquisa}: Search) {
 
   const [titleSelect, setTitleSelect] = useState(title)
   const [value, setValue] = useState("");
 
-  var labelPesquisa = `Pesquise por ${filter}`
+  var labelPesquisa =  titlePesquisa ? `Pesquise por ${titlePesquisa}` : `Pesquise por ${filter}`
 
   const filterData = useMemo(() => {
     if (data) {

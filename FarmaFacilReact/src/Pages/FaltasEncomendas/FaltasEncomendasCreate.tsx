@@ -16,6 +16,7 @@ import { RadioCustom } from "../../Components/Inputs/RadioCustom";
 import { GenericTable } from "../../Components/Others/GenericTable";
 import { FieldsetCustom } from "../../Components/Others/FieldsetCustom";
 import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
+import { MessageErro } from "../../Components/Others/MessageError";
 
 export function FaltasEncomendasCreate() {
 
@@ -30,6 +31,7 @@ export function FaltasEncomendasCreate() {
 
     const [errorVendedor, setErrorVendedor] = useState("");
     const [errorProdutos, setErrorProdutos] = useState("");
+    const [errorData, setErrorData] = useState("");
 
     const [faltasEncomendasView, setFaltasEncomendasView] = useState([] as any[]);
     const [vendedores, setVendedores] = useState([]);
@@ -51,7 +53,7 @@ export function FaltasEncomendasCreate() {
         grupoId: 0,
         produtoId: 0,
         descricao: "",
-        quantidade: 0
+        quantidade: 0.0000
     });
 
     function ReiniciarCadastros() {
@@ -84,23 +86,18 @@ export function FaltasEncomendasCreate() {
                 setProdutos(request.data)
             }
         }
-        // const LoadDataGrupo = async () => {
-        //     const request = await getAll("ListaGrupo");
 
-        //     if (request.status == 200) {
-        //         setGrupos(request.data)
-        //     }
-        // }
-
-        //LoadDataGrupo();
         LoadDataProdutos();
         LoadDataVendedor();
     }, [])
 
     async function submit() {
 
+        let errorQuantidade = false;
         setIsLoading(true);
         setErrorVendedor("");
+        setErrorProdutos("");
+        setErrorData("");
 
         if (vendedorId <= 0) {
             setIsLoading(false)
@@ -108,11 +105,35 @@ export function FaltasEncomendasCreate() {
             return;
         }
 
+        if (previsaDeEntrega) {
+            let dataPrevisaoDeEntrega = new Date(previsaDeEntrega);
+            dataPrevisaoDeEntrega.setHours(dataPrevisaoDeEntrega.getHours() + 3)
+
+            let dataAtual = new Date().getDate();
+
+            if (dataPrevisaoDeEntrega.getDate() < dataAtual) {
+                setErrorData("Previsão de entrega não pode ser menor que a data atual!")
+                setIsLoading(false);
+                return;
+            }
+        }
+
         if (faltasEncomendasView.length == 0) {
             setIsLoading(false)
             setErrorProdutos("É obrigatório informar os produtos.")
             return;
         }
+
+        faltasEncomendasView.map(x => {
+            if (x.quantidade == 0 || !x.quantidade) {
+                setIsLoading(false)
+                setErrorProdutos("É obrigatório informar a quantidade dos produtos.")
+                errorQuantidade = true;
+                return;
+            }
+        })
+
+        if (errorQuantidade) return;
 
         faltasEncomendasView.map(x => {
 
@@ -128,7 +149,7 @@ export function FaltasEncomendasCreate() {
                 observacao: observacao,
                 previsaoDeEntrega: previsaDeEntrega ? previsaDeEntrega : null,
                 quantidade: x.quantidade,
-                status: null,
+                status: 0,
                 telefone: telefone,
                 tipo: tipo
             }
@@ -164,7 +185,7 @@ export function FaltasEncomendasCreate() {
 
     useEffect(() => {
 
-        if (quantidade <= 0 || produtoId <= 0) return;
+        if (quantidade <= 0 || produtoId <= 0 || !quantidade) return;
 
         let faltasEncomendasComItem = faltasEncomendasView.filter(x => {
             return x.produtoId == produtoId;
@@ -186,7 +207,8 @@ export function FaltasEncomendasCreate() {
             grupoId: produtosFilter[0].grupoId,
             produtoId: produtoId,
             descricao: nomeProduto,
-            quantidade: quantidade
+            quantidade: quantidade,
+            unidadeEstoque: produtosFilter[0].unidadeEstoque
         }
 
         faltasEncomendasView.push(faltaEncomendaView);
@@ -236,9 +258,14 @@ export function FaltasEncomendasCreate() {
             }
         })
 
-        faltasEncomendasView[indexEdite].quantidade = qtd;
 
+        faltasEncomendasView[indexEdite].quantidade = qtd;
         setFaltasEncomendasView([...faltasEncomendasView])
+
+        if (!qtd) {
+            faltasEncomendasView[indexEdite].quantidade = 0;
+            setFaltasEncomendasView([...faltasEncomendasView])
+        }
 
     }
 
@@ -281,7 +308,7 @@ export function FaltasEncomendasCreate() {
                                 }}
                             />
                         </div>
-                        <div className="col-2">
+                        <div className="col-3">
                             <CustomInput
                                 label="Previsão de entrega"
                                 type="date"
@@ -291,11 +318,12 @@ export function FaltasEncomendasCreate() {
                                     setPrevisaDeEntrega(e.target.value)
                                 }
                             />
+                            <MessageErro message={errorData} />
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className="col-5">
+                        <div className="col-6">
                             <CustomDropDown
                                 data={clientes}
                                 filter="nome"
@@ -326,7 +354,7 @@ export function FaltasEncomendasCreate() {
                     </div>
 
                     <div className="row">
-                        <div className="col-7">
+                        <div className="col-8">
                             <CustomInput
                                 label="Observação"
                                 type="text"
@@ -335,13 +363,12 @@ export function FaltasEncomendasCreate() {
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
                                     setObservacao(e.target.value)
                                 }
-                                erro={errorProdutos}
                             />
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className="col-2">
+                        <div className="col-1">
                             <CustomInput
                                 label="Grupo"
                                 type="text"
@@ -351,7 +378,7 @@ export function FaltasEncomendasCreate() {
                                 textAlign={true}
                             />
                         </div>
-                        <div className="col-3">
+                        <div className="col-5">
                             <CustomDropDown
                                 data={produtos}
                                 filter="descricao"
@@ -361,11 +388,16 @@ export function FaltasEncomendasCreate() {
                                 Select={(produtoId, nomeProdutoP) => {
                                     setProdutoId(produtoId)
                                     setNomeProduto(nomeProdutoP)
+                                    setQuantidade(0)
+                                    setGrupoId(0)
                                 }}
                                 RemoveSelect={() => {
                                     setProdutoId(0)
                                     setNomeProduto("Selecione o produto")
+                                    setQuantidade(0)
+                                    setGrupoId(0)
                                 }}
+                                titlePesquisa="descrição"
                             />
                         </div>
                         <div className="col-2">
@@ -375,23 +407,25 @@ export function FaltasEncomendasCreate() {
                                 placeholder=""
                                 value={quantidade}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setQuantidade(MaxLengthNumber(9999999999.99999, parseFloat(e.target.value)))
+                                    setQuantidade(parseFloat(MaxLengthNumber(4,8, parseFloat(e.target.value)).toFixed(4)))
                                 }
                                 textAlign={true}
                             />
                         </div>
                     </div>
-
+                    <div className="row">
+                        <MessageErro message={errorProdutos} />
+                    </div>
                     <ContainerProdutos>
-                        <div className="col-6" style={{ padding: "1rem" }}>
+                        <div className="col-7" style={{ padding: "1rem" }}>
                             <FieldsetCustom borderAll={true} legend="Produtos" numberCols={12}>
                                 <div style={{ padding: "1rem" }}>
                                     <GenericTable
                                         data={faltasEncomendasView}
-                                        header={["grupoId", "produtoId", "descricao", "quantidade"]}
-                                        headerView={["Grupo", "Produto", "Descrição", "Quantidade"]}
-                                        onDelete={(produtoDelete) => {
-                                            DeleteProduto(produtoDelete);
+                                        header={["grupoId", "produtoId", "descricao", "quantidade", "unidadeEstoque"]}
+                                        headerView={["Grupo", "Produto", "Descrição", "Quantidade", "U.E"]}
+                                        onDelete={(deleteProduto) => {
+                                            DeleteProduto(deleteProduto);
                                         }}
                                         editButton={true}
                                         onEdit={(editeProduto) => {
@@ -421,7 +455,7 @@ export function FaltasEncomendasCreate() {
                                                 placeholder=""
                                                 value={produtoEdite.quantidade}
                                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                                    EditQuantidadeProduto(MaxLengthNumber(9999999999.9999, parseInt(e.target.value)))
+                                                    EditQuantidadeProduto(MaxLengthNumber(4,8, parseFloat(e.target.value)))
                                                 }
                                                 textAlign={true}
                                             />

@@ -21,7 +21,7 @@ import { TableDefaultContasAPagar } from "../../Components/Others/TableDefaultCo
 export function ContasAPagar() {
 
 
-    const aPagarInitial = useSelector((state : RootState) => state.aPagar.paga)
+    const aPagarInitial = useSelector((state: RootState) => state.aPagar.paga)
     const [aPagar, setAPagar] = useState(aPagarInitial);
     const [duplicata, setDuplicata] = useState({} as IDuplicatasContasAPagar);
     const [openModal, setOpenModal] = useState(false);
@@ -46,7 +46,7 @@ export function ContasAPagar() {
         //Resetar a pesquisa 
         if (urlLocation != locationInitial) {
             dispatch(changeSearch({ value: "", location: urlLocation }))
-            dispatch(changeApagar({paga : false}))
+            dispatch(changeApagar({ paga: false }))
             setValue("")
             setPaginaRequest(1)
         }
@@ -59,21 +59,21 @@ export function ContasAPagar() {
             try {
 
                 let valueParam = urlLocation != locationInitial ? "" : value
-                let url = `ListaPaginacaoDuplicatas/${paginaRequest}/${aPagar}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll("/","-")}`
+                let url = `ListaPaginacaoContasAPagar/${paginaRequest}/${aPagar}/${valueParam.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll("/", "-")}`
 
                 const response = await getAll(url);
                 dispatch(changeApagar(aPagar))
                 dispatch(changeSearch({ value, location: urlLocation }))
 
                 setPaginaRequest(paginaRequest > response.data.count ? 1 : paginaRequest)
-                
-                response.data.lista.map((x: { dataVencimento: string }) => InverterDate(x.dataVencimento))
 
+                response.data.lista.map((x: { dataVencimento: string }) => InverterDate(x.dataVencimento))
+                console.log(response.data)
                 setQtdPaginaRequest(response.data.count);
-                response.data.lista.map((x: { dataVencimento: string ,dataPagamento : string, valor : number | string, valorPago : number | string}) => {
+                response.data.lista.map((x: { dataVencimento: string, dataPagamento: string, valor: number | string, valorPago: number | string }) => {
                     x.dataVencimento = InverterDate(x.dataVencimento)
                     x.valor = x.valor.toLocaleString("pt-Br")
-                    if(aPagar){
+                    if (aPagar) {
                         x.valorPago = x.valorPago.toLocaleString("pt-Br")
                         x.dataPagamento = InverterDate(x.dataPagamento)
                     }
@@ -163,8 +163,15 @@ export function ContasAPagar() {
                 />
             </ContainerSearch>
             <Paginations pagina={paginaRequest} qtdPagina={qtdPaginaRequest} Reload={(paginaAtual) => setPaginaRequest(paginaAtual)} />
-            <ModalGeneric object={duplicata} textInformationModal="Confirma o cancelamento?" url="EditarDuplicataContasAPagar" openModal={openModal} onClose={closeModal} />
-            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde." /> 
+            <ModalGeneric
+                textSucces="Cancelamento efetuado com"
+                object={duplicata} textInformationModal="Confirma o cancelamento?"
+                url="EditarDuplicataContasAPagar"
+                openModal={openModal}
+                onClose={closeModal}
+                textError="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde."
+            />
+            <FailModal show={isOpenFail} onClose={() => setIsOpenFail(false)} text="Ocorreu algum erro interno ao cancelar o pagamento. Tente novamente mais tarde." />
 
         </>
     );

@@ -15,6 +15,7 @@ import { IPlanoDeconta } from "../../Interfaces/PlanoDeContas/IPlanoDeConta";
 import { IPortador } from "../../Interfaces/Portador/IPortador";
 import { IBanco } from "../../Interfaces/Banco/IBanco";
 import { InvertDateJSON } from "../../helper/InvertDateJSON";
+import { MaxLengthNumber } from "../../helper/MaxLengthNumber";
 
 export function ContasAPagarEdit() {
 
@@ -71,6 +72,7 @@ export function ContasAPagarEdit() {
             if (response.data.duplicatasContasAPagar && id) {
                 response.data.duplicatasContasAPagar.map((x: IDuplicatasContasAPagar,index:number) => {
                     if (x.id == parseInt(id)) {
+                        console.log(x.valor)
                         setIndex(index)
                         setDuplicata(x)
                         setNumeroFaturaDuplicata(x.numeroFatura)
@@ -197,6 +199,7 @@ export function ContasAPagarEdit() {
                                         setPlanoDeContaId(null)
                                         setNomePlanoDeContas("Selecione o plano de contas")
                                     }}
+                                    titlePesquisa="descrição"
                                 />
                             </div>
                         </div>
@@ -269,7 +272,7 @@ export function ContasAPagarEdit() {
                                     type="number"
                                     value={valorDuplicata}
                                     OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                        setValorDuplicata(parseFloat(e.target.value))
+                                        setValorDuplicata(MaxLengthNumber(2,10,parseFloat(e.target.value)))
                                     }
                                     erro={erroValor}
                                     required={true}

@@ -46,7 +46,7 @@ export function GenericTable({ data = [], header, onDelete, deleteButton = true,
                     <TrCustom key={index}>
                         {header.map((header, index) => (
                             <td key={index}>{
-                                typeof data[header] == "number" ? data[header].toLocaleString('pt-BR') : data[header]
+                                typeof data[header] == "number" ? data[header].toString().replace(".",",") : data[header]
                             }
                             </td>
                         ))}

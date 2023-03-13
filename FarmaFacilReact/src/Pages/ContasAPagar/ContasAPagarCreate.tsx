@@ -57,7 +57,7 @@ export function ContasAPagarCreate() {
     const [nomePortador, setNomePortador] = useState("Selecione o portador")
     const [nomeBanco, setNomeBanco] = useState("Selecione o banco")
 
-    function ResetarCadastros(){
+    function ReiniciarCadastros(){
         setObservacao("")
         setDataEmissao("")
         setNumeroFatura(0)
@@ -189,7 +189,7 @@ export function ContasAPagarCreate() {
             setTimeout(() => {
                 setIsOpenSuccess(false);
             }, 2000)
-            ResetarCadastros();
+            ReiniciarCadastros();
         } else {
             setIsOpenFail(true);
             setIsLoading(false);
@@ -217,9 +217,6 @@ export function ContasAPagarCreate() {
     }
 
     useEffect(() => {
-
-        quantidadeParcela > 999 ? setQuantidadeParcela(999) : setQuantidadeParcela(quantidadeParcela)
-
         if (ValidParcelamento()) {
             GerarParcelas();
         }
@@ -295,7 +292,7 @@ export function ContasAPagarCreate() {
         item.valor = valorNovo;
         item.dataVencimento = dataVencimentoNova;
 
-        duplicatas[index].valor = MaxLengthNumber(9999999999.99,item.valor);
+        duplicatas[index].valor = MaxLengthNumber(2,10,item.valor);
         duplicatas[index].dataVencimento = InverterDate(dataVencimentoNova);
 
         setDuplicatas([...duplicatas])
@@ -323,6 +320,7 @@ export function ContasAPagarCreate() {
                                     setFornecedorId(0)
                                     setNomeFornecdor("Selecione o fornecedor")
                                 }}
+                                titlePesquisa="nome"
                             />
                         </div>
                         <div className="col-3">
@@ -332,7 +330,7 @@ export function ContasAPagarCreate() {
                                 placeholder="Digite o documento"
                                 value={numeroFatura}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setNumeroFatura(MaxLengthNumber(999999999999999, parseInt(e.target.value)))
+                                    setNumeroFatura(MaxLengthNumber(0,15, parseInt(e.target.value)))
                                 }
                                 erros={error}
                                 index={1}
@@ -356,6 +354,7 @@ export function ContasAPagarCreate() {
                                     setPlanoDeContaId(null)
                                     setNomePlanoDeContas("Selecione o plano de contas")
                                 }}
+                                titlePesquisa="descrição"
                             />
                         </div>
                     </div>
@@ -429,7 +428,7 @@ export function ContasAPagarCreate() {
                                 type="number"
                                 value={valor}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setValor(MaxLengthNumber(9999999999.99,parseFloat(e.target.value)))
+                                    setValor(MaxLengthNumber(2,10,parseFloat(e.target.value)))
                                 }
                                 required={true}
                                 erros={error}
@@ -443,7 +442,7 @@ export function ContasAPagarCreate() {
                                 type="number"
                                 value={quantidadeParcela}
                                 OnChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setQuantidadeParcela(parseInt(e.target.value))
+                                    setQuantidadeParcela(MaxLengthNumber(0,3, parseInt(e.target.value)))
                                 }
                                 required={true}
                                 erros={error}
