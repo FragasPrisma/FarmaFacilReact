@@ -164,14 +164,14 @@ export function NegociacaoCompras() {
         }
     ]
 
-    // useEffect(() => {
-    //     const Init = async () => {
-    //         const response = await getAll(`BuscaFornecedorIdCompras/${idParams}`);
-    //         console.log(response.data);
-    //     }
+    useEffect(() => {
+        // const Init = async () => {
+        //     const response = await getAll(`BuscaFornecedorIdCompras/${idParams}`);
+        //     console.log(response.data);
+        // }
 
-    //     Init();
-    // },[])
+        // Init();
+    },[])
 
     return (
         <>
