@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+
+:root{
+    --readonly: #b1b1b1b1;
+}
+
 *{
     margin: 0;
     padding: 0;

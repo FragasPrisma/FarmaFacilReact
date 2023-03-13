@@ -37,8 +37,8 @@ export function CustomInput({ label, placeholder, name, readonly, type, required
 
     return (
         <ContainerInput >
-            <div className="containerAbc">
-                <div className="container_sup">
+            <div className="containerAbc" style={{ backgroundColor: readonly ? "var(--readonly)" : "#ececec"}}>
+                <div className="container_sup" >
                     <label className="label_text">{label}</label>
                     {required &&
                         <LabelRequired>*</LabelRequired>

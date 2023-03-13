@@ -232,6 +232,7 @@ import { FaltasEncomendas } from "./Pages/FaltasEncomendas";
 import { FaltasEncomendasCreate } from "./Pages/FaltasEncomendas/FaltasEncomendasCreate";
 import { FaltasEncomendasEdit } from "./Pages/FaltasEncomendas/FaltasEncomendasEdit";
 import { FaltasEncomendasDetails } from "./Pages/FaltasEncomendas/FaltasEncomendasDetails";
+import { ConsultarPedido } from "./Pages/Compras/ConsultarPedido";
 
 export function AppRoutes() {
   const Private = ({ children }: any) => {
@@ -2071,6 +2072,18 @@ export function AppRoutes() {
                 </Private>
               }
             />
+            
+            
+            <Route
+              path="/compras/consultarPedido"
+              element={
+                <Private>
+                  <ConsultarPedido />
+                </Private>
+              }
+            />
+
+
             <Route
               path="/empresa"
               element={
