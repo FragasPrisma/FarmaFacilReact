@@ -105,6 +105,9 @@ export function ConsultarPedido() {
     let valueStatus: number;
 
     switch (paramsRowFornecedor?.status) {
+      case "Todos":
+        valueStatus = 0;
+        break;
       case "Em Aberto":
         valueStatus = 1;
         break;
@@ -118,7 +121,7 @@ export function ConsultarPedido() {
         valueStatus = 4;
         break;
       default:
-        valueStatus = 1;
+        valueStatus = 0;
     }
 
     const editarFornecedor = await postFormById(
@@ -132,6 +135,7 @@ export function ConsultarPedido() {
       setRowId(paramsRowFornecedor?.id);
     }
 
+    //setSuccessFornecedor(false);
     setLoadingFornecedor(false);
   };
 
@@ -253,7 +257,8 @@ export function ConsultarPedido() {
                   "&:hover": { bgcolor: "#008000" },
                 }}
               >
-                <Check />
+
+                  <Check /> 
               </Fab>
             ) : (
               <>
@@ -305,7 +310,9 @@ export function ConsultarPedido() {
     let valueStatus: number;
 
     switch (paramsRowProduto?.statusItem) {
-
+      case "Todos":
+        valueStatus = 0;
+        break;
       case "Em Aberto":
         valueStatus = 1;
         break;
@@ -319,7 +326,7 @@ export function ConsultarPedido() {
         valueStatus = 4;
         break;
       default:
-        valueStatus = 1;
+        valueStatus = 0;
     }
 
     const editarPedido = await postFormById(
@@ -331,6 +338,7 @@ export function ConsultarPedido() {
       setRowId(paramsRowProduto?.id);
     }
 
+    //setSuccessProduto(false);
     setLoadingProduto(false);
   };
   // table produtos
@@ -409,8 +417,13 @@ export function ConsultarPedido() {
                   bgcolor: "#048604",
                   "&:hover": { bgcolor: "#008000" },
                 }}
-              >
-                <Check />
+                  >
+
+              {params.id === rowId ? (
+                  <Check /> ):(
+                    <></>
+                  )
+              }
               </Fab>
             ) : (
               <Fab
@@ -475,6 +488,9 @@ export function ConsultarPedido() {
     let valueStatus: number;
 
     switch (status) {
+      case "Todos":
+        valueStatus = 0;
+        break;
       case "Em Aberto":
         valueStatus = 1;
         break;
@@ -488,7 +504,7 @@ export function ConsultarPedido() {
         valueStatus = 4;
         break;
       default:
-        valueStatus = 1;
+        valueStatus = 0;
     }
 
     const dataFiltro = {
@@ -522,6 +538,9 @@ export function ConsultarPedido() {
         let valueStatus: string;
 
         switch (modelFornecedor.statusPedido) {
+          case 0 :
+           valueStatus = "Todos";
+        break;
           case 1:
             valueStatus = "Em Aberto";
             break;
@@ -559,6 +578,9 @@ export function ConsultarPedido() {
       let valueStatus: string;
 
       switch (x.statusItemPedido) {
+        case 0:
+          valueStatus = "Todos";
+          break;
         case 1:
           valueStatus = "Em Aberto";
           break;
@@ -572,7 +594,7 @@ export function ConsultarPedido() {
           valueStatus = "Cancelado";
           break;
         default:
-          valueStatus = "Em Aberto";
+          valueStatus = "Todos";
       }
       return {
         id: x.id,
